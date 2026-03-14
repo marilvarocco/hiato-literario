@@ -299,7 +299,7 @@
           <div class="search-card" id="buscar">
             <div class="search-row">
               <input type="text" id="wordInput" placeholder="Busque uma palavra..." autocomplete="off">
-              <button class="btn-search" onclick="simulateSearch()">Buscar</button>
+              <button class="btn-search" onclick="buscarPalavra()">Buscar</button>
             </div>
 
             <div id="results" class="preview-panel">
@@ -362,27 +362,31 @@
   </footer>
 
   <script>
-    function simulateSearch() {
-      const input = document.getElementById('wordInput');
-      const results = document.getElementById('results');
-      const displayWord = document.getElementById('displayWord');
-      const tonicWord = document.getElementById('tonicWord');
-      
-      const word = input.value.trim();
-      if (!word) return;
+function buscarPalavra() {
 
-      results.style.opacity = '0.5';
-      
-      setTimeout(() => {
-        results.style.opacity = '1';
-        displayWord.textContent = word;
-        const syllabled = word.split('').join('-').replace(/-(?=[aeiou])/g, '');
-        tonicWord.innerHTML = syllabled;
-      }, 400);
-    }
-    document.getElementById('wordInput').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') simulateSearch();
-    });
-  </script>
+  const input = document.getElementById("wordInput");
+  let palavra = input.value.trim().toLowerCase();
+
+  if (!palavra) return;
+
+  // remove acentos
+  palavra = palavra
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+  // cria url da palavra
+  const url = "/palavra/" + palavra + "/";
+
+  // redireciona
+  window.location.href = url;
+}
+
+// enter no input
+document.getElementById("wordInput").addEventListener("keydown", function(e){
+  if(e.key === "Enter"){
+    buscarPalavra();
+  }
+});
+</script>
 </body>
 </html>
