@@ -368,18 +368,11 @@
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9]/g, "");
+      .replace(/[^a-z0-9]/g, "")
+      .trim();
   }
 
-  function slugDaPalavra(palavra) {
-    return normalizarTexto(palavra);
-  }
-
-  function distanciaSimples(a, b) {
-    if (a === b) return 0;
-    if (!a.length) return b.length;
-    if (!b.length) return a.length;
-
+  function distanciaLevenshtein(a, b) {
     const matriz = [];
 
     for (let i = 0; i <= b.length; i++) {
@@ -407,35 +400,41 @@
     return matriz[b.length][a.length];
   }
 
-  function encontrarSugestoes(termo, lista, limite = 5) {
+  function encontrarPalavraExata(termo) {
     const termoNormalizado = normalizarTexto(termo);
 
-    return lista
-      .map((palavra) => {
-        const palavraNormalizada = normalizarTexto(palavra);
+    return PALAVRAS.find(item =>
+      normalizarTexto(item.palavra) === termoNormalizado ||
+      normalizarTexto(item.pasta) === termoNormalizado
+    );
+  }
 
-        let score = distanciaSimples(termoNormalizado, palavraNormalizada);
+  function encontrarSugestoes(termo, limite = 5) {
+    const termoNormalizado = normalizarTexto(termo);
 
-        if (palavraNormalizada.startsWith(termoNormalizado)) {
-          score -= 2;
-        }
+    return PALAVRAS
+      .map(item => {
+        const palavraNormalizada = normalizarTexto(item.palavra);
 
-        if (palavraNormalizada.includes(termoNormalizado)) {
-          score -= 1;
-        }
+        let score = distanciaLevenshtein(termoNormalizado, palavraNormalizada);
 
-        return { palavra, score };
+        if (palavraNormalizada.startsWith(termoNormalizado)) score -= 2;
+        if (palavraNormalizada.includes(termoNormalizado)) score -= 1;
+
+        return {
+          ...item,
+          score
+        };
       })
       .sort((a, b) => a.score - b.score)
       .slice(0, limite);
   }
 
-  function abrirPalavra(palavra) {
-    const slug = slugDaPalavra(palavra);
-    window.location.href = "/palavra/" + slug + "/";
+  function abrirPalavra(item) {
+    window.location.href = "/palavra/" + item.pasta + "/";
   }
 
-  function mostrarSugestoes(sugestoes, termoBuscado) {
+  function mostrarSugestoes(termo, sugestoes) {
     const suggestions = document.getElementById("suggestions");
     const displayWord = document.getElementById("displayWord");
     const tonicWord = document.getElementById("tonicWord");
@@ -443,17 +442,17 @@
     displayWord.textContent = "Palavra não encontrada";
     tonicWord.textContent = "Veja sugestões parecidas abaixo.";
 
+    suggestions.style.display = "block";
+
     if (!sugestoes.length) {
-      suggestions.style.display = "block";
       suggestions.innerHTML = `
         <div style="background:#fff;border:1px solid rgba(0,0,0,.06);padding:16px 18px;border-radius:16px;color:#64748b;">
-          Nenhuma sugestão encontrada para <strong>${termoBuscado}</strong>.
+          Nenhuma sugestão encontrada para <strong>${termo}</strong>.
         </div>
       `;
       return;
     }
 
-    suggestions.style.display = "block";
     suggestions.innerHTML = `
       <div style="background:#fff;border:1px solid rgba(0,0,0,.06);padding:18px;border-radius:16px;">
         <div style="font-weight:700;margin-bottom:10px;color:#0f172a;">Você quis dizer:</div>
@@ -461,7 +460,7 @@
           ${sugestoes.map(item => `
             <button
               type="button"
-              onclick="abrirPalavra('${item.palavra.replace(/'/g, "\\'")}')"
+              onclick="abrirPalavraPorPasta('${item.pasta}')"
               style="
                 border:none;
                 background:#eff6ff;
@@ -480,13 +479,15 @@
     `;
   }
 
+  function abrirPalavraPorPasta(pasta) {
+    window.location.href = "/palavra/" + pasta + "/";
+  }
+
   function buscarPalavra() {
     const input = document.getElementById("wordInput");
     const termo = input.value.trim();
-    const suggestions = document.getElementById("suggestions");
     const results = document.getElementById("results");
-    const displayWord = document.getElementById("displayWord");
-    const tonicWord = document.getElementById("tonicWord");
+    const suggestions = document.getElementById("suggestions");
 
     if (!termo) return;
 
@@ -494,26 +495,22 @@
     suggestions.innerHTML = "";
     results.style.opacity = "0.6";
 
-    const termoNormalizado = normalizarTexto(termo);
-
-    const correspondenciaExata = PALAVRAS.find(
-      palavra => normalizarTexto(palavra) === termoNormalizado
-    );
-
     setTimeout(() => {
       results.style.opacity = "1";
 
-      if (correspondenciaExata) {
-        abrirPalavra(correspondenciaExata);
+      const palavraEncontrada = encontrarPalavraExata(termo);
+
+      if (palavraEncontrada) {
+        abrirPalavra(palavraEncontrada);
         return;
       }
 
-      const sugestoes = encontrarSugestoes(termo, PALAVRAS, 5);
-      mostrarSugestoes(sugestoes, termo);
-    }, 180);
+      const sugestoes = encontrarSugestoes(termo, 5);
+      mostrarSugestoes(termo, sugestoes);
+    }, 150);
   }
 
-  document.getElementById("wordInput").addEventListener("keydown", function (e) {
+  document.getElementById("wordInput").addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
       buscarPalavra();
     }
