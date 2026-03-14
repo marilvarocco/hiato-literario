@@ -1,43 +1,1035 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hiato Literário — Gramática Fácil</title>
+  <meta
+    name="description"
+    content="Descubra se uma palavra tem hiato, ditongo ou tritongo. Use contador de palavras e consulte definições de forma simples."
+  />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #121933;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --text: #f5f7ff;
+      --muted: #b8c0e0;
+      --primary: #7c5cff;
+      --primary-2: #3dd9ff;
+      --success: #1fd18b;
+      --warning: #ffb648;
+      --danger: #ff6b6b;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --radius: 22px;
+      --max: 1200px;
+    }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<title>Hiato Literário — Dicionário e Gramática</title>
+    html {
+      scroll-behavior: smooth;
+    }
 
-<meta name="description" content="Consulte significados, separação silábica, tonicidade e sinônimos no Hiato Literário.">
+    body {
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124, 92, 255, 0.25), transparent 28%),
+        radial-gradient(circle at top right, rgba(61, 217, 255, 0.15), transparent 25%),
+        linear-gradient(160deg, #090d18 0%, #0b1020 55%, #0d1328 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
 
-<link rel="stylesheet" href="/assets/css/style.css">
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(100% - 32px, var(--max));
+      margin-inline: auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(16px);
+      background: rgba(10, 14, 28, 0.7);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 74px;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+      font-size: 1.1rem;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      color: var(--muted);
+      padding: 10px 14px;
+      border-radius: 999px;
+      transition: 0.25s ease;
+      font-size: 0.95rem;
+    }
+
+    .nav a:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: none;
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+      box-shadow: 0 12px 30px rgba(124, 92, 255, 0.35);
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero {
+      padding: 72px 0 42px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 4vw, 4.7rem);
+      line-height: 1.04;
+      margin-bottom: 18px;
+      letter-spacing: -1.5px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #ffffff, #9fe8ff, #a792ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 700px;
+      margin-bottom: 26px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -40px -40px auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(61, 217, 255, 0.35), transparent 68%);
+    }
+
+    .mini-window {
+      background: rgba(12, 18, 38, 0.9);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .mini-dots {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .mini-dots span {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .mini-dots span:nth-child(1) { background: #ff6b6b; }
+    .mini-dots span:nth-child(2) { background: #ffd166; }
+    .mini-dots span:nth-child(3) { background: #06d6a0; }
+
+    .preview-line {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      margin-bottom: 10px;
+      color: #eaf0ff;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .preview-line small {
+      color: var(--muted);
+      display: block;
+      margin-top: 4px;
+    }
+
+    .section {
+      padding: 34px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.7rem, 2.4vw, 2.5rem);
+      letter-spacing: -0.8px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 680px;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+
+    .card > p {
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .input,
+    .textarea,
+    .select {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 14px;
+      padding: 14px 16px;
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      font-size: 1rem;
+    }
+
+    .input:focus,
+    .textarea:focus,
+    .select:focus {
+      border-color: rgba(124, 92, 255, 0.9);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .textarea {
+      min-height: 180px;
+      resize: vertical;
+    }
+
+    .tool-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .result {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      min-height: 72px;
+    }
+
+    .result strong {
+      color: white;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .badge.success {
+      background: rgba(31, 209, 139, 0.15);
+      color: #8ef2c8;
+      border: 1px solid rgba(31, 209, 139, 0.28);
+    }
+
+    .badge.warning {
+      background: rgba(255, 182, 72, 0.15);
+      color: #ffd089;
+      border: 1px solid rgba(255, 182, 72, 0.28);
+    }
+
+    .badge.danger {
+      background: rgba(255, 107, 107, 0.15);
+      color: #ffb2b2;
+      border: 1px solid rgba(255, 107, 107, 0.28);
+    }
+
+    .stats-boxes {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .small-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 16px;
+      border-radius: 18px;
+    }
+
+    .small-box span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    .small-box strong {
+      font-size: 1.2rem;
+    }
+
+    .dictionary-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .dictionary-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .dictionary-item strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 1.02rem;
+    }
+
+    .dictionary-item span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      padding: 22px;
+      border-radius: 24px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+    }
+
+    .feature .icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, rgba(124,92,255,0.28), rgba(61,217,255,0.24));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .feature h4 {
+      margin-bottom: 6px;
+      font-size: 1.05rem;
+    }
+
+    .feature p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .cta {
+      margin: 38px 0 70px;
+      padding: 28px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, rgba(124,92,255,0.22), rgba(61,217,255,0.14));
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .cta h3 {
+      font-size: clamp(1.4rem, 2vw, 2rem);
+      margin-bottom: 6px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 26px 0 40px;
+      color: var(--muted);
+    }
+
+    footer .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    @media (max-width: 1000px) {
+      .hero-grid,
+      .tools-grid,
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats,
+      .stats-boxes {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .topbar-inner {
+        flex-direction: column;
+        justify-content: center;
+        padding: 14px 0;
+      }
+
+      .nav {
+        justify-content: center;
+      }
+
+      .hero {
+        padding-top: 42px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .hero-stats,
+      .stats-boxes {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .cta {
+        padding: 22px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="#" class="brand">
+        <div class="brand-badge">📚</div>
+        <span>Hiato Literário</span>
+      </a>
 
-<header>
-<h1>Hiato Literário</h1>
-<p>Dicionário e gramática da língua portuguesa</p>
-</header>
+      <nav class="nav">
+        <a href="#analisador">Analisador</a>
+        <a href="#contador">Contador</a>
+        <a href="#dicionario">Dicionário</a>
+        <a href="#recursos">Recursos</a>
+      </nav>
+    </div>
+  </header>
 
-<main>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">⚡ Ferramentas de gramática em um só lugar</div>
+          <h1>
+            Entenda <span>hiato, ditongo e tritongo</span>
+            sem complicação.
+          </h1>
+          <p>
+            Um site feito para estudantes, curiosos e professores que querem analisar palavras,
+            contar termos em textos e consultar explicações de forma rápida, bonita e direta.
+          </p>
 
-<h2>Buscar palavra</h2>
+          <div class="hero-actions">
+            <a href="#analisador" class="btn btn-primary">Começar agora</a>
+            <a href="#contador" class="btn btn-ghost">Testar contador</a>
+          </div>
 
-<input id="search" placeholder="Digite uma palavra...">
+          <div class="hero-stats">
+            <div class="stat">
+              <strong>3 em 1</strong>
+              <span>Analisador, contador e mini dicionário</span>
+            </div>
+            <div class="stat">
+              <strong>100%</strong>
+              <span>Responsivo para celular e desktop</span>
+            </div>
+            <div class="stat">
+              <strong>Rápido</strong>
+              <span>Sem depender de API externa</span>
+            </div>
+          </div>
+        </div>
 
-<button onclick="buscar()">Buscar</button>
+        <div class="hero-card">
+          <div class="mini-window">
+            <div class="mini-dots">
+              <span></span><span></span><span></span>
+            </div>
 
-</main>
+            <div class="preview-line">
+              Palavra: <strong>saída</strong>
+              <small>Resultado: hiato entre “a” e “í”</small>
+            </div>
 
-<script>
+            <div class="preview-line">
+              Palavra: <strong>pai</strong>
+              <small>Resultado: ditongo</small>
+            </div>
 
-function buscar(){
-let palavra = document.getElementById("search").value.toLowerCase()
-window.location.href = "/palavra/" + palavra
-}
+            <div class="preview-line">
+              Palavra: <strong>Paraguai</strong>
+              <small>Resultado: sequência vocálica identificada automaticamente</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-</script>
+    <section class="section" id="analisador">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Analisador de palavras</h2>
+            <p>Digite uma palavra e o sistema tenta identificar a presença de hiato, ditongo ou tritongo.</p>
+          </div>
+        </div>
 
+        <div class="tools-grid">
+          <div class="card">
+            <h3>Classificar palavra</h3>
+            <p>Ideal para um primeiro diagnóstico gramatical rápido.</p>
+
+            <input
+              type="text"
+              id="wordInput"
+              class="input"
+              placeholder="Ex.: saída, pai, Paraguai, poesia"
+            />
+
+            <div class="tool-actions">
+              <button class="btn btn-primary" onclick="analisarPalavra()">Analisar</button>
+              <button class="btn btn-ghost" onclick="limparAnalise()">Limpar</button>
+            </div>
+
+            <div class="result" id="analysisResult">
+              Digite uma palavra para ver a análise aqui.
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Como funciona</h3>
+            <p>
+              O classificador usa uma lógica prática baseada em sequências de vogais.
+              Ele funciona bem para muitos casos comuns, mas não substitui uma análise gramatical acadêmica completa.
+            </p>
+
+            <div class="dictionary-list">
+              <div class="dictionary-item">
+                <strong>Hiato</strong>
+                <span>Encontro de vogais em sílabas diferentes. Ex.: sa-í-da.</span>
+              </div>
+              <div class="dictionary-item">
+                <strong>Ditongo</strong>
+                <span>Encontro de vogal + semivogal ou semivogal + vogal na mesma sílaba. Ex.: pai.</span>
+              </div>
+              <div class="dictionary-item">
+                <strong>Tritongo</strong>
+                <span>Semivogal + vogal + semivogal na mesma sílaba. Ex.: Paraguai.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contador">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Contador de palavras</h2>
+            <p>Cole qualquer texto e veja quantidade de palavras, caracteres, frases e parágrafos.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <textarea
+            id="textInput"
+            class="textarea"
+            placeholder="Cole ou digite seu texto aqui..."
+            oninput="contarTexto()"
+          ></textarea>
+
+          <div class="stats-boxes">
+            <div class="small-box">
+              <span>Palavras</span>
+              <strong id="wordCount">0</strong>
+            </div>
+            <div class="small-box">
+              <span>Caracteres</span>
+              <strong id="charCount">0</strong>
+            </div>
+            <div class="small-box">
+              <span>Frases</span>
+              <strong id="sentenceCount">0</strong>
+            </div>
+            <div class="small-box">
+              <span>Parágrafos</span>
+              <strong id="paragraphCount">0</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="dicionario">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Mini dicionário local</h2>
+            <p>Uma base inicial de exemplo para mostrar o comportamento do site. Depois podemos ligar isso a um banco maior.</p>
+          </div>
+        </div>
+
+        <div class="tools-grid">
+          <div class="card">
+            <h3>Buscar definição</h3>
+            <p>Digite uma palavra cadastrada na base local.</p>
+
+            <input
+              type="text"
+              id="dictionaryInput"
+              class="input"
+              placeholder="Ex.: hiato, ditongo, tritongo, gramática"
+            />
+
+            <div class="tool-actions">
+              <button class="btn btn-primary" onclick="buscarDefinicao()">Buscar</button>
+              <button class="btn btn-ghost" onclick="limparDicionario()">Limpar</button>
+            </div>
+
+            <div class="result" id="dictionaryResult">
+              Busque uma palavra para ver a definição aqui.
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Base atual</h3>
+            <p>Esses são só exemplos iniciais. Dá para escalar isso depois com JSON, banco de dados e páginas próprias.</p>
+
+            <div class="dictionary-list" id="dictionaryPreview"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="recursos">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Recursos do projeto</h2>
+            <p>Esse layout foi pensado para crescer e virar um portal maior de língua portuguesa.</p>
+          </div>
+        </div>
+
+        <div class="features">
+          <div class="feature">
+            <div class="icon">🔎</div>
+            <h4>Análise rápida</h4>
+            <p>Ferramenta visual, simples e útil para estudar ou consultar na hora.</p>
+          </div>
+
+          <div class="feature">
+            <div class="icon">✍️</div>
+            <h4>Contagem de texto</h4>
+            <p>Ajuda em redações, trabalhos, artigos e publicações.</p>
+          </div>
+
+          <div class="feature">
+            <div class="icon">📖</div>
+            <h4>Dicionário escalável</h4>
+            <p>Estrutura pronta para crescer com milhares de palavras futuramente.</p>
+          </div>
+
+          <div class="feature">
+            <div class="icon">📱</div>
+            <h4>Responsivo</h4>
+            <p>Funciona bem em computador, tablet e celular.</p>
+          </div>
+        </div>
+
+        <div class="cta">
+          <div>
+            <h3>Pronto para virar um site de verdade</h3>
+            <p>
+              O próximo passo é separar isso em arquivos (`index.html`, `style.css` e `script.js`),
+              adicionar páginas internas, SEO, sitemap e conectar o domínio.
+            </p>
+          </div>
+
+          <a href="#analisador" class="btn btn-primary">Voltar ao topo útil</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© 2026 Hiato Literário — Projeto em construção.</div>
+      <div class="muted">Feito para gramática, clareza e utilidade.</div>
+    </div>
+  </footer>
+
+  <script>
+    const dicionario = {
+      hiato: "Encontro de duas vogais que ficam em sílabas diferentes.",
+      ditongo: "Encontro vocálico em uma mesma sílaba, com vogal e semivogal.",
+      tritongo: "Encontro de semivogal + vogal + semivogal na mesma sílaba.",
+      gramática: "Conjunto de regras que estruturam uma língua.",
+      sílaba: "Cada emissão sonora em que uma palavra pode ser dividida.",
+      ortografia: "Conjunto de regras da escrita correta das palavras.",
+      fonética: "Estudo dos sons da fala.",
+      poesia: "Texto literário com linguagem estética, ritmo e expressividade."
+    };
+
+    const vogais = "aeiouáàâãéêíóôõúü";
+    const fortes = "aáàâãeéêoóôõ";
+    const fracas = "iíuúü";
+
+    function normalizar(texto) {
+      return texto
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function analisarPalavra() {
+      const input = document.getElementById("wordInput");
+      const result = document.getElementById("analysisResult");
+      const palavraOriginal = input.value.trim();
+
+      if (!palavraOriginal) {
+        result.innerHTML = '<span class="badge danger">Digite uma palavra primeiro.</span>';
+        return;
+      }
+
+      const palavra = palavraOriginal.toLowerCase();
+      const grupos = [];
+      let atual = "";
+
+      for (let i = 0; i < palavra.length; i++) {
+        const letra = palavra[i];
+        if (vogais.includes(letra)) {
+          atual += letra;
+        } else {
+          if (atual) grupos.push(atual);
+          atual = "";
+        }
+      }
+      if (atual) grupos.push(atual);
+
+      if (grupos.length === 0) {
+        result.innerHTML = `
+          <strong>${palavraOriginal}</strong><br>
+          Não encontrei encontro vocálico relevante para classificar.
+        `;
+        return;
+      }
+
+      let mensagem = `<strong>Palavra analisada:</strong> ${palavraOriginal}<br><br>`;
+      let encontrou = false;
+
+      grupos.forEach((grupo) => {
+        if (grupo.length >= 3) {
+          encontrou = true;
+          mensagem += `
+            <span class="badge success">Possível tritongo</span><br>
+            Sequência vocálica encontrada: <strong>${grupo}</strong><br><br>
+          `;
+        } else if (grupo.length === 2) {
+          const v1 = grupo[0];
+          const v2 = grupo[1];
+
+          const v1Forte = fortes.includes(v1);
+          const v2Forte = fortes.includes(v2);
+          const v1Fraca = fracas.includes(v1);
+          const v2Fraca = fracas.includes(v2);
+
+          encontrou = true;
+
+          if (v1Forte && v2Forte) {
+            mensagem += `
+              <span class="badge warning">Possível hiato</span><br>
+              Sequência: <strong>${grupo}</strong><br>
+              Motivo: duas vogais fortes tendem a ficar em sílabas diferentes.<br><br>
+            `;
+          } else if ((v1Fraca && v2Forte) || (v1Forte && v2Fraca) || (v1Fraca && v2Fraca)) {
+            mensagem += `
+              <span class="badge success">Possível ditongo</span><br>
+              Sequência: <strong>${grupo}</strong><br>
+              Motivo: a combinação sugere permanência na mesma sílaba.<br><br>
+            `;
+          } else {
+            mensagem += `
+              <span class="badge warning">Encontro vocálico encontrado</span><br>
+              Sequência: <strong>${grupo}</strong><br><br>
+            `;
+          }
+        }
+      });
+
+      if (!encontrou) {
+        mensagem += "Não foi possível classificar com segurança.";
+      } else {
+        mensagem += `<span class="muted">Observação: esta análise é prática e automática, então alguns casos especiais da língua podem exigir revisão manual.</span>`;
+      }
+
+      result.innerHTML = mensagem;
+    }
+
+    function limparAnalise() {
+      document.getElementById("wordInput").value = "";
+      document.getElementById("analysisResult").innerHTML = "Digite uma palavra para ver a análise aqui.";
+    }
+
+    function contarTexto() {
+      const texto = document.getElementById("textInput").value;
+
+      const palavras = texto.trim() ? texto.trim().split(/\s+/).filter(Boolean).length : 0;
+      const caracteres = texto.length;
+      const frases = texto.trim() ? texto.split(/[.!?]+/).filter(item => item.trim().length > 0).length : 0;
+      const paragrafos = texto.trim() ? texto.split(/\n+/).filter(item => item.trim().length > 0).length : 0;
+
+      document.getElementById("wordCount").textContent = palavras;
+      document.getElementById("charCount").textContent = caracteres;
+      document.getElementById("sentenceCount").textContent = frases;
+      document.getElementById("paragraphCount").textContent = paragrafos;
+    }
+
+    function buscarDefinicao() {
+      const input = document.getElementById("dictionaryInput");
+      const result = document.getElementById("dictionaryResult");
+      const termoOriginal = input.value.trim();
+
+      if (!termoOriginal) {
+        result.innerHTML = '<span class="badge danger">Digite uma palavra para buscar.</span>';
+        return;
+      }
+
+      const chave = normalizar(termoOriginal);
+      let encontrado = null;
+
+      for (const termo in dicionario) {
+        if (normalizar(termo) === chave) {
+          encontrado = { termo, definicao: dicionario[termo] };
+          break;
+        }
+      }
+
+      if (encontrado) {
+        result.innerHTML = `
+          <strong>${encontrado.termo}</strong><br>
+          ${encontrado.definicao}
+        `;
+      } else {
+        result.innerHTML = `
+          <span class="badge warning">Não encontrado</span><br>
+          A palavra <strong>${termoOriginal}</strong> ainda não está cadastrada na base local.
+        `;
+      }
+    }
+
+    function limparDicionario() {
+      document.getElementById("dictionaryInput").value = "";
+      document.getElementById("dictionaryResult").innerHTML = "Busque uma palavra para ver a definição aqui.";
+    }
+
+    function renderizarPreviewDicionario() {
+      const preview = document.getElementById("dictionaryPreview");
+      preview.innerHTML = "";
+
+      Object.entries(dicionario).slice(0, 6).forEach(([termo, definicao]) => {
+        const div = document.createElement("div");
+        div.className = "dictionary-item";
+        div.innerHTML = `<strong>${termo}</strong><span>${definicao}</span>`;
+        preview.appendChild(div);
+      });
+    }
+
+    renderizarPreviewDicionario();
+  </script>
 </body>
 </html>
