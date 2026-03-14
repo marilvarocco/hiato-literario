@@ -1,0 +1,38 @@
+[
+  {
+    "palavra": "amor",
+    "classe": "Substantivo masculino",
+    "significado": "Sentimento de afeição profunda, carinho intenso ou vínculo emocional.",
+    "sinonimos": ["afeição", "paixão", "ternura"],
+    "silabas": "a-mor",
+    "tonicidade": "Oxítona",
+    "categoria": "dicionario"
+  },
+  {
+    "palavra": "saudade",
+    "classe": "Substantivo feminino",
+    "significado": "Sentimento de falta, nostalgia ou lembrança afetiva de algo ou alguém ausente.",
+    "sinonimos": ["nostalgia", "lembrança", "falta"],
+    "silabas": "sau-da-de",
+    "tonicidade": "Paroxítona",
+    "categoria": "dicionario"
+  },
+  {
+    "palavra": "hiato",
+    "classe": "Substantivo masculino",
+    "significado": "Encontro de duas vogais que pertencem a sílabas diferentes.",
+    "sinonimos": ["separação vocálica"],
+    "silabas": "hi-a-to",
+    "tonicidade": "Paroxítona",
+    "categoria": "gramatica"
+  },
+  {
+    "palavra": "ditongo",
+    "classe": "Substantivo masculino",
+    "significado": "Encontro de uma vogal e uma semivogal na mesma sílaba.",
+    "sinonimos": ["encontro vocálico"],
+    "silabas": "di-ton-go",
+    "tonicidade": "Paroxítona",
+    "categoria": "gramatica"
+  }
+]
