@@ -1,10 +1,6 @@
 const PALAVRAS = [
-  "aba",
-  "abafar",
-  "abafeira",
-  "abaixar",
-  "abalançarse",
-  "abalar",
-  "abalizado",
-  "abalo"
+  { palavra: "aba", pasta: "aba" },
+  { palavra: "abafar", pasta: "abafar" },
+  { palavra: "abafeira", pasta: "abafeira" },
+  { palavra: "abaixar", pasta: "abaixar" }
 ];
