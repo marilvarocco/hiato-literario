@@ -295,29 +295,37 @@
         </div>
 
         <div class="hero-visual">
-          <div class="search-card" id="buscar">
-            <div class="search-row">
-              <input type="text" id="wordInput" placeholder="Busque uma palavra..." autocomplete="off">
-              <button class="btn-search" onclick="buscarPalavra()">Buscar</button>
-            </div>
+       <div class="search-card" id="buscar">
 
-           <div id="results" class="preview-panel">
-             <div id="suggestions" style="margin-top: 14px; display: none;"></div>
-  <div class="word-header">
-    <div class="word-main">
-      <span class="word-type">Substantivo Feminino</span>
-      <h2 id="displayWord">Saudade</h2>
+  <div class="search-row">
+    <input type="text" id="wordInput" placeholder="Busque uma palavra..." autocomplete="off">
+    <button class="btn-search" onclick="buscarPalavra()">Buscar</button>
+  </div>
+
+  <div id="results" class="preview-panel">
+    <div class="word-header">
+      <div class="word-main">
+        <span class="word-type">Substantivo Feminino</span>
+        <h2 id="displayWord">Saudade</h2>
+      </div>
+    </div>
+
+    <div class="word-stats">
+      <div class="stat-box">
+        <div class="stat-label">Separação</div>
+        <div class="stat-value" id="tonicWord">sau-da-de</div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-label">Tonicidade</div>
+        <div class="stat-value">Paroxítona</div>
+      </div>
     </div>
   </div>
-  <div class="word-stats">
-    <div class="stat-box">
-      <div class="stat-label">Separação</div>
-      <div class="stat-value" id="tonicWord">sau-da-de</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-label">Tonicidade</div>
-      <div class="stat-value">Paroxítona</div>
-    </div>
+
+  <div id="suggestions" style="margin-top:14px;display:none;"></div>
+
+</div>
               </div>
             </div>
           </div>
