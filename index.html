@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hiato Literário — Dicionário e Gramática</title>
+
+<meta name="description" content="Consulte significados, separação silábica, tonicidade e sinônimos no Hiato Literário.">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+
+</head>
+
+<body>
+
+<header>
+<h1>Hiato Literário</h1>
+<p>Dicionário e gramática da língua portuguesa</p>
+</header>
+
+<main>
+
+<h2>Buscar palavra</h2>
+
+<input id="search" placeholder="Digite uma palavra...">
+
+<button onclick="buscar()">Buscar</button>
+
+</main>
+
+<script>
+
+function buscar(){
+let palavra = document.getElementById("search").value.toLowerCase()
+window.location.href = "/palavra/" + palavra
+}
+
+</script>
+
+</body>
+</html>
