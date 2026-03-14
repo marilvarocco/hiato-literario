@@ -269,7 +269,6 @@
   </style>
 </head>
 <body>
-<script src="palavras.js"></script>
   <header class="topbar">
     <div class="container topbar-inner">
       <a href="/" class="brand">
@@ -303,6 +302,7 @@
             </div>
 
            <div id="results" class="preview-panel">
+             <div id="suggestions" style="margin-top: 14px; display: none;"></div>
   <div class="word-header">
     <div class="word-main">
       <span class="word-type">Substantivo Feminino</span>
@@ -361,8 +361,9 @@
   <footer class="footer container">
     <p>&copy; 2026 Hiato Literário. A tecnologia a serviço da língua.</p>
   </footer>
-
-  <script>
+<script src="palavras.js"></script>
+  <script src="palavras.js"></script>
+<script>
   function normalizarTexto(texto) {
     return texto
       .toLowerCase()
@@ -415,23 +416,19 @@
     return PALAVRAS
       .map(item => {
         const palavraNormalizada = normalizarTexto(item.palavra);
-
         let score = distanciaLevenshtein(termoNormalizado, palavraNormalizada);
 
         if (palavraNormalizada.startsWith(termoNormalizado)) score -= 2;
         if (palavraNormalizada.includes(termoNormalizado)) score -= 1;
 
-        return {
-          ...item,
-          score
-        };
+        return { ...item, score };
       })
       .sort((a, b) => a.score - b.score)
       .slice(0, limite);
   }
 
-  function abrirPalavra(item) {
-    window.location.href = "/palavra/" + item.pasta + "/";
+  function abrirPalavraPorPasta(pasta) {
+    window.location.href = "/palavra/" + pasta + "/";
   }
 
   function mostrarSugestoes(termo, sugestoes) {
@@ -479,10 +476,6 @@
     `;
   }
 
-  function abrirPalavraPorPasta(pasta) {
-    window.location.href = "/palavra/" + pasta + "/";
-  }
-
   function buscarPalavra() {
     const input = document.getElementById("wordInput");
     const termo = input.value.trim();
@@ -490,6 +483,11 @@
     const suggestions = document.getElementById("suggestions");
 
     if (!termo) return;
+
+    if (typeof PALAVRAS === "undefined") {
+      alert("Erro: palavras.js não foi carregado.");
+      return;
+    }
 
     suggestions.style.display = "none";
     suggestions.innerHTML = "";
@@ -501,7 +499,7 @@
       const palavraEncontrada = encontrarPalavraExata(termo);
 
       if (palavraEncontrada) {
-        abrirPalavra(palavraEncontrada);
+        abrirPalavraPorPasta(palavraEncontrada.pasta);
         return;
       }
 
@@ -510,8 +508,9 @@
     }, 150);
   }
 
-  document.getElementById("wordInput").addEventListener("keydown", function(e) {
+  document.getElementById("wordInput").addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
+      e.preventDefault();
       buscarPalavra();
     }
   });
