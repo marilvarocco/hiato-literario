@@ -1,0 +1,142 @@
+:root {
+  --radius: 1rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.app-shell {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.form-panel {
+  border-radius: 1.25rem;
+  border: 1px solid rgb(226 232 240);
+  background: white;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+.text-input,
+.text-output,
+.input-field,
+.select-field {
+  width: 100%;
+  border: 1px solid rgb(203 213 225);
+  border-radius: 1rem;
+  padding: 0.95rem 1rem;
+  font: inherit;
+  color: rgb(15 23 42);
+  background: white;
+  outline: none;
+}
+
+.text-input,
+.text-output {
+  min-height: 280px;
+  resize: vertical;
+}
+
+.input-field:focus,
+.select-field:focus,
+.text-input:focus,
+.text-output:focus {
+  border-color: rgb(99 102 241);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.button-primary,
+.button-secondary {
+  border: none;
+  border-radius: 1rem;
+  padding: 0.95rem 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button-primary:hover,
+.button-secondary:hover {
+  transform: translateY(-1px);
+}
+
+.button-primary {
+  background: rgb(79 70 229);
+  color: white;
+  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.18);
+}
+
+.button-primary:hover {
+  background: rgb(67 56 202);
+}
+
+.button-secondary {
+  background: rgb(241 245 249);
+  color: rgb(15 23 42);
+}
+
+.metrics-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.metric-card {
+  border-radius: 1rem;
+  border: 1px solid rgb(226 232 240);
+  background: rgb(248 250 252);
+  padding: 1rem;
+}
+
+.metric-card strong {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: rgb(15 23 42);
+}
+
+.helper-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.helper-links a {
+  text-decoration: none;
+  color: rgb(79 70 229);
+  font-weight: 600;
+}
+
+.section-divider {
+  height: 1px;
+  background: rgb(226 232 240);
+  flex: 1 1 auto;
+}
+
+.preview-box {
+  white-space: pre-wrap;
+}
+
+@media (max-width: 767px) {
+  .app-shell {
+    padding: 2rem 1rem;
+  }
+}

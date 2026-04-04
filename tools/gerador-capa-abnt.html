@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerador de Capa ABNT Profissional | Hiato Literário</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js"></script>
+    <link rel="stylesheet" href="../src/css/styles.css" />
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    
+    /* Simulação da Folha A4 no Preview */
+    .a4-preview {
+      background: white;
+      width: 100%;
+      aspect-ratio: 1 / 1.4142; /* Proporção A4 */
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      /* Margens ABNT Convertidas para Proporção Visual */
+      padding: 11.3% 7.5% 7.5% 11.3%; /* Topo 3cm, Direita 2cm, Baixo 2cm, Esquerda 3cm */
+      color: black;
+      line-height: 1.5;
+    }
+
+    .font-arial { font-family: Arial, Helvetica, sans-serif; }
+    .font-times { font-family: "Times New Roman", Times, serif; }
+
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .input-field:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+
+<header class="sticky top-0 z-50 border-b border-slate-200 glass-effect">
+  <div class="mx-auto max-w-6xl px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">H</div>
+      <span class="text-lg font-bold tracking-tight">Hiato <span class="text-indigo-600">Literário</span></span>
+    </div>
+    <span class="text-sm font-medium text-slate-500 hidden md:block">Gerador de Capa ABNT NBR 14724</span>
+  </div>
+</header>
+
+<main class="mx-auto max-w-6xl px-6 py-10">
+  <section class="mb-10 text-center lg:text-left">
+    <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Capa Acadêmica ABNT</h1>
+    <p class="mt-2 text-lg text-slate-600">Gere capas formatadas com margens de 3cm e 2cm, fonte 12 e espaçamento 1.5.</p>
+  </section>
+
+  <div class="grid gap-10 lg:grid-cols-2 items-start">
+    <!-- Formulário -->
+    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+      <div>
+        <label class="block text-sm font-semibold mb-1">Fonte do Documento</label>
+        <select id="fontSelect" class="input-field">
+          <option value="Arial">Arial</option>
+          <option value="Times New Roman">Times New Roman</option>
+        </select>
+      </div>
+      
+      <input id="instituicao" class="input-field" type="text" placeholder="Nome da Instituição (Ex: UFPR)" />
+      <input id="autor" class="input-field" type="text" placeholder="Nome do Autor" />
+      <input id="titulo" class="input-field" type="text" placeholder="Título do Trabalho" />
+      <input id="subtitulo" class="input-field" type="text" placeholder="Subtítulo (opcional)" />
+      
+      <div class="grid grid-cols-2 gap-4">
+        <input id="cidade" class="input-field" type="text" placeholder="Cidade" />
+        <input id="ano" class="input-field" type="text" placeholder="Ano" />
+      </div>
+
+      <div class="pt-4 border-t border-slate-100">
+        <button id="docxBtn" class="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Baixar Arquivo .docx
+        </button>
+      </div>
+      
+      <div class="p-4 bg-amber-50 rounded-lg border border-amber-100 flex gap-3">
+        <div class="text-amber-600 shrink-0">⚠️</div>
+        <p class="text-xs text-amber-800">
+          <strong>Norma Técnica:</strong> A capa ABNT exige texto centralizado, título em negrito, fonte 12 e margens específicas (3-3-2-2).
+        </p>
+      </div>
+    </div>
+
+    <!-- Visualização Realista -->
+    <div class="sticky top-28">
+      <label class="mb-3 block text-sm font-bold text-slate-500 uppercase tracking-wider">Pré-visualização (A4)</label>
+      <div id="previewContainer" class="a4-preview font-arial text-[10px] md:text-[12px]">
+        <!-- Conteúdo Gerado via JS -->
+        <div id="view-inst" class="text-center uppercase font-bold break-words">NOME DA INSTITUIÇÃO</div>
+        
+        <div id="view-auth" class="text-center uppercase mt-[15%] break-words">NOME DO AUTOR</div>
+        
+        <div class="flex-grow flex flex-col justify-center items-center text-center px-4">
+          <div id="view-title" class="font-bold uppercase break-words">TÍTULO DO TRABALHO</div>
+          <div id="view-subtitle" class="uppercase mt-1 break-words">Subtítulo</div>
+        </div>
+
+        <div class="mt-auto text-center">
+          <div id="view-city" class="uppercase">CIDADE</div>
+          <div id="view-year">2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script type="module">
+  const inputs = ['instituicao', 'autor', 'titulo', 'subtitulo', 'cidade', 'ano'];
+  const fontSelect = document.getElementById('fontSelect');
+  const preview = document.getElementById('previewContainer');
+
+  // Atualização em Tempo Real
+  function updatePreview() {
+    const data = {};
+    inputs.forEach(id => {
+      data[id] = document.getElementById(id).value || (id === 'subtitulo' ? '' : id.toUpperCase());
+    });
+
+    document.getElementById('view-inst').innerText = data.instituicao.toUpperCase();
+    document.getElementById('view-auth').innerText = data.autor.toUpperCase();
+    document.getElementById('view-title').innerText = data.titulo.toUpperCase();
+    document.getElementById('view-subtitle').innerText = data.subtitulo.toUpperCase();
+    document.getElementById('view-city').innerText = data.cidade.toUpperCase();
+    document.getElementById('view-year').innerText = data.ano;
+
+    // Font
+    preview.classList.remove('font-arial', 'font-times');
+    preview.classList.add(fontSelect.value === 'Arial' ? 'font-arial' : 'font-times');
+  }
+
+  inputs.forEach(id => document.getElementById(id).addEventListener('input', updatePreview));
+  fontSelect.addEventListener('change', updatePreview);
+
+  // Download DOCX com Formatação ABNT Corrigida
+  document.getElementById("docxBtn").addEventListener("click", async () => {
+    const { Document, Packer, Paragraph, AlignmentType, TextRun } = window.docx;
+    
+    const font = fontSelect.value;
+    const inst = document.getElementById('instituicao').value.toUpperCase() || "NOME DA INSTITUIÇÃO";
+    const autor = document.getElementById('autor').value.toUpperCase() || "NOME DO AUTOR";
+    const titulo = document.getElementById('titulo').value.toUpperCase() || "TÍTULO DO TRABALHO";
+    const subtitulo = document.getElementById('subtitulo').value.toUpperCase();
+    const cidade = document.getElementById('cidade').value.toUpperCase() || "CIDADE";
+    const ano = document.getElementById('ano').value || "2024";
+
+    // Configurações ABNT: Fonte 12 (size: 24) e Espaçamento 1.5 (line: 360)
+    const doc = new Document({
+      styles: {
+        default: {
+          document: {
+            run: { size: 24, font: font }, 
+            paragraph: { spacing: { line: 360 } } 
+          }
+        }
+      },
+      sections: [{
+        properties: {
+          page: {
+            margin: {
+              top: 1701,    // 3cm
+              right: 1134,  // 2cm
+              bottom: 1134, // 2cm
+              left: 1701,   // 3cm
+            },
+          },
+        },
+        children: [
+          // Instituição
+          new Paragraph({
+            alignment: AlignmentType.CENTER,
+            children: [new TextRun({ text: inst, bold: true })]
+          }),
+          
+          // Espaço até o Autor (Reduzido para segurança)
+          new Paragraph({ text: "", spacing: { before: 1800 } }),
+          
+          // Autor
+          new Paragraph({
+            alignment: AlignmentType.CENTER,
+            children: [new TextRun({ text: autor })]
+          }),
+
+          // Espaço até o Título (Centralizado na página)
+          new Paragraph({ text: "", spacing: { before: 3500 } }),
+
+          // Título e Subtítulo
+          new Paragraph({
+            alignment: AlignmentType.CENTER,
+            children: [
+              new TextRun({ text: titulo, bold: true }),
+              ...(subtitulo ? [new TextRun({ text: `: ${subtitulo}`, bold: false })] : [])
+            ]
+          }),
+
+          // Espaço até Cidade/Ano (Reduzido para não empurrar para 2ª página)
+          new Paragraph({ text: "", spacing: { before: 4000 } }),
+
+          // Cidade
+          new Paragraph({
+            alignment: AlignmentType.CENTER,
+            children: [new TextRun({ text: cidade })]
+          }),
+          // Ano
+          new Paragraph({
+            alignment: AlignmentType.CENTER,
+            children: [new TextRun({ text: ano })]
+          }),
+        ]
+      }]
+    });
+
+    const blob = await Packer.toBlob(doc);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `capa-abnt-${titulo.toLowerCase().replace(/\s+/g, '-')}.docx`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  // Inicializar
+  updatePreview();
+</script>
+
+</body>
+</html>

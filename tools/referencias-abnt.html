@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerador de Referências ABNT | Hiato Literário Tools</title>
+  <meta name="description" content="Gere referências acadêmicas completas seguindo a NBR 6023 com facilidade e rapidez." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../src/css/styles.css" />
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+    }
+
+    .app-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .form-panel {
+      background: white;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .input-field, .select-field {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.75rem;
+      outline: none;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+    }
+
+    .input-field:focus, .select-field:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    }
+
+    .author-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 0.75rem;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .text-output {
+      width: 100%;
+      min-height: 120px;
+      padding: 1.25rem;
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 1rem;
+      font-size: 1rem;
+      color: #1e293b;
+      line-height: 1.6;
+      word-break: break-word;
+    }
+
+    .hidden-field { display: none; }
+
+    .step-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: #4f46e5;
+      color: white;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900 selection:bg-indigo-100 selection:text-indigo-700">
+
+<header class="sticky top-0 z-50 border-b border-slate-200 glass-effect">
+  <div class="mx-auto max-w-6xl px-6 py-4 flex justify-between items-center">
+    <a href="../index.html" class="flex items-center gap-2 no-underline group">
+      <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold transition-transform group-hover:rotate-6">H</div>
+      <span class="text-xl font-bold tracking-tight text-slate-800">Hiato <span class="text-indigo-600">Literário</span></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+      <a href="#" class="hover:text-indigo-600">Início</a>
+      <a href="#" class="px-5 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 shadow-md">Privacidade</a>
+    </nav>
+  </div>
+</header>
+
+<main class="app-shell">
+  <section class="mb-8">
+    <a class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-700" href="../index.html">← Voltar</a>
+    <h1 class="mt-4 text-4xl font-extrabold text-slate-900 tracking-tight">Gerador de Referências ABNT</h1>
+    <p class="mt-2 text-slate-600">Gere referências acadêmicas com cópia rápida e opção de múltiplos autores.</p>
+  </section>
+
+  <section class="grid gap-8 lg:grid-cols-5">
+    <!-- Formulário -->
+    <div class="lg:col-span-3 space-y-6">
+      <div class="form-panel space-y-8">
+        
+        <!-- Step 1: Tipo -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="step-badge">1</span>
+            <h2 class="font-bold text-slate-800">Tipo de fonte</h2>
+          </div>
+          <select id="tipo" class="select-field">
+            <option value="livro">📖 Livro (Físico ou Digital)</option>
+            <option value="site">🌐 Site ou Conteúdo Web</option>
+            <option value="artigo">📑 Artigo em Revista/Periódico</option>
+            <option value="filme">🎬 Filme ou Documentário</option>
+            <option value="youtube">🔴 Vídeo do YouTube</option>
+          </select>
+        </div>
+
+        <!-- Step 2: Autores -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="step-badge">2</span>
+            <h2 class="font-bold text-slate-800">Autores / Produtores</h2>
+          </div>
+          <div id="authors-container"></div>
+          <button id="add-author-btn" class="flex items-center gap-2 text-sm font-bold text-indigo-600 hover:text-indigo-800 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Adicionar Autor
+          </button>
+          <div class="mt-4 p-3 bg-slate-50 rounded-lg border border-slate-100">
+            <label class="flex items-center gap-2 text-xs font-semibold text-slate-600 cursor-pointer">
+              <input type="checkbox" id="useEtAl" class="rounded border-slate-300 text-indigo-600">
+              Usar "et al." quando houver mais de 3 autores
+            </label>
+          </div>
+        </div>
+
+        <!-- Step 3: Dados -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="step-badge">3</span>
+            <h2 class="font-bold text-slate-800">Dados da obra</h2>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input id="titulo" class="input-field" type="text" placeholder="Título principal" />
+            <input id="subtitulo" class="input-field" type="text" placeholder="Subtítulo (opcional)" />
+          </div>
+
+          <div id="campos-especificos" class="space-y-4">
+            <div class="field-livro grid grid-cols-1 md:grid-cols-3 gap-4">
+              <input id="edicao" class="input-field" type="text" placeholder="Edição (ex: 2)" />
+              <input id="local" class="input-field" type="text" placeholder="Cidade" />
+              <input id="fonte" class="input-field" type="text" placeholder="Editora(s)" />
+            </div>
+
+            <div class="field-site field-youtube space-y-4 hidden-field">
+              <input id="url" class="input-field" type="text" placeholder="URL completa" />
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input id="nome_site" class="input-field" type="text" placeholder="Nome do Site ou Canal" />
+                <div class="flex gap-2">
+                  <input id="acesso" class="input-field" type="text" placeholder="Acesso (Ex: 3 de abr. de 2026)" />
+                  <button id="set-today-btn" title="Usar data de hoje" class="btn-icon bg-indigo-50 text-indigo-600 hover:bg-indigo-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="field-artigo space-y-4 hidden-field">
+              <input id="revista" class="input-field" type="text" placeholder="Nome da Revista" />
+              <div class="grid grid-cols-3 gap-4">
+                <input id="volume" class="input-field" type="text" placeholder="Vol." />
+                <input id="numero" class="input-field" type="text" placeholder="Nº" />
+                <input id="paginas" class="input-field" type="text" placeholder="Pág. inicial-final" />
+              </div>
+            </div>
+
+            <div class="field-filme space-y-4 hidden-field">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input id="direcao" class="input-field" type="text" placeholder="Diretor" />
+                <input id="producao" class="input-field" type="text" placeholder="Produtor" />
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input id="distribuidora" class="input-field" type="text" placeholder="Distribuidora" />
+                <input id="midia" class="input-field" type="text" placeholder="Mídia (ex: 1 DVD)" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input id="ano" class="input-field" type="text" placeholder="Ano de Publicação" />
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-6 border-t border-slate-100">
+          <button id="clearBtn" class="w-full py-3 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-all">Limpar Tudo</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resultado -->
+    <div class="lg:col-span-2 space-y-6">
+      <div class="sticky top-24 space-y-6">
+        <div class="form-panel">
+          <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Referência Gerada</h3>
+          <div id="resultado" class="text-output flex items-center justify-center text-center italic text-slate-400">
+            Aguardando preenchimento...
+          </div>
+          
+          <button id="copyBtn" class="w-full mt-4 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all flex items-center justify-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copiar para Área de Transferência
+          </button>
+        </div>
+
+        <div class="p-5 bg-amber-50 rounded-2xl border border-amber-100">
+          <h4 class="text-xs font-bold text-amber-900 uppercase mb-2">Dica de Formatação</h4>
+          <p class="text-[11px] text-amber-800 leading-relaxed">
+            Se houver mais de uma editora, utilize dois pontos para separá-las (ex: Editora A : Editora B). O campo de edição aceita números e gera automaticamente o formato <strong>x. ed.</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  const byId = (id) => document.getElementById(id);
+  const container = byId('authors-container');
+  const tipoSelect = byId('tipo');
+
+  function createAuthorInput(value = '') {
+    const div = document.createElement('div');
+    div.className = 'author-row';
+    div.innerHTML = `
+      <input class="input-field author-input" type="text" placeholder="Nome completo do autor" value="${value}" />
+      <button class="remove-author btn-icon bg-red-50 text-red-500 hover:bg-red-100">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    `;
+    div.querySelector('.remove-author').onclick = () => {
+      if (document.querySelectorAll('.author-row').length > 1) {
+        div.remove();
+        update();
+      }
+    };
+    div.querySelector('input').oninput = update;
+    return div;
+  }
+
+  container.appendChild(createAuthorInput());
+
+  byId('add-author-btn').onclick = () => {
+    container.appendChild(createAuthorInput());
+    container.lastChild.querySelector('input').focus();
+    update();
+  };
+
+  tipoSelect.onchange = () => {
+    const val = tipoSelect.value;
+    document.querySelectorAll('[class*="field-"]').forEach(el => el.classList.add('hidden-field'));
+    document.querySelectorAll(`.field-${val}`).forEach(el => el.classList.remove('hidden-field'));
+    update();
+  };
+
+  byId('set-today-btn').onclick = () => {
+    const now = new Date();
+    const meses = ["jan.", "fev.", "mar.", "abr.", "maio", "jun.", "jul.", "ago.", "set.", "out.", "nov.", "dez."];
+    // Formato solicitado: dia de mes de ano
+    byId('acesso').value = `${now.getDate()} de ${meses[now.getMonth()]} de ${now.getFullYear()}`;
+    update();
+  };
+
+  function formatAuthor(name) {
+    const parts = name.trim().replace(/\s+/g, " ").split(" ");
+    if (parts.length < 2) return name.toUpperCase();
+    const lastName = parts.pop().toUpperCase();
+    const firstName = parts.join(" ");
+    return `${lastName}, ${firstName}`;
+  }
+
+  function update() {
+    const tipo = tipoSelect.value;
+    const authorInputs = document.querySelectorAll('.author-input');
+    const authorsList = Array.from(authorInputs).map(i => i.value.trim()).filter(v => v !== "");
+    const useEtAl = byId('useEtAl').checked;
+
+    const titulo = byId('titulo').value.trim();
+    const subtitulo = byId('subtitulo').value.trim();
+    const ano = byId('ano').value.trim();
+
+    const resultadoDiv = byId('resultado');
+
+    if (authorsList.length === 0 && titulo === "") {
+      resultadoDiv.innerHTML = "Aguardando preenchimento...";
+      resultadoDiv.className = "text-output flex items-center justify-center text-center italic text-slate-400";
+      return;
+    }
+
+    // Muda o alinhamento para a esquerda (padrão ABNT) quando há dados
+    resultadoDiv.className = "text-output text-left";
+
+    let autorStr = "";
+    if (authorsList.length > 0) {
+      if (useEtAl && authorsList.length > 3) {
+        autorStr = `${formatAuthor(authorsList[0])} et al. `;
+      } else {
+        autorStr = authorsList.map(formatAuthor).join("; ") + ". ";
+      }
+    }
+
+    const previewTitle = subtitulo ? `<strong>${titulo}</strong>: ${subtitulo}` : `<strong>${titulo}</strong>`;
+    const cleanTitle = subtitulo ? `${titulo}: ${subtitulo}` : titulo;
+
+    const buildRef = (t) => {
+      let r = "";
+      switch(tipo) {
+        case 'livro':
+          let edRaw = byId('edicao').value.trim();
+          let ed = edRaw;
+          if (/^\d+$/.test(edRaw)) {
+            ed = `${edRaw}. ed.`;
+          }
+          const loc = byId('local').value.trim() || "[S. l.]";
+          const font = byId('fonte').value.trim() || "[s. n.]";
+          r = `${autorStr}${t}. ${ed ? ed + ' ' : ''}${loc}: ${font}, ${ano}.`;
+          break;
+        case 'site':
+          const ns = byId('nome_site').value.trim();
+          const url = byId('url').value.trim();
+          const ac = byId('acesso').value.trim();
+          r = `${autorStr}${t}. ${ns}, ${ano}. Disponível em: ${url}. Acesso em: ${ac}.`;
+          break;
+        case 'artigo':
+          const rev = byId('revista').value.trim();
+          const vol = byId('volume').value.trim();
+          const num = byId('numero').value.trim();
+          const pag = byId('paginas').value.trim();
+          r = `${autorStr}${t}. ${rev}, ${vol ? 'v. ' + vol + ', ' : ''}${num ? 'n. ' + num + ', ' : ''}${pag ? 'p. ' + pag + ', ' : ''}${ano}.`;
+          break;
+        case 'filme':
+          const words = titulo.split(" ");
+          const first = (words.shift() || "").toUpperCase();
+          const rest = words.join(" ");
+          const mTitle = t.includes('strong') 
+            ? `<strong>${first} ${rest}</strong>${subtitulo ? ': ' + subtitulo : ''}`
+            : `${first} ${rest}${subtitulo ? ': ' + subtitulo : ''}`;
+          const dir = byId('direcao').value.trim();
+          const prod = byId('producao').value.trim();
+          const dist = byId('distribuidora').value.trim();
+          const mid = byId('midia').value.trim();
+          r = `${mTitle}. Direção: ${dir}. Produção: ${prod}. ${dist}, ${ano}. ${mid}.`;
+          break;
+        case 'youtube':
+          const canal = byId('nome_site').value.trim();
+          const yurl = byId('url').value.trim();
+          const yac = byId('acesso').value.trim();
+          const autorY = autorStr || (canal ? canal + ". " : "");
+          r = `${autorY}${t}. YouTube, ${ano}. Disponível em: ${yurl}. Acesso em: ${yac}.`;
+          break;
+      }
+      return r.replace(/\s\s+/g, ' ').replace(/\.\./g, '.').trim();
+    };
+
+    resultadoDiv.innerHTML = buildRef(previewTitle);
+    resultadoDiv.dataset.clean = buildRef(cleanTitle).replace(/<[^>]*>/g, '');
+  }
+
+  document.querySelectorAll('input').forEach(el => el.oninput = update);
+  byId('useEtAl').onchange = update;
+
+  byId('clearBtn').onclick = () => {
+    document.querySelectorAll('input').forEach(i => i.value = "");
+    container.innerHTML = "";
+    container.appendChild(createAuthorInput());
+    update();
+  };
+
+  byId('copyBtn').onclick = () => {
+    const text = byId('resultado').dataset.clean;
+    if (!text || text.includes("Aguardando")) return;
+    
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+
+    const original = byId('copyBtn').innerHTML;
+    byId('copyBtn').innerHTML = "Copiado com sucesso!";
+    byId('copyBtn').classList.replace('bg-indigo-600', 'bg-emerald-600');
+    setTimeout(() => {
+      byId('copyBtn').innerHTML = original;
+      byId('copyBtn').classList.replace('bg-emerald-600', 'bg-indigo-600');
+    }, 2000);
+  };
+</script>
+</body>
+</html>

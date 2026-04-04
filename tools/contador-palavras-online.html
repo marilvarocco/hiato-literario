@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contador de Palavras Online | Hiato Literário Tools</title>
+  <meta name="description" content="Conte palavras, caracteres, frases e parágrafos de forma rápida e grátis." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../src/css/styles.css" />
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+    }
+
+    .app-shell {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .form-panel {
+      background: white;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .text-input {
+      width: 100%;
+      min-height: 350px;
+      padding: 1.25rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      outline: none;
+      resize: vertical;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .text-input:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    }
+
+    .button-primary {
+      background: #4f46e5;
+      color: white;
+      padding: 0.75rem 1.75rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .button-primary:hover { background: #4338ca; transform: translateY(-1px); }
+    .button-primary:active { transform: translateY(0); }
+
+    .button-secondary {
+      background: white;
+      color: #64748b;
+      padding: 0.75rem 1.75rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      border: 1px solid #e2e8f0;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .button-secondary:hover { 
+      background: #f8fafc;
+      color: #1e293b;
+      border-color: #cbd5e1;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .metric-card {
+      background: #f8fafc;
+      padding: 1.5rem;
+      border-radius: 1.25rem;
+      border: 1px solid #f1f5f9;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+
+    .metric-card:hover {
+      background: #f1f5f9;
+      transform: scale(1.02);
+    }
+
+    .metric-card span {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.025em;
+    }
+
+    .metric-card strong {
+      font-size: 2rem;
+      color: #1e293b;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .helper-links a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: #fdfeff;
+      border: 1px solid #f1f5f9;
+      border-radius: 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #4f46e5;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .helper-links a:hover {
+      background: #eef2ff;
+      border-color: #e0e7ff;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900 selection:bg-indigo-100 selection:text-indigo-700">
+
+<header class="sticky top-0 z-50 border-b border-slate-200 glass-effect">
+  <div class="mx-auto max-w-6xl px-6 py-4 flex justify-between items-center">
+    <a href="../index.html" class="flex items-center gap-2 no-underline group">
+      <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold transition-transform group-hover:rotate-6">H</div>
+      <span class="text-xl font-bold tracking-tight text-slate-800">Hiato <span class="text-indigo-600">Literário</span></span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+      <a href="#" class="hover:text-indigo-600 transition-colors">Início</a>
+      <a href="#" class="hover:text-indigo-600 transition-colors">Ferramentas</a>
+      <a href="#" class="px-5 py-2.5 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition-all shadow-md shadow-indigo-100">Privacidade</a>
+    </nav>
+  </div>
+</header>
+
+<main class="app-shell">
+  <section class="mb-10">
+    <a class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 no-underline hover:text-indigo-700" href="#">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Voltar
+    </a>
+    <div class="mt-4 inline-block px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-indigo-700 bg-indigo-50 rounded-lg">
+      Utilidade Acadêmica
+    </div>
+    <h1 class="mt-4 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-none">Contador de Palavras</h1>
+    <p class="mt-4 max-w-2xl text-lg text-slate-500 leading-relaxed">
+      Analise seu texto em tempo real. Obtenha contagens precisas de palavras, caracteres e estrutura gramatical.
+    </p>
+  </section>
+
+  <section class="grid gap-8 lg:grid-cols-5">
+    <div class="lg:col-span-3">
+      <div class="form-panel h-full">
+        <label for="inputText" class="mb-4 block text-sm font-bold text-slate-700 uppercase tracking-wide">Área de Texto</label>
+        <textarea id="inputText" class="text-input" placeholder="Cole sua redação, artigo ou parágrafos aqui para analisar..."></textarea>
+
+        <div class="mt-6 flex flex-wrap gap-4">
+          <button id="copyBtn" class="button-primary" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Copiar texto</span>
+          </button>
+          <button id="clearBtn" class="button-secondary" type="button">Limpar tudo</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-2 space-y-6">
+      <div class="form-panel">
+        <h2 class="text-lg font-extrabold text-slate-800 mb-6 flex items-center gap-2">
+          <svg class="text-indigo-600" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Métricas Detalhadas
+        </h2>
+        <div class="metrics-grid">
+          <div class="metric-card"><span>Palavras</span><strong id="wordsCount">0</strong></div>
+          <div class="metric-card"><span>Caracteres</span><strong id="charsCount">0</strong></div>
+          <div class="metric-card"><span>Sem espaços</span><strong id="charsNoSpaceCount">0</strong></div>
+          <div class="metric-card"><span>Frases</span><strong id="sentencesCount">0</strong></div>
+          <div class="metric-card"><span>Parágrafos</span><strong id="paragraphsCount">0</strong></div>
+          <div class="metric-card"><span>Min. de Leitura</span><strong id="readingTime">0</strong></div>
+        </div>
+      </div>
+
+      <div class="form-panel">
+        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Veja também</h3>
+        <div class="helper-links">
+          <a href="./gerador-capa-abnt.html">
+            Gerador de Capa ABNT
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="./referencias-abnt.html">
+            Referências Bibliográficas
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacidade" class="mt-16 p-8 rounded-3xl bg-white border border-slate-200 flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+    <div class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center shrink-0">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <div class="flex-grow">
+      <h4 class="font-bold text-slate-900 text-lg">Seus textos estão seguros</h4>
+      <p class="text-slate-500">
+        Todo o processamento acontece localmente no seu navegador. O texto nunca é enviado ou armazenado em nossos servidores, garantindo privacidade total.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer class="mt-20 border-t border-slate-200 bg-white">
+  <div class="mx-auto max-w-6xl px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-8">
+    <div class="flex items-center gap-2">
+      <div class="w-7 h-7 bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 text-[10px] font-bold">HL</div>
+      <span class="text-sm font-bold text-slate-500 uppercase tracking-tight">Hiato Literário</span>
+    </div>
+
+    <div class="flex gap-10 text-sm font-semibold text-slate-400">
+      <a href="#" class="hover:text-indigo-600 transition-colors">Início</a>
+      <a href="#" class="hover:text-indigo-600 transition-colors">Github</a>
+      <a href="#" class="hover:text-indigo-600 transition-colors">Licença</a>
+    </div>
+
+    <div class="text-xs font-medium text-slate-400 italic">
+      Feito para facilitar a vida acadêmica.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Lógica de Contagem Avançada
+  const textUtils = {
+    countWords: (text) => {
+      const tokens = text.trim().split(/\s+/);
+      return tokens[0] === "" ? 0 : tokens.length;
+    },
+    countCharacters: (text) => text.length,
+    countCharsNoSpace: (text) => text.replace(/\s+/g, '').length,
+    countSentences: (text) => {
+      // Considera frases terminadas em . ! ?
+      return text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+    },
+    countParagraphs: (text) => {
+      // Considera parágrafos por quebras de linha
+      return text.split(/\n+/).filter(p => p.trim().length > 0).length;
+    },
+    calculateReadingTime: (words) => {
+      // Média de 200 palavras por minuto
+      const wpm = 200;
+      return Math.ceil(words / wpm);
+    }
+  };
+
+  const input = document.getElementById("inputText");
+  const clearBtn = document.getElementById("clearBtn");
+  const copyBtn = document.getElementById("copyBtn");
+
+  const displays = {
+    words: document.getElementById("wordsCount"),
+    chars: document.getElementById("charsCount"),
+    noSpace: document.getElementById("charsNoSpaceCount"),
+    sentences: document.getElementById("sentencesCount"),
+    paragraphs: document.getElementById("paragraphsCount"),
+    time: document.getElementById("readingTime")
+  };
+
+  function update() {
+    const text = input.value;
+    const wordCount = textUtils.countWords(text);
+
+    displays.words.textContent = wordCount;
+    displays.chars.textContent = textUtils.countCharacters(text);
+    displays.noSpace.textContent = textUtils.countCharsNoSpace(text);
+    displays.sentences.textContent = textUtils.countSentences(text);
+    displays.paragraphs.textContent = textUtils.countParagraphs(text);
+    displays.time.textContent = `${textUtils.calculateReadingTime(wordCount)} min`;
+  }
+
+  // Event Listeners
+  input.addEventListener("input", update);
+
+  clearBtn.addEventListener("click", () => {
+    input.value = "";
+    update();
+    input.focus();
+  });
+
+  copyBtn.addEventListener("click", () => {
+    if (!input.value) return;
+    
+    input.select();
+    try {
+      document.execCommand('copy');
+      const originalContent = copyBtn.innerHTML;
+      copyBtn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Texto Copiado!</span>
+      `;
+      copyBtn.classList.replace('bg-indigo-600', 'bg-emerald-600');
+      
+      setTimeout(() => {
+        copyBtn.innerHTML = originalContent;
+        copyBtn.classList.replace('bg-emerald-600', 'bg-indigo-600');
+      }, 2000);
+    } catch (err) {
+      console.error('Erro ao copiar', err);
+    }
+  });
+
+  // Inicialização
+  update();
+</script>
+</body>
+</html>
