@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-<url>
-<loc>https://hiatoliterario.com.br</loc>
-</url>
+  <!-- HOME -->
+  <url>
+    <loc>https://hiatoliterario.com.br/</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <!-- CONTADOR DE PALAVRAS -->
+  <url>
+    <loc>https://hiatoliterario.com.br/tools/contador-palavras-online.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <!-- GERADOR DE CAPA ABNT -->
+  <url>
+    <loc>https://hiatoliterario.com.br/tools/gerador-capa-abnt.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <!-- REFERÊNCIAS ABNT -->
+  <url>
+    <loc>https://hiatoliterario.com.br/tools/referencias-abnt.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
 
 </urlset>
