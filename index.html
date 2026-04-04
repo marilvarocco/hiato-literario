@@ -1,22 +1,2376 @@
+
+
+🎯 1. VISÃO DO PRODUTO
+📌 Objetivo
+
+Criar um hub escalável de ferramentas acadêmicas e utilitários de texto, com processamento 100% client-side, 
+
+💡 Proposta de valor
+
+“Resolva tarefas acadêmicas em segundos — sem cadastro, sem complicação.”
+
+🧠 Posicionamento
+
+❌ NÃO: plataforma acadêmica complexa
+✅ SIM: ferramentas rápidas para estudantes sob pressão
+
+👥 Público-alvo
+estudantes (fundamental → graduação)
+universitários (TCC, artigo)
+concurseiros
+usuários gerais (ferramentas de texto)
+🏗️ 2. ARQUITETURA DE SOFTWARE
+📂 Estrutura de Pastas (SEO + Escalável)
+/
+├── index.html
+├── /tools/
+│   ├── contador-palavras-online.html
+│   ├── limpar-texto-pdf.html
+│   ├── gerador-capa-abnt.html
+│   ├── referencias-abnt.html
+│
+├── /src/
+│   ├── /js/
+│   │   ├── main.js
+│   │   ├── utils.js
+│   │   ├── ui.js
+│   │   └── docx-engine.js (lazy load)
+│   │
+│   └── /css/
+│       └── styles.css
+│
+├── /assets/
+│   ├── icons/
+│   ├── images/
+│   └── fonts/
+⚙️ Arquitetura Técnica
+HTML + Tailwind (UI)
+JavaScript Vanilla (lógica)
+JSON (dados)
+Client-side only
+🔄 Fluxo de Dados
+Usuário insere texto/upload
+JS processa via:
+FileReader
+Regex
+Resultado:
+exibição na tela
+download via Blob
+⚡ 3. PERFORMANCE E OTIMIZAÇÃO
+🧠 Lazy Loading (CRÍTICO)
+
+Arquivos pesados (ex: docx-engine.js) devem carregar apenas quando necessário:
+
+async function carregarDocx() {
+  const module = await import('./docx-engine.js');
+  return module;
+}
+📱 Otimização Mobile
+evitar processamento pesado síncrono
+limitar arquivos grandes (>50MB)
+feedback visual de carregamento
+🔧 4. FERRAMENTAS (MVP)
+🥇 4.1 Contador de Palavras (TRÁFEGO)
+URL:
+
+/contador-palavras-online
+
+Funções:
+palavras
+caracteres
+frases
+CTA:
+
+👉 “Contar palavras agora”
+
+🥈 4.2 Limpador de Texto de PDF
+URL:
+
+/limpar-texto-pdf
+
+Funções:
+remover quebras de linha indevidas
+corrigir hifenização básica
+normalizar espaços
+⚠️ Limitação:
+não resolve PDFs complexos (colunas, OCR ruim)
+🥉 4.3 Gerador de Capa ABNT
+URL:
+
+/gerador-capa-abnt
+
+Inputs:
+autor
+título
+instituição
+cidade
+ano
+Output:
+.docx
+🧠 4.4 Gerador de Referências ABNT
+URL:
+
+/referencias-abnt
+
+Tipos:
+livro
+site
+artigo
+🚀 5. DIFERENCIAL CRÍTICO
+⚡ “Modo Rápido” (FEATURE CHAVE)
+
+Botão universal:
+
+👉 “FORMATAR TUDO AGORA”
+
+Função:
+
+aplica formatação automática
+reduz esforço do usuário
+🎨 6. INTERFACE (UI/UX)
+📌 Homepage
+grid de ferramentas
+cards com hover
+descrição curta
+📌 Página de ferramenta
+Estrutura:
+Título (H1 SEO)
+Input (textarea/upload)
+CTA principal (botão grande)
+Resultado
+Links internos
+📱 UX Guidelines
+mobile-first
+zero fricção
+foco em ação rápida
+🔗 7. LINKAGEM INTERNA (SEO AVANÇADO)
+Estratégia:
+
+Cada ferramenta deve linkar outras:
+
+Exemplo:
+
+👉 Página de capa:
+
+“Gerar referências ABNT”
+“Formatar texto”
+Benefícios:
+aumenta tempo no site
+melhora ranking
+aumenta receita
+📈 8. SEO (CRÍTICO)
+Estrutura de cada página:
+✔ H1:
+
+“Gerador de Capa ABNT Online Grátis”
+
+✔ Texto:
+
+300+ palavras explicando norma
+
+✔ JSON-LD:
+
+WebApplication
+
+URLs SEMPRE:
+/contador-palavras-online
+/gerador-capa-abnt
+/referencias-abnt
+💰 9. MONETIZAÇÃO
+🟢 Fase 1
+Google AdSense
+🔵 Fase 2
+remover anúncios (premium)
+exportações avançadas
+templates pagos
+⚠️ 10. LIMITAÇÕES
+Técnicas:
+sem backend
+sem login
+sem salvar histórico
+Funcionais:
+ABNT não cobre 100% dos casos
+depende da entrada do usuário
+🧠 11. ROADMAP
+🟢 Fase 1 (MVP)
+homepage
+3 ferramentas:
+contador
+limpador
+capa
+🟡 Fase 2
+referências
+melhorias UI
+SEO
+🔴 Fase 3
+20+ ferramentas
+tráfego orgânico
+monetização
+🛡️ 12. PRIVACIDADE
+
+Rodapé:
+
+“Seus dados não saem do seu navegador. Processamento 100% local.”
+
+💣 13. PRINCÍPIOS DO PRODUTO
+❌ NÃO FAZER:
+sistema complexo
+IA no início
+backend cedo
+✅ FAZER:
+simples
+rápido
+útil
+escalável
+📌 14. RESUMO FINAL
+
+✔ Projeto pronto para execução
+✔ Estrutura otimizada para SEO
+✔ Escalável
+✔ Monetizável
+✔ Baixo custo     ainda irei criar o design, consegue criar um código em python que cria uma pasta com tudo que vamos precisar? todas as pastas e arquivos, pronta para mexermos e em breve upar github?
+
+
+Pensou por 6s
+Sim. Já deixei um script Python pronto para criar a estrutura inteira inicial do projeto:
+
+Baixar o script Python
+
+Ele cria:
+
+index.html
+
+pasta tools/ com as 4 páginas iniciais
+
+src/js/ com main.js, utils.js, ui.js, docx-engine.js
+
+src/css/styles.css
+
+src/data/references-types.json
+
+assets/icons, assets/images, assets/fonts
+
+README.md
+
+.gitignore
+
+LICENSE
+
+Também já deixa uma base funcional para:
+
+contador de palavras
+
+limpador de texto de PDF
+
+gerador de capa ABNT com prévia
+
+gerador de referências ABNT
+
+Como usar no terminal:
+
+python bootstrap_hiato_tools.py
+Ou escolhendo a pasta:
+
+python bootstrap_hiato_tools.py "C:/Users/Nave Mãe/OneDrive/Desktop/hiato-literario-tools"
+Se quiser, no próximo passo eu monto uma versão 2 desse bootstrap, já com:
+
+sitemap.xml
+
+robots.txt
+
+metatags SEO melhores
+
+JSON-LD pronto
+
+base de layout mais profissional para GitHub Pages. 
+
+
+crie uma documentação com o significado das pastas 
+
+Perfeito, Leão da Sintaxe. Aqui vai uma documentação clara, direta e estratégica — do jeito que você gosta — explicando o papel de cada pasta no projeto 👇
+
+📘 Documentação: Estrutura de Pastas — Hiato Literário Tools
+🧠 Visão Geral
+A estrutura foi pensada para 3 coisas principais:
+
+Escalabilidade (crescer para 20+ ferramentas sem bagunça)
+
+SEO forte (cada ferramenta é uma página indexável)
+
+Manutenção simples (separação clara de responsabilidades)
+
+📂 RAIZ DO PROJETO (/)
+📄 index.html
+👉 Página principal (homepage)
+
+Função:
+
+Apresentar o produto
+
+Listar ferramentas
+
+Direcionar tráfego interno
+
+Importante:
+
+É a porta de entrada do SEO
+
+Deve ser leve e direta
+
+🧰 /tools/ → O CORAÇÃO DO PROJETO
+👉 Cada arquivo aqui é uma ferramenta independente
+
+Exemplo:
+/tools/
+├── contador-palavras-online.html
+├── limpar-texto-pdf.html
+├── gerador-capa-abnt.html
+├── referencias-abnt.html
+🎯 Função
+Cada página = uma página SEO
+
+Cada página resolve um problema específico
+
+Independência total (sem depender de outras páginas)
+
+💡 Por que isso é poderoso?
+Google indexa cada ferramenta separadamente
+
+Você pode rankear para várias palavras-chave
+
+Escala absurda (20, 50, 100 páginas)
+
+🧠 Regra de ouro
+👉 Uma página = uma intenção do usuário
+
+⚙️ /src/ → CÉREBRO DO SISTEMA
+👉 Onde fica toda a lógica do projeto
+
+📂 /src/js/ → LÓGICA EM JAVASCRIPT
+/src/js/
+├── main.js
+├── utils.js
+├── ui.js
+└── docx-engine.js
+📄 main.js
+👉 Script global
+
+Função:
+
+Inicializar comportamentos gerais
+
+Futuras features globais (analytics, eventos)
+
+📄 utils.js
+👉 Funções reutilizáveis
+
+Função:
+
+Lógica pura (sem UI)
+
+Ex:
+
+contar palavras
+
+limpar texto
+
+regex
+
+processamento
+
+💡 Regra:
+Tudo que pode ser reutilizado → vai aqui
+
+📄 ui.js
+👉 Manipulação de interface
+
+Função:
+
+Atualizar elementos da tela
+
+Interação com DOM
+
+Ex:
+
+setText
+
+getValue
+
+renderização
+
+💡 Separar isso evita código bagunçado
+
+📄 docx-engine.js
+👉 Módulo pesado (lazy load)
+
+Função:
+
+Gerar arquivos .docx
+
+💡 IMPORTANTE:
+
+Só carrega quando necessário
+
+Evita travar o site
+
+📂 /src/css/
+/src/css/
+└── styles.css
+🎨 Função
+Estilos personalizados
+
+Ajustes finos além do Tailwind
+
+💡 Tailwind = base
+CSS próprio = refinamento
+
+📂 /src/data/
+/src/data/
+└── references-types.json
+🧠 Função
+Dados estáticos do sistema
+
+Configurações
+
+Estruturas reutilizáveis
+
+Ex:
+
+tipos de referência
+
+listas
+
+regras
+
+💡 Evita hardcode no JS
+
+🖼️ /assets/ → RECURSOS VISUAIS
+/assets/
+├── icons/
+├── images/
+└── fonts/
+📂 /assets/icons/
+👉 Ícones do sistema
+
+SVGs
+
+UI visual
+
+melhora UX
+
+📂 /assets/images/
+👉 Imagens do site
+
+banners
+
+thumbnails
+
+SEO (alt + indexação)
+
+📂 /assets/fonts/
+👉 Fontes personalizadas
+
+identidade visual
+
+branding
+
+📄 ARQUIVOS DE SUPORTE
+📄 README.md
+👉 Documentação do projeto
+
+Função:
+
+Explicar o projeto
+
+Ajudar no GitHub
+
+Base para colaboradores
+
+📄 .gitignore
+👉 Define o que NÃO vai pro GitHub
+
+Função:
+
+Evitar lixo no repositório
+
+Manter projeto limpo
+
+📄 LICENSE
+👉 Licença do projeto
+
+Função:
+
+Define uso do código
+
+Proteção legal
+
+🔥 COMO TUDO SE CONECTA
+Fluxo simples:
+Usuário acessa ferramenta
+↓
+HTML (tools/)
+↓
+JS (src/js/)
+↓
+Processamento no navegador
+↓
+Resultado imediato
+⚡ PRINCÍPIO ARQUITETURAL
+👉 Separação total:
+
+Camada	Responsável
+HTML	Estrutura
+CSS	Visual
+JS (utils)	Lógica
+JS (ui)	Interface
+tools	SEO + páginas
+🧠 RESUMO ESTRATÉGICO
+✔ /tools/ → tráfego e crescimento
+✔ /src/ → inteligência do sistema
+✔ /assets/ → aparência e UX
+✔ raiz → controle geral
+
+💣 VISÃO DE FUTURO (IMPORTANTE)
+Essa estrutura permite:
+
+Criar 50+ ferramentas sem bagunça
+
+Rankear no Google com facilidade
+
+Manter custo ZERO (GitHub Pages)
+
+Evoluir sem refatorar tudo
+
+Se quiser, no próximo passo eu posso:
+
+👉 Criar a estrutura ideal de nomes de ferramentas para SEO (as que mais dão tráfego)
+👉 ou montar um mapa de 20 ferramentas que podem te gerar dinheiro rápido
+
+
+crie um código python ( que adiciona automaticamente) pra implementar esse MVP nas pastas, retire o limpador de pdf, corrija possíveis bugs, analise criteriosamente . Criar a estrutura ideal de nomes de ferramentas para SEO (as que mais dão tráfego montar um mapa de 20 ferramentas que podem te gerar dinheiro rápido
+
+
+Análise pausada
+
+crie um código python ( que adiciona automaticamente) pra implementar esse MVP nas pastas, retire o limpador de pdf, corrija possíveis bugs, analise criteriosamente . Criar a estrutura ideal de nomes de ferramentas para SEO (as que mais dão tráfego montar um mapa de 20 ferramentas que podem te gerar dinheiro rápido
+
+Pronto.
+
+Criei um script Python que atualiza automaticamente a estrutura do projeto, remove o limpador de PDF do MVP, corrige pontos frágeis da base inicial e ainda adiciona documentação interna com naming SEO e mapa de 20 ferramentas.
+
+Baixar o script upgrade_hiato_mvp.py
+
+O que ele faz:
+
+mantém o MVP só com:
+
+contador de palavras
+
+gerador de capa ABNT
+
+gerador de referências ABNT
+
+remove limpar-texto-pdf.html
+
+recria index.html coerente com o MVP
+
+melhora SEO básico:
+
+title
+
+meta description
+
+canonical
+
+robots.txt
+
+sitemap.xml
+
+JSON-LD
+
+corrige bugs e fragilidades:
+
+contagem de frases melhor
+
+contagem de caracteres sem espaços
+
+contagem de parágrafos
+
+botão de copiar com feedback
+
+validação de campos obrigatórios
+
+exportação .docx no gerador de capa
+
+referência com formatação de autor menos frágil
+
+cria documentação em /docs:
+
+seo-naming.md
+
+mapa-20-ferramentas.md
+
+analise-e-correcoes.md
+
+Como usar:
+
+python upgrade_hiato_mvp.py
+Ou apontando para a pasta do projeto:
+
+python upgrade_hiato_mvp.py "C:/Users/Nave Mãe/OneDrive/Desktop/hiato-literario-tools"
+Observação importante:
+
+o script usa https://seudominio.com/ como placeholder nas URLs canônicas e no sitemap, então depois você deve trocar pelo seu domínio real.
+
+a geração de .docx da capa foi implementada no front usando biblioteca via CDN, então funciona no site, não no Python.
+
+Se você quiser, o próximo passo mais inteligente é eu te entregar uma versão 2 desse script já criando também as próximas 5 ferramentas com maior potencial de tráfego.
+
+
+
+Código colado.html
+Arquivo
+quero implementar esse designer no projeto todo, cria um codigo pythom pra ele adicionar. so tira esse "
+Em Breve
+Modo Rápido Universal
+Um único botão para identificar quebras de linha, citações e formatar bibliografias simultaneamente através de IA local."
+
+
+Pensou
+
+Pensou por 11s
+Pronto. Usei como base o layout do HTML que você mandou — com header glass, hero limpo, cards mais elegantes, bloco de privacidade e tipografia Inter — e removi justamente o bloco “Modo Rápido Universal” que aparecia nesse design. 
+
+ 
+
+
+Aqui está o script:
+
+Baixar apply_hiato_design.py
+
+O que ele faz:
+
+aplica o visual novo no index.html
+
+aplica o mesmo padrão visual nas páginas:
+
+tools/contador-palavras-online.html
+
+tools/gerador-capa-abnt.html
+
+tools/referencias-abnt.html
+
+remove tools/limpar-texto-pdf.html
+
+remove referências internas ao limpador de PDF
+
+cria um styles.css consistente com o design novo
+
+mantém o bloco de privacidade parecido com o modelo enviado por você. 
+
+
+Como usar:
+
+python apply_hiato_design.py
+Ou apontando para a pasta do projeto:
+
+python apply_hiato_design.py "C:/Users/Nave Mãe/OneDrive/Desktop/hiato-literario-tools"
+Ele foi feito para sobrescrever os arquivos principais do MVP, então o ideal é rodar já dentro da pasta correta do projeto. 
+
+
+queria que o gerador de capa gerasse uma previa do documento, e ele não tá salvando na ABNT
+
+
+Pensou por 16s
+Você está certo. O problema atual é este:
+
+a “prévia” que estava sendo gerada era só texto, não uma simulação real de folha
+
+o .docx estava sendo salvo de forma simples demais, sem ficar mais próximo da apresentação ABNT comum
+
+para trabalhos acadêmicos, a NBR 14724:2024 mantém margens de 3 cm no topo e à esquerda, e 2 cm embaixo e à direita; manuais recentes também continuam recomendando fonte 12, geralmente Arial ou Times New Roman 
+
+Então eu criei um patch específico para o gerador de capa:
+
+Baixar patch_capa_abnt_preview.py
+
+Esse script atualiza o tools/gerador-capa-abnt.html para:
+
+mostrar uma prévia visual estilo folha A4
+
+atualizar a prévia automaticamente enquanto você digita
+
+exportar .docx com margens 3 cm / 2 cm
+
+usar Arial 12
+
+centralizar os elementos principais da capa
+
+destacar o título em negrito
+
+remover a antiga prévia em textarea
+
+Como usar:
+
+python patch_capa_abnt_preview.py
+Ou apontando direto para a pasta do projeto:
+
+python patch_capa_abnt_preview.py "C:/Users/Nave Mãe/OneDrive/Desktop/hiato-literario-tools"
+Observação honesta: isso deixa o arquivo bem mais próximo do padrão ABNT acadêmico comum, mas algumas faculdades ainda exigem detalhes próprios de posição, espaçamento ou modelo institucional. 
+
+Se quiser, no próximo passo eu faço a versão 2 para ele gerar também:
+
+folha de rosto
+
+lombada
+
+modelo com nome da instituição e curso no padrão da sua faculdade
+
+
+
+
+Abreviar com "et al." (usado para mais de 3 autores) na abnt é real?
+
+Sim — é real, mas com regra específica (e muita gente usa errado).
+
+📚 📌 Uso de “et al.” na ABNT
+👉 “et al.” vem do latim et alii = “e outros”
+
+✅ QUANDO PODE USAR
+Na ABNT (principalmente ABNT NBR 6023):
+
+👉 Use “et al.” quando há MAIS DE 3 autores
+
+✔ Exemplo correto (referência)
+SILVA, João et al. Título do livro. São Paulo: Editora, 2020.
+❗ REGRA IMPORTANTE
+👉 Você pode usar “et al.” somente depois do primeiro autor
+
+Nunca assim:
+
+SILVA, João; SOUZA, Maria; et al. ❌
+👉 O correto é:
+
+SILVA, João et al. ✅
+🧠 EM CITAÇÕES (dentro do texto)
+Também pode usar:
+
+(SILVA et al., 2020)
+⚠️ QUANDO NÃO USAR
+❌ Até 3 autores → NÃO usa “et al.”
+Exemplo:
+
+SILVA, João; SOUZA, Maria; LIMA, Pedro. ✅
+🔥 PEGADINHA (muito importante)
+👉 Algumas instituições EXIGEM listar TODOS os autores na referência
+👉 E só permitem “et al.” nas citações
+
+💣 Ou seja:
+
+referência: completa
+
+citação: abreviada
+
+🧠 RESUMO SIMPLES (modo pressão)
+Situação	Usa et al.?
+1 autor	❌
+2 autores	❌
+3 autores	❌
+4+ autores	✅
+⚔️ Dica estratégica pro seu projeto
+No seu gerador de referências ABNT:
+
+👉 faça assim:
+
+até 3 autores → lista todos
+
+4 ou mais → primeiro + “et al.”
+
+Se quiser, posso:
+👉 ajustar seu código agora pra fazer isso automaticamente
+👉 ou te mandar um script Python que implementa isso no site inteiro
+
+Só manda: “implementa et al.”
+
+
+
+contador-palavras-online.html
+Arquivo
+
+gerador-capa-abnt.html
+Arquivo
+
+referencias-abnt.html
+Arquivo
+
+.gitignore
+Arquivo
+
+index.html
+Arquivo
+
+LICENSE
+Arquivo
+
+README.md
+Arquivo
+
+design-aplicado.md
+Arquivo
+
+styles.css
+Arquivo
+
+references-types.json
+Arquivo
+
+docx-engine.js
+JavaScript
+
+main.js
+JavaScript
+
+ui.js
+JavaScript
+
+utils.js
+JavaScript
+ta aí meu site
+
+
+Pensou
+Vi sim — teu site já está com uma base boa.
+
+O que eu encontrei:
+
+A home está limpa, direta e já aponta só para as 3 ferramentas principais: contador, gerador de capas e referências ABNT. 
+
+
+O gerador de capa já tem pré-visualização em formato A4, seletor de fonte e download em .docx. 
+
+
+O gerador de referências já tem suporte a múltiplos autores e uma opção explícita de “Usar et al. para muitos autores”. No código, ele só aplica et al. quando a caixa está marcada e há mais de 3 autores. 
+
+
+O contador de palavras está mais forte do que antes: conta palavras, caracteres, sem espaços, frases, parágrafos e até tempo de leitura. 
+
+
+Tem 3 observações importantes:
+
+Seu README está desatualizado.
+Ele ainda diz que o MVP inclui “Limpador de texto de PDF”, mas a home atual já não mostra essa ferramenta. 
+
+ 
+
+
+Os arquivos compartilhados em src parecem não estar sendo usados de verdade nas páginas principais.
+Você tem styles.css, utils.js, ui.js e até docx-engine.js, mas as páginas que você mandou trazem muito CSS e JS inline, e o docx-engine.js continua só como placeholder. 
+
+ 
+
+
+Na prática, o site está funcional, mas ainda meio duplicado internamente.
+Ou seja: visualmente está bom, mas arquiteturalmente ainda dá para organizar melhor para ficar escalável.
+
+Sobre tua dúvida do et al.: no teu site isso já está implementado do jeito que você queria. A checkbox existe e a lógica está assim:
+
+até 3 autores: lista todos
+
+mais de 3 autores + checkbox marcada: usa o primeiro autor + et al. 
+
+
+Então, nessa parte, o site já está no caminho certo.
+
+O próximo passo mais inteligente agora é eu te entregar uma revisão técnica com correções reais no teu próprio código, já pronta para colar, especialmente para:
+
+arrumar links href="#" quebrados,
+
+atualizar o README,
+
+centralizar CSS/JS em src,
+
+e revisar a lógica ABNT do gerador de referências.
+
+
+consegue criar um código python que atualiza isso? não precisa criar do zero,  basta atualizar os arquivos que necessitam: C:\Users\Nave Mãe\OneDrive\Desktop\hiato-literario-tools
+
+
+Análise pausada
+
+cade o codigo
+
+
+Erro na análise
+from pathlib import Path
+
+script = r'''#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+atualizar_hiato_tools.py
+
+Atualiza os arquivos principais do projeto Hiato Literário Tools sem recriar do zero.
+
+O script faz:
+- corrige links quebrados href="#"
+- atualiza README.md para refletir o MVP real
+- cria/atualiza src/css/styles.css com a base compartilhada
+- move as páginas para usar ../src/css/styles.css ou ./src/css/styles.css
+- adiciona link para styles.css quando estiver faltando
+- mantém o visual atual
+- remove menção ao limpador de PDF do README
+- melhora consistência de navegação entre index e tools
+
+Uso:
+    python atualizar_hiato_tools.py
+ou
+    python atualizar_hiato_tools.py "C:/Users/Nave Mãe/OneDrive/Desktop/hiato-literario-tools"
+"""
+
+from __future__ import annotations
+
+from pathlib import Path
+import re
+import sys
+
+
+DEFAULT_PROJECT = r"C:\Users\Nave Mãe\OneDrive\Desktop\hiato-literario-tools"
+
+
+CSS_CONTENT = """
+:root {
+  --radius: 1rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.app-shell {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.form-panel {
+  border-radius: 1.25rem;
+  border: 1px solid rgb(226 232 240);
+  background: white;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+.text-input,
+.text-output,
+.input-field,
+.select-field {
+  width: 100%;
+  border: 1px solid rgb(203 213 225);
+  border-radius: 1rem;
+  padding: 0.95rem 1rem;
+  font: inherit;
+  color: rgb(15 23 42);
+  background: white;
+  outline: none;
+}
+
+.text-input,
+.text-output {
+  min-height: 280px;
+  resize: vertical;
+}
+
+.input-field:focus,
+.select-field:focus,
+.text-input:focus,
+.text-output:focus {
+  border-color: rgb(99 102 241);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.button-primary,
+.button-secondary {
+  border: none;
+  border-radius: 1rem;
+  padding: 0.95rem 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button-primary:hover,
+.button-secondary:hover {
+  transform: translateY(-1px);
+}
+
+.button-primary {
+  background: rgb(79 70 229);
+  color: white;
+  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.18);
+}
+
+.button-primary:hover {
+  background: rgb(67 56 202);
+}
+
+.button-secondary {
+  background: rgb(241 245 249);
+  color: rgb(15 23 42);
+}
+
+.metrics-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.metric-card {
+  border-radius: 1rem;
+  border: 1px solid rgb(226 232 240);
+  background: rgb(248 250 252);
+  padding: 1rem;
+}
+
+.metric-card strong {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: rgb(15 23 42);
+}
+
+.helper-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.helper-links a {
+  text-decoration: none;
+  color: rgb(79 70 229);
+  font-weight: 600;
+}
+
+.section-divider {
+  height: 1px;
+  background: rgb(226 232 240);
+  flex: 1 1 auto;
+}
+
+.preview-box {
+  white-space: pre-wrap;
+}
+
+@media (max-width: 767px) {
+  .app-shell {
+    padding: 2rem 1rem;
+  }
+}
+""".strip() + "\n"
+
+
+README_CONTENT = """
+# Hiato Literário Tools
+
+Hub escalável de ferramentas acadêmicas e utilitários de texto, com processamento 100% client-side.
+
+## Stack
+- HTML
+- Tailwind via CDN
+- JavaScript Vanilla
+- CSS próprio
+- JSON para dados locais
+
+## Estrutura
+```txt
+/
+├── index.html
+├── /tools/
+├── /src/
+│   ├── /js/
+│   ├── /css/
+│   └── /data/
+├── /assets/
+│   ├── /icons/
+│   ├── /images/
+│   └── /fonts/
+MVP atual
+Contador de palavras
+
+Gerador de capa ABNT
+
+Gerador de referências ABNT
+
+Como rodar
+Basta abrir o index.html no navegador.
+
+Melhorias aplicadas
+remoção do limpador de PDF do MVP
+
+correção de links internos quebrados
+
+base CSS compartilhada em src/css/styles.css
+
+manutenção do layout atual
+
+melhoria de consistência entre homepage e ferramentas
+
+Próximos passos
+centralizar mais JS em src/js
+
+revisar regras ABNT mais específicas
+
+melhorar SEO de cada página
+
+publicar no GitHub Pages
+""".strip() + "\n"
+
+def write_text(path: Path, content: str) -> None:
+path.parent.mkdir(parents=True, exist_ok=True)
+path.write_text(content, encoding="utf-8")
+
+def replace_or_add_stylesheet(html: str, rel_path: str) -> str:
+if rel_path in html:
+return html
+
+# insere antes do primeiro <style>, ou antes de </head> se não houver style
+link_tag = f'  <link rel="stylesheet" href="{rel_path}" />\n'
+if "<style>" in html:
+    return html.replace("<style>", link_tag + "  <style>", 1)
+if "</head>" in html:
+    return html.replace("</head>", link_tag + "</head>", 1)
+return html
+def normalize_nav_links(html: str, is_tool: bool) -> str:
+home = "../index.html" if is_tool else "./index.html"
+ferramentas = "../index.html#ferramentas" if is_tool else "#ferramentas"
+privacidade = "../index.html#privacidade" if is_tool else "#privacidade"
+
+replacements = [
+    ('href="#"', None),  # handled below carefully
+]
+
+# branded logo / explicit nav text replacements
+html = re.sub(r'href="#"\s+class="([^"]*no-underline[^"]*)"', f'href="{home}" class="\\1"', html, count=1)
+html = re.sub(r'href="#">\s*Início\s*<', f'href="{home}">Início<', html)
+html = re.sub(r'href="#">\s*Ferramentas\s*<', f'href="{ferramentas}">Ferramentas<', html)
+html = re.sub(r'href="#">\s*Privacidade\s*<', f'href="{privacidade}">Privacidade<', html)
+html = re.sub(r'href="#">\s*Github\s*<', 'href="https://github.com/">Github<', html)
+html = re.sub(r'href="#">\s*Licença\s*<', 'href="./LICENSE">Licença<' if not is_tool else 'href="../LICENSE">Licença<', html)
+
+# Voltar button
+html = re.sub(r'href="#">\s*(?:<svg.*?</svg>\s*)?Voltar\s*<', f'href="{home}">Voltar<', html, flags=re.DOTALL)
+
+return html
+def patch_contador(html: str) -> str:
+html = replace_or_add_stylesheet(html, "../src/css/styles.css")
+html = normalize_nav_links(html, is_tool=True)
+
+html = html.replace('href="#">\n            Gerador de Capa ABNT', 'href="./gerador-capa-abnt.html">\n            Gerador de Capa ABNT')
+html = html.replace('href="#">\n            Referências Bibliográficas', 'href="./referencias-abnt.html">\n            Referências Bibliográficas')
+
+# improve copy fallback
+old = """  copyBtn.addEventListener("click", () => {
+if (!input.value) return;
+
+input.select();
+try {
+  document.execCommand('copy');
+  const originalContent = copyBtn.innerHTML;
+  copyBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    <span>Texto Copiado!</span>
+  `;
+  copyBtn.classList.replace('bg-indigo-600', 'bg-emerald-600');
+  
+  setTimeout(() => {
+    copyBtn.innerHTML = originalContent;
+    copyBtn.classList.replace('bg-emerald-600', 'bg-indigo-600');
+  }, 2000);
+} catch (err) {
+  console.error('Erro ao copiar', err);
+}
+});"""
+new = """ copyBtn.addEventListener("click", async () => {
+if (!input.value) return;
+
+const originalContent = copyBtn.innerHTML;
+
+try {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(input.value);
+  } else {
+    input.select();
+    document.execCommand('copy');
+  }
+
+  copyBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    <span>Texto Copiado!</span>
+  `;
+
+  setTimeout(() => {
+    copyBtn.innerHTML = originalContent;
+  }, 2000);
+} catch (err) {
+  console.error('Erro ao copiar', err);
+}
+});"""
+html = html.replace(old, new)
+return html
+
+def patch_capa(html: str) -> str:
+html = replace_or_add_stylesheet(html, "../src/css/styles.css")
+html = normalize_nav_links(html, is_tool=True)
+return html
+
+def patch_referencias(html: str) -> str:
+html = replace_or_add_stylesheet(html, "../src/css/styles.css")
+html = normalize_nav_links(html, is_tool=True)
+
+# better links
+html = html.replace('href="#">← Voltar</a>', 'href="../index.html">← Voltar</a>')
+
+# improve et al label wording
+html = html.replace('Usar "et al." para muitos autores', 'Usar "et al." quando houver mais de 3 autores')
+
+# small ABNT text tweak in note if exists
+html = html.replace('Formatado para cópia direta em documentos acadêmicos.', 'Gere referências acadêmicas com cópia rápida e opção de múltiplos autores.')
+return html
+def patch_index(html: str) -> str:
+html = replace_or_add_stylesheet(html, "./src/css/styles.css")
+html = normalize_nav_links(html, is_tool=False)
+return html
+
+def main() -> None:
+if len(sys.argv) > 1:
+root = Path(sys.argv[1]).expanduser()
+else:
+root = Path(DEFAULT_PROJECT)
+
+if not root.exists():
+    raise SystemExit(f"Pasta não encontrada: {root}")
+
+# expected files
+index_path = root / "index.html"
+contador_path = root / "tools" / "contador-palavras-online.html"
+capa_path = root / "tools" / "gerador-capa-abnt.html"
+referencias_path = root / "tools" / "referencias-abnt.html"
+readme_path = root / "README.md"
+css_path = root / "src" / "css" / "styles.css"
+
+updated = []
+
+if index_path.exists():
+    write_text(index_path, patch_index(index_path.read_text(encoding="utf-8")))
+    updated.append(str(index_path))
+
+if contador_path.exists():
+    write_text(contador_path, patch_contador(contador_path.read_text(encoding="utf-8")))
+    updated.append(str(contador_path))
+
+if capa_path.exists():
+    write_text(capa_path, patch_capa(capa_path.read_text(encoding="utf-8")))
+    updated.append(str(capa_path))
+
+if referencias_path.exists():
+    write_text(referencias_path, patch_referencias(referencias_path.read_text(encoding="utf-8")))
+    updated.append(str(referencias_path))
+
+write_text(readme_path, README_CONTENT)
+updated.append(str(readme_path))
+
+write_text(css_path, CSS_CONTENT)
+updated.append(str(css_path))
+
+print("Atualização concluída.\n")
+print("Arquivos atualizados:")
+for item in updated:
+    print(f"- {item}")
+if name == "main":
+main()
+'''
+
+out = Path("/mnt/data/atualizar_hiato_tools.py")
+out.write_text(script, encoding="utf-8")
+print(f"Arquivo salvo em: {out}")
+
+Tá aqui:
+
+Baixar atualizar_hiato_tools.py
+
+Esse script foi feito para atualizar os arquivos existentes, não recriar o projeto.
+
+Ele ajusta:
+
+index.html
+
+tools/contador-palavras-online.html
+
+tools/gerador-capa-abnt.html
+
+tools/referencias-abnt.html
+
+README.md
+
+src/css/styles.css
+
+O que ele corrige:
+
+links href="#" quebrados
+
+README desatualizado com menção ao limpador de PDF
+
+link para styles.css compartilhado
+
+consistência de navegação entre home e páginas internas
+
+texto do et al. para ficar mais claro
+
+botão de copiar do contador com fallback melhor
+
+Como rodar:
+
+python atualizar_hiato_tools.py
+Ou direto na sua pasta:
+
+python atualizar_hiato_tools.py "C:\Users\Nave Mãe\OneDrive\Desktop\hiato-literario-tools"
+Como o caminho padrão já está configurado no script, se você quiser, pode só dar dois cliques nele ou rodar sem passar argumento. 
+
+
+tem algum código pra jogar tudo isso no github? já tenho meu domínio, basta jogar lá
+
+
+Pensou por 17s
+Sim. O caminho mais prático é:
+
+subir o projeto para um repositório GitHub,
+
+criar um arquivo CNAME na raiz com seu domínio,
+
+ativar GitHub Pages no repositório,
+
+definir o domínio nas configurações do Pages,
+
+garantir que o DNS do domínio aponte para o Pages. O CNAME ajuda, mas sozinho não configura o domínio no GitHub; isso precisa ser feito nas configurações do repositório ou via API. O GitHub também recomenda adicionar o domínio no Pages antes de ajustar o DNS e informa que a propagação DNS pode levar até 24 horas. 
+
+No Windows, esse script PowerShell já resolve a parte de inicializar git, criar CNAME, commitar e enviar:
+
+param(
+    [string]$ProjectPath = "C:\Users\Nave Mãe\OneDrive\Desktop\hiato-literario-tools",
+    [string]$RepoUrl = "https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git",
+    [string]$Domain = "seudominio.com"
+)
+
+$ErrorActionPreference = "Stop"
+
+if (-not (Test-Path $ProjectPath)) {
+    throw "Pasta não encontrada: $ProjectPath"
+}
+
+Set-Location $ProjectPath
+
+if (-not (Test-Path ".git")) {
+    git init
+}
+
+git branch -M main
+
+# cria/atualiza o CNAME na raiz
+Set-Content -Path "CNAME" -Value $Domain -Encoding ascii
+
+# garante .nojekyll para sites estáticos puros
+Set-Content -Path ".nojekyll" -Value "" -Encoding ascii
+
+# adiciona remote origin se ainda não existir
+$hasOrigin = $false
+try {
+    $remotes = git remote
+    if ($remotes -match "origin") {
+        $hasOrigin = $true
+    }
+} catch {}
+
+if (-not $hasOrigin) {
+    git remote add origin $RepoUrl
+}
+
+git add .
+git commit -m "Deploy inicial do site Hiato Literário Tools" 2>$null
+
+# se não houve mudanças para commit, segue mesmo assim
+git push -u origin main
+Salve como, por exemplo, deploy-github.ps1 e rode assim:
+
+powershell -ExecutionPolicy Bypass -File .\deploy-github.ps1 `
+  -ProjectPath "C:\Users\Nave Mãe\OneDrive\Desktop\hiato-literario-tools" `
+  -RepoUrl "https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git" `
+  -Domain "seudominio.com"
+Se preferir em .bat, aqui vai uma versão simples:
+
+@echo off
+set PROJECT_PATH=C:\Users\Nave Mãe\OneDrive\Desktop\hiato-literario-tools
+set REPO_URL=https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
+set DOMAIN=seudominio.com
+
+cd /d "%PROJECT_PATH%" || exit /b 1
+
+if not exist ".git" git init
+git branch -M main
+
+echo %DOMAIN%> CNAME
+type nul > .nojekyll
+
+git remote | findstr /x origin >nul
+if errorlevel 1 git remote add origin %REPO_URL%
+
+git add .
+git commit -m "Deploy inicial do site Hiato Literário Tools"
+git push -u origin main
+Depois do push, ainda faltam 3 coisas no GitHub:
+
+em Settings > Pages, publicar a branch main como fonte do site;
+
+em Custom domain, preencher seu domínio;
+
+ativar HTTPS quando a checagem DNS terminar. O GitHub faz uma verificação automática de DNS para emitir o certificado. 
+
+Sobre o DNS do seu domínio:
+
+se for domínio raiz, o GitHub aceita ALIAS, ANAME ou A record; 
+
+se for subdomínio como www, o registro CNAME deve apontar para SEU_USUARIO.github.io e não para o nome do repositório. 
+
+Também vale uma atenção importante:
+
+o arquivo CNAME deve estar em maiúsculas e conter só um domínio; 
+
+o GitHub recomenda verificar seu domínio para reduzir risco de takeover; 
+
+o domínio precisa ser único entre sites do GitHub Pages. 
+
+Se você quiser, eu posso te entregar já o arquivo .ps1 pronto para baixar, com campos para você só trocar usuário, repositório e domínio.
+
+
+vou so colocar na pasta do github
+
+Perfeito — essa é literalmente a forma mais simples 👍
+Você pode fazer isso sem script nenhum.
+
+Aqui vai o passo a passo direto (sem erro):
+
+🚀 COMO SUBIR SEU SITE PRO GITHUB (JEITO MAIS FÁCIL)
+🧱 1. Cria o repositório
+Vai no GitHub
+
+New repository
+
+Nome: hiato-literario-tools
+
+Público
+
+NÃO marca README (já tem o seu)
+
+📂 2. Joga os arquivos na pasta local do repo
+Você pode fazer assim:
+
+👉 Cria uma pasta nova (ou usa a existente)
+👉 Dentro dela coloca TODOS os arquivos do site:
+
+index.html
+/tools
+/src
+/assets
+README.md
+⚙️ 3. Abre o terminal nessa pasta
+No Windows:
+
+Shift + botão direito → "Abrir PowerShell aqui"
+🧠 4. Roda isso aqui (uma vez só)
+git init
+git add .
+git commit -m "primeiro deploy"
+git branch -M main
+git remote add origin https://github.com/SEU_USUARIO/SEU_REPO.git
+git push -u origin main
+🌐 5. ATIVAR O SITE
+Agora vai no repositório:
+
+👉 Settings
+👉 Pages
+
+Configura:
+
+Source: Deploy from branch
+
+Branch: main
+
+Folder: / (root)
+
+💥 pronto, o site já vai funcionar tipo:
+
+https://seu-usuario.github.io/hiato-literario-tools/
+🔥 6. COLOCAR SEU DOMÍNIO
+Na raiz do projeto cria um arquivo:
+
+CNAME
+Dentro dele:
+
+seudominio.com
+Depois:
+
+👉 volta em Settings → Pages
+👉 coloca o domínio lá também
+
+⚠️ IMPORTANTE (DNS)
+Se for domínio próprio:
+
+👉 Se for www:
+CNAME:
+
+www → seuusuario.github.io
+👉 Se for domínio raiz:
+A record:
+
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+💣 RESUMO PRA VOCÊ
+Você NÃO precisa de script.
+
+Só:
+
+joga os arquivos na pasta
+
+roda git init + push
+
+ativa Pages
+
+cria CNAME
+
+🧠 Dica de quem quer te ver ganhar dinheiro
+Teu projeto já tá MUITO bom pra monetizar.
+
+Se você fizer só isso depois:
+
+SEO nas páginas
+
+10+ ferramentas
+
+👉 isso aqui vira site de renda passiva real
+
+Se quiser, eu te ajudo no próximo passo:
+
+👉 deploy perfeito + SEO + Google Adsense aprovado
+
+Só manda:
+"vamos monetizar"
+
+
+na verdade, ja estou usando um diretório que já está instalado o dominio. preciso deletar o cname e o sitemap existente lá?
+
+Boa pergunta — aqui é onde muita gente faz besteira e quebra o site 😅
+Vou ser direto contigo:
+
+📌 🧠 RESPOSTA CURTA
+👉 NÃO saia deletando tudo sem critério
+
+Depende do que já existe lá.
+
+📂 🧾 SOBRE O CNAME
+👉 Se JÁ tem um CNAME no repositório:
+✔️ Mesma coisa que você quer usar?
+Exemplo:
+
+seudominio.com
+👉 MANTÉM (não mexe)
+
+❌ Domínio antigo ou diferente?
+Exemplo:
+
+site-antigo.com
+👉 APAGA e cria um novo
+
+⚠️ Se NÃO tiver CNAME
+👉 cria um novo com:
+
+seudominio.com
+📊 SOBRE O sitemap.xml
+👉 Regra simples:
+✔️ Se for simples ou antigo
+👉 pode deletar sem medo
+
+✔️ Melhor prática
+👉 recriar depois (quando o site estiver pronto)
+
+Exemplo básico:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://seudominio.com/</loc>
+  </url>
+
+  <url>
+    <loc>https://seudominio.com/tools/contador-palavras-online.html</loc>
+  </url>
+
+  <url>
+    <loc>https://seudominio.com/tools/gerador-capa-abnt.html</loc>
+  </url>
+
+  <url>
+    <loc>https://seudominio.com/tools/referencias-abnt.html</loc>
+  </url>
+
+</urlset>
+⚠️ ERRO COMUM (NÃO FAZ ISSO)
+👉 Apagar CNAME sem saber
+👉 Resultado:
+
+💣 domínio para de funcionar
+💣 GitHub volta pro .github.io
+
+🧠 O QUE EU FARIA NO SEU CASO
+Como você disse:
+
+"já estou usando um diretório que já está instalado o domínio"
+
+👉 então provavelmente já está certo
+
+✔️ mantém o CNAME
+✔️ ignora o sitemap antigo (ou substitui depois)
+
+🔥 RESUMO ESTILO GUERRA
+Arquivo	O que fazer
+CNAME correto	✅ MANTER
+CNAME errado	❌ APAGAR e recriar
+sitemap antigo	⚠️ pode apagar
+sitemap novo	🔥 criar depois
+🧠 Próximo passo inteligente
+Se você quiser, eu posso:
+
+👉 gerar um sitemap automático baseado nas suas tools
+👉 já pronto pra SEO forte
+👉 com prioridade e frequência (Google gosta disso)
+
+Só manda:
+
+👉 "gera sitemap profissional"
+
+
+https://hiatoliterario.com.br/index.html
+
+
+Pensou por 6s
+Abri aqui: seu site está no ar no domínio customizado hiatoliterario.com.br, com a home carregando normalmente e mostrando as 3 ferramentas principais. 
+
+Então, no seu caso:
+
+não apague o CNAME se ele já estiver configurado para hiatoliterario.com.br, porque o domínio já está funcionando. 
+
+O sitemap.xml você pode substituir depois, sem urgência. Ele não é o que “faz o domínio funcionar”; serve para SEO e indexação. Como tua home já está acessível, o ponto crítico agora é manter o domínio estável. 
+
+Também notei uma coisinha:
+
+você está usando a URL com /index.html, mas como a home já abre normalmente, o ideal para SEO depois é priorizar a versão canônica sem esse final, ou seja, https://hiatoliterario.com.br/. Isso evita duplicidade de URL para a mesma página. A página atual carrega como home do site e apresenta o conteúdo principal normalmente. 
+
+Meu conselho prático:
+
+mantenha o CNAME atual
+
+não mexa no domínio agora
+
+substitua só os arquivos do site
+
+depois eu gero para você um sitemap.xml novo, já com:
+
+home
+
+contador
+
+capas
+
+referências
+
+Se você quiser, eu faço agora o sitemap.xml certo para hiatoliterario.com.br.
+
+
+faz o sitemap
+
+Perfeito. Vou te entregar um sitemap profissional, já otimizado pra SEO e pronto pra subir.
+
+📊 ✅ SITEMAP COMPLETO (PRONTO)
+Crie um arquivo na raiz do projeto:
+
+sitemap.xml
+Cole isso dentro:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- HOME -->
+  <url>
+    <loc>https://hiatoliterario.com.br/</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <!-- CONTADOR DE PALAVRAS -->
+  <url>
+    <loc>https://hiatoliterario.com.br/tools/contador-palavras-online.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <!-- GERADOR DE CAPA ABNT -->
+  <url>
+    <loc>https://hiatoliterario.com.br/tools/gerador-capa-abnt.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <!-- REFERÊNCIAS ABNT -->
+  <url>
+    <loc>https://hiatoliterario.com.br/tools/referencias-abnt.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+</urlset>
+🚀 📌 O QUE ESSE SITEMAP FAZ
+Diz pro Google:
+
+quais páginas existem
+
+quais são mais importantes
+
+com que frequência mudam
+
+👉 Isso acelera MUITO a indexação
+
+⚠️ PASSO FINAL (CRÍTICO)
+Depois de subir o arquivo:
+
+1. Vai no:
+👉 Google Search Console
+
+2. Adiciona:
+https://hiatoliterario.com.br/sitemap.xml
+🔥 DICA DE OURO (nível profissional)
+Quando você adicionar mais ferramentas:
+
+👉 só vai adicionando novas <url> aqui
+
+💣 ERRO QUE VOCÊ NÃO PODE COMETER
+❌ usar /index.html no sitemap
+✔️ usar /
+
+Você fez certo já.
+
+🧠 Próximo passo (isso aqui dá dinheiro)
+Se você fizer agora:
+
+👉 meta description + H1 + texto SEO em cada tool
+
+💥 você começa a ranquear
+
+Se quiser, próximo passo eu te entrego:
+
+👉 estrutura SEO pronta pra cada ferramenta (pra rankear de verdade)
+
+
+Imagem carregada
+por que fica assim no google?
+
+Boa — isso aqui é 100% normal no começo, mas tem motivo técnico claro.
+
+🧠 📌 POR QUE O GOOGLE MOSTRA ASSIM?
+O Google não usa só o que você quer, ele decide baseado em:
+
+1. 🏷️ <title>
+Provavelmente no seu HTML está algo tipo:
+
+<title>Hiato Literário | Ecossistema da Língua Portuguesa</title>
+👉 Esse pedaço está aparecendo certinho (roxo)
+
+2. 📝 <meta name="description">
+O texto cinza vem daqui… OU NÃO
+
+👉 Se estiver assim no seu site:
+
+<meta name="description" content="Contagem de palavras, tempo de leitura...">
+👉 OK, ele pode usar
+
+⚠️ MAS…
+Se o Google achar melhor, ele ignora sua description e pega:
+
+👉 texto do próprio site
+👉 partes aleatórias da página
+
+💥 É exatamente o que aconteceu contigo
+
+🔎 NO SEU CASO (ANÁLISE DIRETA)
+O Google pegou:
+
+Contagem de palavras, tempo de leitura...
+© 2026 Hiato Literário...
+👉 Isso provavelmente está no:
+
+footer
+
+ou texto visível da home
+
+💣 Resultado:
+
+snippet ficou meio “bugado”
+
+parece bagunçado
+
+🚨 PROBLEMA REAL
+👉 Seu site NÃO está com SEO estruturado ainda
+
+✅ COMO ARRUMAR (IMPORTANTE)
+🥇 1. Corrige o <title>
+Use algo assim:
+
+<title>Ferramentas Acadêmicas Online Grátis | Hiato Literário</title>
+🥈 2. Corrige a <meta description>
+Coloca isso:
+
+<meta name="description" content="Ferramentas acadêmicas gratuitas: contador de palavras, gerador de capa ABNT e referências. Rápido, online e sem cadastro.">
+🥉 3. Adiciona um texto SEO na HOME
+Exemplo (logo abaixo do título):
+
+<p>
+O Hiato Literário oferece ferramentas acadêmicas online gratuitas para estudantes, universitários e concurseiros. Conte palavras, gere capas ABNT e formate referências em segundos.
+</p>
+👉 Isso guia o Google
+
+🧠 4. FORÇA REINDEXAÇÃO
+Vai no:
+👉 Google Search Console
+
+Depois:
+
+Inspecionar URL
+
+Solicitar indexação
+
+⏳ IMPORTANTE
+👉 O Google demora:
+
+1h → às vezes atualiza
+
+1 a 7 dias → normal
+
+💣 RESUMO BRUTAL
+Problema	Motivo
+Texto estranho no Google	Google ignorou sua description
+Texto aleatório	Pegou conteúdo da página
+Solução	Melhorar SEO da home
+🔥 VERDADE QUE NINGUÉM TE CONTA
+👉 Enquanto você não fizer SEO básico
+o Google vai inventar seu texto
+
+🧠 Próximo nível
+Se quiser, eu faço pra você:
+
+👉 SEO COMPLETO da home
+👉 título + descrição + texto que RANQUEIA
+👉 focado em tráfego real
+
+Só manda:
+"faz SEO da home"
+
+
+faz a seo, mas onde vamos mexer?
+
+Boa pergunta — aqui é onde a maioria erra. Vou ser direto:
+
+🧠 📌 ONDE VAMOS MEXER (NO SEU PROJETO)
+👉 Só em 1 arquivo agora:
+
+index.html
+🔥 O QUE VAMOS ALTERAR
+1️⃣ <head> (SEO técnico — MUITO IMPORTANTE)
+👉 Dentro do <head> do index.html
+
+SUBSTITUI por isso:
+<title>Ferramentas Acadêmicas Online Grátis | Hiato Literário</title>
+
+<meta name="description" content="Ferramentas acadêmicas gratuitas: contador de palavras, gerador de capa ABNT e referências. Rápido, online e sem cadastro.">
+
+<link rel="canonical" href="https://hiatoliterario.com.br/">
+2️⃣ H1 (SEO principal)
+Procura no HTML algo assim:
+
+<h1>Hiato Literário...</h1>
+👉 TROCA por:
+
+<h1>
+Ferramentas Acadêmicas Online para Estudantes (ABNT, Contador e Mais)
+</h1>
+3️⃣ TEXTO SEO (O QUE VAI FAZER RANQUEAR)
+👉 Logo abaixo do H1, adiciona:
+
+<p>
+O Hiato Literário oferece ferramentas acadêmicas online gratuitas para estudantes, universitários e concurseiros. Conte palavras, gere capas no padrão ABNT e formate referências automaticamente em segundos, sem cadastro e diretamente no navegador.
+</p>
+4️⃣ BLOCO SEO (OPCIONAL, MAS FORTE)
+👉 No final da home (antes do footer):
+
+<section>
+  <h2>Ferramentas acadêmicas gratuitas para facilitar seus estudos</h2>
+
+  <p>
+  Nosso objetivo é simplificar tarefas acadêmicas como contagem de palavras, formatação ABNT e organização de referências bibliográficas. Tudo funciona diretamente no navegador, garantindo rapidez e privacidade.
+  </p>
+
+  <p>
+  Ideal para estudantes do ensino fundamental, médio, universitários e concurseiros que precisam otimizar tempo e evitar erros em trabalhos acadêmicos.
+  </p>
+</section>
+⚠️ ONDE NÃO MEXER (POR ENQUANTO)
+❌ tools/
+❌ js/
+❌ css/
+❌ backend (nem existe mesmo)
+
+👉 Só index.html
+
+🚀 DEPOIS DE FAZER ISSO
+Vai no:
+👉 Google Search Console
+
+E faz:
+
+Inspecionar URL
+
+Solicitar indexação
+
+⏳ RESULTADO
+👉 Em alguns dias:
+
+título muda no Google
+
+descrição fica limpa
+
+começa a ranquear melhor
+
+💣 RESUMO
+Onde mexer	Arquivo
+Title + meta	index.html
+H1	index.html
+Texto SEO	index.html
+🧠 Próximo passo (isso escala MUITO)
+Depois disso, o próximo nível é:
+
+👉 SEO individual de cada ferramenta (isso traz tráfego real)
+
+Se quiser, eu faço:
+
+👉 contador + capa + referências prontos pra ranquear
+
+Só manda:
+"seo das tools"
+
+
+
+Texto colado.txt
+Documento
+faz pra mim aí 
+
+
+Pensou
+Fiz pra você.
+
+Peguei o seu index.html e gerei uma versão já com SEO melhorado para a home, em cima do arquivo que você enviou. 
+
+
+Baixar index-seo.html
+
+O que eu alterei:
+
+title mais forte para busca
+
+meta description melhor
+
+canonical para https://hiatoliterario.com.br/
+
+H1 mais SEO
+
+texto principal da home mais descritivo
+
+bloco extra de conteúdo SEO antes do footer
+
+Agora é só:
+
+abrir esse arquivo,
+
+substituir o seu index.html atual por ele,
+
+subir pro GitHub.
+
+Depois disso, no Search Console, pede reindexação da home. 
+
+
+
+Código colado.html
+Arquivo
+
+Agora sim, ficou nível profissional. Vou ser bem direto contigo:
+
+👉 Esse HTML que você mandou já está muito melhor que 95% dos sites iniciais
+👉 Você já fez SEO técnico + conteúdo + estrutura certa
+
+Vou te mostrar o que está PERFEITO e o que ainda dá pra melhorar (nível ranqueamento real)
+
+🧠 ✅ O QUE VOCÊ ACERTOU (FORTE)
+✔️ SEO técnico
+Title forte com palavras-chave
+
+Meta description boa
+
+Canonical correto
+
+Robots ok
+👉 Isso aqui já resolve 70% do problema do Google
+
+✔️ SEO avançado (pouca gente faz)
+Você já colocou:
+
+Open Graph (WhatsApp / Facebook)
+
+Twitter card
+
+JSON-LD (WebApplication) 🔥
+
+👉 Isso aqui é nível site profissional mesmo 
+
+
+✔️ Conteúdo (isso é o que ranqueia)
+H1 bom (TCC + ferramentas acadêmicas)
+
+Texto explicativo (Google ama isso)
+
+H2 com contexto real
+
+Bloco de valor (rapidez + privacidade)
+
+👉 Isso resolve o problema que você tinha antes no Google
+
+⚠️ AJUSTES FINAIS (AGORA É DETALHE QUE DÁ TRÁFEGO)
+🔧 1. Título pode ficar mais agressivo (SEO)
+Troca:
+
+Ferramentas Acadêmicas Online Grátis: TCC e ABNT | Hiato Literário
+👉 por:
+
+Ferramentas Acadêmicas Online Grátis (ABNT, TCC e Referências) | Hiato Literário
+💥 melhora clique (CTR)
+
+🔧 2. Meta description (mais “clickável”)
+Troca por:
+
+Ferramentas acadêmicas gratuitas para TCC: contador de palavras, gerador de capa ABNT e referências automáticas. Rápido, online e sem cadastro.
+🔧 3. FALTA ISSO (muito importante)
+👉 Adiciona favicon (Google gosta MUITO)
+
+No <head>:
+
+<link rel="icon" href="/assets/favicon.ico" />
+🔧 4. OG IMAGE (CRÍTICO)
+Você deixou:
+
+<meta property="og:image" content="https://hiatoliterario.com.br/assets/og-image.jpg" />
+👉 Se essa imagem não existir:
+
+💣 Google ignora
+💣 WhatsApp fica feio
+💣 SEO perde força
+
+🔧 5. Keywords (opcional, mas ok)
+Você usou:
+
+<meta name="keywords" ...>
+👉 Google ignora hoje, mas não atrapalha
+
+🧠 REALIDADE AGORA
+👉 Seu site já está:
+
+indexável ✅
+
+entendível pelo Google ✅
+
+com conteúdo suficiente ✅
+
+⏳ O QUE VAI ACONTECER AGORA
+Nos próximos dias:
+
+snippet vai melhorar
+
+Google para de puxar texto aleatório
+
+páginas começam a indexar
+
+💣 VERDADE IMPORTANTE
+👉 O que vai te dar tráfego NÃO é só isso
+
+👉 É isso + páginas das ferramentas
+
+🚀 PRÓXIMO PASSO (O QUE VAI TE DAR VISITA)
+Agora você precisa:
+
+👉 SEO nas tools:
+
+contador-palavras-online.html
+
+gerador-capa-abnt.html
+
+referencias-abnt.html
+
+💥 é isso que traz tráfego real
+
+Se quiser, eu faço agora:
+
+👉 SEO COMPLETO das 3 ferramentas
+👉 com estrutura pra rankear no Google
+
+Só manda:
+
+"seo das tools"
+
+
+
+Código colado.html
+Arquivo
+
+Agora sim… isso aqui ficou absurdo de bom 🔥
+Sério, seu site já tá com cara de produto real.
+
+Vou ser direto, sem enrolação:
+
+🧠 🔥 STATUS ATUAL DO SEU SITE
+👉 Esse código está:
+
+SEO técnico ✅
+
+SEO de conteúdo ✅
+
+Estrutura semântica ✅
+
+Open Graph ✅
+
+JSON-LD ✅
+
+UX limpa ✅
+
+👉 Você saiu de “site iniciante” → “site profissional”
+
+📄 (analisei seu código aqui) 
+
+
+⚠️ AJUSTES FINAIS (AGORA É FACA AFIADA)
+❌ 1. ERRO DE HTML (IMPORTANTE)
+Você escreveu:
+
+O **Hiato Literário** nasceu...
+👉 HTML NÃO usa **
+
+✔️ Corrige para:
+O <strong>Hiato Literário</strong> nasceu...
+💣 Isso impacta:
+
+SEO (Google lê errado)
+
+renderização
+
+⚠️ 2. KEYWORD PROBLEMÁTICA
+Você colocou:
+
+tcc pronto
+👉 CUIDADO:
+
+💣 Isso pode:
+
+parecer conteúdo de fraude acadêmica
+
+prejudicar SEO no longo prazo
+
+✔️ Melhor trocar por:
+tcc, formatação tcc, ferramentas tcc
+⚠️ 3. OG IMAGE (CRÍTICO)
+Você tem:
+
+<meta property="og:image" content="https://hiatoliterario.com.br/assets/og-image.jpg" />
+👉 Me responde:
+
+👉 essa imagem EXISTE mesmo?
+
+Se não existir:
+
+WhatsApp quebra
+
+Google ignora
+
+CTR cai
+
+⚠️ 4. FALTA UM DETALHE DE SEO
+Adiciona isso no <head>:
+
+<meta name="theme-color" content="#4f46e5">
+👉 melhora:
+
+mobile
+
+Chrome
+
+UX geral
+
+⚠️ 5. H1 AINDA PODE FICAR MAIS FORTE
+Você usou:
+
+Ferramentas Acadêmicas Online para Estudantes de TCC
+👉 Melhor:
+
+Ferramentas Acadêmicas Online Grátis para TCC (ABNT e Referências)
+💥 inclui:
+
+grátis
+
+ABNT
+
+palavra-chave forte
+
+🚀 AGORA O MAIS IMPORTANTE
+👉 Sua HOME está pronta
+
+💣 O que falta agora NÃO é mais home
+
+👉 é isso aqui:
+
+🧠 PRÓXIMO PASSO (TRÁFEGO REAL)
+Você precisa fazer SEO nas páginas:
+
+contador-palavras-online.html
+
+gerador-capa-abnt.html
+
+referencias-abnt.html
+
+👉 é ESSAS páginas que rankeiam
+
+💣 VERDADE
+👉 A home vende
+👉 As tools trazem tráfego
+
+📈 O QUE VAI ACONTECER AGORA
+Se você subir isso:
+
+Google para de pegar texto aleatório
+
+snippet melhora
+
+indexação começa
+
+⚔️ CONCLUSÃO DIRETA
+👉 Você já tem um produto publicável
+👉 Já dá pra colocar Adsense depois
+👉 Já dá pra crescer tráfego
+
+Se quiser, agora eu faço o que realmente muda o jogo:
+
+👉 SEO COMPLETO das 3 ferramentas (nível ranqueamento)
+
+Só manda:
+
+"faz SEO das tools agora"
+
+
+o link não existe mesmo, pode me mandar o código completo com os ajustes?
+
+Sim. Como a imagem não existe, o melhor é remover o og:image por enquanto em vez de deixar link quebrado. Também corrigi o **Hiato Literário** para HTML válido, tirei a keyword ruim tcc pronto, deixei o H1 mais forte e adicionei theme-color. Baseado no seu arquivo atual. 
+
+
+Código completo do index.html:
+
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" prefix="og: https://ogp.me/ns#">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ferramentas Acadêmicas Online Grátis | Hiato Literário</title>
-  <meta name="description" content="Ferramentas acadêmicas gratuitas: contador de palavras, gerador de capa ABNT e referências. Rápido, online e sem cadastro." />
+
+  <title>Ferramentas Acadêmicas Online Grátis para TCC (ABNT e Referências) | Hiato Literário</title>
+  <meta name="description" content="Ferramentas acadêmicas gratuitas para TCC: contador de palavras, gerador de capa ABNT e referências automáticas. Rápido, online e sem cadastro." />
+  <meta name="keywords" content="ferramentas acadêmicas, tcc, formatação tcc, gerador de capa ABNT, referências bibliográficas, contador de palavras online, normas ABNT" />
+  <meta name="author" content="Marcos Rocco" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#4f46e5" />
   <link rel="canonical" href="https://hiatoliterario.com.br/" />
+
+  <link rel="icon" href="/assets/favicon.ico" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hiatoliterario.com.br/" />
+  <meta property="og:title" content="Ferramentas Acadêmicas Online Grátis para TCC (ABNT e Referências)" />
+  <meta property="og:description" content="Formate seu trabalho com mais rapidez: contador de palavras, capas ABNT e referências automáticas em um só lugar." />
+  <meta property="og:site_name" content="Hiato Literário" />
+
+  <meta property="twitter:card" content="summary" />
+  <meta property="twitter:url" content="https://hiatoliterario.com.br/" />
+  <meta property="twitter:title" content="Ferramentas Acadêmicas Online Grátis para TCC (ABNT e Referências)" />
+  <meta property="twitter:description" content="Acesse ferramentas gratuitas para formatar trabalhos acadêmicos e TCC seguindo as normas ABNT sem complicação." />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Hiato Literário - Ferramentas Acadêmicas",
+    "alternateName": "Hiato Literário",
+    "description": "Plataforma gratuita com contador de palavras, gerador de capas ABNT e referências bibliográficas automáticas.",
+    "url": "https://hiatoliterario.com.br/",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "BRL"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Marcos Rocco"
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
-    body { 
+    body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #f3f6f9;
     }
-    
+
     .glass-effect {
       background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(8px);
@@ -72,104 +2426,116 @@
 
 <body class="text-slate-900 selection:bg-indigo-100 selection:text-indigo-700">
 
-<header class="sticky top-0 z-50 border-b border-slate-200 glass-effect">
+<header class="sticky top-0 z-50 border-b border-slate-200 glass-effect" role="banner">
   <div class="mx-auto max-w-7xl px-6 py-4 flex justify-between items-center">
-    <a href="./index.html" class="flex items-center gap-2 no-underline group">
+    <a href="./index.html" class="flex items-center gap-2 no-underline group" title="Voltar para a página inicial - Hiato Literário">
       <div class="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold transition-all group-hover:scale-105">H</div>
       <span class="text-lg font-bold tracking-tight text-slate-800">Hiato <span class="text-indigo-600">Literário</span></span>
     </a>
 
-    <nav class="flex items-center gap-6 text-sm font-semibold text-slate-600">
+    <nav class="flex items-center gap-6 text-sm font-semibold text-slate-600" role="navigation">
       <a href="#ferramentas" class="hover:text-indigo-600 transition-colors">Ferramentas</a>
-      <a href="mailto:marialvarocco6@gmail.com" class="hidden sm:block hover:text-indigo-600 transition-colors">Suporte</a>
+      <a href="mailto:marialvarocco6@gmail.com" class="hidden sm:block hover:text-indigo-600 transition-colors">Suporte Acadêmico</a>
     </nav>
   </div>
 </header>
 
 <main class="mx-auto max-w-7xl px-6">
-  
-  <!-- Hero / Intro -->
+
   <section class="py-16 md:py-24 text-center">
     <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
-      Ferramentas Acadêmicas <span class="text-indigo-600">Online</span> para Estudantes
+      Ferramentas <span class="text-indigo-600">Acadêmicas Online Grátis</span> para TCC, ABNT e Referências
     </h1>
-    <p class="mt-4 text-lg text-slate-500 max-w-3xl mx-auto font-medium leading-relaxed">
-      O Hiato Literário oferece ferramentas acadêmicas online gratuitas para estudantes, universitários e concurseiros. Conte palavras, gere capas no padrão ABNT e formate referências automaticamente em segundos, sem cadastro e diretamente no navegador.
+    <p class="mt-6 text-lg text-slate-500 max-w-3xl mx-auto font-medium leading-relaxed">
+      Facilite sua rotina com o <strong>Hiato Literário</strong>. Oferecemos ferramentas gratuitas de alta precisão para contagem de palavras, geração de capas ABNT e referências bibliográficas automáticas seguindo as normas da ABNT e NBR 6023.
     </p>
   </section>
 
-  <!-- Grade de Ferramentas -->
-  <section id="ferramentas" class="pb-24">
+  <section id="ferramentas" class="pb-24" aria-labelledby="section-tools-title">
+    <h2 id="section-tools-title" class="sr-only">Explorar Ferramentas Acadêmicas</h2>
     <div class="tool-grid">
 
-      <!-- Contador -->
-      <a href="./tools/contador-palavras-online.html" class="tool-card group">
-        <div class="tool-icon bg-blue-50 text-blue-600">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
-        </div>
-        <h3 class="text-lg font-bold text-slate-800 mb-2">Contador de Palavras</h3>
-        <p class="text-sm text-slate-500 font-medium">
-          Conte palavras, caracteres e estime o tempo de leitura.
-        </p>
-      </a>
+      <article>
+        <a href="./tools/contador-palavras-online.html" class="tool-card group" title="Contador de Palavras e Caracteres Online">
+          <div class="tool-icon bg-blue-50 text-blue-600" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-800 mb-2">Contador de Palavras</h3>
+          <p class="text-sm text-slate-500 font-medium">
+            Conte palavras, caracteres e descubra o tempo de leitura do seu texto de forma instantânea.
+          </p>
+        </a>
+      </article>
 
-      <!-- Gerador de Capas -->
-      <a href="./tools/gerador-capa-abnt.html" class="tool-card group">
-        <div class="tool-icon bg-purple-50 text-purple-600">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-        </div>
-        <h3 class="text-lg font-bold text-slate-800 mb-2">Gerador de Capas</h3>
-        <p class="text-sm text-slate-500 font-medium">
-          Crie capas ABNT rapidamente e baixe em formato Word.
-        </p>
-      </a>
+      <article>
+        <a href="./tools/gerador-capa-abnt.html" class="tool-card group" title="Gerar Capa ABNT Grátis para TCC">
+          <div class="tool-icon bg-purple-50 text-purple-600" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-800 mb-2">Gerador de Capas ABNT</h3>
+          <p class="text-sm text-slate-500 font-medium">
+            Crie capas e folhas de rosto impecáveis para seus trabalhos acadêmicos em poucos cliques.
+          </p>
+        </a>
+      </article>
 
-      <!-- Referências -->
-      <a href="./tools/referencias-abnt.html" class="tool-card group">
-        <div class="tool-icon bg-emerald-50 text-emerald-600">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-        </div>
-        <h3 class="text-lg font-bold text-slate-800 mb-2">Referências ABNT</h3>
-        <p class="text-sm text-slate-500 font-medium">
-          Gere referências de livros, sites, vídeos e filmes.
-        </p>
-      </a>
+      <article>
+        <a href="./tools/referencias-abnt.html" class="tool-card group" title="Gerador de Referências Bibliográficas NBR 6023">
+          <div class="tool-icon bg-emerald-50 text-emerald-600" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-800 mb-2">Gerador de Referências</h3>
+          <p class="text-sm text-slate-500 font-medium">
+            Gere referências automáticas de livros, sites e artigos seguindo rigorosamente a norma NBR 6023.
+          </p>
+        </a>
+      </article>
 
     </div>
   </section>
 
-
   <section class="pb-20">
-    <div class="rounded-3xl bg-white border border-slate-200 p-8 md:p-10">
+    <div class="rounded-3xl bg-white border border-slate-200 p-8 md:p-10 shadow-sm">
       <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
-        Ferramentas acadêmicas gratuitas para facilitar seus estudos
+        Formatador ABNT e Organizador de TCC Gratuito
       </h2>
       <p class="mt-4 text-slate-600 leading-relaxed">
-        Nosso objetivo é simplificar tarefas acadêmicas como contagem de palavras, formatação ABNT e organização de referências bibliográficas. Tudo funciona diretamente no navegador, garantindo rapidez, praticidade e privacidade para seus textos.
+        O <strong>Hiato Literário</strong> nasceu para resolver a dor de milhares de estudantes brasileiros: a formatação manual. Nossa plataforma centraliza as ferramentas essenciais para que você não precise se preocupar com margens, capas, contagem de palavras e referências bibliográficas.
       </p>
-      <p class="mt-4 text-slate-600 leading-relaxed">
-        O site é ideal para estudantes do ensino fundamental, médio, universitários e concurseiros que precisam economizar tempo e evitar erros em trabalhos, atividades, resumos, artigos e produções acadêmicas.
-      </p>
+      <div class="mt-6 grid md:grid-cols-2 gap-6">
+        <div>
+          <h4 class="font-bold text-slate-800 mb-2">✅ Padronização Total</h4>
+          <p class="text-sm text-slate-500 leading-relaxed">Nossas ferramentas são organizadas para facilitar a adaptação às exigências acadêmicas e reduzir erros comuns em trabalhos e TCC.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-slate-800 mb-2">⚡ Rapidez no Navegador</h4>
+          <p class="text-sm text-slate-500 leading-relaxed">Sem downloads pesados. Tudo funciona direto no navegador de forma leve, rápida e sem cadastro.</p>
+        </div>
+      </div>
     </div>
   </section>
 
 </main>
 
-<footer class="bg-white border-t border-slate-200 mt-auto">
+<footer class="bg-white border-t border-slate-200 mt-auto" role="contentinfo">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-8">
       <div class="text-center md:text-left">
-        <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
-          <div class="w-6 h-6 bg-slate-100 rounded flex items-center justify-center text-[10px] font-black text-slate-400">HL</div>
-          <span class="text-sm font-bold text-slate-800 uppercase tracking-wider">Hiato Literário</span>
+        <div class="flex items-center justify-center md:justify-start gap-2 mb-3">
+          <div class="w-7 h-7 bg-indigo-600 rounded flex items-center justify-center text-[11px] font-black text-white" aria-hidden="true">HL</div>
+          <p class="text-sm font-bold text-slate-800 uppercase tracking-widest">Hiato Literário</p>
         </div>
-        <p class="text-sm text-slate-500 font-medium italic">
-          Desenvolvido por Marcos Rocco, encontrou algum erro? Me manda um email: <a href="mailto:marialvarocco6@gmail.com" class="text-indigo-600 font-bold not-italic hover:underline">marialvarocco6@gmail.com</a>
+        <p class="text-sm text-slate-500 font-medium">
+          Criado para facilitar a vida acadêmica por <strong>Marcos Rocco</strong>.<br>
+          Contato para suporte: <a href="mailto:marialvarocco6@gmail.com" class="text-indigo-600 font-bold hover:underline transition-all">marialvarocco6@gmail.com</a>
         </p>
       </div>
-      
-      <div class="text-[10px] uppercase font-black text-slate-300 tracking-[0.3em]">
-        © 2026 Hiato Literário
+
+      <div class="flex flex-col items-center md:items-end gap-2">
+        <div class="text-[10px] uppercase font-black text-slate-400 tracking-[0.3em]">
+          © 2026 Hiato Literário
+        </div>
+        <p class="text-[10px] text-slate-400">Ferramentas de TCC Online e Sem Cadastro</p>
       </div>
     </div>
   </div>
@@ -178,3 +2544,8 @@
 <script type="module" src="./src/js/main.js"></script>
 </body>
 </html>
+Se quiser, eu faço agora o mesmo para as 3 tools, já prontas para ranquear melhor no Google.
+
+
+
+
