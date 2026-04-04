@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerador de Citações ABNT | Hiato Literário</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .input-field:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    .citation-preview-box {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      padding: 2rem;
+      min-height: 200px;
+      position: relative;
+    }
+
+    .abnt-long-quote {
+      margin-left: 4cm;
+      font-size: 10pt;
+      line-height: 1.1;
+      text-align: justify;
+      font-family: Arial, sans-serif;
+    }
+
+    .abnt-standard {
+      font-size: 12pt;
+      line-height: 1.5;
+      text-align: justify;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Tooltip/Toast style */
+    #copyToast {
+      visibility: hidden;
+      min-width: 200px;
+      background-color: #1e293b;
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 12px;
+      position: fixed;
+      z-index: 100;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    #copyToast.show {
+      visibility: visible;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+    @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+
+<header class="sticky top-0 z-50 border-b border-slate-200 glass-effect">
+  <div class="mx-auto max-w-6xl px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">H</div>
+      <span class="text-lg font-bold tracking-tight">Hiato <span class="text-indigo-600">Literário</span></span>
+    </div>
+    <span class="text-sm font-medium text-slate-500 hidden md:block">Gerador de Citações ABNT NBR 10520:2023</span>
+  </div>
+</header>
+
+<main class="mx-auto max-w-6xl px-6 py-10">
+  <section class="mb-10 text-center lg:text-left">
+    <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Gerador de Citações</h1>
+    <p class="mt-2 text-lg text-slate-600">Formate citações diretas, indiretas e apud conforme as normas atualizadas.</p>
+  </section>
+
+  <div class="grid gap-10 lg:grid-cols-2 items-start">
+    <!-- Formulário -->
+    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+      
+      <div>
+        <label class="block text-sm font-semibold mb-1">Tipo de Citação</label>
+        <select id="tipoCitacao" class="input-field bg-slate-50">
+          <option value="direta-curta">Direta Curta (até 3 linhas)</option>
+          <option value="direta-longa">Direta Longa (mais de 3 linhas)</option>
+          <option value="indireta">Indireta (Paráfrase)</option>
+          <option value="apud">Citação de Citação (Apud)</option>
+        </select>
+      </div>
+
+      <div id="wrapper-original" class="hidden">
+        <label class="block text-sm font-semibold mb-1">Autor Original (Obra que você não leu)</label>
+        <input id="autorOriginal" class="input-field" type="text" placeholder="Ex: Souza" />
+        <input id="anoOriginal" class="input-field mt-2" type="text" placeholder="Ano Original (Ex: 1990)" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1">Autor da Obra Consultada</label>
+        <input id="autor" class="input-field" type="text" placeholder="Ex: Silva; Santos" />
+        <p class="text-[10px] text-slate-400 mt-1">Use ponto e vírgula para separar autores.</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1">Ano</label>
+          <input id="ano" class="input-field" type="text" placeholder="Ex: 2024" />
+        </div>
+        <div id="wrapper-pagina">
+          <label class="block text-sm font-semibold mb-1">Página</label>
+          <input id="pagina" class="input-field" type="text" placeholder="Ex: 15" />
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1">Texto da Citação</label>
+        <textarea id="texto" class="input-field h-32 resize-none" placeholder="Digite ou cole o texto aqui..."></textarea>
+      </div>
+
+      <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+        <h4 class="text-xs font-bold text-indigo-800 uppercase mb-2">Dica da Norma</h4>
+        <p id="dicaNorma" class="text-xs text-indigo-900 leading-relaxed">
+          Citações diretas curtas devem estar contidas no corpo do parágrafo e entre aspas duplas.
+        </p>
+      </div>
+    </div>
+
+    <!-- Visualização -->
+    <div class="sticky top-28 space-y-6">
+      <div>
+        <label class="mb-3 block text-sm font-bold text-slate-500 uppercase tracking-wider">Chamada no Texto (Narrativa)</label>
+        <div class="citation-preview-box flex flex-col justify-center">
+          <div id="preview-narrativa" class="abnt-standard italic text-slate-400">Preencha os campos para gerar...</div>
+          <button onclick="copyToClipboard('preview-narrativa')" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-indigo-600 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <label class="mb-3 block text-sm font-bold text-slate-500 uppercase tracking-wider">Chamada no Texto (Parentética)</label>
+        <div class="citation-preview-box flex flex-col justify-center">
+          <div id="preview-parentetica" class="abnt-standard italic text-slate-400">Preencha os campos para gerar...</div>
+          <button onclick="copyToClipboard('preview-parentetica')" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-indigo-600 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="copyToast">Copiado para a área de transferência!</div>
+
+<script>
+  const inputs = ['tipoCitacao', 'autor', 'ano', 'pagina', 'texto', 'autorOriginal', 'anoOriginal'];
+  const elements = {};
+  inputs.forEach(id => elements[id] = document.getElementById(id));
+
+  const previews = {
+    narrativa: document.getElementById('preview-narrativa'),
+    parentetica: document.getElementById('preview-parentetica')
+  };
+
+  const dicas = {
+    'direta-curta': "Citações diretas curtas (até 3 linhas) devem estar no corpo do texto entre aspas.",
+    'direta-longa': "Citações diretas longas (mais de 3 linhas) devem ter recuo de 4cm, fonte menor (10) e sem aspas.",
+    'indireta': "Citações indiretas são paráfrases. A indicação da página é opcional.",
+    'apud': "Use o 'apud' quando você citar um autor mencionado em outra obra que você leu."
+  };
+
+  function formatAuthors(rawNames, uppercase = false) {
+    if (!rawNames) return "";
+    const names = rawNames.split(';').map(n => n.trim()).filter(n => n !== "");
+    
+    if (names.length === 0) return "";
+    
+    let formatted = "";
+    if (names.length > 3) {
+      const firstAuthor = names[0].split(' ').pop();
+      formatted = uppercase ? `${firstAuthor.toUpperCase()} et al.` : `${firstAuthor} et al.`;
+    } else if (names.length === 1) {
+      const name = names[0].split(' ').pop();
+      formatted = uppercase ? name.toUpperCase() : name;
+    } else {
+      const lastNames = names.map(n => n.split(' ').pop());
+      if (uppercase) {
+        formatted = lastNames.join('; ').toUpperCase();
+      } else {
+        const last = lastNames.pop();
+        formatted = lastNames.join(', ') + ' e ' + last;
+      }
+    }
+    return formatted;
+  }
+
+  function updateUI() {
+    const tipo = elements.tipoCitacao.value;
+    
+    // Toggle fields
+    document.getElementById('wrapper-original').classList.toggle('hidden', tipo !== 'apud');
+    elements.pagina.placeholder = tipo === 'indireta' ? 'Página (Opcional)' : 'Ex: 15';
+    
+    document.getElementById('dicaNorma').innerText = dicas[tipo];
+
+    generateCitation();
+  }
+
+  function generateCitation() {
+    const tipo = elements.tipoCitacao.value;
+    const autorRaw = elements.autor.value || "AUTOR";
+    const ano = elements.ano.value || "ANO";
+    const pag = elements.pagina.value;
+    const texto = elements.texto.value || "O texto da sua citação aparecerá aqui...";
+    const autorOri = elements.autorOriginal.value || "AUTOR ORIGINAL";
+    const anoOri = elements.anoOriginal.value || "ANO ORIGINAL";
+
+    const pSuffix = pag ? `, p. ${pag}` : "";
+    
+    let narrativa = "";
+    let parentetica = "";
+
+    const autorNarrativa = formatAuthors(autorRaw, false);
+    const autorParentetica = formatAuthors(autorRaw, true);
+
+    if (tipo === 'direta-curta') {
+      narrativa = `Segundo ${autorNarrativa} (${ano}${pSuffix}), "${texto}"`;
+      parentetica = `"${texto}" (${autorParentetica}, ${ano}${pSuffix})`;
+      
+      Object.values(previews).forEach(p => {
+        p.className = "abnt-standard";
+      });
+
+    } else if (tipo === 'direta-longa') {
+      const longQuoteHtml = `<div class="abnt-long-quote">${texto}</div>`;
+      narrativa = `Conforme ${autorNarrativa} (${ano}${pSuffix}): <br>${longQuoteHtml}`;
+      parentetica = `${longQuoteHtml} <div class="text-right mt-2 text-[10pt]">(${autorParentetica}, ${ano}${pSuffix})</div>`;
+      
+      previews.narrativa.className = "abnt-standard";
+      previews.parentetica.className = "abnt-standard";
+
+    } else if (tipo === 'indireta') {
+      narrativa = `${autorNarrativa} (${ano}${pSuffix}) argumenta que ${texto.toLowerCase()}`;
+      parentetica = `A ideia central reside no fato de que ${texto.toLowerCase()} (${autorParentetica}, ${ano}${pSuffix})`;
+      
+      Object.values(previews).forEach(p => {
+        p.className = "abnt-standard";
+      });
+
+    } else if (tipo === 'apud') {
+      const autorOriNarr = formatAuthors(autorOri, false);
+      const autorOriPar = formatAuthors(autorOri, true);
+      
+      narrativa = `De acordo com ${autorOriNarr} (${anoOri} apud ${autorNarrativa}, ${ano}${pSuffix}), "${texto}"`;
+      parentetica = `"${texto}" (${autorOriPar}, ${anoOri} apud ${autorParentetica}, ${ano}${pSuffix})`;
+      
+      Object.values(previews).forEach(p => {
+        p.className = "abnt-standard";
+      });
+    }
+
+    previews.narrativa.innerHTML = narrativa;
+    previews.parentetica.innerHTML = parentetica;
+  }
+
+  function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    // Para copiar com formatação (HTML), precisaríamos de algo mais complexo, 
+    // mas para texto puro o comando abaixo resolve:
+    const range = document.createRange();
+    range.selectNode(el);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+
+    const toast = document.getElementById("copyToast");
+    toast.className = "show";
+    setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+  }
+
+  inputs.forEach(id => elements[id].addEventListener('input', updateUI));
+  updateUI();
+</script>
+
+</body>
+</html>
