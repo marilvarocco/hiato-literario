@@ -88,6 +88,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      border: none;
     }
 
     .btn-action:hover {
@@ -98,6 +99,8 @@
     .btn-action:disabled {
       background: #94a3b8;
       cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
     }
   </style>
 </head>
@@ -137,7 +140,7 @@
           </div>
         </div>
         <button id="searchBtn" class="btn-action">
-          <span>Buscar</span>
+          <span id="btnText">Buscar</span>
         </button>
       </div>
     </div>
@@ -165,14 +168,12 @@
 
     <!-- Resultados -->
     <div id="resultsArea" class="hidden space-y-8">
-      <!-- Definição -->
       <div class="result-card p-8 border-l-4 border-indigo-600">
         <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Significado</h3>
         <p id="definitionText" class="text-xl font-bold text-slate-800 leading-snug"></p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Sinônimos -->
         <div class="result-card p-8">
           <div class="flex items-center gap-3 mb-6">
             <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
@@ -183,7 +184,6 @@
           <div id="synonymsList" class="flex flex-wrap gap-2"></div>
         </div>
 
-        <!-- Rimas -->
         <div class="result-card p-8">
           <div class="flex items-center gap-3 mb-6">
             <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center">
@@ -197,19 +197,45 @@
     </div>
 
     <!-- Erro -->
-    <div id="errorState" class="hidden p-6 bg-red-50 border border-red-100 rounded-2xl text-center">
-      <p class="text-red-600 font-bold">Ocorreu um erro ao buscar a palavra. Tente novamente em alguns instantes.</p>
+    <div id="errorState" class="hidden p-8 bg-red-50 border border-red-100 rounded-2xl text-center">
+      <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <p class="text-red-700 font-bold mb-1">Ops! Algo deu errado.</p>
+      <p class="text-red-600 text-sm">Não foi possível conectar ao servidor. Verifique sua conexão ou tente outra palavra.</p>
+      <button onclick="location.reload()" class="mt-4 text-xs font-bold uppercase tracking-widest text-red-700 underline">Tentar novamente</button>
     </div>
   </div>
 
-  <section class="mt-20 p-8 rounded-3xl bg-white border border-slate-200 flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
-    <div class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center shrink-0">
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+  <!-- Nova Seção de Experiência do Usuário -->
+  <section class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="p-8 rounded-3xl bg-white border border-slate-200">
+      <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <h4 class="font-bold text-slate-900 mb-2">Expanda seu Vocabulário</h4>
+      <p class="text-slate-500 text-sm leading-relaxed">
+        Clique nos resultados para explorar novos sinônimos e descobrir caminhos criativos para o seu texto.
+      </p>
     </div>
-    <div class="flex-grow">
-      <h4 class="font-bold text-slate-900 text-lg">Busca Inteligente</h4>
-      <p class="text-slate-500 text-sm">
-        Nossa ferramenta utiliza inteligência artificial avançada para entender o contexto e sugerir as melhores substituições e rimas, indo além de um dicionário comum.
+    
+    <div class="p-8 rounded-3xl bg-white border border-slate-200">
+      <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <h4 class="font-bold text-slate-900 mb-2">Contexto Literário</h4>
+      <p class="text-slate-500 text-sm leading-relaxed">
+        Nossas rimas são selecionadas para oferecer sonoridades ricas, ideais para métricas de poesia e letras de música.
+      </p>
+    </div>
+
+    <div class="p-8 rounded-3xl bg-white border border-slate-200">
+      <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <h4 class="font-bold text-slate-900 mb-2">Dúvidas Frequentes</h4>
+      <p class="text-slate-500 text-sm leading-relaxed">
+        As buscas são processadas em tempo real. Caso uma palavra seja muito rara, tente usar o radical ou uma variação.
       </p>
     </div>
   </section>
@@ -226,9 +252,10 @@
 </footer>
 
 <script>
-  const apiKey = ""; // Chave fornecida pelo ambiente
+  const apiKey = "";
   const input = document.getElementById('wordInput');
   const btn = document.getElementById('searchBtn');
+  const btnText = document.getElementById('btnText');
   const initialState = document.getElementById('initialState');
   const loadingState = document.getElementById('loadingState');
   const resultsArea = document.getElementById('resultsArea');
@@ -239,7 +266,9 @@
   const rhymesList = document.getElementById('rhymesList');
 
   async function searchWord(word) {
-    if (!word) return;
+    if (!word || word.trim() === "") return;
+
+    const trimmedWord = word.trim();
 
     // Reset UI
     initialState.classList.add('hidden');
@@ -247,81 +276,105 @@
     errorState.classList.add('hidden');
     loadingState.classList.remove('hidden');
     btn.disabled = true;
+    btnText.textContent = "Buscando...";
 
     const systemPrompt = `Você é um dicionário especializado em rimas e sinônimos da língua portuguesa. 
     Sua tarefa é fornecer rimas ricas e sinônimos precisos para a palavra fornecida.
     Retorne OBRIGATORIAMENTE um JSON puro com este formato:
     {
       "definition": "Breve definição da palavra",
-      "synonyms": ["sinonimo1", "sinonimo2", "sinonimo3", "sinonimo4", "sinonimo5"],
-      "rhymes": ["rima1", "rima2", "rima3", "rima4", "rima5"]
+      "synonyms": ["sinonimo1", "sinonimo2", ...],
+      "rhymes": ["rima1", "rima2", ...]
     }
-    Forneça pelo menos 10 sinônimos e 10 rimas se possível.`;
+    Forneça pelo menos 10 sinônimos e 10 rimas.`;
 
-    let retries = 0;
-    const maxRetries = 5;
+    const delays = [1000, 2000, 4000, 8000, 16000];
+    let success = false;
 
-    while (retries < maxRetries) {
+    for (let i = 0; i <= 5; i++) {
       try {
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            contents: [{ parts: [{ text: `A palavra é: ${word}` }] }],
+            contents: [{ parts: [{ text: `A palavra é: ${trimmedWord}` }] }],
             systemInstruction: { parts: [{ text: systemPrompt }] },
-            generationConfig: { responseMimeType: "application/json" }
+            generationConfig: { 
+              responseMimeType: "application/json",
+              temperature: 0.2
+            }
           })
         });
 
-        if (!response.ok) throw new Error('API Error');
+        if (!response.ok) throw new Error('API request failed');
 
         const result = await response.json();
-        const data = JSON.parse(result.candidates[0].content.parts[0].text);
+        const textResponse = result.candidates?.[0]?.content?.parts?.[0]?.text;
+        
+        if (!textResponse) throw new Error('Empty response');
+
+        const data = JSON.parse(textResponse);
         
         displayResults(data);
-        return;
+        success = true;
+        break;
 
       } catch (err) {
-        retries++;
-        await new Promise(r => setTimeout(r, Math.pow(2, retries) * 1000));
+        if (i === 5) break;
+        await new Promise(r => setTimeout(r, delays[i]));
       }
     }
 
-    loadingState.classList.add('hidden');
-    errorState.classList.remove('hidden');
-    btn.disabled = false;
+    if (!success) {
+      loadingState.classList.add('hidden');
+      errorState.classList.remove('hidden');
+      btn.disabled = false;
+      btnText.textContent = "Buscar";
+    }
   }
 
   function displayResults(data) {
-    definitionText.textContent = data.definition;
+    definitionText.textContent = data.definition || "Significado não disponível.";
     
-    // Clear lists
     synonymsList.innerHTML = '';
     rhymesList.innerHTML = '';
 
-    data.synonyms.forEach(s => {
-      const badge = document.createElement('span');
-      badge.className = 'word-badge';
-      badge.textContent = s;
-      badge.onclick = () => { input.value = s; searchWord(s); };
-      synonymsList.appendChild(badge);
-    });
+    const synonyms = data.synonyms || [];
+    const rhymes = data.rhymes || [];
 
-    data.rhymes.forEach(r => {
-      const badge = document.createElement('span');
-      badge.className = 'word-badge';
-      badge.textContent = r;
-      badge.onclick = () => { input.value = r; searchWord(r); };
-      rhymesList.appendChild(badge);
-    });
+    if (synonyms.length === 0) {
+      synonymsList.innerHTML = '<span class="text-slate-400 text-sm italic">Nenhum sinônimo encontrado.</span>';
+    } else {
+      synonyms.forEach(s => {
+        const badge = document.createElement('span');
+        badge.className = 'word-badge';
+        badge.textContent = s;
+        badge.onclick = () => { input.value = s; searchWord(s); };
+        synonymsList.appendChild(badge);
+      });
+    }
+
+    if (rhymes.length === 0) {
+      rhymesList.innerHTML = '<span class="text-slate-400 text-sm italic">Nenhuma rima encontrada.</span>';
+    } else {
+      rhymes.forEach(r => {
+        const badge = document.createElement('span');
+        badge.className = 'word-badge';
+        badge.textContent = r;
+        badge.onclick = () => { input.value = r; searchWord(r); };
+        rhymesList.appendChild(badge);
+      });
+    }
 
     loadingState.classList.add('hidden');
     resultsArea.classList.remove('hidden');
     btn.disabled = false;
+    btnText.textContent = "Buscar";
+    window.scrollTo({ top: 100, behavior: 'smooth' });
   }
 
-  btn.onclick = () => searchWord(input.value.trim());
-  input.onkeypress = (e) => { if (e.key === 'Enter') searchWord(input.value.trim()); };
+  btn.onclick = () => searchWord(input.value);
+  input.onkeypress = (e) => { if (e.key === 'Enter') searchWord(input.value); };
 
 </script>
 
