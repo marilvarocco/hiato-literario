@@ -4,10 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gerador de Resumo Automático (Extrativo) | Hiato Literário</title>
-  <meta name="description" content="Resuma textos acadêmicos e literários instantaneamente com nosso algoritmo extrativo gratuito." />
+  <title>Analisador de Texto e Resumo Estatístico | Hiato Literário</title>
+  <meta name="description" content="Análise textual avançada com resumo estatístico local, métricas de legibilidade e análise de densidade lexical." />
   
-  <!-- Fonts & Tailwind -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,374 +15,779 @@
   <style>
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #f3f6f9;
+      background-color: #f8fbff;
       color: #1e293b;
     }
 
-    .glass-effect {
-      background: rgba(255, 255, 255, 0.9);
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-
-    .form-panel {
-      background: white;
-      padding: 2rem;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.05);
       border-radius: 1.5rem;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.05);
     }
 
-    .text-area {
-      width: 100%;
-      min-height: 380px;
+    .stat-card {
       padding: 1.25rem;
+      border-radius: 1.25rem;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      background: #ffffff;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.1);
+    }
+
+    .textarea-container {
+      position: relative;
+      background: white;
+      border-radius: 1.25rem;
       border: 1px solid #e2e8f0;
-      border-radius: 1rem;
+      transition: all 0.2s;
+    }
+
+    .textarea-container:focus-within {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.08);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 400px;
+      padding: 1.5rem;
+      border: none;
       outline: none;
       resize: vertical;
-      transition: all 0.2s ease;
-      font-size: 0.95rem;
+      font-size: 1rem;
       line-height: 1.7;
-      background-color: #ffffff;
+      border-radius: 1.25rem;
     }
 
-    .text-area:focus {
-      border-color: #4f46e5;
-      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+      border: 1px solid #e2e8f0;
+      background: white;
+      color: #64748b;
     }
 
-    .button-primary {
+    .action-btn:hover {
+      background: #f8fafc;
+      color: #1e293b;
+      border-color: #cbd5e1;
+    }
+
+    .action-btn.active {
       background: #4f46e5;
       color: white;
-      padding: 0.85rem 1.75rem;
-      border-radius: 1rem;
-      font-weight: 700;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      cursor: pointer;
-      border: none;
+      border-color: #4f46e5;
     }
 
-    .button-primary:hover {
-      background: #4338ca;
-      transform: translateY(-1px);
-      box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
-    }
-
-    .keyword-badge {
-      display: inline-block;
-      padding: 0.35rem 0.85rem;
-      background: #f1f5f9;
-      color: #475569;
-      border-radius: 0.75rem;
-      font-size: 0.7rem;
-      font-weight: 700;
+    .badge-label {
+      font-size: 0.65rem;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.025em;
-    }
-
-    .metric-box {
-      padding: 1rem;
-      background: #f8fafc;
-      border-radius: 1rem;
-      border: 1px solid #f1f5f9;
-      text-align: center;
+      letter-spacing: 0.05em;
+      color: #94a3b8;
+      margin-bottom: 0.25rem;
     }
 
     input[type=range] {
       accent-color: #4f46e5;
     }
 
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #f1f1f1; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.05) 0%, transparent 70%);
+      z-index: -1;
+    }
+
+    .legibility-bar {
+      height: 6px;
+      background: #f1f5f9;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .legibility-fill {
+      height: 100%;
+      background: #4f46e5;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .entity-badge {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
   </style>
 </head>
 
-<body class="selection:bg-indigo-100 selection:text-indigo-700">
+<body class="selection:bg-indigo-100 selection:text-indigo-700 pb-20">
 
-<header class="sticky top-0 z-50 border-b border-slate-200 glass-effect">
-  <div class="mx-auto max-w-7xl px-6 py-4 flex justify-between items-center">
-    <a href="../index.html" class="flex items-center gap-2 no-underline group">
-      <div class="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold transition-all group-hover:scale-105">H</div>
-      <span class="text-lg font-bold tracking-tight text-slate-800">Hiato <span class="text-indigo-600">Literário</span></span>
+<div class="hero-bg"></div>
+
+<header class="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+    <a href="../index.html" class="flex items-center gap-2 group">
+      <div class="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold transition-all group-hover:scale-105">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+      </div>
+      <div class="flex flex-col">
+        <span class="text-base font-bold leading-none text-slate-800">Hiato Literário</span>
+        <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-tighter">Ferramentas para escritores</span>
+      </div>
     </a>
-    <nav class="hidden sm:flex items-center gap-6 text-sm font-semibold text-slate-600">
-      <a href="../index.html#ferramentas" class="hover:text-indigo-600 transition-colors">Ferramentas</a>
+    <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-500">
+      <a href="../index.html" class="hover:text-indigo-600">Início</a>
+      <a href="#" class="text-indigo-600 border-b-2 border-indigo-600 pb-1">Resumo & Análise</a>
+      <a href="./contador-palavras-online.html" class="hover:text-indigo-600">Contador</a>
+      <a href="#" class="hover:text-indigo-600">Blog</a>
     </nav>
+    <div class="px-4 py-1.5 bg-indigo-50 text-indigo-600 rounded-full text-[11px] font-bold">
+      Gratuito • Local • Privado
+    </div>
   </div>
 </header>
 
-<main class="mx-auto max-w-7xl px-6 py-12">
+<main class="mx-auto max-w-7xl px-6 pt-12">
   
-  <section class="mb-12 text-center lg:text-left">
-    <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Gerador de Resumo <span class="text-indigo-600">Otimizado</span></h1>
-    <p class="mt-4 text-lg text-slate-500 max-w-2xl font-medium leading-relaxed">
-      Crie resumos automáticos dos seus textos em segundos. Nossa ferramenta identifica as partes mais importantes do seu conteúdo e organiza os pontos principais para você poupar tempo na leitura.
-    </p>
-  </section>
-
-  <div class="grid gap-8 lg:grid-cols-5">
+  <section class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
+    <div class="max-w-2xl">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+        Analisador de Texto <span class="text-indigo-600">Estatístico</span>
+      </h1>
+      <p class="mt-4 text-lg text-slate-500 font-medium">
+        Análise linguística avançada e resumo automático baseado em heurísticas de densidade lexical e relevância sintática.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-4">
+        <div class="flex items-center gap-2 text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full">
+           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+           Processamento Local
+        </div>
+        <div class="flex items-center gap-2 text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full">
+           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+           Privacidade Garantida
+        </div>
+        <div class="flex items-center gap-2 text-xs font-bold text-purple-600 bg-purple-50 px-3 py-1.5 rounded-full">
+           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+           TF-IDF + Entidades Nomeadas
+        </div>
+      </div>
+    </div>
     
-    <!-- Painel de Entrada -->
-    <div class="lg:col-span-3">
-      <div class="form-panel h-full flex flex-col">
-        <div class="flex justify-between items-center mb-4">
-          <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wide">Cole seu Texto Aqui</h3>
-          <span id="wordCountLabel" class="text-xs font-bold text-slate-400">0 palavras</span>
-        </div>
-        
-        <textarea id="inputText" class="text-area flex-grow" placeholder="Insira o texto que você deseja resumir..."></textarea>
-        
-        <div class="mt-8 space-y-6">
-          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-            <div class="flex justify-between mb-3">
-              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Tamanho do Resumo</span>
-              <span id="rangeDisplay" class="text-xs font-black text-indigo-600 bg-indigo-50 px-2 py-1 rounded">30% do conteúdo</span>
-            </div>
-            <input type="range" id="ratioSlider" min="10" max="80" value="30" class="w-full cursor-pointer">
-            <div class="flex justify-between mt-2 text-[10px] font-bold text-slate-400 uppercase">
-              <span>Mais Curto</span>
-              <span>Mais Detalhado</span>
-            </div>
-          </div>
-
-          <div class="flex gap-4">
-            <button id="summarizeBtn" class="button-primary flex-grow">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-              Criar Resumo Agora
-            </button>
-            <button id="clearBtn" class="px-6 py-3 bg-slate-100 text-slate-500 rounded-xl font-bold hover:bg-slate-200 transition-all">Limpar</button>
-          </div>
-        </div>
+    <div class="hidden lg:block relative mr-10">
+      <div class="absolute -top-10 -left-10 w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 shadow-xl shadow-blue-100/50 animate-bounce">
+         <span class="font-bold">∑</span>
       </div>
-    </div>
-
-    <!-- Painel de Saída -->
-    <div class="lg:col-span-2 space-y-6">
-      
-      <div class="form-panel">
-        <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wide mb-6">Resultado</h3>
-        
-        <div id="outputContainer" class="bg-indigo-50/30 p-6 rounded-2xl border border-indigo-100 min-h-[280px] text-sm leading-relaxed text-slate-700 italic">
-          O seu resumo aparecerá aqui...
-        </div>
-
-        <div class="grid grid-cols-2 gap-4 mt-6">
-          <div class="metric-box">
-            <span class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Palavras</span>
-            <strong id="finalWords" class="text-xl text-slate-800">0</strong>
-          </div>
-          <div class="metric-box">
-            <span class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Redução de leitura</span>
-            <strong id="reductionLabel" class="text-xl text-indigo-600">0%</strong>
-          </div>
-        </div>
-
-        <button id="copyBtn" class="w-full mt-6 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copiar Resumo
-        </button>
+      <div class="w-48 h-56 bg-white rounded-3xl shadow-2xl border border-slate-100 p-6 flex flex-col gap-3">
+         <div class="h-3 w-3/4 bg-slate-100 rounded-full"></div>
+         <div class="h-3 w-full bg-slate-200 rounded-full"></div>
+         <div class="h-3 w-5/6 bg-slate-100 rounded-full"></div>
+         <div class="h-3 w-full bg-slate-200 rounded-full"></div>
+         <div class="mt-4 flex flex-col gap-2">
+            <div class="h-4 w-full bg-indigo-50 rounded-lg"></div>
+            <div class="h-4 w-2/3 bg-emerald-50 rounded-lg"></div>
+         </div>
       </div>
-
-      <div class="form-panel">
-        <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Assuntos Principais</h3>
-        <div id="keywordCloud" class="flex flex-wrap gap-2">
-          <span class="text-xs text-slate-400 italic">Aguardando texto...</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <section class="mt-16 p-8 rounded-3xl bg-white border border-slate-200 flex flex-col md:flex-row items-center gap-8">
-    <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shrink-0">
-      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-    </div>
-    <div>
-      <h4 class="font-bold text-slate-900 text-lg mb-2">Como usar o Gerador de Resumos?</h4>
-      <ul class="text-slate-500 text-sm leading-relaxed space-y-2">
-        <li><strong>1. Cole seu texto:</strong> Coloque o conteúdo original na área de "Texto de Origem".</li>
-        <li><strong>2. Escolha o tamanho:</strong> Use a barra azul para decidir se quer um resumo bem curto ou com mais detalhes.</li>
-        <li><strong>3. Processe:</strong> Clique no botão "Criar Resumo Agora" e nossa ferramenta analisará o texto para você.</li>
-        <li><strong>4. Finalize:</strong> Veja o resultado ao lado, copie para seu trabalho ou confira os assuntos principais detectados automaticamente.</li>
-      </ul>
     </div>
   </section>
+
+  <div class="grid gap-8 lg:grid-cols-12 items-start">
+    
+    <div class="lg:col-span-8 space-y-6">
+      <div class="glass-card p-6">
+        <div class="flex flex-wrap justify-between items-center mb-4 gap-4">
+          <div class="flex gap-2">
+            <button id="pasteBtn" class="action-btn active">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Colar
+            </button>
+            <button id="clearBtn" class="action-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+              Limpar
+            </button>
+            <button id="exampleBtn" class="action-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+              Exemplo
+            </button>
+          </div>
+          
+          <div class="flex items-center gap-3">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Análise Realtime</span>
+            <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+          </div>
+        </div>
+
+        <div class="textarea-container">
+          <textarea id="inputText" placeholder="Insira seu texto acadêmico ou literário para uma análise profunda..."></textarea>
+          <div class="px-6 py-3 border-t border-slate-50 flex justify-between items-center text-[11px] font-bold text-slate-400">
+            <div id="charCounter">0 caracteres</div>
+            <div class="flex gap-4">
+              <span id="wordCounter">0 palavras</span>
+              <span id="sentenceCounter">0 frases</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-8 border-t border-slate-100">
+           <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div class="flex-grow max-w-md">
+                 <div class="flex justify-between mb-2">
+                    <span class="text-xs font-bold text-slate-500 uppercase">Fator de Compressão</span>
+                    <span id="ratioLabel" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">30%</span>
+                 </div>
+                 <input type="range" id="ratioSlider" min="10" max="70" value="30" class="w-full">
+              </div>
+              <button id="summarizeBtn" class="px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 flex items-center justify-center gap-3 whitespace-nowrap">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                 Processar Resumo
+              </button>
+           </div>
+        </div>
+      </div>
+
+      <div id="summaryResult" class="hidden glass-card p-8 border-l-4 border-indigo-600 animate-in">
+         <div class="flex justify-between items-start mb-4">
+            <div class="flex items-center gap-3">
+               <h3 class="text-sm font-black text-slate-800 uppercase tracking-widest">Resumo Estatístico</h3>
+               <span id="entityCount" class="entity-badge">0 entidades</span>
+            </div>
+            <button id="copySummary" class="text-slate-400 hover:text-indigo-600 transition-colors" title="Copiar resumo">
+               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+         </div>
+         <div id="summaryContent" class="text-slate-600 leading-relaxed text-lg italic"></div>
+         <div class="mt-4 pt-4 border-t border-slate-100">
+            <div class="flex gap-4 text-xs font-medium text-slate-500">
+               <span>📊 <span id="summaryStats">0 sentenças selecionadas</span></span>
+               <span>🎯 <span id="relevanceScore">Relevância: 0%</span></span>
+            </div>
+         </div>
+      </div>
+
+      <div class="p-4 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-center gap-3">
+         <span class="text-lg">📊</span>
+         <p class="text-xs font-medium text-blue-700">
+           <strong>Nota:</strong> Esta ferramenta utiliza algoritmos locais de processamento de linguagem natural (NLP) com TF-IDF simulado, detecção de entidades nomeadas e análise de similaridade para evitar redundância. Nenhum dado sai do seu navegador.
+         </p>
+      </div>
+    </div>
+
+    <aside class="lg:col-span-4 space-y-6">
+      <div class="glass-card p-6">
+        <h2 class="flex items-center gap-2 text-base font-bold text-slate-800 mb-6">
+          <div class="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          Métricas
+        </h2>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="stat-card">
+            <strong id="statWords" class="text-2xl font-extrabold text-indigo-600">0</strong>
+            <div class="badge-label">Palavras</div>
+          </div>
+          <div class="stat-card">
+            <strong id="statChars" class="text-2xl font-extrabold text-emerald-500">0</strong>
+            <div class="badge-label">Caracteres</div>
+          </div>
+          <div class="stat-card">
+            <strong id="statSentences" class="text-2xl font-extrabold text-amber-500">0</strong>
+            <div class="badge-label">Frases</div>
+          </div>
+          <div class="stat-card">
+            <strong id="statParagraphs" class="text-2xl font-extrabold text-cyan-500">0</strong>
+            <div class="badge-label">Parágrafos</div>
+          </div>
+        </div>
+
+        <div class="mt-8 space-y-6 pt-6 border-t border-slate-100">
+          <div>
+            <div class="flex justify-between items-center mb-1">
+               <span class="text-[10px] font-bold text-slate-400 uppercase">Clareza Textual</span>
+               <span id="legibilityScore" class="text-[10px] font-black text-indigo-600">--</span>
+            </div>
+            <div id="legibilityLabel" class="text-xs font-semibold text-slate-600 mb-2">Aguardando texto...</div>
+            <div class="legibility-bar"><div id="legibilityFill" class="legibility-fill"></div></div>
+          </div>
+
+          <div class="flex justify-between items-center text-slate-500">
+            <div class="flex flex-col">
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Tempo Leitura</span>
+              <span id="readTime" class="text-sm font-bold text-slate-700">0 min</span>
+            </div>
+            <div class="flex flex-col text-right">
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Densidade Lexical</span>
+              <span id="lexicalDensity" class="text-sm font-bold text-slate-700">0%</span>
+            </div>
+          </div>
+          
+          <div class="flex justify-between items-center text-slate-500 pt-4 border-t border-slate-100">
+            <div class="flex flex-col">
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Entidades Nomeadas</span>
+              <span id="entityCounter" class="text-sm font-bold text-slate-700">0</span>
+            </div>
+            <div class="flex flex-col text-right">
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Score TF-IDF Médio</span>
+              <span id="avgTfIdf" class="text-sm font-bold text-slate-700">0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="glass-card p-6 bg-gradient-to-br from-indigo-50 to-white">
+        <h3 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+          <span class="text-lg">🎯</span> Palavras-Chave
+        </h3>
+        <div id="keywordsCloud" class="flex flex-wrap gap-2 min-h-[60px]">
+          <span class="text-xs text-slate-400 italic">Digite um texto para ver as palavras-chave...</span>
+        </div>
+      </div>
+    </aside>
+  </div>
 </main>
 
-<footer class="mt-24 border-t border-slate-200 bg-white">
-  <div class="mx-auto max-w-7xl px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
-    <div class="flex items-center gap-2">
-      <div class="w-7 h-7 bg-indigo-600 rounded-lg flex items-center justify-center text-white text-[10px] font-black">HL</div>
-      <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Hiato Literário Tools</p>
-    </div>
-    <p class="text-[11px] text-slate-400 font-medium">Privacidade total: seu texto é processado apenas no seu navegador.</p>
-  </div>
-</footer>
-
 <script>
-  const stopwords = new Set([
-    "a", "o", "as", "os", "ao", "aos", "da", "do", "das", "dos", "em", "na", "no", "nas", "nos", "um", "uma", "uns", "umas", "de", "com", "por", "para", "que", "e", "é", "mas", "ou", "se", "como", "esta", "este", "isto", "esse", "essa", "isso", "aquele", "aquela", "aquilo", "meu", "teu", "seu", "nosso", "vosso", "minha", "tua", "sua", "nossa", "vossa", "ele", "ela", "eles", "elas", "me", "te", "se", "lhe", "nos", "vos", "pelo", "pela", "pelos", "pelas", "num", "numa", "numas", "numos", "quem", "qual", "quais", "onde", "quando", "como", "porquê", "porque", "pois", "então", "tão", "muito", "mais", "menos", "nada", "tudo", "todo", "toda", "todos", "todas", "cada", "outro", "outra", "outros", "outras", "ser", "ter", "haver", "estar", "fazer", "ir", "vir", "dar", "querer", "poder", "dever", "saber", "ver", "dizer"
+  // ============================================
+  // LISTAS LINGUÍSTICAS MELHORADAS (PORTUGUÊS)
+  // ============================================
+  const ptStopwords = new Set([
+    "a", "o", "as", "os", "ao", "aos", "da", "do", "das", "dos", "em", "na", "no", "nas", "nos", "um", "uma", "uns", "umas", 
+    "de", "com", "por", "para", "que", "e", "é", "mas", "ou", "se", "como", "esta", "este", "isto", "esse", "essa", "isso", 
+    "aquele", "aquela", "aquilo", "meu", "teu", "seu", "nosso", "vosso", "minha", "tua", "sua", "nossa", "vossa", "ele", "ela", 
+    "eles", "elas", "me", "te", "lhe", "num", "numa", "quem", "qual", "onde", "quando", "porque", "pois", "então", "tão", 
+    "muito", "mais", "menos", "ser", "ter", "haver", "estar", "foi", "está", "são", "foram", "eram"
   ]);
 
-  function getWeightedSummary(text, ratio) {
-    if (!text || text.trim().length < 50) return { error: "Texto insuficiente para análise. Tente um parágrafo maior." };
+  const ptConnectors = new Set([
+    "portanto", "contudo", "entretanto", "todavia", "porém", "conseguinte", "conclusão", "síntese", "resumo", 
+    "ademais", "outrossim", "além", "principalmente", "especialmente", "sobretudo", "conforme", "segundo", 
+    "apesar", "embora", "visto", "posto", "vistoque", "assim", "logo", "conclui-se", "nota-se", "dessa", "desse",
+    "primeiramente", "finalmente", "outro", "outra", "destaca-se", "vale", "ressaltar"
+  ]);
 
-    const rawSentences = text.split(/(?<=[.!?])\s+|\n+/);
-    const sentences = rawSentences
-      .map(s => s.trim())
-      .filter(s => s.length > 15);
+  const lowIdfWords = new Set([
+    "sobre", "entre", "durante", "parte", "forma", "maior", "menor", "vez", "vezes", "exemplo", "caso", "casos",
+    "trabalho", "estudo", "pesquisa", "dado", "dados", "informação", "informações", "grande", "pequeno",
+    "importante", "importância", "necessário", "possível", "capaz", "cada", "todo", "toda", "todos", "todas"
+  ]);
 
-    if (sentences.length <= 3) return { text: text, keywords: [], count: text.split(/\s+/).length };
+  // ============================================
+  // ENGINE PRINCIPAL DE NLP
+  // ============================================
+  const textEngine = {
+    // 1. Contagem de sílabas (aproximada)
+    countSyllables: (word) => {
+      word = word.toLowerCase();
+      if (word.length <= 3) return 1;
+      const matches = word.match(/[aeiouáéíóúãõâêôàèìòùäëïöü]/gi);
+      return matches ? Math.min(matches.length, 5) : 1;
+    },
 
-    const wordFreq = {};
-    const words = text.toLowerCase().match(/[a-záàâãéèêíïóôõöúçñ]{3,}/g) || [];
-    
-    words.forEach(word => {
-      if (!stopwords.has(word)) {
-        wordFreq[word] = (wordFreq[word] || 0) + 1;
-      }
-    });
+    // 2. Pré-processamento avançado
+    preprocess: (text) => {
+      return text
+        .replace(/\s+/g, ' ')
+        .replace(/(\w)\1{3,}/g, '$1$1')
+        .replace(/[""]/g, '"')
+        .replace(/['']/g, "'")
+        .trim();
+    },
 
-    const totalSentences = sentences.length;
-    const scores = sentences.map((sentence, index) => {
-      let score = 0;
-      const sWords = sentence.toLowerCase().match(/[a-záàâãéèêíïóôõöúçñ]{3,}/g) || [];
-      const uniqueWords = new Set(sWords);
+    // 3. Separação de Sentenças (com proteção de abreviações)
+    splitSentences: (text) => {
+      let protectedText = text
+        .replace(/Sr\./g, 'Sr<dot>')
+        .replace(/Sra\./g, 'Sra<dot>')
+        .replace(/Dr\./g, 'Dr<dot>')
+        .replace(/Dra\./g, 'Dra<dot>')
+        .replace(/Prof\./g, 'Prof<dot>')
+        .replace(/etc\./g, 'etc<dot>')
+        .replace(/Exmo\./g, 'Exmo<dot>')
+        .replace(/p\.ex\./g, 'p<dot>ex<dot>')
+        .replace(/e\.g\./g, 'e<dot>g<dot>')
+        .replace(/i\.e\./g, 'i<dot>e<dot>');
       
-      uniqueWords.forEach(word => {
-        if (wordFreq[word]) {
-          score += wordFreq[word];
+      const sentences = protectedText.split(/(?<=[.!?])\s+(?=[A-Z]|[À-Ú]|"|\()/);
+      
+      return sentences
+        .map(s => s.replace(/<dot>/g, '.'))
+        .filter(s => s.trim().length > 10);
+    },
+
+    // 4. Detecção de Entidades Nomeadas
+    extractEntities: (text) => {
+      const entities = [];
+      const words = text.match(/\b[A-ZÀ-Ú][a-zà-ú]+\b/g) || [];
+      const seen = new Set();
+      
+      words.forEach(w => {
+        const lower = w.toLowerCase();
+        if (!ptStopwords.has(lower) && !seen.has(lower)) {
+          seen.add(lower);
+          entities.push(w);
         }
       });
-
-      let posWeight = 1.0;
-      if (index === 0) posWeight = 1.5;
-      if (index === totalSentences - 1) posWeight = 1.3;
-      if (index < totalSentences * 0.1) posWeight = 1.2;
       
-      const idealLength = 20; 
-      const lengthPenalty = 1 / (1 + Math.abs(sWords.length - idealLength) * 0.05);
+      return entities;
+    },
 
-      return { 
-        index, 
-        sentence, 
-        finalScore: score * posWeight * lengthPenalty 
-      };
-    });
+    // 5. Extração de Keywords com TF-IDF Simulado
+    extractKeywords: (text) => {
+      const words = text.toLowerCase().match(/[a-záàâãéèêíïóôõöúçñ]{4,}/g) || [];
+      const freq = {};
+      const totalWords = words.length;
+      
+      words.forEach(w => {
+        if (!ptStopwords.has(w)) {
+          let weight = 1.0;
+          
+          // Penalidade para palavras comuns (IDF simulado)
+          if (lowIdfWords.has(w)) weight = 0.3;
+          if (w.length < 5) weight *= 0.7;
+          
+          freq[w] = (freq[w] || 0) + weight;
+        }
+      });
+      
+      // Normalização por frequência relativa
+      Object.keys(freq).forEach(key => {
+        freq[key] = (freq[key] / totalWords) * 100;
+      });
+      
+      return freq;
+    },
 
-    const targetCount = Math.max(1, Math.round(totalSentences * (ratio / 100)));
-    const topSentences = [...scores]
-      .sort((a, b) => b.finalScore - a.finalScore)
-      .slice(0, targetCount);
+    // 6. Cálculo de Similaridade de Jaccard
+    calculateSimilarity: (text1, text2) => {
+      const getWords = (t) => new Set(t.toLowerCase().match(/[a-záàâãéèêíïóôõöúçñ]+/g) || []);
+      const wordsA = getWords(text1);
+      const wordsB = getWords(text2);
+      
+      const intersection = new Set([...wordsA].filter(x => wordsB.has(x)));
+      const union = new Set([...wordsA, ...wordsB]);
+      
+      return intersection.size / union.size;
+    },
 
-    const finalSummary = scores
-      .filter(s => topSentences.some(ts => ts.index === s.index))
-      .map(s => s.sentence)
-      .join(" ");
+    // 7. Scoring das Sentenças (Heurística Avançada)
+    scoreSentence: (sentence, index, total, freqMap, entities) => {
+      let score = 0;
+      const cleanSentence = sentence.toLowerCase();
+      const sWords = cleanSentence.match(/[a-záàâãéèêíïóôõöúçñ]{4,}/g) || [];
+      
+      // A. Densidade Lexical (TF-IDF)
+      const uniqueWords = new Set(sWords);
+      uniqueWords.forEach(w => score += (freqMap[w] || 0));
+      
+      // B. Bonus para Entidades Nomeadas
+      const capitalWords = sentence.match(/\b[A-ZÀ-Ú][a-zà-ú]+\b/g) || [];
+      if (capitalWords.length > 0) {
+        score *= 1 + Math.min(0.5, capitalWords.length * 0.12);
+      }
+      
+      // C. Posição Estratégica
+      if (index === 0) score *= 1.8;
+      if (index === total - 1) score *= 1.4;
+      if (index < total * 0.15) score *= 1.2;
+      
+      // D. Conectores Fortes
+      ptConnectors.forEach(conn => {
+        if (cleanSentence.includes(conn)) score *= 1.25;
+      });
+      
+      // E. Penalização de Tamanho (Ouro: 15-30 palavras)
+      const len = sWords.length;
+      if (len < 8) score *= 0.5;
+      if (len > 45) score *= 0.7;
+      if (len >= 15 && len <= 30) score *= 1.15;
+      
+      // F. Bonus para palavras-chave de alta relevância
+      const topKeywords = Object.entries(freqMap)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(k => k[0]);
+      
+      topKeywords.forEach(kw => {
+        if (cleanSentence.includes(kw)) score *= 1.1;
+      });
+      
+      return score;
+    },
 
-    const keywords = Object.entries(wordFreq)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 8)
-      .map(e => e[0]);
+    // 8. Cálculo de Legibilidade (Índice Flesch adaptado PT-BR)
+    calculateLegibility: (text, stats) => {
+      if (stats.words < 15) return { score: 0, label: "Aguardando conteúdo...", color: "#94a3b8" };
+      
+      const wordsPerSentence = stats.words / (stats.sentences || 1);
+      
+      // Contagem real de sílabas
+      const wordList = text.match(/[a-záàâãéèêíïóôõöúçñ]+/gi) || [];
+      let totalSyllables = 0;
+      wordList.forEach(w => totalSyllables += textEngine.countSyllables(w));
+      const avgSyllables = totalSyllables / (stats.words || 1);
+      
+      // Índice Flesch adaptado para PT-BR
+      let score = 206.835 - (1.015 * wordsPerSentence) - (84.6 * avgSyllables);
+      score = Math.min(100, Math.max(0, score / 2));
+      
+      let label, color;
+      if (score > 80) { label = "Muito Clara (Leitura Fluida)"; color = "#10b981"; }
+      else if (score > 60) { label = "Padrão (Boa legibilidade)"; color = "#4f46e5"; }
+      else if (score > 40) { label = "Acadêmica (Exige atenção)"; color = "#f59e0b"; }
+      else { label = "Complexa (Estrutura densa)"; color = "#ef4444"; }
+      
+      return { score: Math.round(score), label, color };
+    }
+  };
 
-    return {
-      text: finalSummary,
-      keywords,
-      count: finalSummary.split(/\s+/).length
+  // ============================================
+  // CONTROLLER PRINCIPAL
+  // ============================================
+  const input = document.getElementById('inputText');
+  const ratioSlider = document.getElementById('ratioSlider');
+  const ratioLabel = document.getElementById('ratioLabel');
+  
+  const displays = {
+    words: document.getElementById('statWords'),
+    chars: document.getElementById('statChars'),
+    sentences: document.getElementById('statSentences'),
+    paragraphs: document.getElementById('statParagraphs'),
+    lexicalDensity: document.getElementById('lexicalDensity'),
+    readTime: document.getElementById('readTime'),
+    legibilityScore: document.getElementById('legibilityScore'),
+    legibilityLabel: document.getElementById('legibilityLabel'),
+    legibilityFill: document.getElementById('legibilityFill'),
+    summaryResult: document.getElementById('summaryResult'),
+    summaryContent: document.getElementById('summaryContent'),
+    entityCounter: document.getElementById('entityCounter'),
+    avgTfIdf: document.getElementById('avgTfIdf'),
+    keywordsCloud: document.getElementById('keywordsCloud'),
+    entityCount: document.getElementById('entityCount'),
+    summaryStats: document.getElementById('summaryStats'),
+    relevanceScore: document.getElementById('relevanceScore')
+  };
+
+  let currentStats = {};
+  let currentFreqMap = {};
+  let currentEntities = [];
+
+  function update() {
+    const rawText = input.value;
+    const cleanText = textEngine.preprocess(rawText);
+    
+    const words = cleanText.split(/\s+/).filter(Boolean);
+    const sentences = textEngine.splitSentences(cleanText);
+    const paragraphs = rawText.split(/\n\s*\n/).filter(Boolean);
+    currentEntities = textEngine.extractEntities(cleanText);
+    
+    currentStats = {
+      words: words.length,
+      chars: rawText.length,
+      sentences: sentences.length,
+      paragraphs: paragraphs.length
     };
+
+    // UI Updates - Métricas Básicas
+    displays.words.innerText = currentStats.words;
+    displays.chars.innerText = currentStats.chars;
+    displays.sentences.innerText = currentStats.sentences;
+    displays.paragraphs.innerText = currentStats.paragraphs;
+    displays.entityCounter.innerText = currentEntities.length;
+    
+    document.getElementById('wordCounter').innerText = `${currentStats.words} palavras`;
+    document.getElementById('charCounter').innerText = `${currentStats.chars} caracteres`;
+    document.getElementById('sentenceCounter').innerText = `${currentStats.sentences} frases`;
+
+    // Legibilidade
+    const leg = textEngine.calculateLegibility(cleanText, currentStats);
+    displays.legibilityScore.innerText = currentStats.words > 0 ? `${leg.score}/100` : '--';
+    displays.legibilityLabel.innerText = leg.label;
+    displays.legibilityFill.style.width = `${leg.score}%`;
+    if (leg.color) displays.legibilityFill.style.backgroundColor = leg.color;
+
+    // Tempo de Leitura e Densidade Lexical
+    const readTime = Math.ceil(currentStats.words / 200);
+    displays.readTime.innerText = `${readTime} min`;
+
+    currentFreqMap = textEngine.extractKeywords(cleanText);
+    const uniqueKeywords = Object.keys(currentFreqMap).length;
+    const density = currentStats.words > 0 ? Math.round((uniqueKeywords / currentStats.words) * 100) : 0;
+    displays.lexicalDensity.innerText = `${density}%`;
+    
+    // TF-IDF Médio
+    const tfidfValues = Object.values(currentFreqMap);
+    const avgTfIdf = tfidfValues.length > 0 ? 
+      (tfidfValues.reduce((a, b) => a + b, 0) / tfidfValues.length).toFixed(2) : 0;
+    displays.avgTfIdf.innerText = avgTfIdf;
+    
+    // Nuvem de Palavras-chave
+    updateKeywordsCloud(currentFreqMap);
   }
 
-  const inputEl = document.getElementById('inputText');
-  const outputEl = document.getElementById('outputContainer');
-  const slider = document.getElementById('ratioSlider');
-  const label = document.getElementById('rangeDisplay');
-  const btn = document.getElementById('summarizeBtn');
-  const clear = document.getElementById('clearBtn');
-  const copy = document.getElementById('copyBtn');
-  const cloud = document.getElementById('keywordCloud');
-  const wordCount = document.getElementById('wordCountLabel');
-  const finalWords = document.getElementById('finalWords');
-  const reduction = document.getElementById('reductionLabel');
-
-  slider.oninput = () => label.innerText = `${slider.value}% do conteúdo`;
-  
-  inputEl.oninput = () => {
-    const total = inputEl.value.trim() ? inputEl.value.trim().split(/\s+/).length : 0;
-    wordCount.innerText = `${total} palavras`;
-  };
-
-  btn.onclick = () => {
-    const text = inputEl.value.trim();
-    if (!text) return;
-
-    btn.innerText = "Criando resumo...";
-    btn.disabled = true;
-
-    setTimeout(() => {
-      const res = getWeightedSummary(text, parseInt(slider.value));
-
-      if (res.error) {
-        outputEl.innerHTML = `<span class="text-red-500 font-bold">${res.error}</span>`;
-      } else {
-        outputEl.innerText = res.text;
-        outputEl.classList.remove('italic', 'text-slate-400');
-        
-        const originalTotal = text.split(/\s+/).length;
-        finalWords.innerText = res.count;
-        const perc = Math.round(((originalTotal - res.count) / originalTotal) * 100);
-        reduction.innerText = `${perc}%`;
-
-        cloud.innerHTML = "";
-        res.keywords.forEach(kw => {
-          const s = document.createElement('span');
-          s.className = "keyword-badge";
-          s.innerText = kw;
-          cloud.appendChild(s);
-        });
-      }
-
-      btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Criar Resumo Agora`;
-      btn.disabled = false;
-    }, 600);
-  };
-
-  clear.onclick = () => {
-    inputEl.value = "";
-    outputEl.innerText = "O seu resumo aparecerá aqui...";
-    outputEl.classList.add('italic', 'text-slate-400');
-    finalWords.innerText = "0";
-    reduction.innerText = "0%";
-    cloud.innerHTML = `<span class="text-xs text-slate-400 italic">Aguardando texto...</span>`;
-    wordCount.innerText = "0 palavras";
-    inputEl.focus();
-  };
-
-  copy.onclick = () => {
-    const val = outputEl.innerText;
-    if (val.includes("aparecerá aqui")) return;
+  function updateKeywordsCloud(freqMap) {
+    const sorted = Object.entries(freqMap)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 12);
     
-    const el = document.createElement("textarea");
-    el.value = val;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
+    if (sorted.length === 0) {
+      displays.keywordsCloud.innerHTML = '<span class="text-xs text-slate-400 italic">Digite um texto para ver as palavras-chave...</span>';
+      return;
+    }
+    
+    const maxFreq = sorted[0][1];
+    displays.keywordsCloud.innerHTML = sorted.map(([word, freq]) => {
+      const size = 0.7 + (freq / maxFreq) * 0.8;
+      const opacity = 0.5 + (freq / maxFreq) * 0.5;
+      return `<span class="inline-block px-3 py-1.5 bg-white rounded-full text-xs font-semibold shadow-sm border border-slate-200" 
+                    style="font-size: ${size}rem; opacity: ${opacity}; color: #4f46e5;">
+                ${word}
+              </span>`;
+    }).join('');
+  }
 
-    const oldText = copy.innerHTML;
-    copy.innerHTML = "✓ Copiado!";
-    copy.classList.replace('bg-slate-900', 'bg-emerald-600');
-    setTimeout(() => {
-      copy.innerHTML = oldText;
-      copy.classList.replace('bg-emerald-600', 'bg-slate-900');
-    }, 2000);
+  // Resumo com Anti-Redundância
+  function generateSummary() {
+    const cleanText = textEngine.preprocess(input.value);
+    const sentences = textEngine.splitSentences(cleanText);
+    if (sentences.length < 3) {
+      alert('Por favor, insira um texto com pelo menos 3 frases para gerar um resumo.');
+      return;
+    }
+
+    const freqMap = textEngine.extractKeywords(cleanText);
+    const entities = textEngine.extractEntities(cleanText);
+    const total = sentences.length;
+    
+    // Scoring inicial
+    const scoredSentences = sentences.map((s, i) => ({
+      text: s,
+      score: textEngine.scoreSentence(s, i, total, freqMap, entities),
+      index: i
+    }));
+
+    // Anti-Redundância: Penalizar sentenças similares
+    for (let i = 0; i < scoredSentences.length; i++) {
+      for (let j = i + 1; j < scoredSentences.length; j++) {
+        const similarity = textEngine.calculateSimilarity(
+          scoredSentences[i].text, 
+          scoredSentences[j].text
+        );
+        
+        if (similarity > 0.65) {
+          if (scoredSentences[i].score > scoredSentences[j].score) {
+            scoredSentences[j].score *= (1 - similarity * 0.5);
+          } else {
+            scoredSentences[i].score *= (1 - similarity * 0.5);
+          }
+        }
+      }
+    }
+
+    // Seleção baseada no ratio
+    const targetCount = Math.max(2, Math.round(total * (ratioSlider.value / 100)));
+    const topSentences = scoredSentences
+      .sort((a, b) => b.score - a.score)
+      .slice(0, targetCount)
+      .sort((a, b) => a.index - b.index);
+
+    // Cálculo de relevância média
+    const avgScore = topSentences.reduce((sum, s) => sum + s.score, 0) / topSentences.length;
+    const maxPossibleScore = scoredSentences[0]?.score || 1;
+    const relevancePercent = Math.round((avgScore / maxPossibleScore) * 100);
+
+    // Atualizar UI
+    displays.summaryContent.innerText = topSentences.map(s => s.text).join(' ');
+    displays.entityCount.innerText = `${entities.length} entidades`;
+    displays.summaryStats.innerText = `${topSentences.length} sentenças selecionadas`;
+    displays.relevanceScore.innerText = `Relevância: ${relevancePercent}%`;
+    displays.summaryResult.classList.remove('hidden');
+    displays.summaryResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Texto de exemplo
+  const exampleText = `A Inteligência Artificial (IA) tem revolucionado diversos setores da sociedade contemporânea. 
+O Dr. Silva, pesquisador da Universidade de São Paulo, destaca que os algoritmos de aprendizado profundo são capazes de processar volumes massivos de dados com precisão impressionante. 
+No entanto, é fundamental considerar as implicações éticas dessa tecnologia. 
+A Sra. Santos, especialista em direito digital, alerta para os riscos de viés algorítmico e violação de privacidade. 
+Portanto, o desenvolvimento responsável da IA requer um equilíbrio delicado entre inovação e regulação. 
+As empresas de tecnologia, como Google e Microsoft, têm investido bilhões em pesquisa nessa área. 
+Conclui-se que o futuro da IA dependerá não apenas dos avanços técnicos, mas também da sabedoria humana em sua aplicação.`;
+
+  // Event Listeners
+  input.addEventListener('input', update);
+  ratioSlider.addEventListener('input', () => ratioLabel.innerText = `${ratioSlider.value}%`);
+  
+  document.getElementById('summarizeBtn').addEventListener('click', generateSummary);
+
+  document.getElementById('pasteBtn').onclick = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      if (text) { 
+        input.value = text; 
+        update(); 
+      }
+    } catch (err) {
+      alert('Não foi possível acessar a área de transferência.');
+    }
   };
+
+  document.getElementById('clearBtn').onclick = () => {
+    input.value = '';
+    displays.summaryResult.classList.add('hidden');
+    update();
+  };
+
+  document.getElementById('exampleBtn').onclick = () => {
+    input.value = exampleText;
+    update();
+    displays.summaryResult.classList.add('hidden');
+  };
+
+  document.getElementById('copySummary').onclick = async () => {
+    const text = displays.summaryContent.innerText;
+    try {
+      await navigator.clipboard.writeText(text);
+      
+      // Feedback visual
+      const btn = document.getElementById('copySummary');
+      btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+      setTimeout(() => {
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+      }, 2000);
+    } catch (err) {
+      alert('Não foi possível copiar o texto.');
+    }
+  };
+
+  // Inicialização
+  update();
 </script>
 
 </body>
