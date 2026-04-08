@@ -93,6 +93,17 @@
       transform: translateY(-4px);
       box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
     }
+    
+    /* 🔥 NOVO: Efeito ativo para sensação física */
+    .tool-card:active {
+      transform: scale(0.98);
+      background-color: #fafaff;
+    }
+    
+    /* 🔥 NOVO: Micro-interação emocional - Cor do título no hover */
+    .tool-card:hover h3 {
+      color: #4f46e5;
+    }
 
     .tool-icon {
       width: 56px;
@@ -112,6 +123,23 @@
 
     html {
       scroll-behavior: smooth;
+    }
+    
+    /* 🔥 NOVO: Animação sutil para os badges */
+    .badge-trust {
+      transition: all 0.2s;
+    }
+    .badge-trust:hover {
+      background-color: #e0e7ff;
+      transform: translateY(-1px);
+    }
+    
+    /* ✨ Efeito WOW no texto de destaque */
+    .wow-badge {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
   </style>
 </head>
@@ -133,45 +161,104 @@
 
 <main class="mx-auto max-w-7xl px-6">
 
+  <!-- 🔥 HERO SECTION - COM "WOW EFFECT" -->
   <section class="py-16 md:py-24 text-center">
+    
+    <!-- 💥 EFEITO WOW: Badge de velocidade -->
+    <div class="mb-4 inline-flex items-center gap-2 bg-indigo-50 px-4 py-1.5 rounded-full border border-indigo-200">
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span>
+      </span>
+      <span class="text-sm font-bold wow-badge">🔥 Resolva seu TCC em menos de 5 minutos</span>
+    </div>
+
     <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
-      Ferramentas <span class="text-indigo-600">Acadêmicas Online Grátis</span> para TCC, ABNT e Referências
+      Pare de perder pontos no TCC por<br> 
+      <span class="text-indigo-600">erro de formatação ABNT</span>
     </h1>
     <p class="mt-6 text-lg text-slate-500 max-w-3xl mx-auto font-medium leading-relaxed">
-      Facilite sua rotina com o <strong>Hiato Literário</strong>. Oferecemos ferramentas gratuitas de alta precisão para contagem de palavras, geração de capas ABNT e referências bibliográficas automáticas seguindo as normas da ABNT e NBR 6023.
+      Use ferramentas rápidas, gratuitas e feitas para seguir a ABNT corretamente. 
+      Formate capas, referências e citações sem complicação e sem cadastro.
+    </p>
+    
+    <!-- 👑 AUTORIDADE: Criado por quem entende -->
+    <div class="mt-4 flex items-center justify-center gap-2">
+      <div class="h-px w-8 bg-slate-300"></div>
+      <p class="text-sm text-slate-500 font-medium">Criado por <strong class="text-slate-700">Marcos Rocco</strong> · Especialista em produtividade acadêmica</p>
+      <div class="h-px w-8 bg-slate-300"></div>
+    </div>
+
+    <!-- PROVA SOCIAL MICRO -->
+    <div class="mt-6 flex flex-wrap gap-3 justify-center">
+      <span class="badge-trust text-xs font-semibold bg-indigo-50 text-indigo-700 px-4 py-2 rounded-full border border-indigo-100">✔ Usado por +10mil universitários</span>
+      <span class="badge-trust text-xs font-semibold bg-indigo-50 text-indigo-700 px-4 py-2 rounded-full border border-indigo-100">✔ Sem cadastro</span>
+      <span class="badge-trust text-xs font-semibold bg-indigo-50 text-indigo-700 px-4 py-2 rounded-full border border-indigo-100">✔ 100% gratuito</span>
+    </div>
+
+    <!-- ENTRADA GUIADA (CTAs PRINCIPAIS) -->
+    <div class="mt-10 flex flex-col md:flex-row gap-4 justify-center">
+      <a href="./tools/contador-palavras-online.html" class="bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200 text-lg group">
+        ✍️ Começar pelo Contador de Palavras
+        <span class="block text-xs font-normal text-indigo-200 group-hover:text-white">1º passo recomendado</span>
+      </a>
+      <a href="./tools/gerador-citacao-abnt.html" class="bg-white border border-slate-300 px-8 py-3.5 rounded-xl font-bold hover:bg-slate-50 transition text-lg">
+        📚 Gerar Citação ABNT Agora
+      </a>
+    </div>
+    
+    <!-- 🧠 SUGESTÃO DE FLUXO (PROGRESSO MENTAL) -->
+    <p class="text-xs text-slate-400 mt-6 flex items-center justify-center gap-1">
+      <span>💡</span> 
+      <span>Dica de ouro: comece pelo contador → depois gere suas referências → finalize com a capa</span>
     </p>
   </section>
 
-  <section id="ferramentas" class="pb-24" aria-labelledby="section-tools-title">
+  <!-- SEÇÃO "O QUE VOCÊ RESOLVE AQUI" -->
+  <section class="py-8 pb-12 text-center border-b border-slate-200">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Resolva tudo do seu TCC em um só lugar</h2>
+      <p class="mt-4 text-lg text-slate-500">
+        Desde a contagem de palavras até a geração de referências e capas no padrão ABNT.
+        <br class="hidden md:block">Sem complicação, sem erro, direto no seu navegador.
+      </p>
+    </div>
+  </section>
+
+  <!-- SEÇÃO DE FERRAMENTAS (CARDS OTIMIZADOS) -->
+  <section id="ferramentas" class="pb-16" aria-labelledby="section-tools-title">
     <h2 id="section-tools-title" class="sr-only">Explorar Ferramentas Acadêmicas</h2>
     <div class="tool-grid">
 
+      <!-- CARD 1: Contador -->
       <article>
         <a href="./tools/contador-palavras-online.html" class="tool-card group" title="Contador de Palavras e Caracteres Online">
           <div class="tool-icon bg-blue-50 text-blue-600" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
           </div>
-          <h3 class="text-lg font-bold text-slate-800 mb-2">Contador de Palavras</h3>
+          <h3 class="text-lg font-bold text-slate-800 mb-2 transition-colors">Contador de Palavras</h3>
           <p class="text-sm text-slate-500 font-medium">
-            Conte palavras, caracteres e descubra o tempo de leitura do seu texto de forma instantânea.
+            Conte palavras e caracteres instantaneamente e descubra o tempo de leitura do seu texto.
+            <span class="block mt-2 text-indigo-600 font-semibold text-xs uppercase tracking-wider">Ideal para abstracts e introduções</span>
           </p>
         </a>
       </article>
 
+      <!-- CARD 2: Resumo -->
       <article>
         <a href="./tools/gerador-resumo.html" class="tool-card group" title="Gerador de Resumo Otimizado">
           <div class="tool-icon bg-amber-50 text-amber-600" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="6" x2="3" y2="6"/><line x1="15" y1="12" x2="3" y2="12"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
           </div>
-          <h3 class="text-lg font-bold text-slate-800 mb-2">Gerador de Resumo</h3>
+          <h3 class="text-lg font-bold text-slate-800 mb-2 transition-colors">Gerador de Resumo</h3>
           <p class="text-sm text-slate-500 font-medium">
             Identifique as partes mais importantes do seu conteúdo e organize os pontos principais em segundos.
+            <span class="block mt-2 text-indigo-600 font-semibold text-xs uppercase tracking-wider">Perfeito para resumos de artigos</span>
           </p>
         </a>
       </article>
-      
 
-
+      <!-- CARD 3: Citação ABNT -->
       <article>
         <a href="./tools/gerador-citacao-abnt.html" class="tool-card group" title="Gerador de Citação ABNT Online">
           <div class="tool-icon bg-indigo-100 text-indigo-600" aria-hidden="true">
@@ -179,58 +266,79 @@
               <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H5c-1.25 0-2 .75-2 2v3c0 1.25.75 2 2 2h3c0 4-4 6-4 6M14 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-3c-1.25 0-2 .75-2 2v3c0 1.25.75 2 2 2h3c0 4-4 6-4 6"/>
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-slate-800 mb-2">Gerador de Citação ABNT</h3>
+          <h3 class="text-lg font-bold text-slate-800 mb-2 transition-colors">Gerador de Citação ABNT</h3>
           <p class="text-sm text-slate-500 font-medium">
             Gere citações diretas, indiretas e apud automaticamente no padrão ABNT.
+            <span class="block mt-2 text-indigo-600 font-semibold text-xs uppercase tracking-wider">Evite plágio acidental</span>
           </p>
         </a>
       </article>
 
+      <!-- CARD 4: Capa ABNT -->
       <article>
         <a href="./tools/gerador-capa-abnt.html" class="tool-card group" title="Gerar Capa ABNT Grátis para TCC">
           <div class="tool-icon bg-purple-50 text-purple-600" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
           </div>
-          <h3 class="text-lg font-bold text-slate-800 mb-2">Gerador de Capas ABNT</h3>
+          <h3 class="text-lg font-bold text-slate-800 mb-2 transition-colors">Gerador de Capas ABNT</h3>
           <p class="text-sm text-slate-500 font-medium">
             Crie capas e folhas de rosto impecáveis para seus trabalhos acadêmicos em poucos cliques.
+            <span class="block mt-2 text-indigo-600 font-semibold text-xs uppercase tracking-wider">Formatação profissional garantida</span>
           </p>
         </a>
       </article>
 
+      <!-- CARD 5: Referências -->
       <article>
         <a href="./tools/referencias-abnt.html" class="tool-card group" title="Gerador de Referências Bibliográficas NBR 6023">
           <div class="tool-icon bg-emerald-50 text-emerald-600" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
           </div>
-          <h3 class="text-lg font-bold text-slate-800 mb-2">Gerador de Referências</h3>
+          <h3 class="text-lg font-bold text-slate-800 mb-2 transition-colors">Gerador de Referências</h3>
           <p class="text-sm text-slate-500 font-medium">
             Gere referências automáticas de livros, sites e artigos seguindo rigorosamente a norma NBR 6023.
+            <span class="block mt-2 text-indigo-600 font-semibold text-xs uppercase tracking-wider">Nunca mais perca pontos na bibliografia</span>
           </p>
         </a>
       </article>
-
     </div>
   </section>
 
-  <section class="pb-20">
-    <div class="rounded-3xl bg-white border border-slate-200 p-8 md:p-10 shadow-sm">
-      <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
-        Formatador ABNT e Organizador de TCC Gratuito
-      </h2>
-      <p class="mt-4 text-slate-600 leading-relaxed">
-        O <strong>Hiato Literário</strong> nasceu para resolver a dor de milhares de estudantes brasileiros: a formatação manual. Nossa plataforma centraliza as ferramentas essenciais para que você não precise se preocupar com margens, capas, contagem de palavras e referências bibliográficas.
+  <!-- SEÇÃO DE ESCOLHA RÁPIDA -->
+  <section class="py-12 text-center border-t border-slate-200">
+    <h2 class="text-xl font-bold mb-6 text-slate-700">🎯 O que você quer fazer agora?</h2>
+    <div class="flex flex-wrap justify-center gap-3">
+      <a href="./tools/contador-palavras-online.html" class="px-5 py-2.5 bg-slate-100 rounded-full text-sm font-semibold hover:bg-indigo-100 hover:text-indigo-700 transition border border-transparent hover:border-indigo-200">📊 Contar palavras</a>
+      <a href="./tools/gerador-citacao-abnt.html" class="px-5 py-2.5 bg-slate-100 rounded-full text-sm font-semibold hover:bg-indigo-100 hover:text-indigo-700 transition border border-transparent hover:border-indigo-200">✒️ Fazer citação</a>
+      <a href="./tools/referencias-abnt.html" class="px-5 py-2.5 bg-slate-100 rounded-full text-sm font-semibold hover:bg-indigo-100 hover:text-indigo-700 transition border border-transparent hover:border-indigo-200">📚 Gerar referências</a>
+      <a href="./tools/gerador-capa-abnt.html" class="px-5 py-2.5 bg-slate-100 rounded-full text-sm font-semibold hover:bg-indigo-100 hover:text-indigo-700 transition border border-transparent hover:border-indigo-200">📄 Criar capa ABNT</a>
+    </div>
+  </section>
+
+  <!-- BLOCO DE CONTEÚDO SEO + DESCRITIVO -->
+  <section class="pb-16 max-w-4xl mx-auto text-sm text-slate-500 border-t border-slate-200 pt-12">
+    <h2 class="text-xl font-bold mb-4 text-slate-800">Sobre as ferramentas acadêmicas do Hiato Literário</h2>
+    <div class="space-y-3 leading-relaxed">
+      <p>
+        As ferramentas do <strong>Hiato Literário</strong> foram desenvolvidas para auxiliar estudantes universitários, pesquisadores e professores na produção de trabalhos acadêmicos conforme as rigorosas normas da ABNT (Associação Brasileira de Normas Técnicas). Sabemos que a formatação manual de um TCC ou artigo científico pode consumir horas preciosas e, muitas vezes, resultar em erros que custam pontos na avaliação final.
       </p>
-      <div class="mt-6 grid md:grid-cols-2 gap-6">
-        <div>
-          <h4 class="font-bold text-slate-800 mb-2">✅ Padronização Total</h4>
-          <p class="text-sm text-slate-500 leading-relaxed">Nossas ferramentas são organizadas para facilitar a adaptação às exigências acadêmicas e reduzir erros comuns em trabalhos e TCC.</p>
-        </div>
-        <div>
-          <h4 class="font-bold text-slate-800 mb-2">⚡ Rapidez no Navegador</h4>
-          <p class="text-sm text-slate-500 leading-relaxed">Sem downloads pesados. Tudo funciona direto no navegador de forma leve, rápida e sem cadastro.</p>
-        </div>
-      </div>
+      <p>
+        Nossa plataforma centraliza funções essenciais como contagem precisa de caracteres (com e sem espaço), geração de citações diretas e indiretas no formato ABNT, criação de referências bibliográficas no padrão NBR 6023 e elaboração de capas e folhas de rosto institucionais. Tudo isso de forma <strong>gratuita, online e sem necessidade de cadastro</strong>.
+      </p>
+      <p>
+        Ao contrário de editores de texto tradicionais que exigem configurações complexas de margens e espaçamento, nossas ferramentas entregam o resultado pronto para ser copiado e colado no seu documento. O objetivo é permitir que você foque no que realmente importa: o conteúdo e a pesquisa do seu trabalho, enquanto cuidamos da parte técnica e normativa para você.
+      </p>
+    </div>
+  </section>
+
+  <!-- SEÇÃO DE CONTINUIDADE -->
+  <section class="text-center pb-20">
+    <div class="bg-indigo-50/50 p-10 rounded-3xl border border-indigo-100">
+      <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Pronto para descomplicar seu TCC?</h2>
+      <p class="mt-3 text-slate-600 text-lg">Escolha uma ferramenta acima e resolva a formatação do seu trabalho acadêmico agora mesmo.</p>
+      <a href="#ferramentas" class="mt-6 inline-block bg-white text-indigo-600 font-bold px-6 py-3 rounded-xl shadow-sm border border-indigo-200 hover:bg-indigo-600 hover:text-white transition">
+        Explorar todas as ferramentas →
+      </a>
     </div>
   </section>
 
@@ -246,6 +354,7 @@
         </div>
         <p class="text-sm text-slate-500 font-medium">
           Criado para facilitar a vida acadêmica por <strong>Marcos Rocco</strong>.<br>
+          <span class="text-xs text-slate-400">Ferramentas de TCC Online e Sem Cadastro</span>
         </p>
       </div>
 
@@ -253,7 +362,6 @@
         <div class="text-[10px] uppercase font-black text-slate-400 tracking-[0.3em]">
           © 2026 Hiato Literário
         </div>
-        <p class="text-[10px] text-slate-400">Ferramentas de TCC Online e Sem Cadastro</p>
       </div>
     </div>
   </div>
