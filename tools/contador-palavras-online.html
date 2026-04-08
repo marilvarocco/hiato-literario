@@ -4,15 +4,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contador de Palavras Online | Hiato Literário Tools</title>
+  
+  <!-- TÍTULO DIRETO PARA SEO -->
+  <title>Contador de Palavras Online com Tempo de Leitura e Fala | Hiato Literário</title>
+  
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3405911750491123"
      crossorigin="anonymous"></script>
-  <meta name="description" content="Conte palavras, caracteres, frases e parágrafos de forma rápida e grátis." />
+  
+  <!-- SEO META TAGS OTIMIZADAS -->
+  <meta name="description" content="Conte palavras, caracteres, frases e parágrafos. Veja tempo de leitura e tempo de fala. Ferramenta grátis com análise de densidade e persistência automática." />
+  <meta name="keywords" content="contador de palavras, tempo de leitura, tempo de fala, contar caracteres, densidade de palavras, análise de texto" />
+  <meta name="author" content="Hiato Literário" />
+  <link rel="canonical" href="https://hiatoliterario.com.br/tools/contador-palavras-online.html" />
+  
+  <!-- OPEN GRAPH (COMPARTILHAMENTO) -->
+  <meta property="og:title" content="Contador de Palavras Online Grátis - Com Tempo de Leitura e Fala" />
+  <meta property="og:description" content="Ferramenta profissional para contar palavras, caracteres e analisar seu texto em tempo real" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hiatoliterario.com.br/tools/contador-palavras-online.html" />
+  <meta property="og:image" content="https://hiatoliterario.com.br/og-image.jpg" />
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="../src/css/styles.css" />
+  
+  <!-- SCHEMA.ORG ATUALIZADO -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Contador de Palavras com Tempo de Leitura",
+      "description": "Ferramenta gratuita para análise de textos com métricas avançadas incluindo tempo de leitura e tempo de fala",
+      "applicationCategory": "Utility",
+      "operatingSystem": "Web",
+      "url": "https://hiatoliterario.com.br/tools/contador-palavras-online.html",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      }
+    }
+  </script>
+  
   <style>
     body { font-family: 'Inter', sans-serif; }
     
@@ -22,9 +56,9 @@
     }
 
     .app-shell {
-      max-width: 1152px;
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 2.5rem 1.5rem;
+      padding: 2rem 1.5rem;
     }
 
     .form-panel {
@@ -37,9 +71,9 @@
 
     .text-input {
       width: 100%;
-      min-height: 350px;
+      min-height: 400px;
       padding: 1.25rem;
-      border: 1px solid #e2e8f0;
+      border: 2px solid #e2e8f0;
       border-radius: 1rem;
       outline: none;
       resize: vertical;
@@ -53,97 +87,77 @@
       box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
     }
 
-    .button-primary {
-      background: #4f46e5;
+    .progress-bar {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4f46e5, #818cf8);
+      transition: width 0.3s ease;
+      border-radius: 9999px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    .number-update {
+      animation: pulse 0.2s ease-in-out;
+    }
+
+    .floating-counter {
+      position: sticky;
+      bottom: 1rem;
+      background: rgba(79, 70, 229, 0.95);
+      backdrop-filter: blur(8px);
       color: white;
-      padding: 0.75rem 1.75rem;
+      padding: 0.75rem 1.5rem;
       border-radius: 9999px;
-      font-weight: 600;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
+      font-weight: 700;
+      text-align: center;
+      box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.3);
+      z-index: 40;
     }
 
-    .button-primary:hover { background: #4338ca; transform: translateY(-1px); }
-    .button-primary:active { transform: translateY(0); }
-
-    .button-secondary {
-      background: white;
-      color: #64748b;
-      padding: 0.75rem 1.75rem;
-      border-radius: 9999px;
-      font-weight: 600;
-      border: 1px solid #e2e8f0;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-
-    .button-secondary:hover { 
-      background: #f8fafc;
-      color: #1e293b;
-      border-color: #cbd5e1;
-    }
-
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(1, 1fr);
-      gap: 1rem;
-    }
-
-    @media (min-width: 640px) {
-      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    .metric-card {
-      background: #f8fafc;
-      padding: 1.5rem;
-      border-radius: 1.25rem;
-      border: 1px solid #f1f5f9;
+    .word-density-item {
       display: flex;
-      flex-direction: column;
-      transition: all 0.3s ease;
-    }
-
-    .metric-card:hover {
-      background: #f1f5f9;
-      transform: scale(1.02);
-    }
-
-    .metric-card span {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 0.025em;
-    }
-
-    .metric-card strong {
-      font-size: 2rem;
-      color: #1e293b;
-      font-weight: 800;
-      line-height: 1.2;
-    }
-
-    .helper-links a {
-      display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 0.75rem 1rem;
-      background: #fdfeff;
-      border: 1px solid #f1f5f9;
-      border-radius: 0.75rem;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: #4f46e5;
-      text-decoration: none;
+      padding: 0.5rem;
+      border-bottom: 1px solid #e2e8f0;
       transition: all 0.2s;
     }
 
-    .helper-links a:hover {
-      background: #eef2ff;
-      border-color: #e0e7ff;
+    .word-density-item:hover {
+      background: #f8fafc;
+      transform: translateX(4px);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-slide-in {
+      animation: slideIn 0.3s ease-out;
     }
   </style>
 </head>
@@ -151,195 +165,447 @@
 <body class="bg-slate-50 text-slate-900 selection:bg-indigo-100 selection:text-indigo-700">
 
 <header class="sticky top-0 z-50 border-b border-slate-200 glass-effect">
-  <div class="mx-auto max-w-6xl px-6 py-4 flex justify-between items-center">
+  <div class="mx-auto max-w-7xl px-6 py-4 flex justify-between items-center">
     <a href="../index.html" class="flex items-center gap-2 no-underline group">
       <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold transition-transform group-hover:rotate-6">H</div>
       <span class="text-xl font-bold tracking-tight text-slate-800">Hiato <span class="text-indigo-600">Literário</span></span>
     </a>
 
     <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
-      <a href="#" class="hover:text-indigo-600 transition-colors">Início</a>
+      <a href="../index.html" class="hover:text-indigo-600 transition-colors">Início</a>
       <a href="#" class="hover:text-indigo-600 transition-colors">Ferramentas</a>
-      <a href="#" class="px-5 py-2.5 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition-all shadow-md shadow-indigo-100">Privacidade</a>
+      <a href="../index.html#privacidade" class="hover:text-indigo-600 transition-colors">Privacidade</a>
     </nav>
   </div>
 </header>
 
 <main class="app-shell">
-  <section class="mb-10">
-    <a class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 no-underline hover:text-indigo-700" href="#">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-      Voltar
-    </a>
+  <!-- H1 DIRETO -->
+  <section class="mb-8">
     <div class="mt-4 inline-block px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-indigo-700 bg-indigo-50 rounded-lg">
-      Utilidade Acadêmica
+      Ferramenta Profissional
     </div>
-    <h1 class="mt-4 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-none">Contador de Palavras</h1>
+    <h1 class="mt-4 text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+      Contador de Palavras Online com <span class="text-indigo-600">Tempo de Leitura e Fala</span>
+    </h1>
     <p class="mt-4 max-w-2xl text-lg text-slate-500 leading-relaxed">
-      Analise seu texto em tempo real. Obtenha contagens precisas de palavras, caracteres e estrutura gramatical.
+      Conte palavras, caracteres, frases e parágrafos. Descubra quanto tempo leva para ler ou falar seu texto.
     </p>
   </section>
 
   <section class="grid gap-8 lg:grid-cols-5">
+    <!-- ÁREA PRINCIPAL -->
     <div class="lg:col-span-3">
-      <div class="form-panel h-full">
+      <div class="form-panel h-full relative">
         <label for="inputText" class="mb-4 block text-sm font-bold text-slate-700 uppercase tracking-wide">Área de Texto</label>
-        <textarea id="inputText" class="text-input" placeholder="Cole sua redação, artigo ou parágrafos aqui para analisar..."></textarea>
+        <textarea id="inputText" class="text-input" placeholder="Cole ou comece a digitar… (contagem automática)"></textarea>
 
-        <div class="mt-6 flex flex-wrap gap-4">
-          <button id="copyBtn" class="button-primary" type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span>Copiar texto</span>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <button id="copyBtn" class="bg-indigo-600 text-white px-5 py-2.5 rounded-full font-semibold hover:bg-indigo-700 transition-all flex items-center gap-2 text-sm" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copiar
           </button>
-          <button id="clearBtn" class="button-secondary" type="button">Limpar tudo</button>
+          <button id="pasteBtn" class="bg-emerald-600 text-white px-5 py-2.5 rounded-full font-semibold hover:bg-emerald-700 transition-all flex items-center gap-2 text-sm" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5M14 10l6-6M10 14L4 20M18 21h-5M21 16v5"/></svg>
+            Colar
+          </button>
+          <button id="cleanSpacesBtn" class="bg-amber-600 text-white px-5 py-2.5 rounded-full font-semibold hover:bg-amber-700 transition-all flex items-center gap-2 text-sm" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6v12M16 6v12M6 6h12M6 18h12"/></svg>
+            Limpar espaços
+          </button>
+          <button id="clearBtn" class="bg-white border border-slate-200 text-slate-600 px-5 py-2.5 rounded-full font-semibold hover:bg-slate-50 transition-all text-sm" type="button">Limpar tudo</button>
         </div>
       </div>
     </div>
 
+    <!-- MÉTRICAS PRINCIPAIS -->
     <div class="lg:col-span-2 space-y-6">
       <div class="form-panel">
         <h2 class="text-lg font-extrabold text-slate-800 mb-6 flex items-center gap-2">
-          <svg class="text-indigo-600" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          Métricas Detalhadas
+          <svg class="text-indigo-600" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Análise Completa
         </h2>
-        <div class="metrics-grid">
-          <div class="metric-card"><span>Palavras</span><strong id="wordsCount">0</strong></div>
-          <div class="metric-card"><span>Caracteres</span><strong id="charsCount">0</strong></div>
-          <div class="metric-card"><span>Sem espaços</span><strong id="charsNoSpaceCount">0</strong></div>
-          <div class="metric-card"><span>Frases</span><strong id="sentencesCount">0</strong></div>
-          <div class="metric-card"><span>Parágrafos</span><strong id="paragraphsCount">0</strong></div>
-          <div class="metric-card"><span>Min. de Leitura</span><strong id="readingTime">0</strong></div>
+        
+        <!-- PALAVRAS - DESTAQUE PRINCIPAL -->
+        <div class="text-center mb-8 p-6 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl">
+          <span class="text-xs font-semibold text-indigo-600 uppercase tracking-wide">Total de Palavras</span>
+          <div id="wordsCount" class="text-6xl font-black text-slate-800 mt-2">0</div>
+          <div id="floatingStats" class="text-sm text-indigo-600 mt-2 font-medium"></div>
+        </div>
+
+        <!-- MÉTRICAS SECUNDÁRIAS -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <span class="text-xs font-semibold text-slate-500 uppercase">📝 Caracteres</span>
+            <strong id="charsCount" class="block text-2xl font-bold text-slate-800">0</strong>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <span class="text-xs font-semibold text-slate-500 uppercase">📖 Frases</span>
+            <strong id="sentencesCount" class="block text-2xl font-bold text-slate-800">0</strong>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <span class="text-xs font-semibold text-slate-500 uppercase">📄 Parágrafos</span>
+            <strong id="paragraphsCount" class="block text-2xl font-bold text-slate-800">0</strong>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <span class="text-xs font-semibold text-slate-500 uppercase">🔤 Sem espaços</span>
+            <strong id="charsNoSpaceCount" class="block text-2xl font-bold text-slate-800">0</strong>
+          </div>
+        </div>
+
+        <!-- TEMPO DE LEITURA E FALA -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+          <div class="bg-blue-50 p-4 rounded-xl text-center border border-blue-200">
+            <span class="text-xs font-semibold text-blue-600 uppercase">📖 Tempo de Leitura</span>
+            <strong id="readingTime" class="block text-2xl font-bold text-slate-800">0 min</strong>
+            <span class="text-xs text-slate-500">200 palavras/min</span>
+          </div>
+          <div class="bg-purple-50 p-4 rounded-xl text-center border border-purple-200">
+            <span class="text-xs font-semibold text-purple-600 uppercase">🎙️ Tempo de Fala</span>
+            <strong id="speechTime" class="block text-2xl font-bold text-slate-800">0 min</strong>
+            <span class="text-xs text-slate-500">130 palavras/min</span>
+          </div>
+        </div>
+
+        <!-- RITMO DE LEITURA (ANTIGO NÍVEL DE COMPLEXIDADE) -->
+        <div class="mb-6 p-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl text-white">
+          <span class="text-xs opacity-90 uppercase">📏 Ritmo de Leitura</span>
+          <strong id="rhythmLevel" class="block text-2xl font-bold">—</strong>
+          <p id="rhythmAdvice" class="text-xs mt-1 opacity-90"></p>
+        </div>
+
+        <!-- MÉDIA DE PALAVRAS POR FRASE (INSIGHT INTELIGENTE) -->
+        <div id="avgWordsSentence" class="mb-6 p-3 bg-amber-50 rounded-xl border border-amber-200 hidden">
+          <span class="text-xs font-semibold text-amber-700 uppercase">💡 Insight</span>
+          <p id="avgText" class="text-sm text-amber-800 mt-1"></p>
+        </div>
+
+        <!-- BARRA DE PROGRESSO -->
+        <div>
+          <div class="flex justify-between text-xs text-slate-600 mb-2">
+            <span class="font-semibold">📄 Curto</span>
+            <span class="font-semibold">📚 Médio</span>
+            <span class="font-semibold">📖 Longo</span>
+          </div>
+          <div class="progress-bar">
+            <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+          </div>
+          <div class="flex justify-between text-xs text-slate-400 mt-1">
+            <span>0-300</span>
+            <span>300-1000</span>
+            <span>1000+</span>
+          </div>
+          <p id="progressLabel" class="text-xs text-slate-500 mt-2 text-center"></p>
         </div>
       </div>
 
+      <!-- DENSIDADE DE PALAVRAS COM SINGULAR/PLURAL -->
       <div class="form-panel">
-        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Veja também</h3>
-        <div class="helper-links">
-          <a href="./gerador-capa-abnt.html">
-            Gerador de Capa ABNT
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-          <a href="./referencias-abnt.html">
-            Referências Bibliográficas
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
+        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">📊 Palavras Mais Usadas</h3>
+        <div id="wordDensity" class="max-h-48 overflow-y-auto space-y-1">
+          <p class="text-sm text-slate-400 italic text-center">Digite algo para ver análise</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="privacidade" class="mt-16 p-8 rounded-3xl bg-white border border-slate-200 flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+  <!-- FAQ SECTION (SEO) -->
+  <section class="mt-16 p-8 bg-white rounded-3xl border border-slate-200">
+    <h2 class="text-2xl font-bold text-slate-800 mb-6">Perguntas Frequentes</h2>
+    
+    <div class="space-y-6">
+      <div>
+        <h3 class="text-lg font-semibold text-indigo-600 mb-2">Como contar palavras online?</h3>
+        <p class="text-slate-600 leading-relaxed">Basta digitar ou colar seu texto na área acima. A contagem é feita em tempo real, considerando palavras, caracteres, frases e parágrafos automaticamente.</p>
+      </div>
+      
+      <div>
+        <h3 class="text-lg font-semibold text-indigo-600 mb-2">Como calcular tempo de leitura?</h3>
+        <p class="text-slate-600 leading-relaxed">O cálculo considera uma média de <strong>200 palavras por minuto</strong>, padrão utilizado por grandes plataformas como Medium, Amazon e blogs profissionais.</p>
+      </div>
+      
+      <div>
+        <h3 class="text-lg font-semibold text-indigo-600 mb-2">Como calcular tempo de fala?</h3>
+        <p class="text-slate-600 leading-relaxed">Utilizamos a média de <strong>130 palavras por minuto</strong>, ideal para apresentações, podcasts, vídeos e discursos. Esse é o ritmo natural da fala humana.</p>
+      </div>
+      
+      <div>
+        <h3 class="text-lg font-semibold text-indigo-600 mb-2">Quantas palavras tem um texto ideal?</h3>
+        <p class="text-slate-600 leading-relaxed">Posts de blog: 1500-2500 palavras | Artigos acadêmicos: 3000-10000 | Redes sociais: 80-300 palavras | SEO: mínimo 1000 palavras para rankear bem.</p>
+      </div>
+      
+      <div>
+        <h3 class="text-lg font-semibold text-indigo-600 mb-2">O contador de palavras é gratuito?</h3>
+        <p class="text-slate-600 leading-relaxed">Sim! Completamente gratuito, sem limites de uso. Seus textos são processados localmente no seu navegador, garantindo 100% de privacidade.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACIDADE -->
+  <section class="mt-8 p-8 rounded-3xl bg-white border border-slate-200 flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
     <div class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center shrink-0">
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
     </div>
     <div class="flex-grow">
-      <h4 class="font-bold text-slate-900 text-lg">Seus textos estão seguros</h4>
-      <p class="text-slate-500">
-        Todo o processamento acontece localmente no seu navegador. O texto nunca é enviado ou armazenado em nossos servidores, garantindo privacidade total.
-      </p>
+      <h4 class="font-bold text-slate-900 text-lg">Privacidade garantida</h4>
+      <p class="text-slate-500">Seu texto é processado localmente e nunca sai do seu navegador. Persistência local opcional para sua conveniência.</p>
     </div>
   </section>
 </main>
 
+<!-- CONTADOR FLUTUANTE -->
+<div id="floatingCounter" class="floating-counter hidden md:block fixed bottom-4 right-4">
+  <span id="floatingWords">0</span> palavras | <span id="floatingTime">0</span> min leitura
+</div>
+
 <footer class="mt-20 border-t border-slate-200 bg-white">
-  <div class="mx-auto max-w-6xl px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-8">
+  <div class="mx-auto max-w-7xl px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-8">
     <div class="flex items-center gap-2">
       <div class="w-7 h-7 bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 text-[10px] font-bold">HL</div>
       <span class="text-sm font-bold text-slate-500 uppercase tracking-tight">Hiato Literário</span>
     </div>
-
     <div class="flex gap-10 text-sm font-semibold text-slate-400">
-      <a href="#" class="hover:text-indigo-600 transition-colors">Início</a>
-      <a href="#" class="hover:text-indigo-600 transition-colors">Licença</a>
+      <a href="../index.html" class="hover:text-indigo-600 transition-colors">Início</a>
+      <a href="#" class="hover:text-indigo-600 transition-colors">Ferramentas</a>
+      <a href="../index.html#privacidade" class="hover:text-indigo-600 transition-colors">Privacidade</a>
     </div>
-
     <div class="text-xs font-medium text-slate-400 italic">
-      Feito para facilitar a vida acadêmica.
+      © 2024 Hiato Literário - Contador de palavras profissional
     </div>
   </div>
 </footer>
 
 <script>
-  // Lógica de Contagem Avançada
+  // ============================================
+  // STOPWORDS E UTILITÁRIOS
+  // ============================================
+  const stopwords = new Set([
+    "de", "da", "do", "das", "dos", "e", "a", "o", "para", "com", "em", "um", "uma", 
+    "no", "na", "nos", "nas", "por", "mais", "mas", "se", "que", "como", "porque", 
+    "quando", "onde", "aqui", "ali", "ele", "ela", "eles", "elas", "nos", "vos", 
+    "lhe", "lhes", "me", "te", "se", "isso", "isto", "aquilo", "esse", "essa", 
+    "aquele", "aquela", "aqueles", "aquelas", "ao", "aos", "pelo", "pela", "pelos", "pelas"
+  ]);
+
   const textUtils = {
     countWords: (text) => {
-      const tokens = text.trim().split(/\s+/);
-      return tokens[0] === "" ? 0 : tokens.length;
+      if (!text.trim()) return 0;
+      return (text.match(/\b[\p{L}\p{N}]+\b/gu) || []).length;
     },
+    
     countCharacters: (text) => text.length,
+    
     countCharsNoSpace: (text) => text.replace(/\s+/g, '').length,
+    
     countSentences: (text) => {
-      // Considera frases terminadas em . ! ?
       return text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
     },
+    
     countParagraphs: (text) => {
-      // Considera parágrafos por quebras de linha
       return text.split(/\n+/).filter(p => p.trim().length > 0).length;
     },
-    calculateReadingTime: (words) => {
-      // Média de 200 palavras por minuto
-      const wpm = 200;
-      return Math.ceil(words / wpm);
+    
+    calculateReadingTime: (words) => Math.ceil(words / 200),
+    
+    calculateSpeechTime: (words) => Math.ceil(words / 130),
+    
+    // RITMO DE LEITURA (NÃO É MAIS "COMPLEXIDADE")
+    getRhythm: (words, sentences) => {
+      if (sentences === 0 || words === 0) return { level: "—", advice: "" };
+      const avg = words / sentences;
+      
+      if (avg < 12) return { level: "Frases curtas", advice: "Leitura dinâmica, ideal para web" };
+      if (avg < 20) return { level: "Frases médias", advice: "Bom equilíbrio para artigos" };
+      return { level: "Frases longas", advice: "Texto detalhado, comum em livros técnicos" };
+    },
+    
+    // MÉDIA DE PALAVRAS POR FRASE
+    getAvgWordsPerSentence: (words, sentences) => {
+      if (sentences === 0 || words === 0) return null;
+      return (words / sentences).toFixed(1);
+    },
+    
+    // DENSIDADE COM NORMALIZAÇÃO E SINGULAR/PLURAL
+    getWordDensity: (text) => {
+      let words = text.toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .match(/\b[a-z0-9]+\b/gu);
+      
+      if (!words) return [];
+      
+      // Remove plural (simples)
+      words = words.map(w => w.replace(/s$/, ""));
+      
+      const freq = {};
+      words.forEach(word => {
+        if (!stopwords.has(word) && word.length > 3) {
+          freq[word] = (freq[word] || 0) + 1;
+        }
+      });
+      
+      return Object.entries(freq)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 8)
+        .map(([word, count]) => ({ word, count }));
+    },
+    
+    getProgressInfo: (words) => {
+      if (words === 0) return { percent: 0, label: "", category: "" };
+      if (words < 300) {
+        return { percent: (words / 300) * 30, label: "📄 Texto curto", category: "curto" };
+      } else if (words < 1000) {
+        return { percent: 30 + ((words - 300) / 700) * 40, label: "📚 Texto médio", category: "médio" };
+      } else {
+        return { percent: Math.min(100, 70 + ((words - 1000) / 1000) * 30), label: "📖 Texto longo", category: "longo" };
+      }
+    },
+    
+    // Limpar espaços extras
+    cleanSpaces: (text) => {
+      return text.replace(/\s+/g, ' ').trim();
     }
   };
 
+  // ============================================
+  // DOM ELEMENTOS
+  // ============================================
   const input = document.getElementById("inputText");
   const clearBtn = document.getElementById("clearBtn");
   const copyBtn = document.getElementById("copyBtn");
+  const pasteBtn = document.getElementById("pasteBtn");
+  const cleanSpacesBtn = document.getElementById("cleanSpacesBtn");
 
-  const displays = {
-    words: document.getElementById("wordsCount"),
-    chars: document.getElementById("charsCount"),
-    noSpace: document.getElementById("charsNoSpaceCount"),
-    sentences: document.getElementById("sentencesCount"),
-    paragraphs: document.getElementById("paragraphsCount"),
-    time: document.getElementById("readingTime")
-  };
+  // ============================================
+  // PERSISTÊNCIA
+  // ============================================
+  const savedText = localStorage.getItem("hl_text");
+  if (savedText) input.value = savedText;
 
-  function update() {
-    const text = input.value;
-    const wordCount = textUtils.countWords(text);
-
-    displays.words.textContent = wordCount;
-    displays.chars.textContent = textUtils.countCharacters(text);
-    displays.noSpace.textContent = textUtils.countCharsNoSpace(text);
-    displays.sentences.textContent = textUtils.countSentences(text);
-    displays.paragraphs.textContent = textUtils.countParagraphs(text);
-    displays.time.textContent = `${textUtils.calculateReadingTime(wordCount)} min`;
+  // ============================================
+  // ANIMAÇÃO
+  // ============================================
+  let lastValues = {};
+  
+  function animateNumber(element, newValue, suffix = "") {
+    if (lastValues[element.id] === newValue) return;
+    lastValues[element.id] = newValue;
+    
+    element.classList.add("number-update");
+    element.textContent = newValue + suffix;
+    setTimeout(() => element.classList.remove("number-update"), 200);
   }
 
-  // Event Listeners
+  // ============================================
+  // UPDATE PRINCIPAL
+  // ============================================
+  function update() {
+    const text = input.value;
+    localStorage.setItem("hl_text", text);
+    
+    const wordCount = textUtils.countWords(text);
+    const sentenceCount = textUtils.countSentences(text);
+    const paragraphCount = textUtils.countParagraphs(text);
+    const readingTime = textUtils.calculateReadingTime(wordCount);
+    const speechTime = textUtils.calculateSpeechTime(wordCount);
+    const rhythm = textUtils.getRhythm(wordCount, sentenceCount);
+    const progress = textUtils.getProgressInfo(wordCount);
+    const avgPerSentence = textUtils.getAvgWordsPerSentence(wordCount, sentenceCount);
+    
+    // Animar números principais
+    animateNumber(document.getElementById("wordsCount"), wordCount);
+    animateNumber(document.getElementById("charsCount"), textUtils.countCharacters(text));
+    animateNumber(document.getElementById("charsNoSpaceCount"), textUtils.countCharsNoSpace(text));
+    animateNumber(document.getElementById("sentencesCount"), sentenceCount);
+    animateNumber(document.getElementById("paragraphsCount"), paragraphCount);
+    animateNumber(document.getElementById("readingTime"), readingTime, " min");
+    animateNumber(document.getElementById("speechTime"), speechTime, " min");
+    
+    // Ritmo de leitura (antigo complexidade)
+    document.getElementById("rhythmLevel").textContent = rhythm.level;
+    document.getElementById("rhythmAdvice").textContent = rhythm.advice;
+    
+    // Insight de média por frase
+    const avgDiv = document.getElementById("avgWordsSentence");
+    const avgText = document.getElementById("avgText");
+    if (avgPerSentence && wordCount > 0) {
+      avgDiv.classList.remove("hidden");
+      avgText.textContent = `Média de ${avgPerSentence} palavras por frase. ${avgPerSentence < 12 ? 'Texto fluido e direto.' : avgPerSentence < 20 ? 'Bom equilíbrio para leitura.' : 'Frases longas, texto mais denso.'}`;
+    } else {
+      avgDiv.classList.add("hidden");
+    }
+    
+    // Barra de progresso
+    document.getElementById("progressFill").style.width = `${progress.percent}%`;
+    document.getElementById("progressLabel").textContent = progress.label;
+    
+    // Contador flutuante
+    const floatingWords = document.getElementById("floatingWords");
+    const floatingTime = document.getElementById("floatingTime");
+    const floatingStats = document.getElementById("floatingStats");
+    if (floatingWords) floatingWords.textContent = wordCount;
+    if (floatingTime) floatingTime.textContent = readingTime;
+    if (floatingStats) floatingStats.textContent = `${readingTime} min leitura | ${speechTime} min fala`;
+    
+    // Densidade de palavras
+    const density = textUtils.getWordDensity(text);
+    const densityContainer = document.getElementById("wordDensity");
+    if (density.length > 0) {
+      densityContainer.innerHTML = density.map(item => `
+        <div class="word-density-item">
+          <span class="font-semibold text-slate-700">${item.word}</span>
+          <span class="badge bg-indigo-100 text-indigo-700">${item.count}x</span>
+        </div>
+      `).join('');
+    } else {
+      densityContainer.innerHTML = '<p class="text-sm text-slate-400 italic text-center">Digite algo para ver análise detalhada</p>';
+    }
+  }
+
+  // ============================================
+  // EVENT LISTENERS
+  // ============================================
   input.addEventListener("input", update);
 
   clearBtn.addEventListener("click", () => {
     input.value = "";
+    localStorage.removeItem("hl_text");
     update();
     input.focus();
   });
 
-  copyBtn.addEventListener("click", () => {
+  copyBtn.addEventListener("click", async () => {
     if (!input.value) return;
-    
-    input.select();
     try {
-      document.execCommand('copy');
-      const originalContent = copyBtn.innerHTML;
-      copyBtn.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        <span>Texto Copiado!</span>
-      `;
-      copyBtn.classList.replace('bg-indigo-600', 'bg-emerald-600');
-      
+      await navigator.clipboard.writeText(input.value);
+      const original = copyBtn.innerHTML;
+      copyBtn.innerHTML = '<svg class="inline mr-2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>Copiado!';
+      copyBtn.classList.replace("bg-indigo-600", "bg-emerald-600");
       setTimeout(() => {
-        copyBtn.innerHTML = originalContent;
-        copyBtn.classList.replace('bg-emerald-600', 'bg-indigo-600');
+        copyBtn.innerHTML = original;
+        copyBtn.classList.replace("bg-emerald-600", "bg-indigo-600");
       }, 2000);
-    } catch (err) {
-      console.error('Erro ao copiar', err);
-    }
+    } catch (err) { console.error(err); }
   });
 
-  // Inicialização
+  pasteBtn.addEventListener("click", async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      input.value = text;
+      localStorage.setItem("hl_text", text);
+      update();
+      input.focus();
+    } catch (err) { alert("Permita acesso à área de transferência ou use Ctrl+V"); }
+  });
+
+  cleanSpacesBtn.addEventListener("click", () => {
+    const cleaned = textUtils.cleanSpaces(input.value);
+    input.value = cleaned;
+    localStorage.setItem("hl_text", cleaned);
+    update();
+    input.focus();
+  });
+
   update();
 </script>
 </body>
