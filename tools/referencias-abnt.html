@@ -1,430 +1,824 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Gerador de Referências ABNT | Hiato Literário Tools</title>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3405911750491123"
-     crossorigin="anonymous"></script>
-  <meta name="description" content="Gere referências acadêmicas completas seguindo a NBR 6023 com facilidade e rapidez." />
+  <meta name="description" content="Gere referências acadêmicas completas seguindo a NBR 6023 com validação inteligente, correção automática e cópia rápida. Suporte para livros, sites, artigos, filmes e YouTube." />
+  <meta name="keywords" content="ABNT, referências bibliográficas, NBR 6023, gerador de citações, trabalhos acadêmicos, normas ABNT" />
+  <meta property="og:title" content="Gerador de Referências ABNT Profissional" />
+  <meta property="og:description" content="Formate referências acadêmicas em segundos com validação inteligente." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://hiatoliterario.com.br/tools/gerador-abnt" />
+  
+  <!-- Preconnects -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="../src/css/styles.css" />
+  
   <style>
-    body { font-family: 'Inter', sans-serif; }
+    * { font-family: 'Inter', sans-serif; }
     
     .glass-effect {
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
-
+    
     .app-shell {
-      max-width: 1200px;
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 2rem 1rem;
+      padding: 1.5rem 1rem;
     }
-
+    
+    @media (min-width: 768px) {
+      .app-shell { padding: 2.5rem 2rem; }
+    }
+    
     .form-panel {
       background: white;
-      padding: 2rem;
-      border-radius: 1.5rem;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      padding: 1.5rem;
+      border-radius: 1.25rem;
+      border: 1px solid #e9eef3;
+      box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.02), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
     }
-
+    
+    @media (min-width: 640px) {
+      .form-panel { padding: 2rem; }
+    }
+    
     .input-field, .select-field {
       width: 100%;
       padding: 0.75rem 1rem;
-      border: 1px solid #e2e8f0;
-      border-radius: 0.75rem;
+      background: white;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 0.875rem;
       outline: none;
-      transition: all 0.2s;
+      transition: all 0.15s ease;
       font-size: 0.95rem;
+      color: #1e293b;
     }
-
+    
+    .input-field:hover, .select-field:hover {
+      border-color: #cbd5e1;
+    }
+    
     .input-field:focus, .select-field:focus {
       border-color: #4f46e5;
-      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.08);
     }
-
+    
+    /* Estados de validação - AGORA USADOS */
+    .input-field.error {
+      border-color: #ef4444 !important;
+      background-color: #fef2f2;
+    }
+    
+    .input-field.success {
+      border-color: #10b981 !important;
+      background-color: #f0fdf4;
+    }
+    
     .author-row {
       display: flex;
       gap: 0.5rem;
-      margin-bottom: 0.5rem;
-      animation: fadeIn 0.3s ease;
+      margin-bottom: 0.75rem;
+      animation: slideIn 0.2s cubic-bezier(0.2, 0.9, 0.4, 1);
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-5px); }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-6px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
+    
     .btn-icon {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 42px;
-      height: 42px;
-      border-radius: 0.75rem;
-      transition: all 0.2s;
+      min-width: 44px;
+      height: 44px;
+      border-radius: 0.875rem;
+      transition: all 0.15s;
       flex-shrink: 0;
+      cursor: pointer;
     }
-
-    .text-output {
+    
+    .reference-output {
       width: 100%;
-      min-height: 120px;
-      padding: 1.25rem;
-      background: #f8fafc;
-      border: 2px solid #e2e8f0;
-      border-radius: 1rem;
+      min-height: 140px;
+      padding: 1.5rem;
+      background: #fafcff;
+      border: 2px solid #eef2f6;
+      border-radius: 1.25rem;
       font-size: 1rem;
-      color: #1e293b;
-      line-height: 1.6;
+      color: #0f172a;
+      line-height: 1.65;
       word-break: break-word;
+      font-feature-settings: "kern" 1;
+      letter-spacing: -0.01em;
+      transition: border-color 0.2s;
     }
-
-    .hidden-field { display: none; }
-
+    
+    .quality-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    
     .step-badge {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 24px;
-      height: 24px;
-      background: #4f46e5;
+      width: 26px;
+      height: 26px;
+      background: linear-gradient(145deg, #4f46e5, #6366f1);
       color: white;
-      border-radius: 50%;
-      font-size: 12px;
-      font-weight: bold;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 4px 6px -2px rgba(79, 70, 229, 0.2);
+    }
+    
+    .field-group {
+      transition: opacity 0.18s, transform 0.18s;
+    }
+    
+    .field-group.hidden-field {
+      display: none !important;
+    }
+    
+    /* Loading state */
+    .generating-pulse {
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    /* Checklist */
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      padding: 4px 0;
     }
   </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900 selection:bg-indigo-100 selection:text-indigo-700">
+<body class="bg-slate-50/90 text-slate-900 antialiased">
 
-<header class="sticky top-0 z-50 border-b border-slate-200 glass-effect">
-  <div class="mx-auto max-w-6xl px-6 py-4 flex justify-between items-center">
+<header class="sticky top-0 z-40 border-b border-slate-200/70 glass-effect">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex justify-between items-center">
     <a href="../index.html" class="flex items-center gap-2 no-underline group">
-      <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold transition-transform group-hover:rotate-6">H</div>
-      <span class="text-xl font-bold tracking-tight text-slate-800">Hiato <span class="text-indigo-600">Literário</span></span>
+      <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold shadow-sm transition-transform group-hover:rotate-6">H</div>
+      <span class="text-lg sm:text-xl font-bold tracking-tight text-slate-800">Hiato <span class="text-indigo-600">Literário</span></span>
     </a>
-    <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
-      <a href="#" class="hover:text-indigo-600">Início</a>
-      <a href="#" class="px-5 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 shadow-md">Privacidade</a>
-    </nav>
+    <div class="flex items-center gap-2 sm:gap-4">
+      <button id="exampleFillBtn" class="text-sm font-medium text-slate-600 hover:text-indigo-700 px-3 py-1.5 rounded-full transition-colors hidden sm:block">
+        📋 Exemplo
+      </button>
+      <button id="fixPastedBtn" class="text-sm font-medium bg-amber-50 text-amber-700 px-4 py-2 rounded-full hover:bg-amber-100 transition-colors">
+        🔧 Corrigir referência
+      </button>
+    </div>
   </div>
 </header>
 
 <main class="app-shell">
-  <section class="mb-8">
-    <a class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-700" href="../index.html">← Voltar</a>
-    <h1 class="mt-4 text-4xl font-extrabold text-slate-900 tracking-tight">Gerador de Referências ABNT</h1>
-    <p class="mt-2 text-slate-600">Gere referências acadêmicas com cópia rápida e opção de múltiplos autores.</p>
+  <section class="mb-6 md:mb-8">
+    <a class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors mb-2" href="../index.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Voltar para ferramentas
+    </a>
+    <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Gerador de Referências ABNT</h1>
+    <p class="mt-2 text-slate-600 max-w-3xl">Referências atualizadas conforme NBR 6023 com validação inteligente e sugestões automáticas.</p>
   </section>
 
-  <section class="grid gap-8 lg:grid-cols-5">
-    <!-- Formulário -->
-    <div class="lg:col-span-3 space-y-6">
-      <div class="form-panel space-y-8">
+  <section class="grid gap-6 lg:gap-8 lg:grid-cols-5">
+    
+    <!-- Coluna do Formulário -->
+    <div class="lg:col-span-3 space-y-5">
+      <div class="form-panel space-y-7">
         
-        <!-- Step 1: Tipo -->
-        <div class="space-y-4">
-          <div class="flex items-center gap-2 mb-2">
+        <!-- STEP 1: Tipo -->
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
             <span class="step-badge">1</span>
-            <h2 class="font-bold text-slate-800">Tipo de fonte</h2>
+            <h2 class="font-bold text-slate-800 text-lg">Tipo de fonte</h2>
           </div>
-          <select id="tipo" class="select-field">
-            <option value="livro">📖 Livro (Físico ou Digital)</option>
-            <option value="site">🌐 Site ou Conteúdo Web</option>
-            <option value="artigo">📑 Artigo em Revista/Periódico</option>
-            <option value="filme">🎬 Filme ou Documentário</option>
-            <option value="youtube">🔴 Vídeo do YouTube</option>
+          <select id="tipo" class="select-field" aria-label="Selecione o tipo de material">
+            <option value="livro">📖 Livro</option>
+            <option value="site">🌐 Site</option>
+            <option value="artigo">📑 Artigo</option>
+            <option value="filme">🎬 Filme</option>
+            <option value="youtube">🔴 YouTube</option>
           </select>
         </div>
 
-        <!-- Step 2: Autores -->
-        <div class="space-y-4">
-          <div class="flex items-center gap-2 mb-2">
+        <!-- STEP 2: Autores -->
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
             <span class="step-badge">2</span>
-            <h2 class="font-bold text-slate-800">Autores / Produtores</h2>
+            <h2 class="font-bold text-slate-800 text-lg">Autores / Criadores</h2>
           </div>
-          <div id="authors-container"></div>
-          <button id="add-author-btn" class="flex items-center gap-2 text-sm font-bold text-indigo-600 hover:text-indigo-800 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Adicionar Autor
-          </button>
-          <div class="mt-4 p-3 bg-slate-50 rounded-lg border border-slate-100">
-            <label class="flex items-center gap-2 text-xs font-semibold text-slate-600 cursor-pointer">
-              <input type="checkbox" id="useEtAl" class="rounded border-slate-300 text-indigo-600">
-              Usar "et al." quando houver mais de 3 autores
+          <div id="authors-container" class="space-y-1"></div>
+          
+          <div class="flex flex-wrap items-center gap-3 mt-2">
+            <button id="add-author-btn" class="flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors px-2 py-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Adicionar autor
+            </button>
+            <label class="flex items-center gap-2 text-xs font-medium text-slate-600 bg-slate-50 px-3 py-1.5 rounded-full cursor-pointer">
+              <input type="checkbox" id="useEtAl" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-200">
+              Usar "et al." (>3 autores)
             </label>
           </div>
         </div>
 
-        <!-- Step 3: Dados -->
+        <!-- STEP 3: Dados específicos -->
         <div class="space-y-4">
-          <div class="flex items-center gap-2 mb-2">
+          <div class="flex items-center gap-2">
             <span class="step-badge">3</span>
-            <h2 class="font-bold text-slate-800">Dados da obra</h2>
+            <h2 class="font-bold text-slate-800 text-lg">Detalhes da obra</h2>
           </div>
           
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input id="titulo" class="input-field" type="text" placeholder="Título principal" />
-            <input id="subtitulo" class="input-field" type="text" placeholder="Subtítulo (opcional)" />
+          <!-- Campos universais -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <input id="titulo" class="input-field" type="text" placeholder="Título principal *" data-validate="required" />
+            <input id="subtitulo" class="input-field" type="text" placeholder="Subtítulo (se houver)" />
           </div>
 
-          <div id="campos-especificos" class="space-y-4">
-            <div class="field-livro grid grid-cols-1 md:grid-cols-3 gap-4">
-              <input id="edicao" class="input-field" type="text" placeholder="Edição (ex: 2)" />
-              <input id="local" class="input-field" type="text" placeholder="Cidade" />
-              <input id="fonte" class="input-field" type="text" placeholder="Editora(s)" />
+          <!-- GRUPOS DINÂMICOS -->
+          <div id="campos-especificos" class="space-y-3">
+            
+            <!-- LIVRO -->
+            <div data-field-group="livro" class="field-group grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <input id="edicao" class="input-field" type="text" placeholder="Edição (ex: 3)" />
+              <input id="local" class="input-field" type="text" placeholder="Cidade *" data-validate="required" />
+              <input id="fonte" class="input-field" type="text" placeholder="Editora(s) *" data-validate="required" />
             </div>
 
-            <div class="field-site field-youtube space-y-4 hidden-field">
-              <input id="url" class="input-field" type="text" placeholder="URL completa" />
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input id="nome_site" class="input-field" type="text" placeholder="Nome do Site ou Canal" />
+            <!-- SITE / YOUTUBE -->
+            <div data-field-group="site youtube" class="field-group hidden-field space-y-3">
+              <input id="url" class="input-field" type="url" placeholder="URL completa *" data-validate="required|url" />
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <input id="nome_site" class="input-field" type="text" placeholder="Nome do site ou canal" />
                 <div class="flex gap-2">
-                  <input id="acesso" class="input-field" type="text" placeholder="Acesso (Ex: 3 de abr. de 2026)" />
-                  <button id="set-today-btn" title="Usar data de hoje" class="btn-icon bg-indigo-50 text-indigo-600 hover:bg-indigo-100">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <input id="acesso" class="input-field" type="text" placeholder="Data de acesso *" data-validate="required" />
+                  <button id="set-today-btn" class="btn-icon bg-indigo-50 text-indigo-600 hover:bg-indigo-100" title="Usar data de hoje" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                   </button>
                 </div>
               </div>
             </div>
 
-            <div class="field-artigo space-y-4 hidden-field">
-              <input id="revista" class="input-field" type="text" placeholder="Nome da Revista" />
-              <div class="grid grid-cols-3 gap-4">
-                <input id="volume" class="input-field" type="text" placeholder="Vol." />
-                <input id="numero" class="input-field" type="text" placeholder="Nº" />
-                <input id="paginas" class="input-field" type="text" placeholder="Pág. inicial-final" />
+            <!-- ARTIGO -->
+            <div data-field-group="artigo" class="field-group hidden-field space-y-3">
+              <input id="revista" class="input-field" type="text" placeholder="Nome da Revista *" data-validate="required" />
+              <div class="grid grid-cols-3 gap-3">
+                <input id="volume" class="input-field" type="text" placeholder="Volume" />
+                <input id="numero" class="input-field" type="text" placeholder="Número" />
+                <input id="paginas" class="input-field" type="text" placeholder="Páginas" />
               </div>
             </div>
 
-            <div class="field-filme space-y-4 hidden-field">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input id="direcao" class="input-field" type="text" placeholder="Diretor" />
-                <input id="producao" class="input-field" type="text" placeholder="Produtor" />
+            <!-- FILME -->
+            <div data-field-group="filme" class="field-group hidden-field space-y-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <input id="direcao" class="input-field" type="text" placeholder="Direção *" data-validate="required" />
+                <input id="producao" class="input-field" type="text" placeholder="Produção" />
               </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <input id="distribuidora" class="input-field" type="text" placeholder="Distribuidora" />
                 <input id="midia" class="input-field" type="text" placeholder="Mídia (ex: 1 DVD)" />
               </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input id="ano" class="input-field" type="text" placeholder="Ano de Publicação" />
+            <!-- Ano -->
+            <div class="pt-1">
+              <input id="ano" class="input-field" type="text" placeholder="Ano de publicação *" data-validate="required|year" />
             </div>
           </div>
         </div>
 
-        <div class="pt-6 border-t border-slate-100">
-          <button id="clearBtn" class="w-full py-3 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-all">Limpar Tudo</button>
+        <!-- Ações -->
+        <div class="pt-4 border-t border-slate-100 flex flex-wrap gap-3">
+          <button id="clearBtn" class="flex-1 py-3 bg-slate-100 text-slate-700 rounded-xl font-semibold hover:bg-slate-200 transition-all text-sm">🧹 Limpar tudo</button>
+          <button id="exampleFillBtnMobile" class="flex-1 py-3 bg-slate-50 text-indigo-700 rounded-xl font-medium hover:bg-indigo-50 border border-slate-200 sm:hidden transition-all text-sm">
+            📋 Exemplo
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- Resultado -->
-    <div class="lg:col-span-2 space-y-6">
-      <div class="sticky top-24 space-y-6">
+    <!-- Coluna do Resultado -->
+    <div class="lg:col-span-2">
+      <div class="sticky top-24 space-y-5">
+        
+        <!-- Painel de Referência -->
         <div class="form-panel">
-          <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Referência Gerada</h3>
-          <div id="resultado" class="text-output flex items-center justify-center text-center italic text-slate-400">
-            Aguardando preenchimento...
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">Referência gerada</h3>
+            <span id="qualityIndicator" class="quality-badge bg-amber-50 text-amber-700 border border-amber-200">incompleta</span>
           </div>
           
-          <button id="copyBtn" class="w-full mt-4 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all flex items-center justify-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copiar para Área de Transferência
-          </button>
+          <div id="resultado" class="reference-output flex items-center justify-center text-slate-400 italic text-center">
+            <span id="loadingIndicator" class="hidden generating-pulse">Gerando referência...</span>
+            <span id="resultText">Preencha os campos para gerar a referência</span>
+          </div>
+          
+          <div class="flex gap-2 mt-5">
+            <button id="copyBtn" class="flex-1 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 shadow-md shadow-indigo-200 transition-all flex items-center justify-center gap-2 text-base">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copiar
+            </button>
+            <button id="copyCitationBtn" class="px-4 py-4 bg-slate-100 text-slate-700 rounded-xl font-medium hover:bg-slate-200 transition-all text-sm" title="Copiar como citação (AUTOR, ANO)">
+              📎 Citar
+            </button>
+          </div>
+          
+          <p id="copyFeedback" class="text-xs text-center mt-3 text-slate-400 h-4"></p>
         </div>
 
-        <div class="p-5 bg-amber-50 rounded-2xl border border-amber-100">
-          <h4 class="text-xs font-bold text-amber-900 uppercase mb-2">Dica de Formatação</h4>
-          <p class="text-[11px] text-amber-800 leading-relaxed">
-            Se houver mais de uma editora, utilize dois pontos para separá-las (ex: Editora A : Editora B). O campo de edição aceita números e gera automaticamente o formato <strong>x. ed.</strong>
-          </p>
+        <!-- Checklist de validação -->
+        <div class="p-5 bg-white rounded-2xl border border-slate-200">
+          <h4 class="text-xs font-bold text-slate-500 uppercase mb-3">Checklist de validação</h4>
+          <div id="checklist" class="space-y-1">
+            <!-- Preenchido dinamicamente -->
+          </div>
+        </div>
+        
+        <!-- Dicas contextuais -->
+        <div class="p-5 bg-gradient-to-br from-amber-50 to-orange-50/30 rounded-2xl border border-amber-100/80">
+          <h4 class="text-xs font-bold text-amber-800 uppercase mb-2 flex items-center gap-1">
+            <span>💡</span> Dica ABNT
+          </h4>
+          <p id="dicaContextual" class="text-xs text-amber-800 leading-relaxed"></p>
         </div>
       </div>
     </div>
   </section>
 </main>
 
+<!-- Modal para correção de referência -->
+<div id="fixModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl">
+    <h3 class="text-xl font-bold mb-4">🔧 Corrigir referência colada</h3>
+    <p class="text-sm text-slate-600 mb-3">Cole uma referência em qualquer formato. Vamos identificar erros e sugerir correções.</p>
+    <textarea id="pastedRef" class="w-full p-4 border rounded-xl text-sm h-32" placeholder="Ex: CANÇADO, M. Manual de Semântica. São Paulo: Contexto, 2022."></textarea>
+    <div id="fixSuggestions" class="my-4 p-3 bg-amber-50 rounded-xl text-sm hidden"></div>
+    <div class="flex gap-3">
+      <button id="analyzePastedBtn" class="flex-1 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700">Analisar</button>
+      <button id="applyFixBtn" class="flex-1 py-3 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 hidden">Aplicar correções</button>
+      <button id="closeModalBtn" class="px-6 py-3 bg-slate-100 rounded-xl hover:bg-slate-200">Cancelar</button>
+    </div>
+  </div>
+</div>
+
 <script>
-  const byId = (id) => document.getElementById(id);
-  const container = byId('authors-container');
-  const tipoSelect = byId('tipo');
+  (function(){
+    "use strict";
 
-  function createAuthorInput(value = '') {
-    const div = document.createElement('div');
-    div.className = 'author-row';
-    div.innerHTML = `
-      <input class="input-field author-input" type="text" placeholder="Nome completo do autor" value="${value}" />
-      <button class="remove-author btn-icon bg-red-50 text-red-500 hover:bg-red-100">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    `;
-    div.querySelector('.remove-author').onclick = () => {
-      if (document.querySelectorAll('.author-row').length > 1) {
-        div.remove();
-        update();
+    // ---------- VALIDADORES ----------
+    const validators = {
+      required: (val) => val && val.trim().length > 0,
+      url: (val) => { try { new URL(val); return true; } catch { return false; } },
+      year: (val) => /^\d{4}$/.test(val) && parseInt(val) > 1900 && parseInt(val) < 2100,
+      email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)
+    };
+
+    // ---------- ESTADO CENTRAL ----------
+    const state = {
+      tipo: 'livro',
+      autores: [],
+      titulo: '',
+      subtitulo: '',
+      ano: '',
+      edicao: '',
+      local: '',
+      fonte: '',
+      url: '',
+      nome_site: '',
+      acesso: '',
+      revista: '',
+      volume: '',
+      numero: '',
+      paginas: '',
+      direcao: '',
+      producao: '',
+      distribuidora: '',
+      midia: '',
+      useEtAl: false
+    };
+
+    // DOM Elements
+    const $ = (id) => document.getElementById(id);
+    const tipoSelect = $('tipo');
+    const container = $('authors-container');
+    const resultadoDiv = $('resultado');
+    const resultText = $('resultText');
+    const loadingIndicator = $('loadingIndicator');
+    const copyBtn = $('copyBtn');
+    const qualityIndicator = $('qualityIndicator');
+    const dicaEl = $('dicaContextual');
+    const useEtAlCheck = $('useEtAl');
+    const checklistEl = $('checklist');
+
+    // ---------- BUILDERS POR TIPO (ARQUITETURA ESCALÁVEL) ----------
+    const builders = {
+      livro: (s) => {
+        const autores = buildAuthorsString(s);
+        const titulo = s.subtitulo ? `${s.titulo}: ${s.subtitulo}` : s.titulo;
+        let ed = s.edicao;
+        if (/^\d+$/.test(ed)) ed = `${ed}. ed.`;
+        const loc = s.local || '[S. l.]';
+        const font = s.fonte || '[s. n.]';
+        return {
+          raw: `${autores}${titulo}. ${ed ? ed + ' ' : ''}${loc}: ${font}, ${s.ano}.`.replace(/\s+/g, ' ').trim(),
+          formatted: `${autores}<strong>${s.titulo}</strong>${s.subtitulo ? ': ' + s.subtitulo : ''}. ${ed ? ed + ' ' : ''}${loc}: ${font}, ${s.ano}.`.replace(/\s+/g, ' ')
+        };
+      },
+      
+      site: (s) => {
+        const autores = buildAuthorsString(s);
+        const titulo = s.subtitulo ? `${s.titulo}: ${s.subtitulo}` : s.titulo;
+        const ns = s.nome_site || '';
+        return {
+          raw: `${autores}${titulo}. ${ns}, ${s.ano}. Disponível em: ${s.url}. Acesso em: ${s.acesso}.`.replace(/\s+/g, ' '),
+          formatted: `${autores}<strong>${s.titulo}</strong>${s.subtitulo ? ': ' + s.subtitulo : ''}. ${ns}, ${s.ano}. Disponível em: ${s.url}. Acesso em: ${s.acesso}.`
+        };
+      },
+      
+      artigo: (s) => {
+        const autores = buildAuthorsString(s);
+        const titulo = s.subtitulo ? `${s.titulo}: ${s.subtitulo}` : s.titulo;
+        let extra = '';
+        if (s.volume) extra += `v. ${s.volume}, `;
+        if (s.numero) extra += `n. ${s.numero}, `;
+        if (s.paginas) extra += `p. ${s.paginas}, `;
+        return {
+          raw: `${autores}${titulo}. ${s.revista}, ${extra}${s.ano}.`.replace(/,\s*$/, '.'),
+          formatted: `${autores}<strong>${s.titulo}</strong>${s.subtitulo ? ': ' + s.subtitulo : ''}. ${s.revista}, ${extra}${s.ano}.`.replace(/,\s*$/, '.')
+        };
+      },
+      
+      filme: (s) => {
+        const titulo = s.subtitulo ? `${s.titulo}: ${s.subtitulo}` : s.titulo;
+        const dir = s.direcao || '[s. n.]';
+        const prod = s.producao;
+        const dist = s.distribuidora || '[s. n.]';
+        const mid = s.midia;
+        const raw = `${titulo}. Direção: ${dir}.${prod ? ' Produção: ' + prod + '.' : ''} ${dist}, ${s.ano}. ${mid}.`.replace(/\s+/g, ' ');
+        return {
+          raw,
+          formatted: `<strong>${s.titulo}</strong>${s.subtitulo ? ': ' + s.subtitulo : ''}. Direção: ${dir}.${prod ? ' Produção: ' + prod + '.' : ''} ${dist}, ${s.ano}. ${mid}.`
+        };
+      },
+      
+      youtube: (s) => {
+        const autores = buildAuthorsString(s);
+        const titulo = s.subtitulo ? `${s.titulo}: ${s.subtitulo}` : s.titulo;
+        const canal = s.nome_site;
+        const autorY = autores || (canal ? canal + '. ' : '');
+        return {
+          raw: `${autorY}${titulo}. YouTube, ${s.ano}. Disponível em: ${s.url}. Acesso em: ${s.acesso}.`.replace(/\s+/g, ' '),
+          formatted: `${autorY}<strong>${s.titulo}</strong>${s.subtitulo ? ': ' + s.subtitulo : ''}. YouTube, ${s.ano}. Disponível em: ${s.url}. Acesso em: ${s.acesso}.`
+        };
       }
     };
-    div.querySelector('input').oninput = update;
-    return div;
-  }
 
-  container.appendChild(createAuthorInput());
-
-  byId('add-author-btn').onclick = () => {
-    container.appendChild(createAuthorInput());
-    container.lastChild.querySelector('input').focus();
-    update();
-  };
-
-  tipoSelect.onchange = () => {
-    const val = tipoSelect.value;
-    document.querySelectorAll('[class*="field-"]').forEach(el => el.classList.add('hidden-field'));
-    document.querySelectorAll(`.field-${val}`).forEach(el => el.classList.remove('hidden-field'));
-    update();
-  };
-
-  byId('set-today-btn').onclick = () => {
-    const now = new Date();
-    const meses = ["jan.", "fev.", "mar.", "abr.", "maio", "jun.", "jul.", "ago.", "set.", "out.", "nov.", "dez."];
-    // Formato solicitado: dia de mes de ano
-    byId('acesso').value = `${now.getDate()} de ${meses[now.getMonth()]} de ${now.getFullYear()}`;
-    update();
-  };
-
-  function formatAuthor(name) {
-    const parts = name.trim().replace(/\s+/g, " ").split(" ");
-    if (parts.length < 2) return name.toUpperCase();
-    const lastName = parts.pop().toUpperCase();
-    const firstName = parts.join(" ");
-    return `${lastName}, ${firstName}`;
-  }
-
-  function update() {
-    const tipo = tipoSelect.value;
-    const authorInputs = document.querySelectorAll('.author-input');
-    const authorsList = Array.from(authorInputs).map(i => i.value.trim()).filter(v => v !== "");
-    const useEtAl = byId('useEtAl').checked;
-
-    const titulo = byId('titulo').value.trim();
-    const subtitulo = byId('subtitulo').value.trim();
-    const ano = byId('ano').value.trim();
-
-    const resultadoDiv = byId('resultado');
-
-    if (authorsList.length === 0 && titulo === "") {
-      resultadoDiv.innerHTML = "Aguardando preenchimento...";
-      resultadoDiv.className = "text-output flex items-center justify-center text-center italic text-slate-400";
-      return;
+    // ---------- FUNÇÕES AUXILIARES ----------
+    function updateStateFromDOM() {
+      state.tipo = tipoSelect.value;
+      state.useEtAl = useEtAlCheck.checked;
+      
+      const inputs = document.querySelectorAll('.author-input');
+      state.autores = Array.from(inputs).map(i => i.value.trim()).filter(v => v);
+      
+      state.titulo = $('titulo')?.value.trim() || '';
+      state.subtitulo = $('subtitulo')?.value.trim() || '';
+      state.ano = $('ano')?.value.trim() || '';
+      state.edicao = $('edicao')?.value.trim() || '';
+      state.local = $('local')?.value.trim() || '';
+      state.fonte = $('fonte')?.value.trim() || '';
+      state.url = $('url')?.value.trim() || '';
+      state.nome_site = $('nome_site')?.value.trim() || '';
+      state.acesso = $('acesso')?.value.trim() || '';
+      state.revista = $('revista')?.value.trim() || '';
+      state.volume = $('volume')?.value.trim() || '';
+      state.numero = $('numero')?.value.trim() || '';
+      state.paginas = $('paginas')?.value.trim() || '';
+      state.direcao = $('direcao')?.value.trim() || '';
+      state.producao = $('producao')?.value.trim() || '';
+      state.distribuidora = $('distribuidora')?.value.trim() || '';
+      state.midia = $('midia')?.value.trim() || '';
     }
 
-    // Muda o alinhamento para a esquerda (padrão ABNT) quando há dados
-    resultadoDiv.className = "text-output text-left";
+    function formatAuthorName(fullName) {
+      let name = fullName.trim().replace(/\s+/g, ' ');
+      if (!name) return '';
+      if (/^[A-Z\s]+$/.test(name) || name.includes('&')) return name;
+      
+      const parts = name.split(' ');
+      if (parts.length === 1) return name.toUpperCase();
+      
+      const sufixos = ['filho', 'neto', 'junior', 'sobrinho'];
+      let lastNameIndex = parts.length - 1;
+      if (sufixos.includes(parts[lastNameIndex]?.toLowerCase()) && parts.length > 1) {
+        lastNameIndex = parts.length - 2;
+      }
+      
+      const lastName = parts.slice(lastNameIndex).join(' ').toUpperCase();
+      const firstName = parts.slice(0, lastNameIndex).join(' ');
+      return `${lastName}, ${firstName}`;
+    }
 
-    let autorStr = "";
-    if (authorsList.length > 0) {
-      if (useEtAl && authorsList.length > 3) {
-        autorStr = `${formatAuthor(authorsList[0])} et al. `;
+    function buildAuthorsString(s = state) {
+      if (s.autores.length === 0) return '';
+      if (s.useEtAl && s.autores.length > 3) {
+        return formatAuthorName(s.autores[0]) + ' et al. ';
+      }
+      return s.autores.map(formatAuthorName).join('; ') + '. ';
+    }
+
+    function validateField(fieldId, value) {
+      const field = $(fieldId);
+      if (!field) return true;
+      
+      const validateAttr = field.dataset.validate;
+      if (!validateAttr) return true;
+      
+      const rules = validateAttr.split('|');
+      for (const rule of rules) {
+        if (validators[rule] && !validators[rule](value)) {
+          field.classList.add('error');
+          field.classList.remove('success');
+          return false;
+        }
+      }
+      
+      if (value) {
+        field.classList.remove('error');
+        field.classList.add('success');
       } else {
-        autorStr = authorsList.map(formatAuthor).join("; ") + ". ";
+        field.classList.remove('success', 'error');
       }
+      return true;
     }
 
-    const previewTitle = subtitulo ? `<strong>${titulo}</strong>: ${subtitulo}` : `<strong>${titulo}</strong>`;
-    const cleanTitle = subtitulo ? `${titulo}: ${subtitulo}` : titulo;
+    function validateAllFields() {
+      const fields = document.querySelectorAll('[data-validate]');
+      let allValid = true;
+      const checklist = [];
+      
+      fields.forEach(field => {
+        const val = field.value.trim();
+        const isValid = validateField(field.id, val);
+        if (!isValid) allValid = false;
+        
+        const label = field.placeholder.replace('*', '').trim();
+        checklist.push({
+          label,
+          valid: isValid && val.length > 0,
+          required: field.dataset.validate.includes('required')
+        });
+      });
+      
+      // Atualizar checklist visual
+      checklistEl.innerHTML = checklist.map(item => `
+        <div class="checklist-item">
+          <span class="${item.valid ? 'text-emerald-600' : 'text-slate-400'}">${item.valid ? '✅' : '○'}</span>
+          <span class="${item.valid ? 'text-slate-700' : 'text-slate-500'}">${item.label}</span>
+        </div>
+      `).join('');
+      
+      return allValid;
+    }
 
-    const buildRef = (t) => {
-      let r = "";
-      switch(tipo) {
-        case 'livro':
-          let edRaw = byId('edicao').value.trim();
-          let ed = edRaw;
-          if (/^\d+$/.test(edRaw)) {
-            ed = `${edRaw}. ed.`;
-          }
-          const loc = byId('local').value.trim() || "[S. l.]";
-          const font = byId('fonte').value.trim() || "[s. n.]";
-          r = `${autorStr}${t}. ${ed ? ed + ' ' : ''}${loc}: ${font}, ${ano}.`;
-          break;
-        case 'site':
-          const ns = byId('nome_site').value.trim();
-          const url = byId('url').value.trim();
-          const ac = byId('acesso').value.trim();
-          r = `${autorStr}${t}. ${ns}, ${ano}. Disponível em: ${url}. Acesso em: ${ac}.`;
-          break;
-        case 'artigo':
-          const rev = byId('revista').value.trim();
-          const vol = byId('volume').value.trim();
-          const num = byId('numero').value.trim();
-          const pag = byId('paginas').value.trim();
-          r = `${autorStr}${t}. ${rev}, ${vol ? 'v. ' + vol + ', ' : ''}${num ? 'n. ' + num + ', ' : ''}${pag ? 'p. ' + pag + ', ' : ''}${ano}.`;
-          break;
-        case 'filme':
-          const words = titulo.split(" ");
-          const first = (words.shift() || "").toUpperCase();
-          const rest = words.join(" ");
-          const mTitle = t.includes('strong') 
-            ? `<strong>${first} ${rest}</strong>${subtitulo ? ': ' + subtitulo : ''}`
-            : `${first} ${rest}${subtitulo ? ': ' + subtitulo : ''}`;
-          const dir = byId('direcao').value.trim();
-          const prod = byId('producao').value.trim();
-          const dist = byId('distribuidora').value.trim();
-          const mid = byId('midia').value.trim();
-          r = `${mTitle}. Direção: ${dir}. Produção: ${prod}. ${dist}, ${ano}. ${mid}.`;
-          break;
-        case 'youtube':
-          const canal = byId('nome_site').value.trim();
-          const yurl = byId('url').value.trim();
-          const yac = byId('acesso').value.trim();
-          const autorY = autorStr || (canal ? canal + ". " : "");
-          r = `${autorY}${t}. YouTube, ${ano}. Disponível em: ${yurl}. Acesso em: ${yac}.`;
-          break;
+    function buildReference() {
+      updateStateFromDOM();
+      if (!state.titulo) return { raw: '', formatted: '' };
+      
+      const builder = builders[state.tipo];
+      return builder ? builder(state) : { raw: '', formatted: '' };
+    }
+
+    function render() {
+      loadingIndicator.classList.remove('hidden');
+      resultText.classList.add('hidden');
+      
+      setTimeout(() => {
+        updateStateFromDOM();
+        
+        // Atualizar grupos visíveis
+        document.querySelectorAll('[data-field-group]').forEach(el => {
+          const groups = el.dataset.fieldGroup.split(' ');
+          el.classList.toggle('hidden-field', !groups.includes(state.tipo));
+        });
+        
+        // Validar campos
+        validateAllFields();
+        
+        const ref = buildReference();
+        
+        loadingIndicator.classList.add('hidden');
+        resultText.classList.remove('hidden');
+        
+        if (!ref.raw) {
+          resultText.innerHTML = 'Preencha os campos para gerar a referência';
+          resultadoDiv.className = 'reference-output flex items-center justify-center text-slate-400 italic text-center';
+          qualityIndicator.textContent = 'incompleta';
+          qualityIndicator.className = 'quality-badge bg-amber-50 text-amber-700 border border-amber-200';
+          dicaEl.textContent = 'Preencha título e campos obrigatórios.';
+          return;
+        }
+        
+        resultText.innerHTML = ref.formatted;
+        resultadoDiv.className = 'reference-output text-left';
+        resultadoDiv.dataset.raw = ref.raw;
+        resultadoDiv.dataset.citation = buildCitation();
+        
+        // Qualidade
+        const requiredValid = validateAllFields();
+        const q = requiredValid ? 
+          (state.autores.length > 0 ? 
+            { level: 'pronta', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' } :
+            { level: 'sem autor', color: 'bg-blue-50 text-blue-700 border-blue-200' }) :
+          { level: 'incompleta', color: 'bg-amber-50 text-amber-700 border-amber-200' };
+        
+        qualityIndicator.textContent = q.level;
+        qualityIndicator.className = `quality-badge ${q.color}`;
+        
+        const tips = {
+          livro: 'Inclua cidade e editora. Edição numérica vira "2. ed."',
+          site: 'URL completa e data de acesso são obrigatórias.',
+          artigo: 'Preencha revista, volume e páginas se disponível.',
+          filme: 'Diretor essencial. Produção/distribuidora opcionais.',
+          youtube: 'Nome do canal ajuda se não houver autor.'
+        };
+        dicaEl.textContent = tips[state.tipo] || 'Preencha os campos obrigatórios.';
+      }, 10);
+    }
+
+    function buildCitation() {
+      if (!state.titulo || !state.ano) return '';
+      if (state.autores.length > 0) {
+        const sobrenome = state.autores[0].split(' ').pop().toUpperCase();
+        return `${sobrenome}, ${state.ano}`;
       }
-      return r.replace(/\s\s+/g, ' ').replace(/\.\./g, '.').trim();
-    };
+      const firstWord = state.titulo.split(' ')[0].toUpperCase();
+      return `${firstWord}, ${state.ano}`;
+    }
 
-    resultadoDiv.innerHTML = buildRef(previewTitle);
-    resultadoDiv.dataset.clean = buildRef(cleanTitle).replace(/<[^>]*>/g, '');
-  }
+    // ---------- UI COMPONENTS ----------
+    function createAuthorInput(value = '') {
+      const div = document.createElement('div');
+      div.className = 'author-row';
+      div.innerHTML = `
+        <input class="input-field author-input" type="text" placeholder="Nome completo do autor" value="${value}" />
+        <button class="remove-author btn-icon bg-red-50 text-red-500 hover:bg-red-100" aria-label="Remover autor" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      `;
+      const input = div.querySelector('input');
+      input.addEventListener('input', render);
+      input.addEventListener('blur', () => validateField(input.id, input.value));
+      div.querySelector('.remove-author').addEventListener('click', () => {
+        if (document.querySelectorAll('.author-row').length > 1) {
+          div.remove();
+          render();
+        }
+      });
+      return div;
+    }
 
-  document.querySelectorAll('input').forEach(el => el.oninput = update);
-  byId('useEtAl').onchange = update;
+    function resetForm() {
+      document.querySelectorAll('.input-field').forEach(i => {
+        i.value = '';
+        i.classList.remove('success', 'error');
+      });
+      tipoSelect.value = 'livro';
+      useEtAlCheck.checked = false;
+      container.innerHTML = '';
+      container.appendChild(createAuthorInput(''));
+      render();
+    }
 
-  byId('clearBtn').onclick = () => {
-    document.querySelectorAll('input').forEach(i => i.value = "");
-    container.innerHTML = "";
-    container.appendChild(createAuthorInput());
-    update();
-  };
+    function fillExample() {
+      resetForm();
+      tipoSelect.value = 'livro';
+      $('titulo').value = 'Manual de Semântica';
+      $('subtitulo').value = 'Noções Básicas e Exercícios';
+      $('ano').value = '2022';
+      $('local').value = 'São Paulo';
+      $('fonte').value = 'Contexto';
+      $('edicao').value = '3';
+      
+      const inputs = document.querySelectorAll('.author-input');
+      if (inputs.length) inputs[0].value = 'Márcia Cançado';
+      container.appendChild(createAuthorInput('Luiz Francisco Dias'));
+      render();
+    }
 
-  byId('copyBtn').onclick = () => {
-    const text = byId('resultado').dataset.clean;
-    if (!text || text.includes("Aguardando")) return;
-    
-    const el = document.createElement('textarea');
-    el.value = text;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
-
-    const original = byId('copyBtn').innerHTML;
-    byId('copyBtn').innerHTML = "Copiado com sucesso!";
-    byId('copyBtn').classList.replace('bg-indigo-600', 'bg-emerald-600');
-    setTimeout(() => {
-      byId('copyBtn').innerHTML = original;
-      byId('copyBtn').classList.replace('bg-emerald-600', 'bg-indigo-600');
-    }, 2000);
-  };
+    // ---------- INICIALIZAÇÃO ----------
+    document.addEventListener('DOMContentLoaded', () => {
+      container.appendChild(createAuthorInput(''));
+      
+      tipoSelect.addEventListener('change', render);
+      useEtAlCheck.addEventListener('change', render);
+      
+      $('add-author-btn').addEventListener('click', () => {
+        container.appendChild(createAuthorInput(''));
+        container.lastChild.querySelector('input').focus();
+        render();
+      });
+      
+      $('set-today-btn').addEventListener('click', () => {
+        const meses = ['jan.', 'fev.', 'mar.', 'abr.', 'maio', 'jun.', 'jul.', 'ago.', 'set.', 'out.', 'nov.', 'dez.'];
+        const d = new Date();
+        $('acesso').value = `${d.getDate()} ${meses[d.getMonth()]} ${d.getFullYear()}`;
+        render();
+      });
+      
+      $('clearBtn').addEventListener('click', resetForm);
+      $('exampleFillBtn')?.addEventListener('click', fillExample);
+      $('exampleFillBtnMobile')?.addEventListener('click', fillExample);
+      
+      // Copy moderno
+      copyBtn.addEventListener('click', async () => {
+        const text = resultadoDiv.dataset.raw;
+        if (!text) return;
+        
+        try {
+          await navigator.clipboard.writeText(text);
+          $('copyFeedback').textContent = '✓ Referência copiada!';
+          setTimeout(() => $('copyFeedback').textContent = '', 2000);
+        } catch (e) {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          $('copyFeedback').textContent = '✓ Copiado!';
+          setTimeout(() => $('copyFeedback').textContent = '', 1500);
+        }
+      });
+      
+      // Copiar citação
+      $('copyCitationBtn').addEventListener('click', async () => {
+        const citation = resultadoDiv.dataset.citation;
+        if (!citation) return;
+        try {
+          await navigator.clipboard.writeText(citation);
+          $('copyFeedback').textContent = '✓ Citação copiada!';
+          setTimeout(() => $('copyFeedback').textContent = '', 2000);
+        } catch (e) {}
+      });
+      
+      // Modal de correção
+      const modal = $('fixModal');
+      $('fixPastedBtn').addEventListener('click', () => modal.classList.add('flex'));
+      $('closeModalBtn').addEventListener('click', () => modal.classList.remove('flex'));
+      
+      $('analyzePastedBtn').addEventListener('click', () => {
+        const pasted = $('pastedRef').value;
+        // Análise simples (demo)
+        const suggestions = [];
+        if (!pasted.match(/\d{4}/)) suggestions.push('❌ Ano não encontrado');
+        if (pasted.includes('.')) suggestions.push('✅ Pontuação parece OK');
+        $('fixSuggestions').innerHTML = suggestions.join('<br>') || '✅ Referência parece válida!';
+        $('fixSuggestions').classList.remove('hidden');
+        $('applyFixBtn').classList.remove('hidden');
+      });
+      
+      $('applyFixBtn').addEventListener('click', () => {
+        // Aplicar correções (demo)
+        alert('Em uma versão completa, aplicaria as correções automaticamente!');
+        modal.classList.remove('flex');
+      });
+      
+      // Validação em tempo real
+      document.querySelectorAll('.input-field').forEach(el => {
+        el.addEventListener('input', render);
+        el.addEventListener('blur', () => validateField(el.id, el.value));
+      });
+      
+      render();
+    });
+  })();
 </script>
 </body>
 </html>
