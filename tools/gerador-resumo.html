@@ -1,254 +1,318 @@
-<!DOCTYPE html>
+html = r'''<!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Analisador de Texto e Resumo Estatístico | Hiato Literário</title>
-  <meta name="description" content="Análise textual avançada com resumo estatístico local, métricas de legibilidade e análise de densidade lexical." />
-  
+
+  <title>Resumir Texto Online Grátis | Hiato Literário</title>
+  <meta name="description" content="Resuma textos online grátis com análise local no navegador. Veja palavras, frases, tempo de leitura e gere um resumo claro sem enviar seus dados para servidores." />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="author" content="Hiato Literário" />
+  <meta name="theme-color" content="#4f46e5" />
+  <link rel="canonical" href="https://hiatoliterario.com.br/tools/resumir-texto-online.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Resumir Texto Online Grátis | Hiato Literário" />
+  <meta property="og:description" content="Ferramenta gratuita para resumir textos, contar palavras e analisar leitura sem sair do navegador." />
+  <meta property="og:url" content="https://hiatoliterario.com.br/tools/resumir-texto-online.html" />
+  <meta property="og:site_name" content="Hiato Literário" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Resumir Texto Online Grátis | Hiato Literário" />
+  <meta name="twitter:description" content="Resuma textos e veja métricas úteis de forma rápida, gratuita e privada." />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Resumir Texto Online Grátis",
+    "applicationCategory":"EducationalApplication",
+    "operatingSystem":"Web",
+    "url":"https://hiatoliterario.com.br/tools/resumir-texto-online.html",
+    "description":"Ferramenta online para resumir textos, contar palavras e analisar leitura de forma local no navegador.",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"BRL"},
+    "publisher":{"@type":"Organization","name":"Hiato Literário"}
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Essa ferramenta é gratuita?",
+        "acceptedAnswer":{"@type":"Answer","text":"Sim. A ferramenta pode ser usada gratuitamente para resumir textos e ver métricas básicas de leitura."}
+      },
+      {
+        "@type":"Question",
+        "name":"Meu texto é enviado para algum servidor?",
+        "acceptedAnswer":{"@type":"Answer","text":"Não. O processamento acontece no navegador, o que ajuda a manter sua privacidade."}
+      },
+      {
+        "@type":"Question",
+        "name":"Posso usar em texto acadêmico?",
+        "acceptedAnswer":{"@type":"Answer","text":"Sim. Há um modo acadêmico que tenta reduzir o peso de referências e trechos menos úteis para o resumo."}
+      }
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #f8fbff;
-      color: #1e293b;
+    :root{
+      --primary:#4f46e5;
+      --primary-dark:#4338ca;
+      --bg:#f8fbff;
+      --text:#1e293b;
+      --muted:#64748b;
+      --line:#e2e8f0;
+      --soft:#f8fafc;
+      --green:#10b981;
+      --amber:#f59e0b;
+      --red:#ef4444;
     }
-
-    .glass-card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(226, 232, 240, 0.8);
-      box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.05);
-      border-radius: 1.5rem;
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Plus Jakarta Sans',sans-serif;
+      background:var(--bg);
+      color:var(--text);
     }
-
-    .stat-card {
-      padding: 1.25rem;
-      border-radius: 1.25rem;
-      border: 1px solid transparent;
-      transition: all 0.2s ease;
-      background: #ffffff;
+    .glass-card{
+      background:rgba(255,255,255,.96);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(226,232,240,.9);
+      box-shadow:0 8px 32px -4px rgba(0,0,0,.05);
+      border-radius:1.5rem;
     }
-
-    .stat-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.1);
+    .stat-card{
+      padding:1rem;
+      border-radius:1.25rem;
+      border:1px solid var(--line);
+      transition:all .2s ease;
+      background:#fff;
     }
-
-    .textarea-container {
-      position: relative;
-      background: white;
-      border-radius: 1.25rem;
-      border: 1px solid #e2e8f0;
-      transition: all 0.2s;
+    .stat-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 20px -10px rgba(0,0,0,.12);
     }
-
-    .textarea-container:focus-within {
-      border-color: #4f46e5;
-      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.08);
+    .textarea-container{
+      position:relative;
+      background:#fff;
+      border-radius:1.25rem;
+      border:1px solid var(--line);
+      transition:all .2s;
     }
-
-    textarea {
-      width: 100%;
-      min-height: 400px;
-      padding: 1.5rem;
-      border: none;
-      outline: none;
-      resize: vertical;
-      font-size: 1rem;
-      line-height: 1.7;
-      border-radius: 1.25rem;
+    .textarea-container:focus-within{
+      border-color:var(--primary);
+      box-shadow:0 0 0 4px rgba(79,70,229,.08);
     }
-
-    .action-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 0.75rem;
-      font-weight: 600;
-      font-size: 0.875rem;
-      transition: all 0.2s;
-      border: 1px solid #e2e8f0;
-      background: white;
-      color: #64748b;
+    textarea{
+      width:100%;
+      min-height:380px;
+      padding:1.25rem 1.25rem 1rem;
+      border:none;
+      outline:none;
+      resize:vertical;
+      font-size:1rem;
+      line-height:1.75;
+      border-radius:1.25rem;
+      background:transparent;
     }
-
-    .action-btn:hover {
-      background: #f8fafc;
-      color: #1e293b;
-      border-color: #cbd5e1;
+    .action-btn, .mode-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.5rem;
+      padding:.7rem 1rem;
+      border-radius:.9rem;
+      font-weight:700;
+      font-size:.875rem;
+      transition:all .2s;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--muted);
+      cursor:pointer;
     }
-
-    .action-btn.active {
-      background: #4f46e5;
-      color: white;
-      border-color: #4f46e5;
+    .action-btn:hover,.mode-btn:hover{
+      background:var(--soft);
+      color:var(--text);
+      border-color:#cbd5e1;
     }
-
-    .badge-label {
-      font-size: 0.65rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #94a3b8;
-      margin-bottom: 0.25rem;
+    .mode-btn.active{
+      background:var(--primary);
+      color:#fff;
+      border-color:var(--primary);
     }
-
-    input[type=range] {
-      accent-color: #4f46e5;
+    .pill{
+      font-size:.72rem;
+      font-weight:800;
+      border-radius:999px;
+      padding:.45rem .8rem;
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
     }
-
-    .hero-bg {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(79, 70, 229, 0.05) 0%, transparent 70%);
-      z-index: -1;
+    .hero-bg{
+      position:absolute;
+      top:0;
+      right:0;
+      width:420px;
+      height:420px;
+      background:radial-gradient(circle, rgba(79,70,229,.08) 0%, transparent 70%);
+      z-index:-1;
     }
-
-    .legibility-bar {
-      height: 6px;
-      background: #f1f5f9;
-      border-radius: 3px;
-      overflow: hidden;
-      margin-top: 8px;
+    .bar{
+      height:8px;
+      background:#eef2f7;
+      border-radius:999px;
+      overflow:hidden;
+      margin-top:8px;
     }
-    .legibility-fill {
-      height: 100%;
-      background: #4f46e5;
-      width: 0%;
-      transition: width 0.5s ease;
+    .bar-fill{
+      height:100%;
+      width:0%;
+      transition:width .4s ease;
+      background:var(--primary);
     }
-
+    .reason-tag{
+      display:inline-block;
+      padding:.2rem .55rem;
+      border-radius:999px;
+      font-size:.66rem;
+      font-weight:700;
+      background:#f1f5f9;
+      color:#475569;
+    }
+    .section-title{
+      font-size:1.5rem;
+      font-weight:800;
+      color:#0f172a;
+      letter-spacing:-.02em;
+    }
+    .seo-card{
+      border:1px solid #e5e7eb;
+      border-radius:1rem;
+      padding:1rem;
+      background:#fff;
+    }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity:0; transform:translateY(8px); }
+      to { opacity:1; transform:translateY(0); }
     }
-    
-    .animate-in {
-      animation: fadeIn 0.5s ease-out;
-    }
-
-    .entity-badge {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 0.25rem 0.75rem;
-      border-radius: 1rem;
-      font-size: 0.7rem;
-      font-weight: 600;
+    .animate-in{ animation:fadeIn .4s ease-out; }
+    @media (max-width: 767px){
+      textarea{min-height:300px}
     }
   </style>
 </head>
 
 <body class="selection:bg-indigo-100 selection:text-indigo-700 pb-20">
-
 <div class="hero-bg"></div>
 
-<header class="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-md">
-  <div class="mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
+<header class="sticky top-0 z-50 border-b border-slate-200 bg-white/85 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-6 py-3 flex justify-between items-center gap-4">
     <a href="../index.html" class="flex items-center gap-2 group">
       <div class="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold transition-all group-hover:scale-105">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
       </div>
       <div class="flex flex-col">
         <span class="text-base font-bold leading-none text-slate-800">Hiato Literário</span>
-        <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-tighter">Ferramentas para escritores</span>
+        <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-tighter">Ferramentas de escrita</span>
       </div>
     </a>
+
     <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-500">
       <a href="../index.html" class="hover:text-indigo-600">Início</a>
-      <a href="#" class="text-indigo-600 border-b-2 border-indigo-600 pb-1">Resumo & Análise</a>
-      <a href="./contador-palavras-online.html" class="hover:text-indigo-600">Contador</a>
-      <a href="#" class="hover:text-indigo-600">Blog</a>
+      <a href="#" class="text-indigo-600 border-b-2 border-indigo-600 pb-1">Resumir texto</a>
+      <a href="#como-funciona" class="hover:text-indigo-600">Como funciona</a>
+      <a href="#duvidas" class="hover:text-indigo-600">Dúvidas</a>
     </nav>
+
     <div class="px-4 py-1.5 bg-indigo-50 text-indigo-600 rounded-full text-[11px] font-bold">
-      Gratuito • Local • Privado
+      Grátis • Privado • Local
     </div>
   </div>
 </header>
 
 <main class="mx-auto max-w-7xl px-6 pt-12">
-  
-  <section class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
-    <div class="max-w-2xl">
-      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
-        Analisador de Texto <span class="text-indigo-600">Estatístico</span>
+  <section class="flex flex-col lg:flex-row justify-between items-start gap-8 mb-10">
+    <div class="max-w-3xl">
+      <p class="pill bg-indigo-50 text-indigo-600">Resumo online sem cadastro</p>
+      <h1 class="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900">
+        Resumir texto online de forma <span class="text-indigo-600">rápida e clara</span>
       </h1>
-      <p class="mt-4 text-lg text-slate-500 font-medium">
-        Análise linguística avançada e resumo automático baseado em heurísticas de densidade lexical e relevância sintática.
+      <p class="mt-4 text-lg text-slate-500 font-medium leading-8">
+        Cole seu texto, escolha o tipo de análise e gere um resumo em poucos segundos.
+        A ferramenta roda no navegador, então seu conteúdo não precisa sair do seu computador.
       </p>
-      <div class="mt-6 flex flex-wrap gap-4">
-        <div class="flex items-center gap-2 text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full">
-           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-           Processamento Local
+
+      <div class="mt-6 flex flex-wrap gap-3">
+        <div class="pill bg-emerald-50 text-emerald-600">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          Fácil de usar
         </div>
-        <div class="flex items-center gap-2 text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full">
-           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-           Privacidade Garantida
+        <div class="pill bg-indigo-50 text-indigo-600">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          Bom para estudo e revisão
         </div>
-        <div class="flex items-center gap-2 text-xs font-bold text-purple-600 bg-purple-50 px-3 py-1.5 rounded-full">
-           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-           TF-IDF + Entidades Nomeadas
+        <div class="pill bg-blue-50 text-blue-600">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          Sem envio de dados
         </div>
       </div>
     </div>
-    
-    <div class="hidden lg:block relative mr-10">
-      <div class="absolute -top-10 -left-10 w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 shadow-xl shadow-blue-100/50 animate-bounce">
-         <span class="font-bold">∑</span>
-      </div>
-      <div class="w-48 h-56 bg-white rounded-3xl shadow-2xl border border-slate-100 p-6 flex flex-col gap-3">
-         <div class="h-3 w-3/4 bg-slate-100 rounded-full"></div>
-         <div class="h-3 w-full bg-slate-200 rounded-full"></div>
-         <div class="h-3 w-5/6 bg-slate-100 rounded-full"></div>
-         <div class="h-3 w-full bg-slate-200 rounded-full"></div>
-         <div class="mt-4 flex flex-col gap-2">
-            <div class="h-4 w-full bg-indigo-50 rounded-lg"></div>
-            <div class="h-4 w-2/3 bg-emerald-50 rounded-lg"></div>
-         </div>
+
+    <div class="glass-card p-4 w-full lg:max-w-sm">
+      <p class="text-sm font-extrabold text-slate-800">Escolha o foco da análise</p>
+      <p class="text-sm text-slate-500 mt-1">Cada modo ajusta a seleção das frases para combinar melhor com o seu texto.</p>
+      <div class="mt-4 grid grid-cols-2 gap-2">
+        <button data-mode="general" class="mode-btn active">Geral</button>
+        <button data-mode="academic" class="mode-btn">Acadêmico</button>
+        <button data-mode="journalistic" class="mode-btn">Jornalístico</button>
+        <button data-mode="literary" class="mode-btn">Literário</button>
       </div>
     </div>
   </section>
 
   <div class="grid gap-8 lg:grid-cols-12 items-start">
-    
-    <div class="lg:col-span-8 space-y-6">
+    <section class="lg:col-span-8 space-y-6" aria-labelledby="editor-title">
       <div class="glass-card p-6">
         <div class="flex flex-wrap justify-between items-center mb-4 gap-4">
-          <div class="flex gap-2">
-            <button id="pasteBtn" class="action-btn active">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              Colar
+          <div class="flex gap-2 flex-wrap">
+            <button id="pasteBtn" class="action-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Colar texto
             </button>
             <button id="clearBtn" class="action-btn">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
               Limpar
             </button>
             <button id="exampleBtn" class="action-btn">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-              Exemplo
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+              Ver exemplo
             </button>
           </div>
-          
+
           <div class="flex items-center gap-3">
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Análise Realtime</span>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Análise em tempo real</span>
             <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
           </div>
         </div>
 
+        <h2 id="editor-title" class="sr-only">Editor de texto</h2>
         <div class="textarea-container">
-          <textarea id="inputText" placeholder="Insira seu texto acadêmico ou literário para uma análise profunda..."></textarea>
+          <label for="inputText" class="sr-only">Cole ou digite seu texto</label>
+          <textarea id="inputText" placeholder="Cole ou digite seu texto aqui. Depois clique em “Gerar resumo”."></textarea>
           <div class="px-6 py-3 border-t border-slate-50 flex justify-between items-center text-[11px] font-bold text-slate-400">
             <div id="charCounter">0 caracteres</div>
-            <div class="flex gap-4">
+            <div class="flex gap-4 flex-wrap justify-end">
               <span id="wordCounter">0 palavras</span>
               <span id="sentenceCounter">0 frases</span>
             </div>
@@ -256,539 +320,997 @@
         </div>
 
         <div class="mt-8 pt-8 border-t border-slate-100">
-           <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-              <div class="flex-grow max-w-md">
-                 <div class="flex justify-between mb-2">
-                    <span class="text-xs font-bold text-slate-500 uppercase">Fator de Compressão</span>
-                    <span id="ratioLabel" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">30%</span>
-                 </div>
-                 <input type="range" id="ratioSlider" min="10" max="70" value="30" class="w-full">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="flex-grow max-w-md">
+              <div class="flex justify-between mb-2">
+                <span class="text-xs font-bold text-slate-500 uppercase">Tamanho do resumo</span>
+                <span id="ratioLabel" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">30%</span>
               </div>
-              <button id="summarizeBtn" class="px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 flex items-center justify-center gap-3 whitespace-nowrap">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                 Processar Resumo
-              </button>
-           </div>
+              <input type="range" id="ratioSlider" min="10" max="70" value="30" class="w-full" aria-label="Tamanho do resumo">
+              <p class="mt-2 text-xs text-slate-400">Arraste para deixar o resumo mais curto ou mais completo.</p>
+            </div>
+
+            <button id="summarizeBtn" class="px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 flex items-center justify-center gap-3 whitespace-nowrap">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              Gerar resumo
+            </button>
+          </div>
         </div>
       </div>
 
       <div id="summaryResult" class="hidden glass-card p-8 border-l-4 border-indigo-600 animate-in">
-         <div class="flex justify-between items-start mb-4">
-            <div class="flex items-center gap-3">
-               <h3 class="text-sm font-black text-slate-800 uppercase tracking-widest">Resumo Estatístico</h3>
-               <span id="entityCount" class="entity-badge">0 entidades</span>
-            </div>
-            <button id="copySummary" class="text-slate-400 hover:text-indigo-600 transition-colors" title="Copiar resumo">
-               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            </button>
-         </div>
-         <div id="summaryContent" class="text-slate-600 leading-relaxed text-lg italic"></div>
-         <div class="mt-4 pt-4 border-t border-slate-100">
-            <div class="flex gap-4 text-xs font-medium text-slate-500">
-               <span>📊 <span id="summaryStats">0 sentenças selecionadas</span></span>
-               <span>🎯 <span id="relevanceScore">Relevância: 0%</span></span>
-            </div>
-         </div>
-      </div>
+        <div class="flex justify-between items-start gap-4 mb-4">
+          <div>
+            <h2 class="text-sm font-black text-slate-800 uppercase tracking-widest">Resumo gerado</h2>
+            <p class="text-sm text-slate-500 mt-1">As frases abaixo foram escolhidas com base na relevância dentro do texto.</p>
+          </div>
+          <button id="copySummary" class="text-slate-400 hover:text-indigo-600 transition-colors" title="Copiar resumo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </button>
+        </div>
 
-      <div class="p-4 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-center gap-3">
-         <span class="text-lg">📊</span>
-         <p class="text-xs font-medium text-blue-700">
-           <strong>Nota:</strong> Esta ferramenta utiliza algoritmos locais de processamento de linguagem natural (NLP) com TF-IDF simulado, detecção de entidades nomeadas e análise de similaridade para evitar redundância. Nenhum dado sai do seu navegador.
-         </p>
-      </div>
-    </div>
+        <div id="summaryContent" class="text-slate-700 leading-8 text-lg"></div>
 
-    <aside class="lg:col-span-4 space-y-6">
+        <div class="mt-6 pt-6 border-t border-slate-100">
+          <h3 class="text-xs font-bold text-slate-500 uppercase mb-3">Por que estas frases apareceram?</h3>
+          <div id="explanationPanel" class="space-y-2 text-sm"></div>
+        </div>
+
+        <div class="mt-4 flex gap-4 flex-wrap text-xs font-medium text-slate-500">
+          <span>📌 <span id="summaryStats">0 frases selecionadas</span></span>
+          <span>📊 <span id="relevanceScore">Qualidade média: 0%</span></span>
+        </div>
+      </div>
+    </section>
+
+    <aside class="lg:col-span-4 space-y-6" aria-label="Métricas do texto">
       <div class="glass-card p-6">
         <h2 class="flex items-center gap-2 text-base font-bold text-slate-800 mb-6">
           <div class="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
           </div>
-          Métricas
+          Visão geral do texto
         </h2>
 
         <div class="grid grid-cols-2 gap-4">
           <div class="stat-card">
             <strong id="statWords" class="text-2xl font-extrabold text-indigo-600">0</strong>
-            <div class="badge-label">Palavras</div>
+            <div class="text-[11px] font-bold uppercase tracking-wide text-slate-400 mt-1">Palavras</div>
           </div>
           <div class="stat-card">
             <strong id="statChars" class="text-2xl font-extrabold text-emerald-500">0</strong>
-            <div class="badge-label">Caracteres</div>
+            <div class="text-[11px] font-bold uppercase tracking-wide text-slate-400 mt-1">Caracteres</div>
           </div>
           <div class="stat-card">
             <strong id="statSentences" class="text-2xl font-extrabold text-amber-500">0</strong>
-            <div class="badge-label">Frases</div>
+            <div class="text-[11px] font-bold uppercase tracking-wide text-slate-400 mt-1">Frases</div>
           </div>
           <div class="stat-card">
             <strong id="statParagraphs" class="text-2xl font-extrabold text-cyan-500">0</strong>
-            <div class="badge-label">Parágrafos</div>
+            <div class="text-[11px] font-bold uppercase tracking-wide text-slate-400 mt-1">Parágrafos</div>
           </div>
         </div>
 
-        <div class="mt-8 space-y-6 pt-6 border-t border-slate-100">
+        <div class="mt-8 space-y-5 pt-6 border-t border-slate-100">
           <div>
             <div class="flex justify-between items-center mb-1">
-               <span class="text-[10px] font-bold text-slate-400 uppercase">Clareza Textual</span>
-               <span id="legibilityScore" class="text-[10px] font-black text-indigo-600">--</span>
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Nível de dificuldade</span>
+              <span id="syntacticScore" class="text-[10px] font-black text-indigo-600">--</span>
             </div>
-            <div id="legibilityLabel" class="text-xs font-semibold text-slate-600 mb-2">Aguardando texto...</div>
-            <div class="legibility-bar"><div id="legibilityFill" class="legibility-fill"></div></div>
+            <div id="syntacticLabel" class="text-xs font-semibold text-slate-600 mb-2">Aguardando texto...</div>
+            <div class="bar"><div id="syntacticFill" class="bar-fill"></div></div>
           </div>
 
-          <div class="flex justify-between items-center text-slate-500">
-            <div class="flex flex-col">
-              <span class="text-[10px] font-bold text-slate-400 uppercase">Tempo Leitura</span>
-              <span id="readTime" class="text-sm font-bold text-slate-700">0 min</span>
+          <div class="grid grid-cols-2 gap-3 pt-4">
+            <div>
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Tempo de leitura</span>
+              <div id="readTime" class="text-sm font-bold text-slate-700">0 min</div>
             </div>
-            <div class="flex flex-col text-right">
-              <span class="text-[10px] font-bold text-slate-400 uppercase">Densidade Lexical</span>
-              <span id="lexicalDensity" class="text-sm font-bold text-slate-700">0%</span>
+            <div>
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Variedade de palavras</span>
+              <div id="lexicalVariety" class="text-sm font-bold text-slate-700">0%</div>
             </div>
-          </div>
-          
-          <div class="flex justify-between items-center text-slate-500 pt-4 border-t border-slate-100">
-            <div class="flex flex-col">
-              <span class="text-[10px] font-bold text-slate-400 uppercase">Entidades Nomeadas</span>
-              <span id="entityCounter" class="text-sm font-bold text-slate-700">0</span>
+            <div>
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Palavras por frase</span>
+              <div id="wordsPerSentence" class="text-sm font-bold text-slate-700">0</div>
             </div>
-            <div class="flex flex-col text-right">
-              <span class="text-[10px] font-bold text-slate-400 uppercase">Score TF-IDF Médio</span>
-              <span id="avgTfIdf" class="text-sm font-bold text-slate-700">0.00</span>
+            <div>
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Sílabas por palavra</span>
+              <div id="syllablesPerWord" class="text-sm font-bold text-slate-700">0</div>
             </div>
           </div>
         </div>
       </div>
-      
-      <div class="glass-card p-6 bg-gradient-to-br from-indigo-50 to-white">
+
+      <div class="glass-card p-6 bg-gradient-to-br from-slate-50 to-white">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-sm font-bold text-slate-800">Como o resumo é montado</h3>
+          <button id="toggleWeights" class="text-[10px] font-bold text-indigo-600">Mostrar</button>
+        </div>
+        <div id="weightsPanel" class="hidden space-y-3 text-xs text-slate-600">
+          <div class="flex justify-between"><span>Palavras importantes</span><span id="weightLexical" class="font-bold">35%</span></div>
+          <div class="flex justify-between"><span>Posição no texto</span><span id="weightPosition" class="font-bold">20%</span></div>
+          <div class="flex justify-between"><span>Conectivos</span><span id="weightConnectors" class="font-bold">15%</span></div>
+          <div class="flex justify-between"><span>Termos centrais</span><span id="weightTopTerms" class="font-bold">15%</span></div>
+          <div class="flex justify-between"><span>Tamanho da frase</span><span id="weightLength" class="font-bold">10%</span></div>
+          <div class="flex justify-between"><span>Nomes importantes</span><span id="weightProperNouns" class="font-bold">5%</span></div>
+        </div>
+      </div>
+
+      <div class="glass-card p-6">
         <h3 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
-          <span class="text-lg">🎯</span> Palavras-Chave
+          <span class="text-lg">🔑</span> Termos mais importantes
         </h3>
-        <div id="keywordsCloud" class="flex flex-wrap gap-2 min-h-[60px]">
-          <span class="text-xs text-slate-400 italic">Digite um texto para ver as palavras-chave...</span>
+        <div id="termsCloud" class="flex flex-wrap gap-2 min-h-[60px]">
+          <span class="text-xs text-slate-400 italic">Digite um texto para ver os termos.</span>
         </div>
       </div>
     </aside>
   </div>
+
+  <section id="como-funciona" class="mt-20">
+    <div class="max-w-4xl">
+      <h2 class="section-title">Como funciona</h2>
+      <p class="mt-3 text-slate-500 leading-8">
+        A ferramenta analisa o texto, identifica palavras importantes, observa a posição das frases e evita repetições desnecessárias no resumo.
+        No modo acadêmico, também tenta diminuir o peso de referências e partes menos úteis para a síntese.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mt-8">
+      <div class="seo-card">
+        <h3 class="font-bold text-slate-800">1. Cole o texto</h3>
+        <p class="text-sm text-slate-500 mt-2">Pode ser um texto de estudo, artigo, redação, notícia ou material de revisão.</p>
+      </div>
+      <div class="seo-card">
+        <h3 class="font-bold text-slate-800">2. Escolha o modo</h3>
+        <p class="text-sm text-slate-500 mt-2">Selecione o tipo de análise que mais combina com o seu conteúdo.</p>
+      </div>
+      <div class="seo-card">
+        <h3 class="font-bold text-slate-800">3. Gere o resumo</h3>
+        <p class="text-sm text-slate-500 mt-2">Veja o resultado, copie o texto e use as métricas para revisar melhor.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-20">
+    <div class="max-w-4xl">
+      <h2 class="section-title">Para quem esta página é útil</h2>
+      <p class="mt-3 text-slate-500 leading-8">
+        Esta página foi pensada para estudantes, professores, pesquisadores, revisores, redatores e qualquer pessoa que precise resumir um texto com rapidez.
+        Ela também ajuda quem quer conferir tamanho, leitura e organização do conteúdo antes de publicar ou entregar um trabalho.
+      </p>
+    </div>
+  </section>
+
+  <section id="duvidas" class="mt-20">
+    <div class="max-w-4xl">
+      <h2 class="section-title">Perguntas frequentes</h2>
+      <div class="mt-8 space-y-4">
+        <div class="seo-card">
+          <h3 class="font-bold text-slate-800">Essa ferramenta é gratuita?</h3>
+          <p class="text-sm text-slate-500 mt-2">Sim. Você pode usar a página gratuitamente para resumir textos e consultar as métricas principais.</p>
+        </div>
+        <div class="seo-card">
+          <h3 class="font-bold text-slate-800">O texto sai do navegador?</h3>
+          <p class="text-sm text-slate-500 mt-2">Não. O processamento acontece localmente, o que ajuda a manter sua privacidade.</p>
+        </div>
+        <div class="seo-card">
+          <h3 class="font-bold text-slate-800">Posso usar com texto acadêmico?</h3>
+          <p class="text-sm text-slate-500 mt-2">Sim. O modo acadêmico foi pensado para reduzir o peso de referências e destacar melhor o conteúdo principal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
+<footer class="mt-20 py-12 border-t border-slate-100 text-center">
+  <p class="text-xs font-semibold text-slate-400">
+    Hiato Literário • ferramenta online para resumir texto, revisar conteúdo e estudar melhor.
+  </p>
+</footer>
+
 <script>
-  // ============================================
-  // LISTAS LINGUÍSTICAS MELHORADAS (PORTUGUÊS)
-  // ============================================
-  const ptStopwords = new Set([
-    "a", "o", "as", "os", "ao", "aos", "da", "do", "das", "dos", "em", "na", "no", "nas", "nos", "um", "uma", "uns", "umas", 
-    "de", "com", "por", "para", "que", "e", "é", "mas", "ou", "se", "como", "esta", "este", "isto", "esse", "essa", "isso", 
-    "aquele", "aquela", "aquilo", "meu", "teu", "seu", "nosso", "vosso", "minha", "tua", "sua", "nossa", "vossa", "ele", "ela", 
-    "eles", "elas", "me", "te", "lhe", "num", "numa", "quem", "qual", "onde", "quando", "porque", "pois", "então", "tão", 
-    "muito", "mais", "menos", "ser", "ter", "haver", "estar", "foi", "está", "são", "foram", "eram"
-  ]);
+// ============================================
+// CONFIGURAÇÃO
+// ============================================
+const CONFIG = {
+  weights: {
+    lexical: 0.35,
+    position: 0.20,
+    connectors: 0.15,
+    topTerms: 0.15,
+    length: 0.10,
+    properNouns: 0.05
+  },
 
-  const ptConnectors = new Set([
-    "portanto", "contudo", "entretanto", "todavia", "porém", "conseguinte", "conclusão", "síntese", "resumo", 
-    "ademais", "outrossim", "além", "principalmente", "especialmente", "sobretudo", "conforme", "segundo", 
-    "apesar", "embora", "visto", "posto", "vistoque", "assim", "logo", "conclui-se", "nota-se", "dessa", "desse",
-    "primeiramente", "finalmente", "outro", "outra", "destaca-se", "vale", "ressaltar"
-  ]);
-
-  const lowIdfWords = new Set([
-    "sobre", "entre", "durante", "parte", "forma", "maior", "menor", "vez", "vezes", "exemplo", "caso", "casos",
-    "trabalho", "estudo", "pesquisa", "dado", "dados", "informação", "informações", "grande", "pequeno",
-    "importante", "importância", "necessário", "possível", "capaz", "cada", "todo", "toda", "todos", "todas"
-  ]);
-
-  // ============================================
-  // ENGINE PRINCIPAL DE NLP
-  // ============================================
-  const textEngine = {
-    // 1. Contagem de sílabas (aproximada)
-    countSyllables: (word) => {
-      word = word.toLowerCase();
-      if (word.length <= 3) return 1;
-      const matches = word.match(/[aeiouáéíóúãõâêôàèìòùäëïöü]/gi);
-      return matches ? Math.min(matches.length, 5) : 1;
+  modes: {
+    general: {
+      label: 'Geral',
+      weights: { lexical: 0.35, position: 0.20, connectors: 0.15, topTerms: 0.15, length: 0.10, properNouns: 0.05 },
+      cleanAcademic: false
     },
-
-    // 2. Pré-processamento avançado
-    preprocess: (text) => {
-      return text
-        .replace(/\s+/g, ' ')
-        .replace(/(\w)\1{3,}/g, '$1$1')
-        .replace(/[""]/g, '"')
-        .replace(/['']/g, "'")
-        .trim();
+    academic: {
+      label: 'Acadêmico',
+      weights: { lexical: 0.40, position: 0.15, connectors: 0.20, topTerms: 0.15, length: 0.05, properNouns: 0.05 },
+      cleanAcademic: true
     },
-
-    // 3. Separação de Sentenças (com proteção de abreviações)
-    splitSentences: (text) => {
-      let protectedText = text
-        .replace(/Sr\./g, 'Sr<dot>')
-        .replace(/Sra\./g, 'Sra<dot>')
-        .replace(/Dr\./g, 'Dr<dot>')
-        .replace(/Dra\./g, 'Dra<dot>')
-        .replace(/Prof\./g, 'Prof<dot>')
-        .replace(/etc\./g, 'etc<dot>')
-        .replace(/Exmo\./g, 'Exmo<dot>')
-        .replace(/p\.ex\./g, 'p<dot>ex<dot>')
-        .replace(/e\.g\./g, 'e<dot>g<dot>')
-        .replace(/i\.e\./g, 'i<dot>e<dot>');
-      
-      const sentences = protectedText.split(/(?<=[.!?])\s+(?=[A-Z]|[À-Ú]|"|\()/);
-      
-      return sentences
-        .map(s => s.replace(/<dot>/g, '.'))
-        .filter(s => s.trim().length > 10);
+    journalistic: {
+      label: 'Jornalístico',
+      weights: { lexical: 0.30, position: 0.25, connectors: 0.10, topTerms: 0.15, length: 0.10, properNouns: 0.10 },
+      cleanAcademic: false
     },
+    literary: {
+      label: 'Literário',
+      weights: { lexical: 0.40, position: 0.15, connectors: 0.10, topTerms: 0.20, length: 0.10, properNouns: 0.05 },
+      cleanAcademic: false
+    }
+  },
 
-    // 4. Detecção de Entidades Nomeadas
-    extractEntities: (text) => {
-      const entities = [];
-      const words = text.match(/\b[A-ZÀ-Ú][a-zà-ú]+\b/g) || [];
-      const seen = new Set();
-      
-      words.forEach(w => {
-        const lower = w.toLowerCase();
-        if (!ptStopwords.has(lower) && !seen.has(lower)) {
-          seen.add(lower);
-          entities.push(w);
+  stopwords: new Set([
+    "a","o","as","os","ao","aos","da","do","das","dos","em","na","no","nas","nos","um","uma","uns","umas",
+    "de","com","por","para","que","e","é","mas","ou","se","como","esta","este","isto","esse","essa","isso",
+    "aquele","aquela","aquilo","meu","teu","seu","nosso","vosso","minha","tua","sua","nossa","vossa",
+    "ele","ela","eles","elas","me","te","lhe","num","numa","quem","qual","onde","quando","porque","pois",
+    "então","tão","muito","mais","menos","ser","ter","haver","estar","foi","está","são","foram","eram",
+    "à","às","pelo","pela","pelos","pelas","depois","ainda"
+  ]),
+
+  connectors: new Set([
+    "portanto","contudo","entretanto","todavia","porém","assim","logo","além","ademais","apesar","embora",
+    "conforme","finalmente","primeiramente","sobretudo","destaca","ressalta","conclui","nesse","nessa","dessa","desse"
+  ]),
+
+  academicPatterns: [
+    /\b[A-Z][a-z]+,\s*\d{4}\b/g,
+    /\bapud\b/gi,
+    /\bet al\.?/gi,
+    /\bp\.\s*\d+/gi,
+    /\(\s*[A-Z][a-z]+,\s*\d{4}\s*\)/g,
+    /https?:\/\/[^\s]+/g,
+    /[\w.-]+@[\w.-]+\.\w+/g,
+    /^\d+\.\s*/gm,
+    /^[A-Z\s]{5,}$/gm,
+    /REFERÊNCIAS|BIBLIOGRAFIA|REFERÊNCIAS BIBLIOGRÁFICAS/gi
+  ],
+
+  abbreviations: ['Sr', 'Sra', 'Dr', 'Dra', 'Prof', 'etc', 'Exmo', 'p.ex', 'e.g', 'i.e', 'cf', 'apud']
+};
+
+// ============================================
+// UTILITÁRIOS DE TEXTO
+// ============================================
+const TextUtils = {
+  normalizedCache: new Map(),
+
+  normalizeText(text) {
+    return text
+      .replace(/\u2028/g, ' ')
+      .replace(/\s+/g, ' ')
+      .replace(/[""]/g, '"')
+      .replace(/['']/g, "'")
+      .trim();
+  },
+
+  cleanAcademicText(text) {
+    let cleaned = text;
+    CONFIG.academicPatterns.forEach(pattern => {
+      cleaned = cleaned.replace(pattern, ' ');
+    });
+    return this.normalizeText(cleaned);
+  },
+
+  protectAbbreviations(text) {
+    let out = text;
+    CONFIG.abbreviations.forEach(abbr => {
+      const regex = new RegExp(`\\b${abbr}\\.`, 'g');
+      out = out.replace(regex, `${abbr}<dot>`);
+    });
+    return out;
+  },
+
+  restoreAbbreviations(text) {
+    return text.replace(/<dot>/g, '.');
+  },
+
+  segmentSentences(text) {
+    if (!text) return [];
+    const protectedText = this.protectAbbreviations(text);
+    return protectedText
+      .split(/(?<=[.!?])\s+(?=[A-ZÀ-Ú"'(]|\d+\.\s+[A-Z])/)
+      .map(s => this.restoreAbbreviations(s).trim())
+      .filter(s => s.length > 10 && /\w/.test(s));
+  },
+
+  tokenizeWords(text) {
+    return text.toLowerCase().match(/[a-záàâãéèêíïóôõöúçñ]+(?:-[a-záàâãéèêíïóôõöúçñ]+)*/g) || [];
+  },
+
+  countSyllables(word) {
+    const clean = word.toLowerCase();
+    if (clean.length <= 3) return 1;
+    const vowelGroups = clean.match(/[aeiouáéíóúãõâêôàèìòùäëïöü][aeiouáéíóúãõâêôàèìòùäëïöü]?/gi) || [];
+    let count = vowelGroups.length || 1;
+    if (clean.endsWith('mente')) count += 1;
+    return Math.min(count, 6);
+  },
+
+  normalizeWord(word) {
+    if (this.normalizedCache.has(word)) return this.normalizedCache.get(word);
+
+    let out = word.toLowerCase();
+
+    if (out.endsWith('ções')) out = out.replace(/ções$/, 'ção');
+    else if (out.endsWith('ções')) out = out.replace(/ções$/, 'ção');
+    else if (out.endsWith('es') && out.length > 4) out = out.slice(0, -2);
+    else if (out.endsWith('s') && !out.endsWith('ss') && out.length > 3) out = out.slice(0, -1);
+
+    out = out
+      .replace(/mente$/, '')
+      .replace(/idades$/, 'idade')
+      .replace(/idade$/, '')
+      .replace(/ismos$/, 'ismo')
+      .replace(/ismo$/, '')
+      .replace(/istas$/, 'ista')
+      .replace(/ista$/, '')
+      .replace(/ções$/, 'ção')
+      .replace(/ção$/, '')
+      .replace(/logias$/, 'logia')
+      .replace(/logia$/, '')
+      .replace(/amentos$/, 'amento')
+      .replace(/amento$/, '')
+      .replace(/imentos$/, 'imento')
+      .replace(/imento$/, '')
+      .replace(/adoras$/, 'ador')
+      .replace(/adores$/, 'ador')
+      .replace(/adoras?$/, 'ador')
+      .replace(/ivos$/, 'ivo')
+      .replace(/ivas$/, 'iva')
+      .replace(/idades$/, 'idade')
+      .replace(/mente$/, '');
+
+    this.normalizedCache.set(word, out);
+    return out;
+  },
+
+  detectProperNouns(text) {
+    const sentences = this.segmentSentences(text);
+    const found = new Set();
+
+    sentences.forEach(sentence => {
+      const matches = sentence.match(/\b(?:[A-ZÀ-Ú][a-zà-ú]+(?:\s+(?:de|da|do|das|dos|e))?)+(?:\s+[A-ZÀ-Ú][a-zà-ú]+)*/g) || [];
+      matches.forEach(match => {
+        const cleaned = match.trim();
+        const firstWord = cleaned.split(/\s+/)[0]?.toLowerCase() || '';
+        if (!CONFIG.stopwords.has(firstWord) && cleaned.length > 2) {
+          found.add(cleaned);
         }
       });
-      
-      return entities;
-    },
+    });
 
-    // 5. Extração de Keywords com TF-IDF Simulado
-    extractKeywords: (text) => {
-      const words = text.toLowerCase().match(/[a-záàâãéèêíïóôõöúçñ]{4,}/g) || [];
-      const freq = {};
-      const totalWords = words.length;
-      
-      words.forEach(w => {
-        if (!ptStopwords.has(w)) {
-          let weight = 1.0;
-          
-          // Penalidade para palavras comuns (IDF simulado)
-          if (lowIdfWords.has(w)) weight = 0.3;
-          if (w.length < 5) weight *= 0.7;
-          
-          freq[w] = (freq[w] || 0) + weight;
-        }
-      });
-      
-      // Normalização por frequência relativa
-      Object.keys(freq).forEach(key => {
-        freq[key] = (freq[key] / totalWords) * 100;
-      });
-      
-      return freq;
-    },
+    return [...found];
+  }
+};
 
-    // 6. Cálculo de Similaridade de Jaccard
-    calculateSimilarity: (text1, text2) => {
-      const getWords = (t) => new Set(t.toLowerCase().match(/[a-záàâãéèêíïóôõöúçñ]+/g) || []);
-      const wordsA = getWords(text1);
-      const wordsB = getWords(text2);
-      
-      const intersection = new Set([...wordsA].filter(x => wordsB.has(x)));
-      const union = new Set([...wordsA, ...wordsB]);
-      
-      return intersection.size / union.size;
-    },
+// ============================================
+// TERMOS IMPORTANTES
+// ============================================
+const TermExtractor = {
+  calculateTermWeight(word, mode) {
+    let weight = 1;
+    const commonWords = ['sobre', 'entre', 'durante', 'parte', 'forma', 'maior', 'menor'];
+    if (commonWords.includes(word)) weight *= 0.3;
+    if (word.length >= 7) weight *= 1.2;
+    if (mode === 'academic' && /[a-z]{3,}(ção|dade|ismo|logia|tica|mento)/.test(word)) {
+      weight *= 1.3;
+    }
+    return weight;
+  },
 
-    // 7. Scoring das Sentenças (Heurística Avançada)
-    scoreSentence: (sentence, index, total, freqMap, entities) => {
-      let score = 0;
-      const cleanSentence = sentence.toLowerCase();
-      const sWords = cleanSentence.match(/[a-záàâãéèêíïóôõöúçñ]{4,}/g) || [];
-      
-      // A. Densidade Lexical (TF-IDF)
-      const uniqueWords = new Set(sWords);
-      uniqueWords.forEach(w => score += (freqMap[w] || 0));
-      
-      // B. Bonus para Entidades Nomeadas
-      const capitalWords = sentence.match(/\b[A-ZÀ-Ú][a-zà-ú]+\b/g) || [];
-      if (capitalWords.length > 0) {
-        score *= 1 + Math.min(0.5, capitalWords.length * 0.12);
+  extractRelevantTerms(text, mode = 'general') {
+    const words = TextUtils.tokenizeWords(text);
+    const termFreq = new Map();
+    const totalWords = words.length || 1;
+
+    words.forEach(word => {
+      if (!CONFIG.stopwords.has(word) && word.length >= 4) {
+        const normalized = TextUtils.normalizeWord(word);
+        const weight = this.calculateTermWeight(word, mode);
+        termFreq.set(normalized, (termFreq.get(normalized) || 0) + weight);
       }
-      
-      // C. Posição Estratégica
-      if (index === 0) score *= 1.8;
-      if (index === total - 1) score *= 1.4;
-      if (index < total * 0.15) score *= 1.2;
-      
-      // D. Conectores Fortes
-      ptConnectors.forEach(conn => {
-        if (cleanSentence.includes(conn)) score *= 1.25;
-      });
-      
-      // E. Penalização de Tamanho (Ouro: 15-30 palavras)
-      const len = sWords.length;
-      if (len < 8) score *= 0.5;
-      if (len > 45) score *= 0.7;
-      if (len >= 15 && len <= 30) score *= 1.15;
-      
-      // F. Bonus para palavras-chave de alta relevância
-      const topKeywords = Object.entries(freqMap)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 5)
-        .map(k => k[0]);
-      
-      topKeywords.forEach(kw => {
-        if (cleanSentence.includes(kw)) score *= 1.1;
-      });
-      
-      return score;
-    },
+    });
 
-    // 8. Cálculo de Legibilidade (Índice Flesch adaptado PT-BR)
-    calculateLegibility: (text, stats) => {
-      if (stats.words < 15) return { score: 0, label: "Aguardando conteúdo...", color: "#94a3b8" };
-      
-      const wordsPerSentence = stats.words / (stats.sentences || 1);
-      
-      // Contagem real de sílabas
-      const wordList = text.match(/[a-záàâãéèêíïóôõöúçñ]+/gi) || [];
-      let totalSyllables = 0;
-      wordList.forEach(w => totalSyllables += textEngine.countSyllables(w));
-      const avgSyllables = totalSyllables / (stats.words || 1);
-      
-      // Índice Flesch adaptado para PT-BR
-      let score = 206.835 - (1.015 * wordsPerSentence) - (84.6 * avgSyllables);
-      score = Math.min(100, Math.max(0, score / 2));
-      
-      let label, color;
-      if (score > 80) { label = "Muito Clara (Leitura Fluida)"; color = "#10b981"; }
-      else if (score > 60) { label = "Padrão (Boa legibilidade)"; color = "#4f46e5"; }
-      else if (score > 40) { label = "Acadêmica (Exige atenção)"; color = "#f59e0b"; }
-      else { label = "Complexa (Estrutura densa)"; color = "#ef4444"; }
-      
-      return { score: Math.round(score), label, color };
-    }
-  };
+    const result = {};
+    termFreq.forEach((freq, term) => {
+      result[term] = (freq / totalWords) * 100;
+    });
+    return result;
+  },
 
-  // ============================================
-  // CONTROLLER PRINCIPAL
-  // ============================================
-  const input = document.getElementById('inputText');
-  const ratioSlider = document.getElementById('ratioSlider');
-  const ratioLabel = document.getElementById('ratioLabel');
-  
-  const displays = {
-    words: document.getElementById('statWords'),
-    chars: document.getElementById('statChars'),
-    sentences: document.getElementById('statSentences'),
-    paragraphs: document.getElementById('statParagraphs'),
-    lexicalDensity: document.getElementById('lexicalDensity'),
-    readTime: document.getElementById('readTime'),
-    legibilityScore: document.getElementById('legibilityScore'),
-    legibilityLabel: document.getElementById('legibilityLabel'),
-    legibilityFill: document.getElementById('legibilityFill'),
-    summaryResult: document.getElementById('summaryResult'),
-    summaryContent: document.getElementById('summaryContent'),
-    entityCounter: document.getElementById('entityCounter'),
-    avgTfIdf: document.getElementById('avgTfIdf'),
-    keywordsCloud: document.getElementById('keywordsCloud'),
-    entityCount: document.getElementById('entityCount'),
-    summaryStats: document.getElementById('summaryStats'),
-    relevanceScore: document.getElementById('relevanceScore')
-  };
-
-  let currentStats = {};
-  let currentFreqMap = {};
-  let currentEntities = [];
-
-  function update() {
-    const rawText = input.value;
-    const cleanText = textEngine.preprocess(rawText);
-    
-    const words = cleanText.split(/\s+/).filter(Boolean);
-    const sentences = textEngine.splitSentences(cleanText);
-    const paragraphs = rawText.split(/\n\s*\n/).filter(Boolean);
-    currentEntities = textEngine.extractEntities(cleanText);
-    
-    currentStats = {
-      words: words.length,
-      chars: rawText.length,
-      sentences: sentences.length,
-      paragraphs: paragraphs.length
-    };
-
-    // UI Updates - Métricas Básicas
-    displays.words.innerText = currentStats.words;
-    displays.chars.innerText = currentStats.chars;
-    displays.sentences.innerText = currentStats.sentences;
-    displays.paragraphs.innerText = currentStats.paragraphs;
-    displays.entityCounter.innerText = currentEntities.length;
-    
-    document.getElementById('wordCounter').innerText = `${currentStats.words} palavras`;
-    document.getElementById('charCounter').innerText = `${currentStats.chars} caracteres`;
-    document.getElementById('sentenceCounter').innerText = `${currentStats.sentences} frases`;
-
-    // Legibilidade
-    const leg = textEngine.calculateLegibility(cleanText, currentStats);
-    displays.legibilityScore.innerText = currentStats.words > 0 ? `${leg.score}/100` : '--';
-    displays.legibilityLabel.innerText = leg.label;
-    displays.legibilityFill.style.width = `${leg.score}%`;
-    if (leg.color) displays.legibilityFill.style.backgroundColor = leg.color;
-
-    // Tempo de Leitura e Densidade Lexical
-    const readTime = Math.ceil(currentStats.words / 200);
-    displays.readTime.innerText = `${readTime} min`;
-
-    currentFreqMap = textEngine.extractKeywords(cleanText);
-    const uniqueKeywords = Object.keys(currentFreqMap).length;
-    const density = currentStats.words > 0 ? Math.round((uniqueKeywords / currentStats.words) * 100) : 0;
-    displays.lexicalDensity.innerText = `${density}%`;
-    
-    // TF-IDF Médio
-    const tfidfValues = Object.values(currentFreqMap);
-    const avgTfIdf = tfidfValues.length > 0 ? 
-      (tfidfValues.reduce((a, b) => a + b, 0) / tfidfValues.length).toFixed(2) : 0;
-    displays.avgTfIdf.innerText = avgTfIdf;
-    
-    // Nuvem de Palavras-chave
-    updateKeywordsCloud(currentFreqMap);
-  }
-
-  function updateKeywordsCloud(freqMap) {
-    const sorted = Object.entries(freqMap)
+  getTopTerms(termMap, limit = 10) {
+    return Object.entries(termMap)
       .sort((a, b) => b[1] - a[1])
-      .slice(0, 12);
-    
-    if (sorted.length === 0) {
-      displays.keywordsCloud.innerHTML = '<span class="text-xs text-slate-400 italic">Digite um texto para ver as palavras-chave...</span>';
-      return;
-    }
-    
-    const maxFreq = sorted[0][1];
-    displays.keywordsCloud.innerHTML = sorted.map(([word, freq]) => {
-      const size = 0.7 + (freq / maxFreq) * 0.8;
-      const opacity = 0.5 + (freq / maxFreq) * 0.5;
-      return `<span class="inline-block px-3 py-1.5 bg-white rounded-full text-xs font-semibold shadow-sm border border-slate-200" 
-                    style="font-size: ${size}rem; opacity: ${opacity}; color: #4f46e5;">
-                ${word}
-              </span>`;
-    }).join('');
+      .slice(0, limit)
+      .map(([term]) => term);
   }
+};
 
-  // Resumo com Anti-Redundância
-  function generateSummary() {
-    const cleanText = textEngine.preprocess(input.value);
-    const sentences = textEngine.splitSentences(cleanText);
-    if (sentences.length < 3) {
-      alert('Por favor, insira um texto com pelo menos 3 frases para gerar um resumo.');
-      return;
+// ============================================
+// PONTUAÇÃO DE FRASES
+// ============================================
+const SentenceScorer = {
+  hasConnector(sentence, connector) {
+    return new RegExp(`\\b${connector}\\b`, 'i').test(sentence);
+  },
+
+  scoreSentence(sentence, index, totalSentences, termMap, properNouns, weights, topTerms) {
+    const sentenceWords = TextUtils.tokenizeWords(sentence);
+    const normalizedWords = sentenceWords.map(w => TextUtils.normalizeWord(w));
+    const uniqueWords = new Set(normalizedWords);
+
+    let lexicalSum = 0;
+    let lexicalMax = 0;
+    uniqueWords.forEach(word => {
+      const value = termMap[word] || 0;
+      lexicalSum += value;
+      lexicalMax = Math.max(lexicalMax, value);
+    });
+    const lexicalAverage = lexicalSum / (sentenceWords.length || 1);
+    const lexicalScore = (lexicalAverage * 0.7) + (lexicalMax * 0.3);
+
+    let positionScore = 0.2;
+    if (index === 0) positionScore = 1.0;
+    else if (index === totalSentences - 1) positionScore = 0.8;
+    else if (index < totalSentences * 0.15) positionScore = 0.6;
+    else if (index > totalSentences * 0.85) positionScore = 0.4;
+
+    let connectorScore = 0;
+    CONFIG.connectors.forEach(conn => {
+      if (this.hasConnector(sentence, conn)) connectorScore += 0.25;
+    });
+    connectorScore = Math.min(connectorScore, 1);
+
+    let topTermScore = 0;
+    topTerms.forEach(term => {
+      if (new RegExp(`\\b${term}\\b`, 'i').test(sentence)) topTermScore += 0.2;
+    });
+    topTermScore = Math.min(topTermScore, 1);
+
+    const wordCount = sentenceWords.length;
+    let lengthScore = 0.1;
+    if (wordCount >= 15 && wordCount <= 30) lengthScore = 1;
+    else if (wordCount >= 10 && wordCount <= 40) lengthScore = 0.7;
+    else if (wordCount >= 8 && wordCount <= 45) lengthScore = 0.4;
+
+    let properNounScore = 0;
+    properNouns.forEach(name => {
+      if (sentence.includes(name)) properNounScore += 0.33;
+    });
+    properNounScore = Math.min(properNounScore, 1);
+
+    const finalScore =
+      lexicalScore * weights.lexical +
+      positionScore * weights.position +
+      connectorScore * weights.connectors +
+      topTermScore * weights.topTerms +
+      lengthScore * weights.length +
+      properNounScore * weights.properNouns;
+
+    const explanation = this.generateExplanation({
+      lexicalScore,
+      positionScore,
+      connectorScore,
+      topTermScore,
+      lengthScore,
+      properNounScore
+    }, weights);
+
+    return {
+      total: finalScore,
+      components: { lexicalScore, positionScore, connectorScore, topTermScore, lengthScore, properNounScore },
+      explanation
+    };
+  },
+
+  generateExplanation(scores, weights) {
+    const reasons = [];
+    if (scores.lexicalScore * weights.lexical > 0.16) reasons.push('tem palavras importantes');
+    if (scores.positionScore * weights.position > 0.10) reasons.push('está em uma parte forte do texto');
+    if (scores.connectorScore * weights.connectors > 0.08) reasons.push('ajuda a ligar ideias');
+    if (scores.topTermScore * weights.topTerms > 0.08) reasons.push('traz o tema principal');
+    if (scores.lengthScore * weights.length > 0.05) reasons.push('tem um tamanho bom para o resumo');
+    if (scores.properNounScore * weights.properNouns > 0.03) reasons.push('cita nomes importantes');
+    return reasons.length ? reasons : ['tem relevância geral'];
+  }
+};
+
+// ============================================
+// FILTRO DE REPETIÇÃO
+// ============================================
+const RedundancyFilter = {
+  getComparableUnits(sentence) {
+    const words = TextUtils.tokenizeWords(sentence)
+      .filter(w => !CONFIG.stopwords.has(w))
+      .map(w => TextUtils.normalizeWord(w));
+
+    const bigrams = [];
+    for (let i = 0; i < words.length - 1; i++) {
+      bigrams.push(`${words[i]} ${words[i + 1]}`);
     }
 
-    const freqMap = textEngine.extractKeywords(cleanText);
-    const entities = textEngine.extractEntities(cleanText);
-    const total = sentences.length;
-    
-    // Scoring inicial
-    const scoredSentences = sentences.map((s, i) => ({
-      text: s,
-      score: textEngine.scoreSentence(s, i, total, freqMap, entities),
-      index: i
+    return {
+      words: new Set(words),
+      bigrams: new Set(bigrams)
+    };
+  },
+
+  calculateSimilarity(sent1, sent2) {
+    const a = this.getComparableUnits(sent1);
+    const b = this.getComparableUnits(sent2);
+
+    const wordIntersection = new Set([...a.words].filter(x => b.words.has(x))).size;
+    const wordUnion = new Set([...a.words, ...b.words]).size || 1;
+    const bigramIntersection = new Set([...a.bigrams].filter(x => b.bigrams.has(x))).size;
+    const bigramUnion = new Set([...a.bigrams, ...b.bigrams]).size || 1;
+
+    const wordScore = wordIntersection / wordUnion;
+    const bigramScore = bigramIntersection / bigramUnion;
+
+    return (wordScore * 0.65) + (bigramScore * 0.35);
+  },
+
+  applyPenalty(scoredSentences) {
+    const output = scoredSentences.map(item => ({
+      ...item,
+      score: { ...item.score }
     }));
 
-    // Anti-Redundância: Penalizar sentenças similares
-    for (let i = 0; i < scoredSentences.length; i++) {
-      for (let j = i + 1; j < scoredSentences.length; j++) {
-        const similarity = textEngine.calculateSimilarity(
-          scoredSentences[i].text, 
-          scoredSentences[j].text
-        );
-        
-        if (similarity > 0.65) {
-          if (scoredSentences[i].score > scoredSentences[j].score) {
-            scoredSentences[j].score *= (1 - similarity * 0.5);
+    for (let i = 0; i < output.length; i++) {
+      for (let j = i + 1; j < output.length; j++) {
+        const similarity = this.calculateSimilarity(output[i].text, output[j].text);
+        if (similarity > 0.58) {
+          const penalty = Math.min(0.45, (similarity - 0.58) * 1.6);
+          if (output[i].score.total > output[j].score.total) {
+            output[j].score.total *= (1 - penalty);
           } else {
-            scoredSentences[i].score *= (1 - similarity * 0.5);
+            output[i].score.total *= (1 - penalty);
           }
         }
       }
     }
+    return output;
+  }
+};
 
-    // Seleção baseada no ratio
-    const targetCount = Math.max(2, Math.round(total * (ratioSlider.value / 100)));
-    const topSentences = scoredSentences
-      .sort((a, b) => b.score - a.score)
+// ============================================
+// MÉTRICAS
+// ============================================
+const ReadabilityMetrics = {
+  calculate(text, stats) {
+    if (stats.words < 15) {
+      return {
+        syntacticComplexity: 0,
+        syntacticLabel: 'Texto muito curto',
+        wordsPerSentence: 0,
+        syllablesPerWord: 0,
+        lexicalVariety: 0
+      };
+    }
+
+    const words = TextUtils.tokenizeWords(text);
+    const sentences = TextUtils.segmentSentences(text);
+    const wordsPerSentence = stats.words / (sentences.length || 1);
+
+    let totalSyllables = 0;
+    let longWords = 0;
+    words.forEach(w => {
+      totalSyllables += TextUtils.countSyllables(w);
+      if (w.length >= 7) longWords += 1;
+    });
+    const syllablesPerWord = totalSyllables / (words.length || 1);
+
+    let connectorCount = 0;
+    sentences.forEach(sentence => {
+      CONFIG.connectors.forEach(conn => {
+        if (new RegExp(`\\b${conn}\\b`, 'i').test(sentence)) connectorCount += 1;
+      });
+    });
+
+    const longWordRate = (longWords / (words.length || 1)) * 100;
+    const connectorRate = (connectorCount / (sentences.length || 1)) * 20;
+
+    const syntacticScore = Math.min(100, Math.max(0,
+      (wordsPerSentence * 2.5) +
+      (syllablesPerWord * 18) +
+      (longWordRate * 0.25) +
+      connectorRate - 20
+    ));
+
+    let syntacticLabel = 'Estrutura simples e direta';
+    if (syntacticScore >= 40 && syntacticScore < 60) syntacticLabel = 'Complexidade moderada';
+    else if (syntacticScore >= 60 && syntacticScore < 80) syntacticLabel = 'Estrutura mais elaborada';
+    else if (syntacticScore >= 80) syntacticLabel = 'Texto mais denso';
+
+    const uniqueWords = new Set(words.map(w => TextUtils.normalizeWord(w)));
+    const lexicalVariety = Math.round((uniqueWords.size / (words.length || 1)) * 100);
+
+    return {
+      syntacticComplexity: Math.round(syntacticScore),
+      syntacticLabel,
+      wordsPerSentence: Math.round(wordsPerSentence * 10) / 10,
+      syllablesPerWord: Math.round(syllablesPerWord * 10) / 10,
+      lexicalVariety
+    };
+  }
+};
+
+// ============================================
+// MOTOR PRINCIPAL
+// ============================================
+const TextAnalysisEngine = {
+  analyze(text, mode = 'general', compressionRatio = 0.3) {
+    if (!text || !text.trim()) return this.getEmptyAnalysis();
+
+    const modeConfig = CONFIG.modes[mode];
+    const weights = modeConfig.weights;
+
+    let processedText = TextUtils.normalizeText(text);
+    if (modeConfig.cleanAcademic) {
+      processedText = TextUtils.cleanAcademicText(processedText);
+    }
+
+    const sentences = TextUtils.segmentSentences(processedText);
+    const words = TextUtils.tokenizeWords(processedText);
+    const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0);
+
+    const stats = {
+      words: words.length,
+      chars: text.length,
+      sentences: sentences.length,
+      paragraphs: paragraphs.length
+    };
+
+    const termMap = TermExtractor.extractRelevantTerms(processedText, mode);
+    const properNouns = TextUtils.detectProperNouns(processedText);
+    const topTerms = TermExtractor.getTopTerms(termMap, 12);
+    const readability = ReadabilityMetrics.calculate(processedText, stats);
+
+    const scoredSentences = sentences.map((sentence, index) => ({
+      text: sentence,
+      index,
+      score: SentenceScorer.scoreSentence(
+        sentence,
+        index,
+        sentences.length,
+        termMap,
+        properNouns,
+        weights,
+        topTerms.slice(0, 5)
+      )
+    }));
+
+    const filtered = RedundancyFilter.applyPenalty(scoredSentences);
+    const targetCount = Math.max(2, Math.round(sentences.length * compressionRatio));
+
+    const selectedSentences = filtered
+      .sort((a, b) => b.score.total - a.score.total)
       .slice(0, targetCount)
       .sort((a, b) => a.index - b.index);
 
-    // Cálculo de relevância média
-    const avgScore = topSentences.reduce((sum, s) => sum + s.score, 0) / topSentences.length;
-    const maxPossibleScore = scoredSentences[0]?.score || 1;
-    const relevancePercent = Math.round((avgScore / maxPossibleScore) * 100);
+    const summary = selectedSentences.map(s => s.text).join(' ');
+    const avgRelevance = selectedSentences.length
+      ? selectedSentences.reduce((sum, s) => sum + s.score.total, 0) / selectedSentences.length
+      : 0;
 
-    // Atualizar UI
-    displays.summaryContent.innerText = topSentences.map(s => s.text).join(' ');
-    displays.entityCount.innerText = `${entities.length} entidades`;
-    displays.summaryStats.innerText = `${topSentences.length} sentenças selecionadas`;
-    displays.relevanceScore.innerText = `Relevância: ${relevancePercent}%`;
-    displays.summaryResult.classList.remove('hidden');
-    displays.summaryResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    const explanations = selectedSentences.map(sentence => ({
+      sentence: sentence.text.length > 110 ? sentence.text.slice(0, 110) + '...' : sentence.text,
+      reasons: sentence.score.explanation
+    }));
+
+    return {
+      stats,
+      readability,
+      properNouns,
+      termMap,
+      topTerms,
+      summary,
+      summaryStats: {
+        sentenceCount: selectedSentences.length,
+        avgRelevance: Math.round(avgRelevance * 100)
+      },
+      explanations,
+      weights,
+      mode
+    };
+  },
+
+  getEmptyAnalysis() {
+    return {
+      stats: { words: 0, chars: 0, sentences: 0, paragraphs: 0 },
+      readability: {
+        syntacticComplexity: 0,
+        syntacticLabel: 'Aguardando texto...',
+        wordsPerSentence: 0,
+        syllablesPerWord: 0,
+        lexicalVariety: 0
+      },
+      properNouns: [],
+      termMap: {},
+      topTerms: [],
+      summary: '',
+      summaryStats: { sentenceCount: 0, avgRelevance: 0 },
+      explanations: [],
+      weights: CONFIG.weights,
+      mode: 'general'
+    };
   }
+};
 
-  // Texto de exemplo
-  const exampleText = `A Inteligência Artificial (IA) tem revolucionado diversos setores da sociedade contemporânea. 
-O Dr. Silva, pesquisador da Universidade de São Paulo, destaca que os algoritmos de aprendizado profundo são capazes de processar volumes massivos de dados com precisão impressionante. 
-No entanto, é fundamental considerar as implicações éticas dessa tecnologia. 
-A Sra. Santos, especialista em direito digital, alerta para os riscos de viés algorítmico e violação de privacidade. 
-Portanto, o desenvolvimento responsável da IA requer um equilíbrio delicado entre inovação e regulação. 
-As empresas de tecnologia, como Google e Microsoft, têm investido bilhões em pesquisa nessa área. 
-Conclui-se que o futuro da IA dependerá não apenas dos avanços técnicos, mas também da sabedoria humana em sua aplicação.`;
+// ============================================
+// UI
+// ============================================
+const UIController = {
+  elements: {
+    input: document.getElementById('inputText'),
+    ratioSlider: document.getElementById('ratioSlider'),
+    ratioLabel: document.getElementById('ratioLabel'),
+    statWords: document.getElementById('statWords'),
+    statChars: document.getElementById('statChars'),
+    statSentences: document.getElementById('statSentences'),
+    statParagraphs: document.getElementById('statParagraphs'),
+    wordCounter: document.getElementById('wordCounter'),
+    charCounter: document.getElementById('charCounter'),
+    sentenceCounter: document.getElementById('sentenceCounter'),
+    syntacticScore: document.getElementById('syntacticScore'),
+    syntacticLabel: document.getElementById('syntacticLabel'),
+    syntacticFill: document.getElementById('syntacticFill'),
+    readTime: document.getElementById('readTime'),
+    lexicalVariety: document.getElementById('lexicalVariety'),
+    wordsPerSentence: document.getElementById('wordsPerSentence'),
+    syllablesPerWord: document.getElementById('syllablesPerWord'),
+    summaryResult: document.getElementById('summaryResult'),
+    summaryContent: document.getElementById('summaryContent'),
+    explanationPanel: document.getElementById('explanationPanel'),
+    summaryStats: document.getElementById('summaryStats'),
+    relevanceScore: document.getElementById('relevanceScore'),
+    termsCloud: document.getElementById('termsCloud'),
+    weightsPanel: document.getElementById('weightsPanel')
+  },
 
-  // Event Listeners
-  input.addEventListener('input', update);
-  ratioSlider.addEventListener('input', () => ratioLabel.innerText = `${ratioSlider.value}%`);
-  
-  document.getElementById('summarizeBtn').addEventListener('click', generateSummary);
+  currentMode: 'general',
+  debounceTimer: null,
 
-  document.getElementById('pasteBtn').onclick = async () => {
+  updateUI(analysis) {
+    const { stats, readability, topTerms, summary, summaryStats, explanations, weights, termMap } = analysis;
+
+    this.elements.statWords.innerText = stats.words;
+    this.elements.statChars.innerText = stats.chars;
+    this.elements.statSentences.innerText = stats.sentences;
+    this.elements.statParagraphs.innerText = stats.paragraphs;
+    this.elements.wordCounter.innerText = `${stats.words} palavras`;
+    this.elements.charCounter.innerText = `${stats.chars} caracteres`;
+    this.elements.sentenceCounter.innerText = `${stats.sentences} frases`;
+
+    this.elements.syntacticScore.innerText = `${readability.syntacticComplexity}/100`;
+    this.elements.syntacticLabel.innerText = readability.syntacticLabel;
+    this.elements.syntacticFill.style.width = `${readability.syntacticComplexity}%`;
+
+    if (readability.syntacticComplexity < 40) this.elements.syntacticFill.style.backgroundColor = '#10b981';
+    else if (readability.syntacticComplexity < 60) this.elements.syntacticFill.style.backgroundColor = '#4f46e5';
+    else if (readability.syntacticComplexity < 80) this.elements.syntacticFill.style.backgroundColor = '#f59e0b';
+    else this.elements.syntacticFill.style.backgroundColor = '#ef4444';
+
+    this.elements.readTime.innerText = `${Math.max(1, Math.ceil(stats.words / 200))} min`;
+    this.elements.lexicalVariety.innerText = `${readability.lexicalVariety}%`;
+    this.elements.wordsPerSentence.innerText = readability.wordsPerSentence;
+    this.elements.syllablesPerWord.innerText = readability.syllablesPerWord;
+
+    this.updateWeightsDisplay(weights);
+    this.renderTermsCloud(topTerms, termMap);
+
+    if (!summary) {
+      this.elements.summaryResult.classList.add('hidden');
+      return;
+    }
+
+    this.renderSummary({ summary, summaryStats, explanations });
+  },
+
+  renderTermsCloud(terms, termMap) {
+    if (!terms.length) {
+      this.elements.termsCloud.innerHTML = '<span class="text-xs text-slate-400 italic">Digite um texto para ver os termos.</span>';
+      return;
+    }
+
+    const maxFreq = Math.max(...terms.map(term => termMap[term] || 0), 1);
+    this.elements.termsCloud.innerHTML = terms.map(term => {
+      const freq = termMap[term] || 0;
+      const size = 0.72 + (freq / maxFreq) * 0.75;
+      const opacity = 0.55 + (freq / maxFreq) * 0.45;
+      return `<span class="inline-block px-3 py-1.5 bg-white rounded-full text-xs font-semibold shadow-sm border border-slate-200"
+                    style="font-size:${size}rem;opacity:${opacity};color:#4f46e5;">
+                ${term}
+              </span>`;
+    }).join('');
+  },
+
+  renderSummary({ summary, summaryStats, explanations }) {
+    this.elements.summaryContent.innerText = summary;
+    this.elements.summaryStats.innerText = `${summaryStats.sentenceCount} frases selecionadas`;
+    this.elements.relevanceScore.innerText = `Qualidade média: ${summaryStats.avgRelevance}%`;
+
+    this.elements.explanationPanel.innerHTML = explanations.map((item, index) => `
+      <div class="flex items-start gap-2 p-3 bg-slate-50 rounded-lg">
+        <span class="text-indigo-600 font-bold text-xs">${index + 1}.</span>
+        <div class="flex-1">
+          <p class="text-xs text-slate-600 italic">"${item.sentence}"</p>
+          <div class="flex flex-wrap gap-1 mt-2">
+            ${item.reasons.map(reason => `<span class="reason-tag">${reason}</span>`).join('')}
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    this.elements.summaryResult.classList.remove('hidden');
+  },
+
+  updateWeightsDisplay(weights) {
+    document.getElementById('weightLexical').innerText = `${Math.round(weights.lexical * 100)}%`;
+    document.getElementById('weightPosition').innerText = `${Math.round(weights.position * 100)}%`;
+    document.getElementById('weightConnectors').innerText = `${Math.round(weights.connectors * 100)}%`;
+    document.getElementById('weightTopTerms').innerText = `${Math.round(weights.topTerms * 100)}%`;
+    document.getElementById('weightLength').innerText = `${Math.round(weights.length * 100)}%`;
+    document.getElementById('weightProperNouns').innerText = `${Math.round(weights.properNouns * 100)}%`;
+  },
+
+  showMessage(message) {
+    alert(message);
+  }
+};
+
+// ============================================
+// APP
+// ============================================
+const App = {
+  currentText: '',
+  currentAnalysis: null,
+
+  init() {
+    this.bindEvents();
+    this.loadExample();
+  },
+
+  bindEvents() {
+    const { input, ratioSlider, ratioLabel } = UIController.elements;
+
+    input.addEventListener('input', () => {
+      clearTimeout(UIController.debounceTimer);
+      UIController.debounceTimer = setTimeout(() => {
+        this.analyzeAndUpdate(false);
+      }, 250);
+    });
+
+    ratioSlider.addEventListener('input', () => {
+      ratioLabel.innerText = `${ratioSlider.value}%`;
+    });
+
+    document.getElementById('pasteBtn').onclick = () => this.handlePaste();
+    document.getElementById('clearBtn').onclick = () => this.handleClear();
+    document.getElementById('exampleBtn').onclick = () => this.loadExample();
+    document.getElementById('summarizeBtn').onclick = () => this.handleSummarize();
+    document.getElementById('copySummary').onclick = () => this.handleCopySummary();
+
+    document.querySelectorAll('[data-mode]').forEach(btn => {
+      btn.addEventListener('click', (e) => this.handleModeChange(e.currentTarget.dataset.mode));
+    });
+
+    document.getElementById('toggleWeights').onclick = () => {
+      const panel = document.getElementById('weightsPanel');
+      const button = document.getElementById('toggleWeights');
+      const hidden = panel.classList.contains('hidden');
+      panel.classList.toggle('hidden');
+      button.innerText = hidden ? 'Ocultar' : 'Mostrar';
+    };
+  },
+
+  analyzeAndUpdate(renderSummary = false) {
+    const text = UIController.elements.input.value;
+    this.currentText = text;
+
+    if (!text.trim()) {
+      this.currentAnalysis = TextAnalysisEngine.getEmptyAnalysis();
+      UIController.updateUI(this.currentAnalysis);
+      UIController.elements.summaryResult.classList.add('hidden');
+      return;
+    }
+
+    try {
+      this.currentAnalysis = TextAnalysisEngine.analyze(
+        text,
+        UIController.currentMode,
+        parseInt(UIController.elements.ratioSlider.value, 10) / 100
+      );
+      UIController.updateUI({
+        ...this.currentAnalysis,
+        summary: renderSummary ? this.currentAnalysis.summary : '',
+        summaryStats: renderSummary ? this.currentAnalysis.summaryStats : { sentenceCount: 0, avgRelevance: 0 },
+        explanations: renderSummary ? this.currentAnalysis.explanations : []
+      });
+    } catch (error) {
+      console.error(error);
+      UIController.showMessage('Não foi possível analisar o texto.');
+    }
+  },
+
+  handleSummarize() {
+    if (!this.currentText.trim()) {
+      UIController.showMessage('Cole ou digite um texto antes de gerar o resumo.');
+      return;
+    }
+    this.analyzeAndUpdate(true);
+    UIController.elements.summaryResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  },
+
+  async handlePaste() {
     try {
       const text = await navigator.clipboard.readText();
-      if (text) { 
-        input.value = text; 
-        update(); 
+      if (text) {
+        UIController.elements.input.value = text;
+        this.analyzeAndUpdate(false);
       }
-    } catch (err) {
-      alert('Não foi possível acessar a área de transferência.');
+    } catch (error) {
+      UIController.showMessage('Não foi possível acessar a área de transferência.');
     }
-  };
+  },
 
-  document.getElementById('clearBtn').onclick = () => {
-    input.value = '';
-    displays.summaryResult.classList.add('hidden');
-    update();
-  };
+  handleClear() {
+    UIController.elements.input.value = '';
+    this.currentText = '';
+    this.currentAnalysis = TextAnalysisEngine.getEmptyAnalysis();
+    UIController.updateUI(this.currentAnalysis);
+    UIController.elements.summaryResult.classList.add('hidden');
+  },
 
-  document.getElementById('exampleBtn').onclick = () => {
-    input.value = exampleText;
-    update();
-    displays.summaryResult.classList.add('hidden');
-  };
+  handleModeChange(mode) {
+    UIController.currentMode = mode;
+    document.querySelectorAll('[data-mode]').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.mode === mode);
+    });
+    if (this.currentText.trim()) this.analyzeAndUpdate(false);
+  },
 
-  document.getElementById('copySummary').onclick = async () => {
-    const text = displays.summaryContent.innerText;
+  async handleCopySummary() {
+    const text = UIController.elements.summaryContent.innerText;
+    if (!text) {
+      UIController.showMessage('Gere um resumo antes de copiar.');
+      return;
+    }
+
     try {
       await navigator.clipboard.writeText(text);
-      
-      // Feedback visual
       const btn = document.getElementById('copySummary');
-      btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-      setTimeout(() => {
-        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
-      }, 2000);
-    } catch (err) {
-      alert('Não foi possível copiar o texto.');
+      const original = btn.innerHTML;
+      btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+      setTimeout(() => btn.innerHTML = original, 1800);
+    } catch (error) {
+      UIController.showMessage('Não foi possível copiar o resumo.');
     }
-  };
+  },
 
-  // Inicialização
-  update();
+  loadExample() {
+    const exampleText = `A inteligência artificial tem mudado várias áreas da sociedade. Pesquisadores afirmam que os novos sistemas conseguem analisar grandes volumes de dados em pouco tempo. Ao mesmo tempo, cresce a discussão sobre privacidade, transparência e responsabilidade no uso dessas tecnologias. Por isso, o avanço técnico precisa vir acompanhado de regras claras e de cuidado com as pessoas. Empresas, universidades e governos já investem fortemente nessa área. No fim, o impacto da inteligência artificial dependerá tanto da inovação quanto da forma como ela será aplicada.`;
+
+    UIController.elements.input.value = exampleText;
+    this.analyzeAndUpdate(false);
+  }
+};
+
+App.init();
 </script>
-
 </body>
 </html>
+'''
+path='/mnt/data/resumir-texto-online-hiato-literario.html'
+with open(path,'w',encoding='utf-8') as f:
+    f.write(html)
+path
