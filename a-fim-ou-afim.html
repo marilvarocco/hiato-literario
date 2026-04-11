@@ -1,0 +1,386 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  ArrowRight, 
+  Clock, 
+  Lightbulb,
+  CheckCircle2,
+  XCircle,
+  BookOpen,
+  Share2,
+  Trophy,
+  RotateCcw
+} from 'lucide-react';
+
+const App = () => {
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeTab, setActiveTab] = useState(0);
+  
+  // Estados do Quiz Unificado
+  const [currentStep, setCurrentStep] = useState(0);
+  const [quizScore, setQuizScore] = useState(0);
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [isFinished, setIsFinished] = useState(false);
+
+  const quizData = [
+    { 
+      question: "Vim até aqui ___ de resolver nossa situação.", 
+      options: [
+        { text: "a fim", correct: true },
+        { text: "afim", correct: false }
+      ],
+      explanation: "Pode ser substituído por 'para resolver'. Indica finalidade."
+    },
+    { 
+      question: "Não estou ___ de sair hoje.", 
+      options: [
+        { text: "a fim", correct: true },
+        { text: "afim", correct: false }
+      ],
+      explanation: "No contexto de 'vontade' ou 'desejo', usa-se sempre separado."
+    },
+    { 
+      question: "Eles possuem interesses ___.", 
+      options: [
+        { text: "afins", correct: true },
+        { text: "a fins", correct: false }
+      ],
+      explanation: "Significa interesses parecidos ou iguais (afinidade)."
+    },
+    { 
+      question: "Estudamos Química e áreas ___.", 
+      options: [
+        { text: "afins", correct: true },
+        { text: "a fins", correct: false }
+      ],
+      explanation: "Refere-se a áreas correlatas ou semelhantes. Adjetivo plural."
+    }
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / total) * 100;
+      setScrollProgress(progress);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleAnswer = (idx, isCorrect) => {
+    if (showFeedback) return;
+    setSelectedOption(idx);
+    setShowFeedback(true);
+    if (isCorrect) setQuizScore(prev => prev + 1);
+  };
+
+  const nextQuestion = () => {
+    setShowFeedback(false);
+    setSelectedOption(null);
+    if (currentStep < quizData.length - 1) {
+      setCurrentStep(prev => prev + 1);
+    } else {
+      setIsFinished(true);
+    }
+  };
+
+  const resetQuiz = () => {
+    setCurrentStep(0);
+    setQuizScore(0);
+    setShowFeedback(false);
+    setSelectedOption(null);
+    setIsFinished(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-[#f8fafc] text-[#0f172a] font-['Plus_Jakarta_Sans'] selection:bg-[#eef2ff] selection:text-[#4f46e5]">
+      {/* Google Fonts */}
+      <style>
+        {`
+          @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+          h1, h2, h3 { font-family: 'Lora', serif; }
+          .scrollbar-hide::-webkit-scrollbar { display: none; }
+        `}
+      </style>
+
+      {/* Progress Bar */}
+      <div 
+        className="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-[#4f46e5] to-[#818cf8] z-[9999] transition-all duration-100"
+        style={{ width: `${scrollProgress}%` }}
+      />
+
+      {/* Navbar */}
+      <nav className="sticky top-0 bg-white/95 backdrop-blur-md border-b border-[#cbd5e1] z-50">
+        <div className="max-w-[800px] mx-auto px-5 h-[60px] flex items-center justify-between">
+          <a href="#" className="flex items-center gap-2 font-extrabold text-[#4f46e5] text-lg">
+            <span className="w-8 h-8 bg-[#4f46e5] text-white rounded-lg flex items-center justify-center">H</span>
+            Hiato Literário
+          </a>
+        </div>
+      </nav>
+
+      <main className="max-w-[760px] mx-auto px-5 pb-20">
+        <header className="pt-10 pb-4">
+          <div className="inline-block bg-[#eef2ff] text-[#4f46e5] text-[11px] font-extrabold tracking-[0.12em] uppercase px-3 py-1 rounded-full mb-4">
+            Dúvida Linguística
+          </div>
+          <h1 className="text-[2.5rem] md:text-[3.25rem] font-bold leading-[1.15] mb-4">
+            A fim ou Afim?<br />Aprenda a Regra dos Opostos
+          </h1>
+          
+          <div className="inline-flex items-center gap-2 bg-[#fef2f2] text-[#dc2626] px-4 py-2 rounded-lg font-bold text-sm mb-10 border border-[#fca5a5]/30">
+            <span>💡</span> Dica rápida: "A fim" é objetivo/desejo. "Afim" é afinidade/semelhança.
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 mb-10">
+            <div className="bg-white border border-[#f1f5f9] p-5 rounded-lg text-center shadow-sm hover:translate-y-[-3px] transition-transform">
+              <span className="block font-['Lora'] font-bold text-2xl text-[#4f46e5] mb-1 italic">a fim</span>
+              <span className="text-[11px] font-bold text-[#64748b] uppercase tracking-widest">Oposto de "Para"</span>
+            </div>
+            <div className="bg-white border border-[#f1f5f9] p-5 rounded-lg text-center shadow-sm hover:translate-y-[-3px] transition-transform">
+              <span className="block font-['Lora'] font-bold text-2xl text-[#4f46e5] mb-1 italic">afim</span>
+              <span className="text-[11px] font-bold text-[#64748b] uppercase tracking-widest">Oposto de "Diferente"</span>
+            </div>
+          </div>
+        </header>
+
+        {/* Tabs de Teoria */}
+        <div className="flex gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide">
+          {['A fim (separado)', 'Afim (junto)', 'Resumo'].map((tab, i) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(i)}
+              className={`flex-shrink-0 px-5 py-2 rounded-full text-[13px] font-bold transition-all border ${
+                activeTab === i 
+                ? 'bg-[#4f46e5] border-[#4f46e5] text-white' 
+                : 'bg-white border-[#cbd5e1] text-[#64748b] hover:border-[#818cf8]'
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+
+        <div className="space-y-8">
+          {activeTab === 0 && (
+            <article className="bg-white border border-[#cbd5e1] rounded-[1rem] p-8 animate-in fade-in duration-500">
+              <div className="w-8 h-8 bg-[#dbeafe] text-[#1d4ed8] rounded-lg flex items-center justify-center font-bold mb-4">A</div>
+              <h2 className="text-2xl font-bold mb-4 italic">A fim de — Finalidade</h2>
+              <p className="text-[#334155] leading-relaxed mb-6">
+                É uma locução prepositiva que indica <strong>objetivo</strong>, intenção ou desejo. É invariável, ou seja, nunca vai para o plural.
+              </p>
+              <div className="bg-[#f1f5f9] rounded-lg p-6 space-y-4 mb-4">
+                <div className="border-l-2 border-[#16a34a] pl-4">
+                  <p className="text-[15px] font-semibold text-[#16a34a]">Finalidade (Para):</p>
+                  <ul className="text-sm text-slate-600 list-disc ml-4 space-y-1 mt-1">
+                    <li>Estudou muito <strong>a fim de</strong> passar.</li>
+                    <li>Saímos cedo <strong>a fim de</strong> evitar o trânsito.</li>
+                    <li>Economizou <strong>a fim de</strong> comprar um carro novo.</li>
+                  </ul>
+                </div>
+                <div className="border-l-2 border-[#4f46e5] pl-4">
+                  <p className="text-[15px] font-semibold text-[#4f46e5]">Desejo / Vontade:</p>
+                  <ul className="text-sm text-slate-600 list-disc ml-4 space-y-1 mt-1">
+                    <li>Estou muito <strong>a fim de</strong> você.</li>
+                    <li>Não estamos <strong>a fim de</strong> jantar fora hoje.</li>
+                    <li>Você parece estar <strong>a fim de</strong> uma boa conversa.</li>
+                  </ul>
+                </div>
+              </div>
+              <p className="text-xs text-slate-500 italic mt-4">Dica de ouro: Se você pode substituir por "para" ou "com o propósito de", use separado.</p>
+            </article>
+          )}
+
+          {activeTab === 1 && (
+            <article className="bg-white border border-[#cbd5e1] rounded-[1rem] p-8 animate-in fade-in duration-500">
+              <div className="w-8 h-8 bg-[#ede9fe] text-[#7c3aed] rounded-lg flex items-center justify-center font-bold mb-4">B</div>
+              <h2 className="text-2xl font-bold mb-4 italic">Afim — Semelhança</h2>
+              <p className="text-[#334155] leading-relaxed mb-6">
+                É um adjetivo que indica <strong>afinidade</strong>, semelhança ou parentesco por afinidade. Pode ser flexionado no plural (afins).
+              </p>
+              <div className="bg-[#f1f5f9] rounded-lg p-6 space-y-4 mb-4">
+                <div className="border-l-2 border-[#7c3aed] pl-4">
+                  <p className="text-[15px] font-semibold text-[#7c3aed]">Semelhança / Afinidade:</p>
+                  <ul className="text-sm text-slate-600 list-disc ml-4 space-y-1 mt-1">
+                    <li>Temos pensamentos <strong>afins</strong> sobre o projeto.</li>
+                    <li>Estudo Letras e áreas <strong>afins</strong> (Linguística, Literatura).</li>
+                    <li>O espanhol é uma língua <strong>afim</strong> do português.</li>
+                  </ul>
+                </div>
+                <div className="border-l-2 border-[#d97706] pl-4">
+                  <p className="text-[15px] font-semibold text-[#d97706]">Parentesco por Afinidade:</p>
+                  <ul className="text-sm text-slate-600 list-disc ml-4 space-y-1 mt-1">
+                    <li>A sogra e o genro são parentes <strong>afins</strong>.</li>
+                    <li>O laço entre cunhados é um vínculo <strong>afim</strong>.</li>
+                  </ul>
+                </div>
+              </div>
+              <p className="text-xs text-slate-500 italic mt-4">Dica de ouro: Se refere a coisas parecidas ou conectadas, use junto (lembre-se de 'afinidade').</p>
+            </article>
+          )}
+
+          {activeTab === 2 && (
+            <div className="space-y-8 animate-in fade-in duration-500">
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse bg-white rounded-lg overflow-hidden border border-[#f1f5f9]">
+                  <thead className="bg-[#f1f5f9] text-[#64748b] text-[11px] uppercase tracking-widest">
+                    <tr>
+                      <th className="p-4 text-left">Termo</th>
+                      <th className="p-4 text-left">Classe</th>
+                      <th className="p-4 text-left">Oposto</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#f1f5f9]">
+                    <tr>
+                      <td className="p-4 font-bold text-[#4f46e5]">A fim</td>
+                      <td className="p-4 text-sm">Locução (Objetivo)</td>
+                      <td className="p-4 text-sm font-semibold">Para</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-bold text-[#4f46e5]">Afim</td>
+                      <td className="p-4 text-sm">Adjetivo (Igual)</td>
+                      <td className="p-4 text-sm font-semibold">Diferente</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="bg-[#eef2ff] p-6 rounded-lg border border-indigo-100">
+                <h4 className="font-bold text-indigo-900 text-sm mb-2">Resumo da Ópera:</h4>
+                <p className="text-sm text-indigo-800">Use <strong>a fim</strong> para metas e paqueras. Use <strong>afim</strong> para semelhanças e parentescas.</p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Desafio Prático Unificado */}
+        <section className="bg-[#1e1b4b] text-white rounded-[1rem] p-8 my-16 shadow-xl relative overflow-hidden">
+          {!isFinished ? (
+            <div className="animate-in fade-in duration-500">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center gap-2 mb-2">
+                  <Trophy className="w-4 h-4 text-amber-400" />
+                  <span className="text-xs font-bold uppercase tracking-widest opacity-70">Desafio Final</span>
+                </div>
+                <h3 className="font-['Lora'] text-2xl mb-1">Questão {currentStep + 1} de {quizData.length}</h3>
+                <div className="w-full bg-white/10 h-1.5 rounded-full mt-4">
+                  <div 
+                    className="bg-[#4f46e5] h-full rounded-full transition-all duration-500"
+                    style={{ width: `${((currentStep + 1) / quizData.length) * 100}%` }}
+                  />
+                </div>
+              </div>
+              
+              <p className="text-lg font-semibold mb-8 font-['Plus_Jakarta_Sans'] leading-relaxed min-h-[60px]">
+                {quizData[currentStep].question}
+              </p>
+
+              <div className="space-y-3">
+                {quizData[currentStep].options.map((option, idx) => (
+                  <button
+                    key={idx}
+                    disabled={showFeedback}
+                    onClick={() => handleAnswer(idx, option.correct)}
+                    className={`w-full p-4 rounded-lg text-left transition-all border font-['Plus_Jakarta_Sans'] text-[15px] ${
+                      showFeedback 
+                        ? option.correct 
+                          ? 'bg-green-500/30 border-green-500' 
+                          : selectedOption === idx 
+                            ? 'bg-red-500/30 border-red-500' 
+                            : 'bg-white/5 border-white/10 opacity-50'
+                        : 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-[#818cf8]'
+                    }`}
+                  >
+                    {option.text}
+                  </button>
+                ))}
+              </div>
+
+              {showFeedback && (
+                <div className="mt-8 animate-in slide-in-from-top-4 duration-300">
+                  <div className={`p-4 rounded-lg text-sm font-semibold mb-4 ${
+                    quizData[currentStep].options[selectedOption].correct ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'
+                  }`}>
+                    {quizData[currentStep].options[selectedOption].correct ? '✓ Excelente! ' : '✕ Ops! '} 
+                    {quizData[currentStep].explanation}
+                  </div>
+                  <button 
+                    onClick={nextQuestion}
+                    className="w-full bg-[#4f46e5] hover:bg-[#818cf8] text-white py-4 rounded-lg font-bold transition-all flex items-center justify-center gap-2"
+                  >
+                    {currentStep < quizData.length - 1 ? 'Próxima Questão' : 'Ver Resultado Final'}
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="text-center py-10 animate-in zoom-in duration-500">
+              <div className="w-20 h-20 bg-amber-400/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Trophy className="w-10 h-10 text-amber-400" />
+              </div>
+              <h3 className="font-['Lora'] text-3xl mb-2">Quiz Concluído!</h3>
+              <p className="text-xl opacity-80 mb-8">
+                Você acertou <span className="font-black text-amber-400">{quizScore}</span> de {quizData.length} questões.
+              </p>
+              <button 
+                onClick={resetQuiz}
+                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 px-8 py-3 rounded-full font-bold transition-all"
+              >
+                <RotateCcw className="w-4 h-4" />
+                Tentar Novamente
+              </button>
+            </div>
+          )}
+        </section>
+
+        {/* Continue Estudando */}
+        <section className="mt-20">
+          <h3 className="font-['Lora'] text-[#64748b] text-sm uppercase tracking-wider mb-6">Continue Estudando</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <a href="porque-ou-por-que.html" className="bg-white border border-[#cbd5e1] p-6 rounded-lg hover:border-[#4f46e5] hover:translate-y-[-3px] transition-all group shadow-sm">
+              <span className="text-[10px] font-bold text-[#4f46e5] uppercase">Mais Pesquisado</span>
+              <h4 className="font-['Lora'] font-bold text-lg mt-1 group-hover:text-[#4f46e5]">Os 4 Porquês →</h4>
+            </a>
+            <a href="mas-ou-mais.html" className="bg-white border border-[#cbd5e1] p-6 rounded-lg hover:border-[#4f46e5] hover:translate-y-[-3px] transition-all group shadow-sm">
+              <span className="text-[10px] font-bold text-[#4f46e5] uppercase">Dúvida Comum</span>
+              <h4 className="font-['Lora'] font-bold text-lg mt-1 group-hover:text-[#4f46e5]">Mas ou Mais? →</h4>
+            </a>
+            <a href="onde-ou-aonde.html" className="bg-white border border-[#cbd5e1] p-6 rounded-lg hover:border-[#4f46e5] hover:translate-y-[-3px] transition-all group shadow-sm">
+              <span className="text-[10px] font-bold text-[#4f46e5] uppercase">Regência</span>
+              <h4 className="font-['Lora'] font-bold text-lg mt-1 group-hover:text-[#4f46e5]">Onde ou Aonde? →</h4>
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <footer className="bg-[#0f172a] text-[#94a3b8] py-16 px-5 text-center mt-20">
+        <div className="font-extrabold text-white text-xl mb-4">Hiato Literário</div>
+        <p className="max-w-[500px] mx-auto text-sm leading-relaxed mb-10">
+          Desenvolvido para escritores, estudantes e curiosos da língua portuguesa que buscam clareza e precisão.
+        </p>
+        <div className="text-[11px] font-bold uppercase tracking-[0.2em] opacity-50">
+          © 2026 Hiato Literário
+        </div>
+      </footer>
+
+      {/* Nav de Progresso Mobile */}
+      <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 bg-white border border-[#cbd5e1] shadow-2xl rounded-full px-6 py-3 flex gap-8 items-center z-50">
+        <div className="flex flex-col items-center gap-1">
+          <Trophy className="w-4 h-4 text-amber-500" />
+          <span className="text-[10px] font-bold">{quizScore}/{quizData.length}</span>
+        </div>
+        <div className="w-[1px] h-6 bg-[#cbd5e1]" />
+        <button className="text-[#4f46e5] flex flex-col items-center gap-1">
+          <BookOpen className="w-5 h-5" />
+          <span className="text-[8px] font-bold uppercase">Teoria</span>
+        </button>
+        <button className="text-[#64748b] flex flex-col items-center gap-1">
+          <Share2 className="w-5 h-5" />
+          <span className="text-[8px] font-bold uppercase">Dica</span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default App;
