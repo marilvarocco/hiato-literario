@@ -4,369 +4,670 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3405911750491123"
-     crossorigin="anonymous"></script>
-  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3405911750491123" crossorigin="anonymous"></script>
 
-  <title>Ferramentas Acadêmicas Online Grátis para TCC (ABNT e Referências) | Hiato Literário</title>
-  <meta name="description" content="Ferramentas acadêmicas gratuitas para TCC: contador de palavras, gerador de capa ABNT e referências automáticas. Rápido, online e sem cadastro." />
-  <meta name="keywords" content="ferramentas acadêmicas, tcc, formatação tcc, gerador de capa ABNT, referências bibliográficas, contador de palavras online, normas ABNT, rimas, sinônimos" />
+  <title>Hiato Literário | Ferramentas de Escrita e Normas ABNT</title>
+  <meta name="description" content="Ferramentas acadêmicas gratuitas para estudantes, escritores e professores: contador de palavras, gerador de capa ABNT, referências e rimas. Criado por especialistas." />
   <meta name="author" content="Marcos Rocco" />
-  <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#4f46e5" />
   <link rel="canonical" href="https://hiatoliterario.com.br/" />
 
-  <link rel="icon" href="/assets/favicon.ico" />
-  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
-
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://hiatoliterario.com.br/" />
-  <meta property="og:title" content="Ferramentas Acadêmicas Online Grátis para TCC (ABNT e Referências)" />
-  <meta property="og:description" content="Formate seu trabalho com mais rapidez: contador de palavras, capas ABNT e referências automáticas em um só lugar." />
-  <meta property="og:site_name" content="Hiato Literário" />
-
-  <meta property="twitter:card" content="summary" />
-  <meta property="twitter:url" content="https://hiatoliterario.com.br/" />
-  <meta property="twitter:title" content="Ferramentas Acadêmicas Online Grátis para TCC (ABNT e Referências)" />
-  <meta property="twitter:description" content="Acesse ferramentas gratuitas para formatar trabalhos acadêmicos e TCC seguindo as normas ABNT sem complicação." />
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Hiato Literário - Ferramentas Acadêmicas",
-    "alternateName": "Hiato Literário",
-    "description": "Plataforma gratuita com contador de palavras, gerador de capas ABNT e referências bibliográficas automáticas.",
-    "url": "https://hiatoliterario.com.br/",
-    "applicationCategory": "EducationalApplication",
-    "operatingSystem": "All",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "BRL"
-    },
-    "author": {
-      "@type": "Person",
-      "name": "Marcos Rocco"
-    }
-  }
-  </script>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
+    :root {
+      --indigo: #4f46e5;
+      --indigo-light: #6366f1;
+      --indigo-dark: #3730a3;
+    }
+
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #f3f6f9;
+      background-color: #f8fafc;
     }
 
     .glass-effect {
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
-    .tool-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .tool-card {
+    /* ===== HERO SEARCH ===== */
+    .hero-search-wrap {
+      display: flex;
+      gap: 0;
+      max-width: 600px;
+      margin: 0 auto;
       background: white;
-      padding: 2rem;
+      border: 2px solid #e2e8f0;
       border-radius: 1rem;
-      border: 1px solid #e5e7eb;
-      transition: all 0.2s ease-in-out;
-      text-align: center;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px -4px rgba(79,70,229,0.08);
+    }
+    .hero-search-wrap:focus-within {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 4px rgba(79,70,229,0.1);
+    }
+    .hero-search-wrap input {
+      flex: 1;
+      padding: 1rem 1.25rem;
+      font-size: 1rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: #1e293b;
+    }
+    .hero-search-wrap input::placeholder { color: #94a3b8; }
+    .hero-search-wrap button {
+      padding: 0.85rem 1.5rem;
+      background: #4f46e5;
+      color: white;
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .hero-search-wrap button:hover { background: #3730a3; }
+
+    #search-suggestions {
+      max-width: 600px;
+      margin: 0.5rem auto 0;
+      display: none;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 8px 24px -4px rgba(0,0,0,0.1);
+    }
+    #search-suggestions.active { display: block; }
+    .suggestion-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1.25rem;
+      cursor: pointer;
+      transition: background 0.15s;
+      text-decoration: none;
+      color: #1e293b;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .suggestion-item:hover { background: #f5f3ff; color: #4f46e5; }
+    .suggestion-item + .suggestion-item { border-top: 1px solid #f1f5f9; }
+    .suggestion-item .sug-icon { font-size: 1rem; width: 20px; text-align: center; }
+
+    /* ===== CARDS DE FERRAMENTAS ===== */
+    .action-card {
+      background: white;
+      padding: 1.75rem 1.25rem;
+      border-radius: 1.25rem;
+      border: 1.5px solid #e2e8f0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex;
       flex-direction: column;
       align-items: center;
+      text-align: center;
       text-decoration: none;
+      height: 100%;
     }
-
-    .tool-card:hover {
+    .action-card:hover {
       border-color: #4f46e5;
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px -10px rgba(79, 70, 229, 0.15);
     }
-    
-    /* 🔥 NOVO: Efeito ativo para sensação física */
-    .tool-card:active {
-      transform: scale(0.98);
-      background-color: #fafaff;
-    }
-    
-    /* 🔥 NOVO: Micro-interação emocional - Cor do título no hover */
-    .tool-card:hover h3 {
+    .action-card .icon-wrapper {
+      width: 52px;
+      height: 52px;
+      background: #f1f5f9;
       color: #4f46e5;
-    }
-
-    .tool-icon {
-      width: 56px;
-      height: 56px;
-      margin-bottom: 1.25rem;
+      border-radius: 0.875rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 0.75rem;
-      transition: all 0.2s;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      transition: all 0.3s;
     }
-
-    .tool-card:hover .tool-icon {
-      background-color: #4f46e5;
+    .action-card:hover .icon-wrapper {
+      background: #4f46e5;
       color: white;
+      transform: scale(1.1);
     }
 
-    html {
-      scroll-behavior: smooth;
+    /* ===== QUIZ ===== */
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      padding: 1rem 1.25rem;
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #334155;
+      text-align: left;
+      width: 100%;
     }
-    
-    /* 🔥 NOVO: Animação sutil para os badges */
-    .badge-trust {
+    .quiz-option:hover:not(:disabled) {
+      border-color: #4f46e5;
+      background: #f5f3ff;
+      color: #4f46e5;
+    }
+    .quiz-option.correct {
+      border-color: #22c55e;
+      background: #f0fdf4;
+      color: #15803d;
+    }
+    .quiz-option.wrong {
+      border-color: #ef4444;
+      background: #fef2f2;
+      color: #b91c1c;
+    }
+    .quiz-option .opt-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+      flex-shrink: 0;
       transition: all 0.2s;
     }
-    .badge-trust:hover {
-      background-color: #e0e7ff;
-      transform: translateY(-1px);
+    .quiz-option.correct .opt-dot { background: #22c55e; border-color: #22c55e; color: white; }
+    .quiz-option.wrong .opt-dot { background: #ef4444; border-color: #ef4444; color: white; }
+
+    #quiz-feedback {
+      display: none;
+      padding: 1rem 1.25rem;
+      border-radius: 0.875rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.5;
     }
-    
-    /* ✨ Efeito WOW no texto de destaque */
-    .wow-badge {
-      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    #quiz-feedback.show { display: block; }
+    #quiz-feedback.success {
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      color: #15803d;
     }
+    #quiz-feedback.error {
+      background: #fef2f2;
+      border: 1.5px solid #fecaca;
+      color: #b91c1c;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4f46e5, #818cf8);
+      border-radius: 999px;
+      transition: width 0.5s ease;
+    }
+
+    /* ===== SEO LINKS ===== */
+    .seo-link {
+      display: block;
+      padding: 0.75rem 1rem;
+      background: white;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 0.75rem;
+      color: #475569;
+      font-weight: 600;
+      transition: all 0.2s;
+      text-decoration: none;
+      font-size: 0.875rem;
+    }
+    .seo-link:hover {
+      border-color: #4f46e5;
+      color: #4f46e5;
+      background: #f5f3ff;
+      transform: translateX(4px);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up { animation: fadeInUp 0.5s ease both; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
   </style>
 </head>
 
 <body class="text-slate-900 selection:bg-indigo-100 selection:text-indigo-700">
 
-<header class="sticky top-0 z-50 border-b border-slate-200 glass-effect" role="banner">
-  <div class="mx-auto max-w-7xl px-6 py-4 flex justify-between items-center">
-    <a href="./index.html" class="flex items-center gap-2 no-underline group" title="Voltar para a página inicial - Hiato Literário">
-      <div class="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold transition-all group-hover:scale-105">H</div>
-      <span class="text-lg font-bold tracking-tight text-slate-800">Hiato <span class="text-indigo-600">Literário</span></span>
-    </a>
-
-    <nav class="flex items-center gap-6 text-sm font-semibold text-slate-600" role="navigation">
-      <a href="#ferramentas" class="hover:text-indigo-600 transition-colors">Ferramentas</a>
-    </nav>
-  </div>
-</header>
-
-<main class="mx-auto max-w-7xl px-6">
-
-  <!-- 🔥 HERO SECTION - COM "WOW EFFECT" -->
-  <section class="py-16 md:py-24 text-center">
-    
-    <!-- 💥 EFEITO WOW: Badge de velocidade -->
-    <div class="mb-4 inline-flex items-center gap-2 bg-indigo-50 px-4 py-1.5 rounded-full border border-indigo-200">
-      <span class="relative flex h-2 w-2">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span>
-      </span>
-      <span class="text-sm font-bold wow-badge">🔥 Resolva seu TCC em menos de 5 minutos</span>
-    </div>
-
-    <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
-      Pare de perder pontos no TCC por<br> 
-      <span class="text-indigo-600">erro de formatação ABNT</span>
-    </h1>
-    <p class="mt-6 text-lg text-slate-500 max-w-3xl mx-auto font-medium leading-relaxed">
-      Use ferramentas rápidas, gratuitas e feitas para seguir a ABNT corretamente. 
-      Formate capas, referências e citações sem complicação e sem cadastro.
-    </p>
-    
-    <!-- 👑 AUTORIDADE: Criado por quem entende -->
-    <div class="mt-4 flex items-center justify-center gap-2">
-      <div class="h-px w-8 bg-slate-300"></div>
-      <p class="text-sm text-slate-500 font-medium">Criado por <strong class="text-slate-700">Marcos Rocco</strong> · Especialista em produtividade acadêmica</p>
-      <div class="h-px w-8 bg-slate-300"></div>
-    </div>
-
-    <!-- PROVA SOCIAL MICRO -->
-    <div class="mt-6 flex flex-wrap gap-3 justify-center">
-      <span class="badge-trust text-xs font-semibold bg-indigo-50 text-indigo-700 px-4 py-2 rounded-full border border-indigo-100">✔ Usado por +10mil universitários</span>
-      <span class="badge-trust text-xs font-semibold bg-indigo-50 text-indigo-700 px-4 py-2 rounded-full border border-indigo-100">✔ Sem cadastro</span>
-      <span class="badge-trust text-xs font-semibold bg-indigo-50 text-indigo-700 px-4 py-2 rounded-full border border-indigo-100">✔ 100% gratuito</span>
-    </div>
-
-    <!-- ENTRADA GUIADA (CTAs PRINCIPAIS) -->
-    <div class="mt-10 flex flex-col md:flex-row gap-4 justify-center">
-      <a href="./tools/contador-palavras-online.html" class="bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200 text-lg group">
-        ✍️ Começar pelo Contador de Palavras
-        <span class="block text-xs font-normal text-indigo-200 group-hover:text-white">1º passo recomendado</span>
+  <!-- ===== HEADER ===== -->
+  <header class="sticky top-0 z-50 border-b border-slate-200 glass-effect">
+    <div class="mx-auto max-w-7xl px-6 py-4 flex justify-between items-center">
+      <a href="./index.html" class="flex items-center gap-2 no-underline group">
+        <div class="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold transition-all group-hover:scale-105">H</div>
+        <span class="text-lg font-bold tracking-tight text-slate-800">Hiato <span class="text-indigo-600">Literário</span></span>
       </a>
-      <a href="./tools/gerador-citacao-abnt.html" class="bg-white border border-slate-300 px-8 py-3.5 rounded-xl font-bold hover:bg-slate-50 transition text-lg">
-        📚 Gerar Citação ABNT Agora
-      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
+        <a href="#fazer" class="hover:text-indigo-600 transition-colors">Ferramentas</a>
+        <a href="#desafio" class="hover:text-indigo-600 transition-colors">Desafio Rápido</a>
+        <a href="#duvidas" class="hover:text-indigo-600 transition-colors">Dúvidas</a>
+      </nav>
     </div>
-    
-    <!-- 🧠 SUGESTÃO DE FLUXO (PROGRESSO MENTAL) -->
-    <p class="text-xs text-slate-400 mt-6 flex items-center justify-center gap-1">
-      <span>💡</span> 
-      <span>Dica de ouro: comece pelo contador → depois gere suas referências → finalize com a capa</span>
-    </p>
-  </section>
+  </header>
 
-  <!-- SEÇÃO "O QUE VOCÊ RESOLVE AQUI" -->
-  <section class="py-8 pb-12 text-center border-b border-slate-200">
-    <div class="max-w-3xl mx-auto">
-      <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Resolva tudo do seu TCC em um só lugar</h2>
-      <p class="mt-4 text-lg text-slate-500">
-        Desde a contagem de palavras até a geração de referências e capas no padrão ABNT.
-        <br class="hidden md:block">Sem complicação, sem erro, direto no seu navegador.
-      </p>
-    </div>
-  </section>
+  <main class="mx-auto max-w-7xl px-6">
 
-  <!-- SEÇÃO DE FERRAMENTAS (CARDS OTIMIZADOS) -->
-  <section id="ferramentas" class="pb-16" aria-labelledby="section-tools-title">
-    <h2 id="section-tools-title" class="sr-only">Explorar Ferramentas Acadêmicas</h2>
-    <div class="tool-grid">
-
-      <!-- CARD 1: Contador -->
-      <article>
-        <a href="./tools/contador-palavras-online.html" class="tool-card group" title="Contador de Palavras e Caracteres Online">
-          <div class="tool-icon bg-blue-50 text-blue-600" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
-          </div>
-          <h3 class="text-lg font-bold text-slate-800 mb-2 transition-colors">Contador de Palavras</h3>
-          <p class="text-sm text-slate-500 font-medium">
-            Conte palavras e caracteres instantaneamente e descubra o tempo de leitura do seu texto.
-            <span class="block mt-2 text-indigo-600 font-semibold text-xs uppercase tracking-wider">Ideal para abstracts e introduções</span>
-          </p>
-        </a>
-      </article>
-
-      <!-- CARD 2: Resumo -->
-      <article>
-        <a href="./tools/gerador-resumo.html" class="tool-card group" title="Gerador de Resumo Otimizado">
-          <div class="tool-icon bg-amber-50 text-amber-600" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="6" x2="3" y2="6"/><line x1="15" y1="12" x2="3" y2="12"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
-          </div>
-          <h3 class="text-lg font-bold text-slate-800 mb-2 transition-colors">Gerador de Resumo</h3>
-          <p class="text-sm text-slate-500 font-medium">
-            Identifique as partes mais importantes do seu conteúdo e organize os pontos principais em segundos.
-            <span class="block mt-2 text-indigo-600 font-semibold text-xs uppercase tracking-wider">Perfeito para resumos de artigos</span>
-          </p>
-        </a>
-      </article>
-
-      <!-- CARD 3: Citação ABNT -->
-      <article>
-        <a href="./tools/gerador-citacao-abnt.html" class="tool-card group" title="Gerador de Citação ABNT Online">
-          <div class="tool-icon bg-indigo-100 text-indigo-600" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H5c-1.25 0-2 .75-2 2v3c0 1.25.75 2 2 2h3c0 4-4 6-4 6M14 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-3c-1.25 0-2 .75-2 2v3c0 1.25.75 2 2 2h3c0 4-4 6-4 6"/>
-            </svg>
-          </div>
-          <h3 class="text-lg font-bold text-slate-800 mb-2 transition-colors">Gerador de Citação ABNT</h3>
-          <p class="text-sm text-slate-500 font-medium">
-            Gere citações diretas, indiretas e apud automaticamente no padrão ABNT.
-            <span class="block mt-2 text-indigo-600 font-semibold text-xs uppercase tracking-wider">Evite plágio acidental</span>
-          </p>
-        </a>
-      </article>
-
-      <!-- CARD 4: Capa ABNT -->
-      <article>
-        <a href="./tools/gerador-capa-abnt.html" class="tool-card group" title="Gerar Capa ABNT Grátis para TCC">
-          <div class="tool-icon bg-purple-50 text-purple-600" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-          </div>
-          <h3 class="text-lg font-bold text-slate-800 mb-2 transition-colors">Gerador de Capas ABNT</h3>
-          <p class="text-sm text-slate-500 font-medium">
-            Crie capas e folhas de rosto impecáveis para seus trabalhos acadêmicos em poucos cliques.
-            <span class="block mt-2 text-indigo-600 font-semibold text-xs uppercase tracking-wider">Formatação profissional garantida</span>
-          </p>
-        </a>
-      </article>
-
-      <!-- CARD 5: Referências -->
-      <article>
-        <a href="./tools/referencias-abnt.html" class="tool-card group" title="Gerador de Referências Bibliográficas NBR 6023">
-          <div class="tool-icon bg-emerald-50 text-emerald-600" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-          </div>
-          <h3 class="text-lg font-bold text-slate-800 mb-2 transition-colors">Gerador de Referências</h3>
-          <p class="text-sm text-slate-500 font-medium">
-            Gere referências automáticas de livros, sites e artigos seguindo rigorosamente a norma NBR 6023.
-            <span class="block mt-2 text-indigo-600 font-semibold text-xs uppercase tracking-wider">Nunca mais perca pontos na bibliografia</span>
-          </p>
-        </a>
-      </article>
-    </div>
-  </section>
-
-  <!-- SEÇÃO DE ESCOLHA RÁPIDA -->
-  <section class="py-12 text-center border-t border-slate-200">
-    <h2 class="text-xl font-bold mb-6 text-slate-700">🎯 O que você quer fazer agora?</h2>
-    <div class="flex flex-wrap justify-center gap-3">
-      <a href="./tools/contador-palavras-online.html" class="px-5 py-2.5 bg-slate-100 rounded-full text-sm font-semibold hover:bg-indigo-100 hover:text-indigo-700 transition border border-transparent hover:border-indigo-200">📊 Contar palavras</a>
-      <a href="./tools/gerador-citacao-abnt.html" class="px-5 py-2.5 bg-slate-100 rounded-full text-sm font-semibold hover:bg-indigo-100 hover:text-indigo-700 transition border border-transparent hover:border-indigo-200">✒️ Fazer citação</a>
-      <a href="./tools/referencias-abnt.html" class="px-5 py-2.5 bg-slate-100 rounded-full text-sm font-semibold hover:bg-indigo-100 hover:text-indigo-700 transition border border-transparent hover:border-indigo-200">📚 Gerar referências</a>
-      <a href="./tools/gerador-capa-abnt.html" class="px-5 py-2.5 bg-slate-100 rounded-full text-sm font-semibold hover:bg-indigo-100 hover:text-indigo-700 transition border border-transparent hover:border-indigo-200">📄 Criar capa ABNT</a>
-    </div>
-  </section>
-
-  <!-- BLOCO DE CONTEÚDO SEO + DESCRITIVO -->
-  <section class="pb-16 max-w-4xl mx-auto text-sm text-slate-500 border-t border-slate-200 pt-12">
-    <h2 class="text-xl font-bold mb-4 text-slate-800">Sobre as ferramentas acadêmicas do Hiato Literário</h2>
-    <div class="space-y-3 leading-relaxed">
-      <p>
-        As ferramentas do <strong>Hiato Literário</strong> foram desenvolvidas para auxiliar estudantes universitários, pesquisadores e professores na produção de trabalhos acadêmicos conforme as rigorosas normas da ABNT (Associação Brasileira de Normas Técnicas). Sabemos que a formatação manual de um TCC ou artigo científico pode consumir horas preciosas e, muitas vezes, resultar em erros que custam pontos na avaliação final.
-      </p>
-      <p>
-        Nossa plataforma centraliza funções essenciais como contagem precisa de caracteres (com e sem espaço), geração de citações diretas e indiretas no formato ABNT, criação de referências bibliográficas no padrão NBR 6023 e elaboração de capas e folhas de rosto institucionais. Tudo isso de forma <strong>gratuita, online e sem necessidade de cadastro</strong>.
-      </p>
-      <p>
-        Ao contrário de editores de texto tradicionais que exigem configurações complexas de margens e espaçamento, nossas ferramentas entregam o resultado pronto para ser copiado e colado no seu documento. O objetivo é permitir que você foque no que realmente importa: o conteúdo e a pesquisa do seu trabalho, enquanto cuidamos da parte técnica e normativa para você.
-      </p>
-    </div>
-  </section>
-
-  <!-- SEÇÃO DE CONTINUIDADE -->
-  <section class="text-center pb-20">
-    <div class="bg-indigo-50/50 p-10 rounded-3xl border border-indigo-100">
-      <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Pronto para descomplicar seu TCC?</h2>
-      <p class="mt-3 text-slate-600 text-lg">Escolha uma ferramenta acima e resolva a formatação do seu trabalho acadêmico agora mesmo.</p>
-      <a href="#ferramentas" class="mt-6 inline-block bg-white text-indigo-600 font-bold px-6 py-3 rounded-xl shadow-sm border border-indigo-200 hover:bg-indigo-600 hover:text-white transition">
-        Explorar todas as ferramentas →
-      </a>
-    </div>
-  </section>
-
-</main>
-
-<footer class="bg-white border-t border-slate-200 mt-auto" role="contentinfo">
-  <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-      <div class="text-center md:text-left">
-        <div class="flex items-center justify-center md:justify-start gap-2 mb-3">
-          <div class="w-7 h-7 bg-indigo-600 rounded flex items-center justify-center text-[11px] font-black text-white" aria-hidden="true">HL</div>
-          <p class="text-sm font-bold text-slate-800 uppercase tracking-widest">Hiato Literário</p>
-        </div>
-        <p class="text-sm text-slate-500 font-medium">
-          Criado para facilitar a vida acadêmica por <strong>Marcos Rocco</strong>.<br>
-          <span class="text-xs text-slate-400">Ferramentas de TCC Online e Sem Cadastro</span>
-        </p>
+    <!-- ===== HERO ===== -->
+    <section class="py-16 md:py-24 text-center">
+      <div class="mb-5 inline-flex items-center gap-2 bg-indigo-50 px-4 py-1.5 rounded-full border border-indigo-100 fade-in-up">
+        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest">Assistente de Escrita e Estudo de Português</span>
       </div>
 
-      <div class="flex flex-col items-center md:items-end gap-2">
+      <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight fade-in-up delay-1">
+        Escreva melhor,<br class="hidden md:block"> formate mais rápido.
+      </h1>
+      <p class="mt-5 text-lg md:text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed fade-in-up delay-2">
+        Ferramentas gratuitas para <strong class="text-slate-700">estudantes, escritores e professores</strong>. Sem cadastro, direto no seu navegador.
+      </p>
+
+      <!-- CAMPO DE BUSCA PRINCIPAL -->
+      <div class="mt-10 px-2 fade-in-up delay-3 relative">
+        <div class="hero-search-wrap" id="search-wrap">
+          <input
+            type="text"
+            id="hero-search"
+            placeholder="Digite uma palavra ou dúvida... Ex: porque ou por que"
+            autocomplete="off"
+          />
+          <button onclick="handleSearch()">Buscar →</button>
+        </div>
+        <div id="search-suggestions">
+          <!-- preenchido via JS -->
+        </div>
+        <p class="mt-3 text-sm text-slate-400 fade-in-up delay-4">
+          Experimente: <button onclick="fillSearch('há ou a')" class="text-indigo-500 hover:underline font-semibold">há ou a</button> · <button onclick="fillSearch('mal ou mau')" class="text-indigo-500 hover:underline font-semibold">mal ou mau</button> · <button onclick="fillSearch('mas ou mais')" class="text-indigo-500 hover:underline font-semibold">mas ou mais</button>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== FERRAMENTAS ===== -->
+    <section id="fazer" class="py-12 border-t border-slate-200">
+      <div class="text-center mb-10">
+        <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-3">O que você quer fazer hoje?</h2>
+        <p class="text-slate-500 text-sm md:text-base">Selecione uma ferramenta para otimizar seu trabalho acadêmico ou criativo.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
+        <a href="./tools/gerador-resumo.html" class="action-card group">
+          <div class="icon-wrapper">📝</div>
+          <h3 class="text-base font-bold text-slate-800 mb-1.5">Resumir Texto</h3>
+          <p class="text-sm text-slate-500 leading-snug">Extraia os pontos principais de textos longos automaticamente.</p>
+        </a>
+        <a href="./tools/sinonimos-rimas.html" class="action-card group">
+          <div class="icon-wrapper">📚</div>
+          <h3 class="text-base font-bold text-slate-800 mb-1.5">Sinônimos e Rimas</h3>
+          <p class="text-sm text-slate-500 leading-snug">Enriqueça seu vocabulário e encontre a rima perfeita.</p>
+        </a>
+        <a href="./tools/referencias-abnt.html" class="action-card group">
+          <div class="icon-wrapper">📄</div>
+          <h3 class="text-base font-bold text-slate-800 mb-1.5">Referências ABNT</h3>
+          <p class="text-sm text-slate-500 leading-snug">Gere bibliografias completas em conformidade com as normas.</p>
+        </a>
+        <a href="./tools/gerador-citacao-abnt.html" class="action-card group">
+          <div class="icon-wrapper">✒️</div>
+          <h3 class="text-base font-bold text-slate-800 mb-1.5">Gerador de Citações</h3>
+          <p class="text-sm text-slate-500 leading-snug">Formate citações diretas e indiretas sem erros.</p>
+        </a>
+        <a href="./tools/gerador-capa-abnt.html" class="action-card group">
+          <div class="icon-wrapper">📐</div>
+          <h3 class="text-base font-bold text-slate-800 mb-1.5">Gerador de Capas</h3>
+          <p class="text-sm text-slate-500 leading-snug">Crie capas e folhas de rosto padronizadas em segundos.</p>
+        </a>
+        <a href="./tools/contador-palavras-online.html" class="action-card group">
+          <div class="icon-wrapper">📊</div>
+          <h3 class="text-base font-bold text-slate-800 mb-1.5">Contador Online</h3>
+          <p class="text-sm text-slate-500 leading-snug">Estatísticas detalhadas de palavras, caracteres e leitura.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===== QUIZ / DESAFIO RÁPIDO ===== -->
+    <section id="desafio" class="py-16">
+      <div class="max-w-xl mx-auto">
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center gap-2 bg-amber-50 px-4 py-1.5 rounded-full border border-amber-200 mb-4">
+            <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">🎯 Desafio Rápido</span>
+          </div>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-2">Você sabe português?</h2>
+          <p class="text-slate-500 text-sm">Teste seus conhecimentos — aprenda enquanto joga.</p>
+        </div>
+
+        <!-- Progresso -->
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider" id="quiz-counter">Pergunta 1 de 5</span>
+          <span class="text-xs font-bold text-indigo-600" id="quiz-score-label">0 pontos</span>
+        </div>
+        <div class="progress-bar mb-6">
+          <div class="progress-fill" id="quiz-progress" style="width: 0%"></div>
+        </div>
+
+        <!-- Card da Pergunta -->
+        <div class="bg-white border-2 border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
+          <p class="text-base md:text-lg font-bold text-slate-700 mb-6 leading-snug" id="quiz-question">Carregando...</p>
+
+          <div class="flex flex-col gap-3" id="quiz-options">
+            <!-- injetado via JS -->
+          </div>
+
+          <div id="quiz-feedback" class="mt-5"></div>
+
+          <div class="mt-6 flex flex-col sm:flex-row gap-3 items-center justify-between" id="quiz-actions" style="display:none!important;">
+            <a href="#" id="quiz-learn-link" class="text-indigo-600 font-semibold text-sm hover:underline">Ver explicação completa →</a>
+            <button onclick="nextQuestion()" class="bg-indigo-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-indigo-700 transition">
+              Próxima →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DÚVIDAS SEO ===== -->
+    <section id="duvidas" class="py-16">
+      <div class="bg-indigo-600 rounded-[2.5rem] p-8 md:p-12 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-2xl md:text-4xl font-extrabold mb-3">"Porque" ou "por que": quando usar corretamente</h2>
+          <p class="text-indigo-100 mb-10 font-medium italic text-sm md:text-base">As dúvidas mais buscadas da língua portuguesa — com respostas claras e exemplos.</p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <a href="/porque-ou-por-que" class="seo-link">Porque ou por que?</a>
+            <a href="/mas-ou-mais" class="seo-link">Mas ou mais?</a>
+            <a href="/ha-ou-a" class="seo-link">Há ou a?</a>
+            <a href="/onde-ou-aonde" class="seo-link">Onde ou aonde?</a>
+            <a href="/mal-ou-mau" class="seo-link">Mal ou mau?</a>
+            <a href="/a-fim-ou-afim" class="seo-link">A fim ou afim?</a>
+            <a href="/meio-ou-meia" class="seo-link">Meio ou meia?</a>
+            <a href="/viagem-ou-viajem" class="seo-link">Viagem ou viajem?</a>
+          </div>
+
+          <p class="mt-10 text-xs text-indigo-200 uppercase tracking-widest font-bold">Conteúdo educativo atualizado semanalmente</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== AUTORIDADE ===== -->
+    <section class="py-16 border-t border-slate-100">
+      <div class="max-w-3xl mx-auto flex flex-col md:flex-row items-center gap-8 bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+        <div class="w-20 h-20 bg-indigo-100 rounded-2xl flex items-center justify-center text-4xl shrink-0">👨‍🎓</div>
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 mb-2">Por que confiar no Hiato Literário?</h2>
+          <p class="text-slate-600 leading-relaxed text-sm md:text-base">
+            O projeto é mantido por um <strong class="text-indigo-600">estudante de Letras da UEA</strong> (Universidade do Estado do Amazonas).
+            Desenvolvemos estas ferramentas para garantir que o rigor acadêmico e a clareza textual sejam acessíveis a todos, desde o ensino básico até o doutorado.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-white border-t border-slate-200 mt-10" role="contentinfo">
+    <div class="mx-auto max-w-7xl px-6 py-10">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="text-center md:text-left">
+          <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+            <div class="w-7 h-7 bg-indigo-600 rounded flex items-center justify-center text-[11px] font-black text-white">HL</div>
+            <p class="text-sm font-bold text-slate-800 uppercase tracking-widest">Hiato Literário</p>
+          </div>
+          <p class="text-sm text-slate-500 font-medium">
+            Desenvolvido por <strong class="text-slate-700">Marcos Rocco</strong><br>
+            Estudante de Letras da UEA.
+          </p>
+        </div>
         <div class="text-[10px] uppercase font-black text-slate-400 tracking-[0.3em]">
           © 2026 Hiato Literário
         </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
-<script type="module" src="./src/js/main.js"></script>
+  <script>
+    /* ===================================================
+       BUSCA INTELIGENTE COM SUGESTÕES
+    =================================================== */
+    const searchRoutes = [
+      { q: ['porque','por que','por quê','porquê'], label: 'Porque ou por que? Aprenda a diferença', url: '/porque-ou-por-que', icon: '📖' },
+      { q: ['mas','mais','mas ou mais'], label: 'Mas ou mais? Quando usar cada um', url: '/mas-ou-mais', icon: '📖' },
+      { q: ['há','ha','há ou a'], label: 'Há ou a? Guia completo com exemplos', url: '/ha-ou-a', icon: '📖' },
+      { q: ['onde','aonde','onde ou aonde'], label: 'Onde ou aonde? Entenda a diferença', url: '/onde-ou-aonde', icon: '📖' },
+      { q: ['mal','mau','mal ou mau'], label: 'Mal ou mau? Saiba como usar corretamente', url: '/mal-ou-mau', icon: '📖' },
+      { q: ['afim','a fim','a fim ou afim'], label: 'A fim ou afim? Explicação com exemplos', url: '/a-fim-ou-afim', icon: '📖' },
+      { q: ['meio','meia','meio ou meia'], label: 'Meio ou meia? Qual a forma correta?', url: '/meio-ou-meia', icon: '📖' },
+      { q: ['viagem','viajem'], label: 'Viagem ou viajem? Descubra agora', url: '/viagem-ou-viajem', icon: '📖' },
+      { q: ['resumo','resumir','texto'], label: 'Ferramenta: Resumidor de Texto', url: './tools/gerador-resumo.html', icon: '📝' },
+      { q: ['abnt','referencia','referência','bibliograf'], label: 'Ferramenta: Gerador de Referências ABNT', url: './tools/referencias-abnt.html', icon: '📄' },
+      { q: ['capa','folha de rosto'], label: 'Ferramenta: Gerador de Capas ABNT', url: './tools/gerador-capa-abnt.html', icon: '📐' },
+      { q: ['sinonimo','sinônimo','rima','rimas'], label: 'Ferramenta: Sinônimos e Rimas', url: './tools/sinonimos-rimas.html', icon: '📚' },
+      { q: ['contador','palavras','caractere'], label: 'Ferramenta: Contador de Palavras Online', url: './tools/contador-palavras-online.html', icon: '📊' },
+      { q: ['citação','citacao','citar'], label: 'Ferramenta: Gerador de Citações ABNT', url: './tools/gerador-citacao-abnt.html', icon: '✒️' },
+    ];
+
+    const searchInput = document.getElementById('hero-search');
+    const suggestions = document.getElementById('search-suggestions');
+
+    searchInput.addEventListener('input', () => {
+      const val = searchInput.value.trim().toLowerCase();
+      if (val.length < 2) { suggestions.classList.remove('active'); return; }
+
+      const matches = searchRoutes.filter(r =>
+        r.q.some(kw => kw.includes(val) || val.includes(kw))
+      ).slice(0, 5);
+
+      if (!matches.length) { suggestions.classList.remove('active'); return; }
+
+      suggestions.innerHTML = matches.map(m =>
+        `<a class="suggestion-item" href="${m.url}">
+          <span class="sug-icon">${m.icon}</span>
+          <span>${m.label}</span>
+        </a>`
+      ).join('');
+      suggestions.classList.add('active');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#search-wrap') && !e.target.closest('#search-suggestions')) {
+        suggestions.classList.remove('active');
+      }
+    });
+
+    function handleSearch() {
+      const val = searchInput.value.trim().toLowerCase();
+      const match = searchRoutes.find(r => r.q.some(kw => kw.includes(val) || val.includes(kw)));
+      if (match) { window.location.href = match.url; }
+      else { document.getElementById('desafio').scrollIntoView({ behavior: 'smooth' }); }
+    }
+
+    searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleSearch(); });
+
+    function fillSearch(text) {
+      searchInput.value = text;
+      searchInput.dispatchEvent(new Event('input'));
+      searchInput.focus();
+    }
+
+    /* ===================================================
+       QUIZ ESTILO DUOLINGO
+    =================================================== */
+    const quizData = [
+      {
+        q: 'Escolha a frase correta:',
+        opts: ['Ele veio porque quis.', 'Ele veio por que quis.'],
+        correct: 0,
+        feedback: {
+          ok: '🔥 Boa! "Porque" (junto, sem acento) é conjunção causal — explica o motivo. Use quando puder substituir por "pois".',
+          err: 'Quase! Esse é um erro muito comum. "Por que" (separado) é usado em perguntas. Aqui temos uma explicação de motivo — usa-se "porque".'
+        },
+        link: '/porque-ou-por-que'
+      },
+      {
+        q: 'Qual está correto?',
+        opts: ['Faz dois anos que não te vejo.', 'Há dois anos que não te vejo.'],
+        correct: 1,
+        feedback: {
+          ok: '🔥 Excelente! "Há" indica tempo passado decorrido. "Faz" pode ser usado informalmente, mas "há" é a forma mais culta e recomendada.',
+          err: 'Atenção! Para tempo passado decorrido, o correto é "há". "Faz" é aceito na linguagem informal, mas "há dois anos" é a forma padrão.'
+        },
+        link: '/ha-ou-a'
+      },
+      {
+        q: 'Escolha a opção correta:',
+        opts: ['O menino é muito mal.', 'O menino é muito mau.'],
+        correct: 1,
+        feedback: {
+          ok: '🔥 Perfeito! "Mau" é adjetivo — qualifica substantivos. "Mal" é advérbio ou substantivo. Dica: se puder substituir por "bom", use "mau".',
+          err: 'Quase lá! "Mau" é adjetivo e qualifica substantivos (como "menino"). "Mal" é o oposto de "bem". Dica: troque por "bom" — se funcionar, use "mau".'
+        },
+        link: '/mal-ou-mau'
+      },
+      {
+        q: 'Qual frase está correta?',
+        opts: ['Estou afim de sair.', 'Estou a fim de sair.'],
+        correct: 1,
+        feedback: {
+          ok: '🔥 Muito bem! "A fim de" (separado) indica finalidade ou vontade. "Afim" (junto) significa "parecido, semelhante".',
+          err: 'Atenção! "A fim de" é separado quando indica vontade ou intenção. "Afim" junto significa "semelhante" — ex: "somos afins".'
+        },
+        link: '/a-fim-ou-afim'
+      },
+      {
+        q: 'Escolha a forma correta:',
+        opts: ['Espero que você faça uma boa viagem.', 'Espero que você faça uma boa viajem.'],
+        correct: 0,
+        feedback: {
+          ok: '🔥 Correto! "Viagem" é o substantivo (o ato de viajar). "Viajem" é a conjugação do verbo na 3ª pessoa do plural do subjuntivo — ex: "que eles viajem".',
+          err: '"Viagem" é o substantivo. "Viajem" é a forma verbal (que eles viajem). No seu exemplo, precisamos do substantivo — portanto, "viagem".'
+        },
+        link: '/viagem-ou-viajem'
+      },
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+
+    function renderQuestion() {
+      const data = quizData[currentQ];
+      answered = false;
+
+      document.getElementById('quiz-counter').textContent = `Pergunta ${currentQ + 1} de ${quizData.length}`;
+      document.getElementById('quiz-score-label').textContent = `${score} ponto${score !== 1 ? 's' : ''}`;
+      document.getElementById('quiz-progress').style.width = `${(currentQ / quizData.length) * 100}%`;
+      document.getElementById('quiz-question').textContent = data.q;
+      document.getElementById('quiz-feedback').className = 'mt-5';
+      document.getElementById('quiz-feedback').style.display = 'none';
+      document.getElementById('quiz-actions').style.cssText = 'display:none!important';
+
+      const optEl = document.getElementById('quiz-options');
+      optEl.innerHTML = data.opts.map((opt, i) =>
+        `<button class="quiz-option" onclick="selectOption(${i})">
+          <span class="opt-dot">${String.fromCharCode(65 + i)}</span>
+          <span>${opt}</span>
+        </button>`
+      ).join('');
+    }
+
+    function selectOption(idx) {
+      if (answered) return;
+      answered = true;
+      const data = quizData[currentQ];
+      const btns = document.querySelectorAll('.quiz-option');
+      const isCorrect = idx === data.correct;
+
+      btns.forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === data.correct) btn.classList.add('correct');
+        else if (i === idx && !isCorrect) btn.classList.add('wrong');
+      });
+
+      if (isCorrect) score++;
+
+      const fb = document.getElementById('quiz-feedback');
+      fb.textContent = isCorrect ? data.feedback.ok : data.feedback.err;
+      fb.className = `mt-5 ${isCorrect ? 'success' : 'error'}`;
+      fb.style.display = 'block';
+
+      const actions = document.getElementById('quiz-actions');
+      actions.style.cssText = 'display:flex!important;';
+      document.getElementById('quiz-learn-link').href = data.link;
+      document.getElementById('quiz-learn-link').textContent = 'Ver explicação completa →';
+
+      document.getElementById('quiz-score-label').textContent = `${score} ponto${score !== 1 ? 's' : ''}`;
+    }
+
+    function nextQuestion() {
+      currentQ++;
+      if (currentQ >= quizData.length) {
+        showFinalScore();
+      } else {
+        renderQuestion();
+      }
+    }
+
+    function showFinalScore() {
+      const pct = Math.round((score / quizData.length) * 100);
+      const msgs = [
+        { min: 80, icon: '🏆', title: 'Você está acima da média!', sub: 'Seu domínio do português é excelente. Continue praticando!' },
+        { min: 50, icon: '👏', title: 'Bom resultado!', sub: 'Você acertou a maioria. Revise os erros e estude mais!' },
+        { min: 0,  icon: '📚', title: 'Continue praticando!', sub: 'Não desanime — esses erros são os mais comuns do português.' },
+      ];
+      const msg = msgs.find(m => pct >= m.min);
+
+      document.getElementById('quiz-options').innerHTML = `
+        <div class="text-center py-6">
+          <div class="text-5xl mb-4">${msg.icon}</div>
+          <p class="text-2xl font-extrabold text-slate-800 mb-1">${score} de ${quizData.length} corretas</p>
+          <p class="text-slate-500 text-sm mb-1 font-semibold">${msg.title}</p>
+          <p class="text-slate-400 text-xs mb-6">${msg.sub}</p>
+          <button onclick="restartQuiz()" class="bg-indigo-600 text-white px-8 py-3 rounded-xl font-bold text-sm hover:bg-indigo-700 transition">
+            Jogar novamente →
+          </button>
+        </div>
+      `;
+      document.getElementById('quiz-feedback').style.display = 'none';
+      document.getElementById('quiz-actions').style.cssText = 'display:none!important';
+      document.getElementById('quiz-progress').style.width = '100%';
+      document.getElementById('quiz-counter').textContent = `Concluído!`;
+    }
+
+    function restartQuiz() {
+      currentQ = 0;
+      score = 0;
+      renderQuestion();
+    }
+
+    renderQuestion();
+  </script>
+
+  <script type="module" src="./src/js/main.js"></script>
 </body>
+
 </html>
