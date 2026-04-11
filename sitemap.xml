@@ -36,4 +36,59 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+  <loc>https://hiatoliterario.com.br/porque-ou-por-que</loc>
+  <lastmod>2026-04-11</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://hiatoliterario.com.br/mas-ou-mais</loc>
+  <lastmod>2026-04-11</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://hiatoliterario.com.br/ha-ou-a</loc>
+  <lastmod>2026-04-11</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://hiatoliterario.com.br/onde-ou-aonde</loc>
+  <lastmod>2026-04-11</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://hiatoliterario.com.br/mal-ou-mau</loc>
+  <lastmod>2026-04-11</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://hiatoliterario.com.br/a-fim-ou-afim</loc>
+  <lastmod>2026-04-11</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://hiatoliterario.com.br/meio-ou-meia</loc>
+  <lastmod>2026-04-11</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://hiatoliterario.com.br/viagem-ou-viajem</loc>
+  <lastmod>2026-04-11</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://hiatoliterario.com.br/tools/sinonimos-rimas.html</loc>
+  <lastmod>2026-04-11</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
 </urlset>
