@@ -1,94 +1,83 @@
-<?xml version="1.0" encoding="UTF-8"?>
+?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Home -->
   <url>
-    <loc>https://hiatoliterario.com.br/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
+    <loc>https://hiatoliterario.com.br/index.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <!-- Guias Gramaticais -->
+  <url>
+    <loc>https://hiatoliterario.com.br/porque-ou-por-que.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://hiatoliterario.com.br/tools/gerador-resumo.html</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://hiatoliterario.com.br/mal-ou-mau.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://hiatoliterario.com.br/tools/contador-palavras-online.html</loc>
-    <lastmod>2026-03-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://hiatoliterario.com.br/mas-ou-mais.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://hiatoliterario.com.br/tools/gerador-capa-abnt.html</loc>
-    <lastmod>2026-03-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://hiatoliterario.com.br/ha-ou-a.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://hiatoliterario.com.br/tools/gerador-citacao-abnt.html</loc>
-    <lastmod>2026-03-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://hiatoliterario.com.br/onde-ou-aonde.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://hiatoliterario.com.br/a-fim-ou-afim.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://hiatoliterario.com.br/meio-ou-meia.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://hiatoliterario.com.br/viagem-ou-viajem.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Ferramentas -->
+  <url>
+    <loc>https://hiatoliterario.com.br/tools/sinonimos-rimas.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.70</priority>
   </url>
   <url>
     <loc>https://hiatoliterario.com.br/tools/referencias-abnt.html</loc>
-    <lastmod>2026-03-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.70</priority>
   </url>
   <url>
-  <loc>https://hiatoliterario.com.br/porque-ou-por-que</loc>
-  <lastmod>2026-04-11</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>
-<url>
-  <loc>https://hiatoliterario.com.br/mas-ou-mais</loc>
-  <lastmod>2026-04-11</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>
-<url>
-  <loc>https://hiatoliterario.com.br/ha-ou-a</loc>
-  <lastmod>2026-04-11</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>
-<url>
-  <loc>https://hiatoliterario.com.br/onde-ou-aonde</loc>
-  <lastmod>2026-04-11</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>
-<url>
-  <loc>https://hiatoliterario.com.br/mal-ou-mau</loc>
-  <lastmod>2026-04-11</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>
-<url>
-  <loc>https://hiatoliterario.com.br/a-fim-ou-afim</loc>
-  <lastmod>2026-04-11</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>
-<url>
-  <loc>https://hiatoliterario.com.br/meio-ou-meia</loc>
-  <lastmod>2026-04-11</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>
-<url>
-  <loc>https://hiatoliterario.com.br/viagem-ou-viajem</loc>
-  <lastmod>2026-04-11</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://hiatoliterario.com.br/tools/sinonimos-rimas.html</loc>
-  <lastmod>2026-04-11</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.8</priority>
-</url>
+    <loc>https://hiatoliterario.com.br/tools/gerador-resumo.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://hiatoliterario.com.br/tools/gerador-citacao-abnt.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://hiatoliterario.com.br/tools/gerador-capa-abnt.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://hiatoliterario.com.br/tools/contador-palavras-online.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.70</priority>
+  </url>
 </urlset>
