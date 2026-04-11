@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Viagem ou Viajem? Quando Usar Cada Um com Exemplos e Quiz | Hiato Literário</title>
+    <meta name="description" content="Aprenda definitivamente a diferença entre viagem e viajem. Dicas de memorização (substantivo vs verbo), exemplos práticos da gramática e quiz interativo." />
+    <link rel="canonical" href="https://hiatoliterario.com.br/viagem-ou-viajem" />
+
+    <!-- FAQ Schema para Featured Snippets no Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Quando usar 'viagem' com G?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use 'viagem' (com G) quando a palavra for um substantivo, indicando o ato de viajar ou o percurso realizado. Exemplo: 'A viagem foi cansativa'."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quando usar 'viajem' com J?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use 'viajem' (com J) quando for uma forma conjugada do verbo viajar (presente do subjuntivo ou imperativo). Exemplo: 'Espero que eles viajem logo'."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Article Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Viagem ou Viajem? Quando Usar Cada Um com Exemplos e Quiz",
+      "description": "Domine a regra do G e J para nunca mais errar entre o substantivo viagem e o verbo viajem.",
+      "author": { "@type": "Person", "name": "Marcos Rocco" },
+      "publisher": { "@type": "Organization", "name": "Hiato Literário" },
+      "inLanguage": "pt-BR"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+          --indigo: #4f46e5;
+          --indigo-light: #818cf8;
+          --indigo-faint: #eef2ff;
+          --green: #16a34a;
+          --green-faint: #f0fdf4;
+          --red: #dc2626;
+          --red-faint: #fef2f2;
+          --slate-900: #0f172a;
+          --slate-700: #334155;
+          --slate-500: #64748b;
+          --slate-300: #cbd5e1;
+          --slate-100: #f1f5f9;
+          --white: #ffffff;
+          --radius: 1rem;
+          --radius-sm: 0.625rem;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          background: #f8fafc;
+          color: var(--slate-900);
+          line-height: 1.7;
+          font-size: 16px;
+        }
+
+        /* ===== BARRA DE PROGRESSO ===== */
+        #read-progress {
+          position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+          background: linear-gradient(90deg, var(--indigo), var(--indigo-light));
+          z-index: 9999; transition: width 0.1s linear;
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+          position: sticky; top: 0; z-index: 100;
+          background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+          border-bottom: 1px solid var(--slate-300);
+        }
+        .nav-inner {
+          max-width: 800px; margin: 0 auto; padding: 0 1.25rem;
+          height: 60px; display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-logo {
+          font-weight: 800; font-size: 1.1rem; color: var(--indigo); text-decoration: none;
+          display: flex; align-items: center; gap: 0.5rem;
+        }
+        .nav-logo span {
+          width: 32px; height: 32px; background: var(--indigo); color: white;
+          border-radius: 8px; display: flex; align-items: center; justify-content: center;
+        }
+
+        /* ===== LAYOUT ===== */
+        main { max-width: 760px; margin: 0 auto; padding: 0 1.25rem 5rem; }
+
+        /* ===== HERO & HOOK ===== */
+        .hero { padding: 2.5rem 0 1rem; }
+        .hero-tag {
+          display: inline-block; background: var(--indigo-faint); color: var(--indigo);
+          font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em;
+          text-transform: uppercase; padding: 0.3rem 0.85rem; border-radius: 999px; margin-bottom: 1rem;
+        }
+        .hero h1 {
+          font-family: 'Lora', serif; font-size: clamp(2rem, 5vw, 3.25rem);
+          font-weight: 700; line-height: 1.15; color: var(--slate-900); margin-bottom: 1rem;
+        }
+        .hook-box {
+          background: var(--red-faint); color: var(--red);
+          padding: 0.5rem 1rem; border-radius: var(--radius-sm);
+          font-weight: 700; font-size: 0.85rem; display: inline-flex;
+          align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;
+        }
+
+        /* ===== RESUMO VISUAL RÁPIDO ===== */
+        .visual-summary {
+          display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+          gap: 0.75rem; margin-bottom: 2.5rem;
+        }
+        .summary-item {
+          background: white; border: 1.5px solid var(--slate-100);
+          padding: 1.25rem; border-radius: var(--radius-sm); text-align: center;
+          transition: transform 0.2s;
+        }
+        .summary-item:hover { transform: translateY(-3px); border-color: var(--indigo-light); }
+        .summary-term { display: block; font-family: 'Lora', serif; font-weight: 700; font-size: 1.25rem; color: var(--indigo); margin-bottom: 0.25rem; }
+        .summary-def { font-size: 0.85rem; font-weight: 700; color: var(--slate-500); }
+
+        /* ===== TABS ===== */
+        .tabs-wrap {
+          display: flex; gap: 0.375rem; overflow-x: auto; padding-bottom: 0.25rem;
+          scrollbar-width: none; margin-bottom: 1.5rem;
+        }
+        .tab-btn {
+          flex-shrink: 0; padding: 0.5rem 1.25rem; border-radius: 999px;
+          border: 1.5px solid var(--slate-300); background: white;
+          font-size: 0.85rem; font-weight: 700; color: var(--slate-500);
+          cursor: pointer; transition: all 0.2s;
+        }
+        .tab-btn.active { background: var(--indigo); border-color: var(--indigo); color: white; }
+
+        /* ===== CARDS ===== */
+        .form-card {
+          background: white; border: 1.5px solid var(--slate-300);
+          border-radius: var(--radius); padding: 1.75rem; margin-bottom: 2rem; display: none;
+        }
+        .form-card.visible { display: block; animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .form-badge { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: 1rem; }
+        .badge-blue { background: #dbeafe; color: #1d4ed8; }
+        .badge-purple { background: #ede9fe; color: #7c3aed; }
+
+        .examples { background: var(--slate-100); border-radius: var(--radius-sm); padding: 1.25rem; margin: 1.5rem 0; }
+        .ex-group { margin-bottom: 1rem; }
+        .ex-group:last-child { margin-bottom: 0; }
+        .ex-title { font-size: 0.85rem; font-weight: 700; color: var(--slate-500); margin-bottom: 0.5rem; display: block; }
+        .ex-row { display: block; font-size: 0.95rem; padding: 0.25rem 0; color: var(--green); font-weight: 600; }
+
+        /* ===== TABELA COMPARATIVA ===== */
+        .comparison-wrap { overflow-x: auto; margin: 3rem 0; }
+        .comp-table { width: 100%; border-collapse: collapse; background: white; border-radius: var(--radius); overflow: hidden; border: 1.5px solid var(--slate-100); }
+        .comp-table th { background: var(--slate-100); padding: 1rem; text-align: left; font-size: 0.85rem; text-transform: uppercase; color: var(--slate-500); }
+        .comp-table td { padding: 1rem; border-bottom: 1px solid var(--slate-100); font-size: 0.95rem; }
+
+        /* ===== QUIZ ===== */
+        .quiz-section { background: #1e1b4b; color: white; border-radius: var(--radius); padding: 2.5rem 2rem; margin-top: 4rem; }
+        .quiz-header { text-align: center; margin-bottom: 2rem; }
+        .quiz-header h2 { font-family: 'Lora', serif; font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .quiz-progress { height: 4px; background: rgba(255,255,255,0.1); border-radius: 999px; margin-bottom: 2rem; overflow: hidden; }
+        #q-progress-bar { height: 100%; background: var(--indigo); width: 0%; transition: width 0.3s; }
+        
+        .quiz-opt-btn { 
+            width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); 
+            padding: 1rem; border-radius: var(--radius-sm); color: white; text-align: left; 
+            margin-bottom: 0.5rem; cursor: pointer; transition: 0.2s; font-family: inherit; font-size: 0.95rem; 
+        }
+        .quiz-opt-btn:hover:not(:disabled) { background: rgba(255,255,255,0.1); border-color: var(--indigo-light); }
+        .q-correct { background: rgba(34,197,94,0.3) !important; border-color: var(--green) !important; }
+        .q-wrong { background: rgba(239,68,68,0.3) !important; border-color: var(--red) !important; }
+
+        #q-next { 
+            display:none; margin-top: 1.5rem; background: var(--indigo); border: none; 
+            color: white; padding: 0.85rem 1.5rem; border-radius: var(--radius-sm); 
+            cursor: pointer; font-weight: 700; width: 100%; transition: 0.2s;
+        }
+        #q-next:hover { background: var(--indigo-light); }
+
+        /* ===== FOOTER ===== */
+        footer { background: var(--slate-900); color: #94a3b8; padding: 4rem 1.25rem; text-align: center; margin-top: 5rem; }
+        .link-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; }
+        .link-card { background: white; border: 1px solid var(--slate-200); padding: 1.5rem; border-radius: var(--radius); text-decoration: none; color: inherit; transition: 0.2s; text-align: left; }
+        .link-card:hover { border-color: var(--indigo); transform: translateY(-3px); }
+        .link-card span { font-size: 0.7rem; color: var(--indigo); font-weight: 700; text-transform: uppercase; }
+        .link-card h4 { font-family: 'Lora', serif; margin-top: 0.5rem; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+
+    <div id="read-progress"></div>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo"><span>H</span> Hiato Literário</a>
+        </div>
+    </nav>
+
+    <main>
+        <header class="hero">
+            <div class="hero-tag">Dúvida Linguística</div>
+            <h1>Viagem ou Viajem?<br>Substantivo ou Verbo</h1>
+            
+            <div class="hook-box">
+                <span>💡</span> Dica rápida: "Viagem" (com G) é o nome. "Viajem" (com J) é a ação.
+            </div>
+
+            <!-- RESUMO VISUAL RÁPIDO -->
+            <div class="visual-summary">
+                <div class="summary-item">
+                    <span class="summary-term">viagem</span>
+                    <span class="summary-def">substantivo (o nome)</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-term">viajem</span>
+                    <span class="summary-def">verbo (eles/elas)</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- EXPLICAÇÃO COM ABAS -->
+        <div class="tabs-wrap">
+            <button class="tab-btn active" onclick="showForm(0)">Viagem (Substantivo)</button>
+            <button class="tab-btn" onclick="showForm(1)">Viajem (Verbo)</button>
+            <button class="tab-btn" onclick="showForm(2)">Resumo</button>
+        </div>
+
+        <!-- ABA 0: VIAGEM (SUBSTANTIVO) -->
+        <article class="form-card visible" id="form-0">
+            <div class="form-badge badge-blue">G</div>
+            <h2><em>Viagem</em> — O Nome do Ato</h2>
+            <p>Escrito com <strong>G</strong> quando funciona como um substantivo. Geralmente vem acompanhado de um artigo (a, uma), adjetivo ou pronome.</p>
+            <div class="examples">
+                <div class="ex-group">
+                    <span class="ex-title">Exemplos de uso:</span>
+                    <span class="ex-row">✓ A <strong>viagem</strong> foi inesquecível.</span>
+                    <span class="ex-row">✓ Desejo a você uma excelente <strong>viagem</strong>!</span>
+                    <span class="ex-row">✓ Fizemos uma <strong>viagem</strong> de negócios.</span>
+                </div>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--slate-500); font-style: italic;">
+                Dica: Se você puder colocar "a" ou "uma" antes, use sempre <strong>G</strong>.
+            </p>
+        </article>
+
+        <!-- ABA 1: VIAJEM (VERBO) -->
+        <article class="form-card" id="form-1">
+            <div class="form-badge badge-purple">J</div>
+            <h2><em>Viajem</em> — A Ação de Viajar</h2>
+            <p>Escrito com <strong>J</strong> quando é uma forma conjugada do verbo viajar (3ª pessoa do plural do presente do subjuntivo ou imperativo).</p>
+            <div class="examples">
+                <div class="ex-group">
+                    <span class="ex-title">Exemplos de uso:</span>
+                    <span class="ex-row">✓ Espero que eles <strong>viajem</strong> amanhã.</span>
+                    <span class="ex-row">✓ <strong>Viajem</strong> com segurança, crianças!</span>
+                    <span class="ex-row">✓ Duvido que elas <strong>viajem</strong> de navio.</span>
+                </div>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--slate-500); font-style: italic;">
+                Dica: Geralmente vem após palavras como "que" ou indica uma ordem/desejo.
+            </p>
+        </article>
+
+        <!-- ABA 2: RESUMO -->
+        <article class="form-card" id="form-2">
+            <h2 style="font-family:'Lora'; margin-bottom: 1rem;">Tabela Comparativa</h2>
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th>Termo</th>
+                        <th>Classe Gramatical</th>
+                        <th>Como identificar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Viagem</strong></td>
+                        <td>Substantivo</td>
+                        <td>"A viagem", "Minha viagem"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Viajem</strong></td>
+                        <td>Verbo</td>
+                        <td>"Que eles viajem", "Viajem vocês"</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="background: var(--indigo-faint); padding: 1rem; border-radius: 8px; margin-top: 1.5rem; color: var(--indigo); font-size: 0.9rem; font-weight: 600;">
+                Regra Prática: Verbos derivados de outros terminados em "jar" mantêm o J (viajar -> viajem).
+            </div>
+        </article>
+
+        <!-- QUIZ INTERATIVO SEQUENCIAL -->
+        <section class="quiz-section" id="quiz-block">
+            <div class="quiz-header">
+                <h2>Desafio Prático</h2>
+                <p style="opacity: 0.7;">Teste sua retenção agora</p>
+            </div>
+            
+            <div class="quiz-progress">
+                <div id="q-progress-bar"></div>
+            </div>
+
+            <div id="quiz-content">
+                <p id="q-text" style="font-size: 1.15rem; margin-bottom: 1.5rem; font-weight: 600; font-family:'Lora';"></p>
+                <div id="q-opts"></div>
+                <div id="q-feedback" style="margin-top: 1rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; font-size: 0.9rem;"></div>
+                <button id="q-next" style="display:none; margin-top: 1.5rem; background: var(--indigo); border: none; color: white; padding: 0.85rem 1.5rem; border-radius: var(--radius-sm); cursor: pointer; font-weight: 700; width: 100%; transition: 0.2s;">Próxima Questão →</button>
+            </div>
+
+            <div id="q-result" style="display:none; text-align: center;">
+                <h3 style="font-size: 2rem; font-family:'Lora';">🏆 Quiz Terminado!</h3>
+                <p id="q-score-final" style="margin: 1.5rem 0; font-size: 1.25rem; font-weight: 700;"></p>
+                <button onclick="resetQuiz()" style="background: white; color: var(--indigo); border: none; padding: 0.85rem 2rem; border-radius: 8px; font-weight: 700; cursor: pointer;">Tentar Novamente</button>
+            </div>
+        </section>
+
+        <!-- LINKS ESTRATÉGICOS -->
+        <nav class="internal-links" style="margin-top: 4rem;">
+            <h3 style="font-family:'Lora'; color: var(--slate-500); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;">Continue Estudando</h3>
+            <div class="link-cards">
+                <a href="porque-ou-por-que.html" class="link-card">
+                    <span>Mais Pesquisado</span>
+                    <h4>Os 4 Porquês →</h4>
+                </a>
+                <a href="meio-ou-meia.html" class="link-card">
+                    <span>Concordância</span>
+                    <h4>Meio ou Meia? →</h4>
+                </a>
+                <a href="a-fim-ou-afim.html" class="link-card">
+                    <span>Finalidade</span>
+                    <h4>A fim ou Afim? →</h4>
+                </a>
+            </div>
+        </nav>
+    </main>
+
+    <footer>
+        <div style="font-weight: 800; color: white; margin-bottom: 1rem; font-size: 1.2rem;">Hiato Literário</div>
+        <p>Desenvolvido para escritores, estudantes e entusiastas da língua portuguesa.</p>
+        <p style="margin-top: 1.5rem; font-size: 0.75rem; opacity: 0.6;">© 2026 Hiato Literário</p>
+    </footer>
+
+    <script>
+        // BARRA DE PROGRESSO
+        window.addEventListener('scroll', () => {
+            const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById('read-progress').style.width = pct + '%';
+        });
+
+        // TABS
+        function showForm(idx) {
+            document.querySelectorAll('.form-card').forEach((c, i) => c.classList.toggle('visible', i === idx));
+            document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+        }
+
+        // DADOS DO QUIZ
+        const quizData = [
+            { q: "Nossa ______ (viagem/viajem) de férias foi espetacular.", opts: ["viagem", "viajem"], correct: 0, exp: "Substantivo: refere-se ao nome do evento (a viagem)." },
+            { q: "Quero que vocês ______ (viagem/viajem) com cuidado.", opts: ["viagem", "viajem"], correct: 1, exp: "Verbo: indica uma ação ou desejo para o futuro (que vocês viajem)." },
+            { q: "Aquela ______ (viagem/viajem) de negócios rendeu bons frutos.", opts: ["viagem", "viajem"], correct: 0, exp: "Substantivo: acompanhado do pronome 'aquela'." },
+            { q: "Caso eles ______ (viagem/viajem) hoje, chegarão cedo.", opts: ["viagem", "viajem"], correct: 1, exp: "Verbo: indica a condição/ação de viajar." }
+        ];
+
+        let cur = 0; 
+        let score = 0;
+        let answered = false;
+
+        function renderQ() {
+            const d = quizData[cur];
+            document.getElementById('q-text').innerText = (cur + 1) + ". " + d.q;
+            const optsDiv = document.getElementById('q-opts');
+            optsDiv.innerHTML = '';
+            
+            d.opts.forEach((o, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-opt-btn';
+                btn.innerText = o;
+                btn.onclick = () => checkQ(i);
+                optsDiv.appendChild(btn);
+            });
+
+            document.getElementById('q-feedback').style.display = 'none';
+            document.getElementById('q-next').style.display = 'none';
+            document.getElementById('q-progress-bar').style.width = ((cur + 1) / quizData.length) * 100 + '%';
+            answered = false;
+        }
+
+        function checkQ(idx) {
+            if(answered) return;
+            answered = true;
+
+            const d = quizData[cur];
+            const btns = document.querySelectorAll('.quiz-opt-btn');
+            const fb = document.getElementById('q-feedback');
+            
+            fb.style.display = 'block';
+            btns.forEach(b => b.disabled = true);
+
+            if(idx === d.correct) {
+                btns[idx].classList.add('q-correct');
+                fb.innerText = "✓ Excelente! " + d.exp;
+                fb.style.background = "rgba(34,197,94,0.15)";
+                fb.style.color = "#86efac";
+                score++;
+            } else {
+                btns[idx].classList.add('q-wrong');
+                btns[d.correct].classList.add('q-correct');
+                fb.innerText = "✕ Ops! " + d.exp;
+                fb.style.background = "rgba(239,68,68,0.15)";
+                fb.style.color = "#fca5a5";
+            }
+            document.getElementById('q-next').style.display = 'block';
+        }
+
+        document.getElementById('q-next').onclick = () => {
+            cur++;
+            if(cur < quizData.length) {
+                renderQ();
+            } else {
+                document.getElementById('quiz-content').style.display = 'none';
+                document.getElementById('q-result').style.display = 'block';
+                document.getElementById('q-score-final').innerText = `Você acertou ${score} de ${quizData.length} questões.`;
+            }
+        };
+
+        function resetQuiz() {
+            cur = 0;
+            score = 0;
+            document.getElementById('quiz-content').style.display = 'block';
+            document.getElementById('q-result').style.display = 'none';
+            renderQ();
+        }
+
+        renderQ();
+    </script>
+</body>
+</html>
