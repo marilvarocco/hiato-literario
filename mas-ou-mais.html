@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mas ou Mais? Entenda a Diferença com Exemplos e Quiz | Hiato Literário</title>
+    <meta name="description" content="Nunca mais confunda mas e mais. Aprenda a regra do 'porém' e do 'menos', veja exemplos práticos e teste seus conhecimentos com nosso quiz interativo." />
+    <link rel="canonical" href="https://hiatoliterario.com.br/mas-ou-mais" />
+
+    <!-- FAQ Schema para Featured Snippets no Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Quando usar 'mas' sem I?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use 'mas' (conjunção) quando quiser indicar oposição ou contrariedade. Pode ser substituído por 'porém', 'entretanto' ou 'todavia'. Exemplo: 'Estudei muito, mas não passei'."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quando usar 'mais' com I?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use 'mais' (advérbio ou pronome) para indicar intensidade, quantidade ou adição. É o oposto de 'menos'. Exemplo: 'Quero mais café' ou 'Ele é o mais alto da sala'."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Article Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Mas ou Mais? Entenda a Diferença com Exemplos e Quiz",
+      "description": "Aprenda a regra definitiva para diferenciar mas de mais e faça o teste prático.",
+      "author": { "@type": "Person", "name": "Marcos Rocco" },
+      "publisher": { "@type": "Organization", "name": "Hiato Literário" },
+      "inLanguage": "pt-BR"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+          --indigo: #4f46e5;
+          --indigo-light: #818cf8;
+          --indigo-faint: #eef2ff;
+          --green: #16a34a;
+          --green-faint: #f0fdf4;
+          --red: #dc2626;
+          --red-faint: #fef2f2;
+          --amber: #d97706;
+          --amber-faint: #fffbeb;
+          --slate-900: #0f172a;
+          --slate-700: #334155;
+          --slate-500: #64748b;
+          --slate-300: #cbd5e1;
+          --slate-100: #f1f5f9;
+          --white: #ffffff;
+          --radius: 1rem;
+          --radius-sm: 0.625rem;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          background: #f8fafc;
+          color: var(--slate-900);
+          line-height: 1.7;
+          font-size: 16px;
+        }
+
+        /* ===== BARRA DE PROGRESSO ===== */
+        #read-progress {
+          position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+          background: linear-gradient(90deg, var(--indigo), var(--indigo-light));
+          z-index: 9999; transition: width 0.1s linear;
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+          position: sticky; top: 0; z-index: 100;
+          background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+          border-bottom: 1px solid var(--slate-300);
+        }
+        .nav-inner {
+          max-width: 800px; margin: 0 auto; padding: 0 1.25rem;
+          height: 60px; display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-logo {
+          font-weight: 800; font-size: 1.1rem; color: var(--indigo); text-decoration: none;
+          display: flex; align-items: center; gap: 0.5rem;
+        }
+        .nav-logo span {
+          width: 32px; height: 32px; background: var(--indigo); color: white;
+          border-radius: 8px; display: flex; align-items: center; justify-content: center;
+        }
+
+        /* ===== LAYOUT ===== */
+        main { max-width: 760px; margin: 0 auto; padding: 0 1.25rem 5rem; }
+
+        /* ===== HERO & HOOK ===== */
+        .hero { padding: 2.5rem 0 1rem; }
+        .hero-tag {
+          display: inline-block; background: var(--indigo-faint); color: var(--indigo);
+          font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em;
+          text-transform: uppercase; padding: 0.3rem 0.85rem; border-radius: 999px; margin-bottom: 1rem;
+        }
+        .hero h1 {
+          font-family: 'Lora', serif; font-size: clamp(2rem, 5vw, 3.25rem);
+          font-weight: 700; line-height: 1.15; color: var(--slate-900); margin-bottom: 1rem;
+        }
+        .hook-box {
+          background: var(--red-faint); color: var(--red);
+          padding: 0.5rem 1rem; border-radius: var(--radius-sm);
+          font-weight: 700; font-size: 0.85rem; display: inline-flex;
+          align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;
+        }
+
+        /* ===== RESUMO VISUAL RÁPIDO ===== */
+        .visual-summary {
+          display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+          gap: 0.75rem; margin-bottom: 2.5rem;
+        }
+        .summary-item {
+          background: white; border: 1.5px solid var(--slate-100);
+          padding: 1.25rem; border-radius: var(--radius-sm); text-align: center;
+          transition: transform 0.2s;
+        }
+        .summary-item:hover { transform: translateY(-3px); border-color: var(--indigo-light); }
+        .summary-term { display: block; font-family: 'Lora', serif; font-weight: 700; font-size: 1.25rem; color: var(--indigo); margin-bottom: 0.25rem; }
+        .summary-def { font-size: 0.85rem; font-weight: 700; color: var(--slate-500); }
+
+        /* ===== TABS ===== */
+        .tabs-wrap {
+          display: flex; gap: 0.375rem; overflow-x: auto; padding-bottom: 0.25rem;
+          scrollbar-width: none; margin-bottom: 1.5rem;
+        }
+        .tab-btn {
+          flex-shrink: 0; padding: 0.5rem 1.25rem; border-radius: 999px;
+          border: 1.5px solid var(--slate-300); background: white;
+          font-size: 0.85rem; font-weight: 700; color: var(--slate-500);
+          cursor: pointer; transition: all 0.2s;
+        }
+        .tab-btn.active { background: var(--indigo); border-color: var(--indigo); color: white; }
+
+        /* ===== CARDS ===== */
+        .form-card {
+          background: white; border: 1.5px solid var(--slate-300);
+          border-radius: var(--radius); padding: 1.75rem; margin-bottom: 2rem; display: none;
+        }
+        .form-card.visible { display: block; animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .form-badge { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: 1rem; }
+        .badge-blue { background: #dbeafe; color: #1d4ed8; }
+        .badge-purple { background: #ede9fe; color: #7c3aed; }
+
+        .examples { background: var(--slate-100); border-radius: var(--radius-sm); padding: 1rem; margin: 1rem 0; }
+        .ex-row { display: flex; gap: 0.5rem; font-size: 0.95rem; padding: 0.4rem 0; }
+        .ex-correct { color: var(--green); font-weight: 600; }
+
+        /* ===== TABELA COMPARATIVA ===== */
+        .comparison-wrap { overflow-x: auto; margin: 3rem 0; }
+        .comp-table { width: 100%; border-collapse: collapse; background: white; border-radius: var(--radius); overflow: hidden; border: 1.5px solid var(--slate-100); }
+        .comp-table th { background: var(--slate-100); padding: 1rem; text-align: left; font-size: 0.85rem; text-transform: uppercase; color: var(--slate-500); }
+        .comp-table td { padding: 1rem; border-bottom: 1px solid var(--slate-100); font-size: 0.95rem; }
+
+        /* ===== QUIZ ===== */
+        .quiz-section { background: #1e1b4b; color: white; border-radius: var(--radius); padding: 2.5rem 2rem; margin-top: 4rem; }
+        .quiz-opt-btn { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 1rem; border-radius: var(--radius-sm); color: white; text-align: left; margin-bottom: 0.5rem; cursor: pointer; transition: 0.2s; font-family: inherit; font-size: 0.95rem; }
+        .quiz-opt-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--indigo-light); }
+        .q-correct { background: rgba(34,197,94,0.3) !important; border-color: var(--green) !important; }
+        .q-wrong { background: rgba(239,68,68,0.3) !important; border-color: var(--red) !important; }
+
+        footer { background: var(--slate-900); color: #94a3b8; padding: 4rem 1.25rem; text-align: center; margin-top: 5rem; }
+        .link-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; }
+        .link-card { background: white; border: 1px solid var(--slate-200); padding: 1.5rem; border-radius: var(--radius); text-decoration: none; color: inherit; transition: 0.2s; text-align: left; }
+        .link-card:hover { border-color: var(--indigo); transform: translateY(-3px); }
+    </style>
+</head>
+<body>
+
+    <div id="read-progress"></div>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo"><span>H</span> Hiato Literário</a>
+        </div>
+    </nav>
+
+    <main>
+        <header class="hero">
+            <div class="hero-tag">Dúvida Linguística</div>
+            <h1>Mas ou Mais?<br>Aprenda a Diferença Definitiva</h1>
+            
+            <div class="hook-box">
+                <span>⚠️</span> 95% das pessoas confundem "mas" e "mais". Domine a regra agora.
+            </div>
+
+            <!-- RESUMO VISUAL RÁPIDO -->
+            <div class="visual-summary">
+                <div class="summary-item">
+                    <span class="summary-term">mas</span>
+                    <span class="summary-def">oposto de porém</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-term">mais</span>
+                    <span class="summary-def">oposto de menos</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- EXPLICAÇÃO COM ABAS -->
+        <div class="tabs-wrap">
+            <button class="tab-btn active" onclick="showForm(0)">Mas (sem I)</button>
+            <button class="tab-btn" onclick="showForm(1)">Mais (com I)</button>
+        </div>
+
+        <article class="form-card visible" id="form-0">
+            <div class="form-badge badge-blue">M</div>
+            <h2><em>Mas</em> — Conjunção</h2>
+            <p>Usado para ligar frases que trazem ideias opostas ou contrárias. É sinônimo de "porém", "entretanto" ou "todavia".</p>
+            <div class="examples">
+                <div class="ex-row"><span class="ex-correct">✓ Tentei chegar cedo, mas o trânsito não deixou. (porém)</span></div>
+                <div class="ex-row"><span class="ex-correct">✓ Ela é inteligente, mas muito tímida. (entretanto)</span></div>
+            </div>
+            <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--slate-500); font-style: italic;">
+                Dica: Se puder trocar por "porém", use <strong>mas</strong>.
+            </div>
+        </article>
+
+        <article class="form-card" id="form-1">
+            <div class="form-badge badge-purple">I</div>
+            <h2><em>Mais</em> — Intensidade ou Quantidade</h2>
+            <p>Usado para indicar adição, maior quantidade ou intensidade. Pode ser um advérbio ou pronome. É o oposto de <strong>menos</strong>.</p>
+            <div class="examples">
+                <div class="ex-row"><span class="ex-correct">✓ Quero mais um pedaço de bolo. (adição)</span></div>
+                <div class="ex-row"><span class="ex-correct">✓ Ele é o aluno mais dedicado. (intensidade)</span></div>
+                <div class="ex-row"><span class="ex-correct">✓ Dois mais dois são quatro. (soma)</span></div>
+            </div>
+            <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--slate-500); font-style: italic;">
+                Dica: Se puder trocar por "menos", use <strong>mais</strong>.
+            </div>
+        </article>
+
+        <!-- TABELA COMPARATIVA -->
+        <section class="comparison-wrap">
+            <h3 style="font-family:'Lora'; margin-bottom: 1rem;">Tabela Comparativa</h3>
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th>Palavra</th>
+                        <th>Função</th>
+                        <th>Oposto / Sinônimo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mas</strong></td>
+                        <td>Oposição</td>
+                        <td>Porém / Entretanto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mais</strong></td>
+                        <td>Quantidade / Intensidade</td>
+                        <td>Menos</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- QUIZ INTERATIVO -->
+        <section class="quiz-section">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 style="font-family:'Lora'; font-size: 1.8rem;">Desafio Mas ou Mais</h2>
+                <p style="opacity: 0.7;">Teste se você realmente aprendeu!</p>
+            </div>
+            
+            <div id="quiz-content">
+                <p id="q-text" style="font-size: 1.15rem; margin-bottom: 1.5rem; font-weight: 600;"></p>
+                <div id="q-opts"></div>
+                <div id="q-feedback" style="margin-top: 1rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600;"></div>
+                <button id="q-next" style="display:none; margin-top: 1.5rem; background: var(--indigo); border: none; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 700; width: 100%;">Próxima Questão →</button>
+            </div>
+
+            <div id="q-result" style="display:none; text-align: center;">
+                <h3 style="font-size: 2rem;">🏆 Quiz Terminado!</h3>
+                <p id="q-score-final" style="margin: 1.5rem 0; font-size: 1.25rem;"></p>
+                <button onclick="location.reload()" style="background: white; color: var(--indigo); border: none; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 700; cursor: pointer;">Tentar Novamente</button>
+            </div>
+        </section>
+
+        <!-- LINKS ESTRATÉGICOS -->
+        <nav class="internal-links" style="margin-top: 4rem;">
+            <h3 style="font-family:'Lora'; color: var(--slate-500); font-size: 0.8rem; text-transform: uppercase;">Continue estudando:</h3>
+            <div class="link-cards">
+                <a href="porque-ou-por-que.html" class="link-card">
+                    <span style="font-size: 0.7rem; color: var(--indigo); font-weight: 700;">ESSENCIAL</span>
+                    <h4 style="font-family:'Lora'; margin-top: 0.5rem;">Os 4 Porquês →</h4>
+                </a>
+                <a href="mal-ou-mau.html" class="link-card">
+                    <span style="font-size: 0.7rem; color: var(--indigo); font-weight: 700;">REGRA DO BEM/BOM</span>
+                    <h4 style="font-family:'Lora'; margin-top: 0.5rem;">Mal ou Mau? →</h4>
+                </a>
+            </div>
+        </nav>
+    </main>
+
+    <footer>
+        <div style="font-weight: 800; color: white; margin-bottom: 1rem;">Hiato Literário</div>
+        <p>Aprenda → Pratique → Compartilhe</p>
+        <p style="margin-top: 1rem; font-size: 0.75rem;">© 2026 Hiato Literário</p>
+    </footer>
+
+    <script>
+        // PROGRESSO
+        window.addEventListener('scroll', () => {
+            const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById('read-progress').style.width = pct + '%';
+        });
+
+        // TABS
+        function showForm(idx) {
+            document.querySelectorAll('.form-card').forEach((c, i) => c.classList.toggle('visible', i === idx));
+            document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+        }
+
+        // QUIZ
+        const quizData = [
+            { q: "Quero ______ um pouco de café.", opts: ["mas", "mais"], correct: 1, exp: "Indica quantidade/adição (contrário de menos)." },
+            { q: "Estudei muito, ______ não entendi nada.", opts: ["mas", "mais"], correct: 0, exp: "Indica oposição (pode ser trocado por porém)." },
+            { q: "Ela é a ______ rápida da equipe.", opts: ["mas", "mais"], correct: 1, exp: "Indica intensidade (contrário de menos)." },
+            { q: "O tempo voa, ______ as memórias ficam.", opts: ["mas", "mais"], correct: 0, exp: "Indica contradição (sinônimo de todavia)." },
+            { q: "Quanto ______ eu estudo, menos eu sei.", opts: ["mas", "mais"], correct: 1, exp: "Indica intensidade/proporção (contrário de menos)." }
+        ];
+
+        let cur = 0; let score = 0;
+
+        function renderQ() {
+            const d = quizData[cur];
+            document.getElementById('q-text').innerText = (cur + 1) + ". " + d.q;
+            const optsDiv = document.getElementById('q-opts');
+            optsDiv.innerHTML = '';
+            d.opts.forEach((o, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-opt-btn';
+                btn.innerText = o;
+                btn.onclick = () => checkQ(i);
+                optsDiv.appendChild(btn);
+            });
+            document.getElementById('q-feedback').style.display = 'none';
+            document.getElementById('q-next').style.display = 'none';
+        }
+
+        function checkQ(idx) {
+            const d = quizData[cur];
+            const btns = document.querySelectorAll('.quiz-opt-btn');
+            btns.forEach(b => b.disabled = true);
+            const fb = document.getElementById('q-feedback');
+            fb.style.display = 'block';
+            if(idx === d.correct) {
+                btns[idx].classList.add('q-correct');
+                fb.innerText = "Correto! " + d.exp;
+                fb.style.color = "#86efac";
+                score++;
+            } else {
+                btns[idx].classList.add('q-wrong');
+                btns[d.correct].classList.add('q-correct');
+                fb.innerText = "Ops! " + d.exp;
+                fb.style.color = "#fca5a5";
+            }
+            document.getElementById('q-next').style.display = 'block';
+        }
+
+        document.getElementById('q-next').onclick = () => {
+            cur++;
+            if(cur < quizData.length) renderQ();
+            else {
+                document.getElementById('quiz-content').style.display = 'none';
+                document.getElementById('q-result').style.display = 'block';
+                document.getElementById('q-score-final').innerText = `Você acertou ${score} de ${quizData.length} perguntas.`;
+            }
+        };
+
+        renderQ();
+    </script>
+</body>
+</html>
