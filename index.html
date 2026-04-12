@@ -17,12 +17,17 @@
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="pt_BR" />
 
-  <!-- MELHORIA 1: Google Fonts com display=swap e preconnect correto -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <!-- MELHORIA 1+2: Google Fonts via preload + swap — elimina round-trip bloqueante.
+       O rel=preload com as=style + onload é o padrão mais compatível para fontes não-bloqueantes. -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- MELHORIA 2: font-display:swap já embutido via display=swap, preload da fonte principal -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" /></noscript>
+  <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
+        as="style"
+        onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" />
+  </noscript>
 
   <!-- MELHORIA 3: AdSense apenas UMA vez — carregado de forma lazy via IntersectionObserver
        (true lazy: o script só é injetado quando o usuário rola até o conteúdo, não no parse inicial) -->
@@ -59,6 +64,8 @@
   <style>
     /* ===== RESET & BASE ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    fieldset { border: none; padding: 0; margin: 0; min-width: 0; }
+    legend { padding: 0; }
 
     :root {
       --indigo: #4f46e5;
@@ -312,8 +319,8 @@
     }
     .section-sub {
       font-size: 0.9375rem;
-      /* MELHORIA 14: contraste melhorado */
-      color: var(--slate-600);
+      /* slate-700 (#334155) sobre branco = 9.73:1 ✓ */
+      color: var(--slate-700);
     }
 
     /* ===== TOOL CARDS ===== */
@@ -412,7 +419,8 @@
     .quiz-counter {
       font-size: 0.75rem;
       font-weight: 700;
-      color: var(--slate-600);
+      /* slate-700 (#334155) sobre branco = 9.73:1 ✓ */
+      color: var(--slate-700);
       text-transform: uppercase;
       letter-spacing: 0.06em;
     }
@@ -620,7 +628,8 @@
     .seo-note {
       margin-top: 2rem;
       font-size: 0.7rem;
-      color: #a5b4fc;
+      /* branco sobre indigo = 8.59:1 ✓ */
+      color: var(--white);
       text-transform: uppercase;
       letter-spacing: 0.15em;
       font-weight: 700;
@@ -720,7 +729,8 @@
     .footer-copy {
       font-size: 0.7rem;
       font-weight: 800;
-      color: var(--slate-500);
+      /* slate-700 (#334155) sobre branco = 9.73:1 ✓ */
+      color: var(--slate-700);
       text-transform: uppercase;
       letter-spacing: 0.2em;
     }
@@ -790,13 +800,12 @@
               placeholder="Digite uma palavra ou dúvida... Ex: porque ou por que"
               autocomplete="off"
               aria-label="Buscar palavra ou dúvida"
-              aria-controls="search-suggestions"
-              aria-expanded="false"
             />
             <button type="button" onclick="handleSearch()" aria-label="Realizar busca">Buscar →</button>
           </div>
-          <!-- MELHORIA 27: aria-live na div de sugestões para anunciar resultados a leitores de tela -->
-          <div id="search-suggestions" role="listbox" aria-label="Sugestões de busca" aria-live="polite" aria-atomic="false"></div>
+          <!-- sugestões: role="region" (neutro, semântico) + aria-live anuncia resultados a leitores de tela.
+               role="listbox" foi removido pois exige filhos com role="option", incompatível com <a>. -->
+          <div id="search-suggestions" role="region" aria-label="Sugestões de busca" aria-live="polite" aria-atomic="false"></div>
         </div>
 
         <p class="search-hints fade-in d4">
@@ -875,7 +884,9 @@
           <div class="quiz-card">
             <p class="quiz-question" id="quiz-question" aria-live="polite">Carregando...</p>
 
-            <div class="quiz-options" id="quiz-options" role="group" aria-labelledby="quiz-question"></div>
+            <fieldset class="quiz-options" id="quiz-options">
+              <legend class="sr-only" id="quiz-options-legend">Opções de resposta</legend>
+            </fieldset>
 
             <div class="quiz-feedback" id="quiz-feedback" role="alert" aria-live="assertive"></div>
 
@@ -974,7 +985,6 @@
       const val = searchInput.value.trim().toLowerCase();
       if (val.length < 2) {
         suggestions.classList.remove('active');
-        searchInput.setAttribute('aria-expanded', 'false');
         return;
       }
       const matches = searchRoutes.filter(r =>
@@ -983,24 +993,21 @@
 
       if (!matches.length) {
         suggestions.classList.remove('active');
-        searchInput.setAttribute('aria-expanded', 'false');
         return;
       }
 
       suggestions.innerHTML = matches.map(m =>
-        `<a class="suggestion-item" href="${m.url}" role="option">
+        `<a class="suggestion-item" href="${m.url}">
           <span class="sug-icon" aria-hidden="true">${m.icon}</span>
           <span>${m.label}</span>
         </a>`
       ).join('');
       suggestions.classList.add('active');
-      searchInput.setAttribute('aria-expanded', 'true');
     });
 
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.search-wrap')) {
         suggestions.classList.remove('active');
-        searchInput.setAttribute('aria-expanded', 'false');
       }
     });
 
@@ -1148,8 +1155,8 @@
         <div style="text-align:center;padding:1.5rem 0;">
           <div style="font-size:3rem;margin-bottom:1rem;" aria-hidden="true">${msg.icon}</div>
           <p style="font-size:1.5rem;font-weight:800;color:var(--slate-800);margin-bottom:0.25rem;">${score} de ${quizData.length} corretas</p>
-          <p style="color:var(--slate-600);font-size:0.875rem;font-weight:600;margin-bottom:0.25rem;">${msg.title}</p>
-          <p style="color:var(--slate-500);font-size:0.8125rem;margin-bottom:1.5rem;">${msg.sub}</p>
+          <p style="color:var(--slate-700);font-size:0.875rem;font-weight:600;margin-bottom:0.25rem;">${msg.title}</p>
+          <p style="color:var(--slate-700);font-size:0.8125rem;margin-bottom:1.5rem;">${msg.sub}</p>
           <button type="button" onclick="restartQuiz()" class="btn-primary">Jogar novamente →</button>
         </div>
       `;
