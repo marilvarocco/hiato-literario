@@ -2,92 +2,285 @@
 <html lang="pt-BR" prefix="og: https://ogp.me/ns#">
 
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3405911750491123"
-     crossorigin="anonymous"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3405911750491123" crossorigin="anonymous"></script>
-
   <title>Hiato Literário | Ferramentas de Escrita e Normas ABNT</title>
   <meta name="description" content="Ferramentas acadêmicas gratuitas para estudantes, escritores e professores: contador de palavras, gerador de capa ABNT, referências e rimas. Criado por especialistas." />
   <meta name="author" content="Marcos Rocco" />
   <meta name="theme-color" content="#4f46e5" />
   <link rel="canonical" href="https://hiatoliterario.com.br/" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Open Graph -->
+  <meta property="og:title" content="Hiato Literário | Ferramentas de Escrita e Normas ABNT" />
+  <meta property="og:description" content="Ferramentas acadêmicas gratuitas para estudantes, escritores e professores." />
+  <meta property="og:url" content="https://hiatoliterario.com.br/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+
+  <!-- MELHORIA 1: Google Fonts com display=swap e preconnect correto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- MELHORIA 2: font-display:swap já embutido via display=swap, preload da fonte principal -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" /></noscript>
+
+  <!-- MELHORIA 3: AdSense apenas UMA vez — carregado de forma lazy via IntersectionObserver
+       (true lazy: o script só é injetado quando o usuário rola até o conteúdo, não no parse inicial) -->
+  <script>
+    (function() {
+      var adLoaded = false;
+      function loadAdsense() {
+        if (adLoaded) return;
+        adLoaded = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.crossOrigin = 'anonymous';
+        s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3405911750491123';
+        document.head.appendChild(s);
+      }
+      if ('IntersectionObserver' in window) {
+        var sentinel = document.createElement('div');
+        document.addEventListener('DOMContentLoaded', function() {
+          document.body.appendChild(sentinel);
+          new IntersectionObserver(function(entries, obs) {
+            if (entries[0].isIntersecting) { loadAdsense(); obs.disconnect(); }
+          }, { rootMargin: '200px' }).observe(sentinel);
+        });
+      } else {
+        // fallback para navegadores antigos sem IntersectionObserver
+        window.addEventListener('load', loadAdsense);
+      }
+    })();
+  </script>
+
+  <!-- MELHORIA 4: CSS crítico inline + Tailwind CDN substituído por CSS próprio otimizado -->
+  <!-- Tailwind CDN removido — substituído por CSS puro, eliminando ~345 KiB de JS não usado -->
 
   <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
       --indigo: #4f46e5;
       --indigo-light: #6366f1;
       --indigo-dark: #3730a3;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+      --white: #ffffff;
+      --amber-50: #fffbeb;
+      --amber-200: #fde68a;
+      --amber-600: #d97706;
+      --green-50: #f0fdf4;
+      --green-200: #bbf7d0;
+      --green-700: #15803d;
+      --red-50: #fef2f2;
+      --red-200: #fecaca;
+      --red-700: #b91c1c;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #f8fafc;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--slate-50);
+      color: var(--slate-900);
+      /* MELHORIA 5: text-rendering otimizado */
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .glass-effect {
-      background: rgba(255, 255, 255, 0.92);
+    /* MELHORIA 6: selection acessível com contraste adequado */
+    ::selection { background: #c7d2fe; color: #1e1b4b; }
+
+    /* ===== UTILITIES ===== */
+    .container { max-width: 80rem; margin: 0 auto; padding: 0 1.5rem; }
+    .text-center { text-align: center; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+    /* ===== GLASS HEADER ===== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--slate-200);
+      background: rgba(255,255,255,0.92);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
-
-    /* ===== HERO SEARCH ===== */
-    .hero-search-wrap {
+    .site-header .inner {
       display: flex;
-      gap: 0;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+    .logo-mark {
+      width: 2.25rem;
+      height: 2.25rem;
+      background: var(--indigo);
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-weight: 800;
+      font-size: 0.9rem;
+      transition: transform 0.2s;
+    }
+    .logo:hover .logo-mark { transform: scale(1.08); }
+    .logo-text { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--slate-800); }
+    .logo-text span { color: var(--indigo); }
+
+    /* MELHORIA 7: nav com aria-label */
+    .site-nav { display: none; gap: 1.5rem; }
+    @media (min-width: 768px) { .site-nav { display: flex; } }
+    .site-nav a {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--slate-600);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .site-nav a:hover { color: var(--indigo); }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 4rem 0 3rem;
+      text-align: center;
+    }
+    @media (min-width: 768px) { .hero { padding: 6rem 0 4rem; } }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #eef2ff;
+      /* MELHORIA 8: cor do texto do badge com contraste 4.5:1+ */
+      color: #3730a3;
+      padding: 0.375rem 1rem;
+      border-radius: 9999px;
+      border: 1px solid #c7d2fe;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.75rem);
+      font-weight: 800;
+      color: var(--slate-900);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      /* MELHORIA 9: contraste melhorado de slate-500 para slate-600 */
+      color: var(--slate-600);
+      max-width: 40rem;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+    .hero-sub strong { color: var(--slate-800); }
+
+    /* ===== SEARCH ===== */
+    .search-wrap {
+      position: relative;
       max-width: 600px;
       margin: 0 auto;
-      background: white;
-      border: 2px solid #e2e8f0;
+      padding: 0 0.5rem;
+    }
+    .search-box {
+      display: flex;
+      background: var(--white);
+      border: 2px solid var(--slate-200);
       border-radius: 1rem;
       overflow: hidden;
       transition: border-color 0.2s, box-shadow 0.2s;
       box-shadow: 0 4px 24px -4px rgba(79,70,229,0.08);
     }
-    .hero-search-wrap:focus-within {
-      border-color: #4f46e5;
-      box-shadow: 0 0 0 4px rgba(79,70,229,0.1);
+    .search-box:focus-within {
+      border-color: var(--indigo);
+      box-shadow: 0 0 0 4px rgba(79,70,229,0.12);
     }
-    .hero-search-wrap input {
+    .search-box input {
       flex: 1;
-      padding: 1rem 1.25rem;
+      padding: 0.875rem 1.25rem;
       font-size: 1rem;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: inherit;
       border: none;
       outline: none;
       background: transparent;
-      color: #1e293b;
+      color: var(--slate-800);
+      min-width: 0;
     }
-    .hero-search-wrap input::placeholder { color: #94a3b8; }
-    .hero-search-wrap button {
-      padding: 0.85rem 1.5rem;
-      background: #4f46e5;
-      color: white;
+    /* MELHORIA 10: placeholder com contraste melhorado */
+    .search-box input::placeholder { color: var(--slate-500); }
+    .search-box button {
+      padding: 0.875rem 1.25rem;
+      background: var(--indigo);
+      color: var(--white);
       font-weight: 700;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.95rem;
+      font-family: inherit;
+      font-size: 0.9rem;
       border: none;
       cursor: pointer;
       transition: background 0.2s;
       white-space: nowrap;
+      /* MELHORIA 11: foco visível para acessibilidade */
+      outline-offset: 2px;
     }
-    .hero-search-wrap button:hover { background: #3730a3; }
+    .search-box button:hover { background: var(--indigo-dark); }
+    .search-box button:focus-visible { outline: 3px solid var(--indigo); }
+
+    .search-hints {
+      margin-top: 0.875rem;
+      font-size: 0.875rem;
+      /* MELHORIA 12: contraste melhorado para texto de hint */
+      color: var(--slate-600);
+    }
+    .search-hints button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--indigo);
+      font-weight: 600;
+      font-size: inherit;
+      font-family: inherit;
+      padding: 0 0.1rem;
+      text-decoration: underline;
+      text-decoration-color: transparent;
+      transition: text-decoration-color 0.15s;
+    }
+    .search-hints button:hover { text-decoration-color: var(--indigo); }
 
     #search-suggestions {
-      max-width: 600px;
-      margin: 0.5rem auto 0;
+      position: absolute;
+      left: 0.5rem;
+      right: 0.5rem;
+      top: calc(100% + 0.375rem);
       display: none;
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 0.75rem;
+      background: var(--white);
+      border: 1px solid var(--slate-200);
+      border-radius: 0.875rem;
       overflow: hidden;
-      box-shadow: 0 8px 24px -4px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 24px -4px rgba(0,0,0,0.12);
+      z-index: 30;
     }
     #search-suggestions.active { display: block; }
     .suggestion-item {
@@ -98,310 +291,609 @@
       cursor: pointer;
       transition: background 0.15s;
       text-decoration: none;
-      color: #1e293b;
+      /* MELHORIA 13: cor com contraste adequado */
+      color: var(--slate-800);
       font-size: 0.9rem;
       font-weight: 500;
     }
-    .suggestion-item:hover { background: #f5f3ff; color: #4f46e5; }
-    .suggestion-item + .suggestion-item { border-top: 1px solid #f1f5f9; }
-    .suggestion-item .sug-icon { font-size: 1rem; width: 20px; text-align: center; }
+    .suggestion-item:hover { background: #f5f3ff; color: var(--indigo); }
+    .suggestion-item + .suggestion-item { border-top: 1px solid var(--slate-100); }
+    .sug-icon { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
 
-    /* ===== CARDS DE FERRAMENTAS ===== */
-    .action-card {
-      background: white;
+    /* ===== SECTION HEADING ===== */
+    .section { padding: 3.5rem 0; }
+    .section-border { border-top: 1px solid var(--slate-200); }
+    .section-title {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 800;
+      color: var(--slate-900);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .section-sub {
+      font-size: 0.9375rem;
+      /* MELHORIA 14: contraste melhorado */
+      color: var(--slate-600);
+    }
+
+    /* ===== TOOL CARDS ===== */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      max-width: 60rem;
+      margin: 2.5rem auto 0;
+    }
+    @media (min-width: 640px) { .tools-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .tools-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .tool-card {
+      background: var(--white);
       padding: 1.75rem 1.25rem;
       border-radius: 1.25rem;
-      border: 1.5px solid #e2e8f0;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1.5px solid var(--slate-200);
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       text-decoration: none;
-      height: 100%;
+      /* MELHORIA 15: will-change para GPU */
+      will-change: transform;
     }
-    .action-card:hover {
-      border-color: #4f46e5;
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px -10px rgba(79, 70, 229, 0.15);
+    .tool-card:hover {
+      border-color: var(--indigo);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px -8px rgba(79,70,229,0.18);
     }
-    .action-card .icon-wrapper {
+    /* MELHORIA 16: focus-visible acessível */
+    .tool-card:focus-visible {
+      outline: 3px solid var(--indigo);
+      outline-offset: 2px;
+    }
+    .tool-icon {
       width: 52px;
       height: 52px;
-      background: #f1f5f9;
-      color: #4f46e5;
+      background: var(--slate-100);
+      color: var(--indigo);
       border-radius: 0.875rem;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 1rem;
       font-size: 1.5rem;
-      transition: all 0.3s;
+      transition: background 0.25s, transform 0.25s;
+      /* MELHORIA 17: aria-hidden no emoji */
     }
-    .action-card:hover .icon-wrapper {
-      background: #4f46e5;
-      color: white;
-      transform: scale(1.1);
+    .tool-card:hover .tool-icon {
+      background: var(--indigo);
+      color: var(--white);
+      transform: scale(1.08);
+    }
+    .tool-title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--slate-800);
+      margin-bottom: 0.5rem;
+    }
+    .tool-desc {
+      font-size: 0.875rem;
+      color: var(--slate-600);
+      line-height: 1.5;
     }
 
     /* ===== QUIZ ===== */
+    .quiz-wrap {
+      max-width: 36rem;
+      margin: 0 auto;
+    }
+    .quiz-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--amber-50);
+      /* MELHORIA 18: contraste do badge amber */
+      color: #92400e;
+      padding: 0.375rem 1rem;
+      border-radius: 9999px;
+      border: 1px solid var(--amber-200);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .quiz-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.625rem;
+    }
+    .quiz-counter {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--slate-600);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .quiz-score {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--indigo);
+    }
+    .progress-bar {
+      height: 6px;
+      background: var(--slate-200);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--indigo), #818cf8);
+      border-radius: 9999px;
+      transition: width 0.5s ease;
+    }
+    .quiz-card {
+      background: var(--white);
+      border: 2px solid var(--slate-200);
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    @media (min-width: 768px) { .quiz-card { padding: 2rem 2.25rem; } }
+    .quiz-question {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--slate-700);
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+    }
+    @media (min-width: 768px) { .quiz-question { font-size: 1.075rem; } }
+    .quiz-options { display: flex; flex-direction: column; gap: 0.75rem; }
+
     .quiz-option {
       display: flex;
       align-items: center;
       gap: 0.875rem;
-      padding: 1rem 1.25rem;
-      background: white;
-      border: 2px solid #e2e8f0;
+      padding: 0.875rem 1.125rem;
+      background: var(--white);
+      border: 2px solid var(--slate-200);
       border-radius: 0.875rem;
       cursor: pointer;
-      transition: all 0.2s;
-      font-size: 0.95rem;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      font-size: 0.9375rem;
       font-weight: 600;
-      color: #334155;
+      /* MELHORIA 19: contraste do texto das opções */
+      color: var(--slate-800);
       text-align: left;
       width: 100%;
+      font-family: inherit;
     }
     .quiz-option:hover:not(:disabled) {
-      border-color: #4f46e5;
+      border-color: var(--indigo);
       background: #f5f3ff;
-      color: #4f46e5;
+      color: #1e1b4b;
+    }
+    .quiz-option:focus-visible {
+      outline: 3px solid var(--indigo);
+      outline-offset: 2px;
     }
     .quiz-option.correct {
-      border-color: #22c55e;
-      background: #f0fdf4;
-      color: #15803d;
+      border-color: #16a34a;
+      background: var(--green-50);
+      color: #14532d;
     }
     .quiz-option.wrong {
-      border-color: #ef4444;
-      background: #fef2f2;
-      color: #b91c1c;
+      border-color: #dc2626;
+      background: var(--red-50);
+      color: #7f1d1d;
     }
-    .quiz-option .opt-dot {
-      width: 24px;
-      height: 24px;
+    .opt-dot {
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       border: 2px solid currentColor;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 800;
       flex-shrink: 0;
       transition: all 0.2s;
     }
-    .quiz-option.correct .opt-dot { background: #22c55e; border-color: #22c55e; color: white; }
-    .quiz-option.wrong .opt-dot { background: #ef4444; border-color: #ef4444; color: white; }
+    .quiz-option.correct .opt-dot { background: #16a34a; border-color: #16a34a; color: var(--white); }
+    .quiz-option.wrong .opt-dot { background: #dc2626; border-color: #dc2626; color: var(--white); }
 
-    #quiz-feedback {
+    .quiz-feedback {
       display: none;
-      padding: 1rem 1.25rem;
-      border-radius: 0.875rem;
-      font-size: 0.9rem;
+      padding: 0.875rem 1.125rem;
+      border-radius: 0.75rem;
+      font-size: 0.875rem;
       font-weight: 600;
-      line-height: 1.5;
+      line-height: 1.6;
+      margin-top: 1.25rem;
     }
-    #quiz-feedback.show { display: block; }
-    #quiz-feedback.success {
-      background: #f0fdf4;
-      border: 1.5px solid #bbf7d0;
-      color: #15803d;
+    .quiz-feedback.show { display: block; }
+    .quiz-feedback.success {
+      background: var(--green-50);
+      border: 1.5px solid var(--green-200);
+      /* MELHORIA 20: contraste de feedback verde */
+      color: #14532d;
     }
-    #quiz-feedback.error {
-      background: #fef2f2;
-      border: 1.5px solid #fecaca;
-      color: #b91c1c;
-    }
-
-    .progress-bar {
-      height: 6px;
-      background: #e2e8f0;
-      border-radius: 999px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #4f46e5, #818cf8);
-      border-radius: 999px;
-      transition: width 0.5s ease;
+    .quiz-feedback.error {
+      background: var(--red-50);
+      border: 1.5px solid var(--red-200);
+      color: #7f1d1d;
     }
 
-    /* ===== SEO LINKS ===== */
+    .quiz-actions {
+      display: none;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.25rem;
+    }
+    @media (min-width: 480px) { .quiz-actions { flex-direction: row; } }
+    .quiz-actions.show { display: flex; }
+
+    .btn-learn {
+      color: var(--indigo);
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-learn:hover { text-decoration: underline; }
+    .btn-primary {
+      background: var(--indigo);
+      color: var(--white);
+      padding: 0.625rem 1.5rem;
+      border-radius: 0.75rem;
+      font-weight: 700;
+      font-size: 0.875rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+    .btn-primary:hover { background: var(--indigo-dark); }
+    .btn-primary:focus-visible { outline: 3px solid var(--indigo); outline-offset: 2px; }
+
+    /* ===== SEO SECTION ===== */
+    .seo-block {
+      background: var(--indigo);
+      border-radius: 2rem;
+      padding: 2.5rem 1.5rem;
+      color: var(--white);
+      text-align: center;
+    }
+    @media (min-width: 768px) { .seo-block { padding: 3.5rem; } }
+
+    .seo-block h2 {
+      font-size: clamp(1.375rem, 3vw, 2.25rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.625rem;
+    }
+    .seo-block p {
+      /* MELHORIA 21: cor legível em fundo indigo */
+      color: #c7d2fe;
+      font-size: 0.9375rem;
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+    .seo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      max-width: 52rem;
+      margin: 0 auto;
+    }
+    @media (min-width: 640px) { .seo-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .seo-grid { grid-template-columns: repeat(4, 1fr); } }
+
     .seo-link {
       display: block;
       padding: 0.75rem 1rem;
-      background: white;
-      border: 1.5px solid #e2e8f0;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.2);
       border-radius: 0.75rem;
-      color: #475569;
+      /* MELHORIA 22: cor branca para contraste em fundo indigo */
+      color: var(--white);
       font-weight: 600;
-      transition: all 0.2s;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
       text-decoration: none;
       font-size: 0.875rem;
     }
     .seo-link:hover {
-      border-color: #4f46e5;
-      color: #4f46e5;
-      background: #f5f3ff;
-      transform: translateX(4px);
+      background: rgba(255,255,255,0.22);
+      border-color: rgba(255,255,255,0.4);
+      transform: translateX(3px);
+    }
+    .seo-link:focus-visible { outline: 3px solid var(--white); outline-offset: 2px; }
+
+    .seo-note {
+      margin-top: 2rem;
+      font-size: 0.7rem;
+      color: #a5b4fc;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 700;
     }
 
-    html { scroll-behavior: smooth; }
+    /* ===== AUTHORITY ===== */
+    .authority-wrap {
+      max-width: 50rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 1.5rem;
+      border: 1px solid var(--slate-200);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    @media (min-width: 768px) {
+      .authority-wrap { flex-direction: row; gap: 2rem; }
+    }
+    .authority-icon {
+      width: 5rem;
+      height: 5rem;
+      background: #eef2ff;
+      border-radius: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+    .authority-wrap h2 {
+      font-size: 1.125rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 0.5rem;
+    }
+    .authority-wrap p {
+      color: var(--slate-600);
+      line-height: 1.7;
+      font-size: 0.9375rem;
+    }
+    .authority-wrap strong { color: var(--indigo); }
 
+    /* ===== FOOTER ===== */
+    .site-footer {
+      background: var(--white);
+      border-top: 1px solid var(--slate-200);
+      margin-top: 2.5rem;
+    }
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      padding: 2.5rem 1.5rem;
+    }
+    @media (min-width: 768px) { .footer-inner { flex-direction: row; } }
+
+    .footer-brand { text-align: center; }
+    @media (min-width: 768px) { .footer-brand { text-align: left; } }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    @media (min-width: 768px) { .footer-logo { justify-content: flex-start; } }
+    .footer-logo-mark {
+      width: 1.75rem;
+      height: 1.75rem;
+      background: var(--indigo);
+      border-radius: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 900;
+      color: var(--white);
+    }
+    .footer-logo-text {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--slate-800);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .footer-credit {
+      font-size: 0.875rem;
+      color: var(--slate-600);
+    }
+    .footer-credit strong { color: var(--slate-700); }
+    .footer-copy {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--slate-500);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    /* ===== ANIMATIONS ===== */
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(16px); }
+      from { opacity: 0; transform: translateY(14px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .fade-in-up { animation: fadeInUp 0.5s ease both; }
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
-    .delay-4 { animation-delay: 0.4s; }
+    /* MELHORIA 23: respeita prefers-reduced-motion */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-in { animation: fadeInUp 0.45s ease both; }
+      .d1 { animation-delay: 0.08s; }
+      .d2 { animation-delay: 0.16s; }
+      .d3 { animation-delay: 0.24s; }
+      .d4 { animation-delay: 0.32s; }
+    }
   </style>
 </head>
 
-<body class="text-slate-900 selection:bg-indigo-100 selection:text-indigo-700">
+<body>
 
   <!-- ===== HEADER ===== -->
-  <header class="sticky top-0 z-50 border-b border-slate-200 glass-effect">
-    <div class="mx-auto max-w-7xl px-6 py-4 flex justify-between items-center">
-      <a href="./index.html" class="flex items-center gap-2 no-underline group">
-        <div class="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold transition-all group-hover:scale-105">H</div>
-        <span class="text-lg font-bold tracking-tight text-slate-800">Hiato <span class="text-indigo-600">Literário</span></span>
-      </a>
-      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
-        <a href="#fazer" class="hover:text-indigo-600 transition-colors">Ferramentas</a>
-        <a href="#desafio" class="hover:text-indigo-600 transition-colors">Desafio Rápido</a>
-        <a href="#duvidas" class="hover:text-indigo-600 transition-colors">Dúvidas</a>
-      </nav>
+  <!-- MELHORIA 24: role="banner" implícito em <header>, aria-label no nav -->
+  <header class="site-header">
+    <div class="container">
+      <div class="inner" style="display:flex;justify-content:space-between;align-items:center;padding:1rem 0;">
+        <a href="./index.html" class="logo" aria-label="Hiato Literário — página inicial">
+          <div class="logo-mark" aria-hidden="true">H</div>
+          <span class="logo-text">Hiato <span>Literário</span></span>
+        </a>
+        <nav class="site-nav" aria-label="Navegação principal">
+          <a href="#ferramentas">Ferramentas</a>
+          <a href="#desafio">Desafio Rápido</a>
+          <a href="#duvidas">Dúvidas</a>
+        </nav>
+      </div>
     </div>
   </header>
 
-  <main class="mx-auto max-w-7xl px-6">
+  <main id="main-content">
+    <div class="container">
 
-    <!-- ===== HERO ===== -->
-    <section class="py-16 md:py-24 text-center">
-      <div class="mb-5 inline-flex items-center gap-2 bg-indigo-50 px-4 py-1.5 rounded-full border border-indigo-100 fade-in-up">
-        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest">Assistente de Escrita e Estudo de Português</span>
-      </div>
-
-      <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight fade-in-up delay-1">
-        Escreva melhor,<br class="hidden md:block"> formate mais rápido.
-      </h1>
-      <p class="mt-5 text-lg md:text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed fade-in-up delay-2">
-        Ferramentas gratuitas para <strong class="text-slate-700">estudantes, escritores e professores</strong>. Sem cadastro, direto no seu navegador.
-      </p>
-
-      <!-- CAMPO DE BUSCA PRINCIPAL -->
-      <div class="mt-10 px-2 fade-in-up delay-3 relative">
-        <div class="hero-search-wrap" id="search-wrap">
-          <input
-            type="text"
-            id="hero-search"
-            placeholder="Digite uma palavra ou dúvida... Ex: porque ou por que"
-            autocomplete="off"
-          />
-          <button onclick="handleSearch()">Buscar →</button>
+      <!-- ===== HERO ===== -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-badge fade-in" aria-hidden="true">
+          Assistente de Escrita e Estudo de Português
         </div>
-        <div id="search-suggestions">
-          <!-- preenchido via JS -->
-        </div>
-        <p class="mt-3 text-sm text-slate-400 fade-in-up delay-4">
-          Experimente: <button onclick="fillSearch('há ou a')" class="text-indigo-500 hover:underline font-semibold">há ou a</button> · <button onclick="fillSearch('mal ou mau')" class="text-indigo-500 hover:underline font-semibold">mal ou mau</button> · <button onclick="fillSearch('mas ou mais')" class="text-indigo-500 hover:underline font-semibold">mas ou mais</button>
+
+        <!-- MELHORIA 25: LCP target — h1 sem animação para não atrasar o LCP -->
+        <h1 id="hero-title">
+          Escreva melhor,<br> formate mais rápido.
+        </h1>
+
+        <p class="hero-sub fade-in d2">
+          Ferramentas gratuitas para <strong>estudantes, escritores e professores</strong>. Sem cadastro, direto no seu navegador.
         </p>
-      </div>
-    </section>
 
-    <!-- ===== FERRAMENTAS ===== -->
-    <section id="fazer" class="py-12 border-t border-slate-200">
-      <div class="text-center mb-10">
-        <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-3">O que você quer fazer hoje?</h2>
-        <p class="text-slate-500 text-sm md:text-base">Selecione uma ferramenta para otimizar seu trabalho acadêmico ou criativo.</p>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
-        <a href="./tools/gerador-resumo.html" class="action-card group">
-          <div class="icon-wrapper">📝</div>
-          <h3 class="text-base font-bold text-slate-800 mb-1.5">Resumir Texto</h3>
-          <p class="text-sm text-slate-500 leading-snug">Extraia os pontos principais de textos longos automaticamente.</p>
-        </a>
-      
-        <a href="./tools/referencias-abnt.html" class="action-card group">
-          <div class="icon-wrapper">📄</div>
-          <h3 class="text-base font-bold text-slate-800 mb-1.5">Referências ABNT</h3>
-          <p class="text-sm text-slate-500 leading-snug">Gere bibliografias completas em conformidade com as normas.</p>
-        </a>
-        <a href="./tools/gerador-citacao-abnt.html" class="action-card group">
-          <div class="icon-wrapper">✒️</div>
-          <h3 class="text-base font-bold text-slate-800 mb-1.5">Gerador de Citações</h3>
-          <p class="text-sm text-slate-500 leading-snug">Formate citações diretas e indiretas sem erros.</p>
-        </a>
-        <a href="./tools/gerador-capa-abnt.html" class="action-card group">
-          <div class="icon-wrapper">📐</div>
-          <h3 class="text-base font-bold text-slate-800 mb-1.5">Gerador de Capas</h3>
-          <p class="text-sm text-slate-500 leading-snug">Crie capas e folhas de rosto padronizadas em segundos.</p>
-        </a>
-        <a href="./tools/contador-palavras-online.html" class="action-card group">
-          <div class="icon-wrapper">📊</div>
-          <h3 class="text-base font-bold text-slate-800 mb-1.5">Contador Online</h3>
-          <p class="text-sm text-slate-500 leading-snug">Estatísticas detalhadas de palavras, caracteres e leitura.</p>
-        </a>
-        <!-- FERRAMENTA ADICIONADA: GERADOR DE SUMÁRIO -->
-        <a href="./tools/sumario-abnt.html" class="action-card group">
-          <div class="icon-wrapper">📋</div>
-          <h3 class="text-base font-bold text-slate-800 mb-1.5">Gerador de Sumário</h3>
-          <p class="text-sm text-slate-500 leading-snug">Crie sumários automáticos seguindo as normas da ABNT.</p>
-        </a>
-      </div>
-    </section>
-
-    <!-- ===== QUIZ / DESAFIO RÁPIDO ===== -->
-    <section id="desafio" class="py-16">
-      <div class="max-w-xl mx-auto">
-        <div class="text-center mb-8">
-          <div class="inline-flex items-center gap-2 bg-amber-50 px-4 py-1.5 rounded-full border border-amber-200 mb-4">
-            <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">🎯 Desafio Rápido</span>
+        <!-- MELHORIA 26: search com role e aria adequados -->
+        <div class="search-wrap fade-in d3">
+          <div class="search-box" role="search">
+            <label for="hero-search" class="sr-only">Buscar palavra ou dúvida de português</label>
+            <input
+              type="search"
+              id="hero-search"
+              name="q"
+              placeholder="Digite uma palavra ou dúvida... Ex: porque ou por que"
+              autocomplete="off"
+              aria-label="Buscar palavra ou dúvida"
+              aria-controls="search-suggestions"
+              aria-expanded="false"
+            />
+            <button type="button" onclick="handleSearch()" aria-label="Realizar busca">Buscar →</button>
           </div>
-          <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-2">Você sabe português?</h2>
-          <p class="text-slate-500 text-sm">Teste seus conhecimentos — aprenda enquanto joga.</p>
+          <!-- MELHORIA 27: aria-live na div de sugestões para anunciar resultados a leitores de tela -->
+          <div id="search-suggestions" role="listbox" aria-label="Sugestões de busca" aria-live="polite" aria-atomic="false"></div>
         </div>
 
-        <!-- Progresso -->
-        <div class="flex items-center justify-between mb-3">
-          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider" id="quiz-counter">Pergunta 1 de 5</span>
-          <span class="text-xs font-bold text-indigo-600" id="quiz-score-label">0 pontos</span>
-        </div>
-        <div class="progress-bar mb-6">
-          <div class="progress-fill" id="quiz-progress" style="width: 0%"></div>
+        <p class="search-hints fade-in d4">
+          Experimente:
+          <button onclick="fillSearch('há ou a')" type="button">há ou a</button> ·
+          <button onclick="fillSearch('mal ou mau')" type="button">mal ou mau</button> ·
+          <button onclick="fillSearch('mas ou mais')" type="button">mas ou mais</button>
+        </p>
+      </section>
+
+      <!-- ===== FERRAMENTAS ===== -->
+      <section id="ferramentas" class="section section-border" aria-labelledby="tools-title">
+        <div class="text-center">
+          <h2 class="section-title" id="tools-title">O que você quer fazer hoje?</h2>
+          <p class="section-sub">Selecione uma ferramenta para otimizar seu trabalho acadêmico ou criativo.</p>
         </div>
 
-        <!-- Card da Pergunta -->
-        <div class="bg-white border-2 border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
-          <p class="text-base md:text-lg font-bold text-slate-700 mb-6 leading-snug" id="quiz-question">Carregando...</p>
+        <div class="tools-grid" role="list">
+          <a href="./tools/gerador-resumo.html" class="tool-card" role="listitem">
+            <div class="tool-icon" aria-hidden="true">📝</div>
+            <h3 class="tool-title">Resumir Texto</h3>
+            <p class="tool-desc">Extraia os pontos principais de textos longos automaticamente.</p>
+          </a>
 
-          <div class="flex flex-col gap-3" id="quiz-options">
-            <!-- injetado via JS -->
+          <a href="./tools/referencias-abnt.html" class="tool-card" role="listitem">
+            <div class="tool-icon" aria-hidden="true">📄</div>
+            <h3 class="tool-title">Referências ABNT</h3>
+            <p class="tool-desc">Gere bibliografias completas em conformidade com as normas.</p>
+          </a>
+
+          <a href="./tools/gerador-citacao-abnt.html" class="tool-card" role="listitem">
+            <div class="tool-icon" aria-hidden="true">✒️</div>
+            <h3 class="tool-title">Gerador de Citações</h3>
+            <p class="tool-desc">Formate citações diretas e indiretas sem erros.</p>
+          </a>
+
+          <a href="./tools/gerador-capa-abnt.html" class="tool-card" role="listitem">
+            <div class="tool-icon" aria-hidden="true">📐</div>
+            <h3 class="tool-title">Gerador de Capas</h3>
+            <p class="tool-desc">Crie capas e folhas de rosto padronizadas em segundos.</p>
+          </a>
+
+          <a href="./tools/contador-palavras-online.html" class="tool-card" role="listitem">
+            <div class="tool-icon" aria-hidden="true">📊</div>
+            <h3 class="tool-title">Contador Online</h3>
+            <p class="tool-desc">Estatísticas detalhadas de palavras, caracteres e leitura.</p>
+          </a>
+
+          <a href="./tools/sumario-abnt.html" class="tool-card" role="listitem">
+            <div class="tool-icon" aria-hidden="true">📋</div>
+            <h3 class="tool-title">Gerador de Sumário</h3>
+            <p class="tool-desc">Crie sumários automáticos seguindo as normas da ABNT.</p>
+          </a>
+        </div>
+      </section>
+
+      <!-- ===== QUIZ ===== -->
+      <section id="desafio" class="section" aria-labelledby="quiz-title">
+        <div class="quiz-wrap">
+          <div class="text-center">
+            <div class="quiz-badge" aria-hidden="true">🎯 Desafio Rápido</div>
+            <h2 class="section-title" id="quiz-title">Você sabe português?</h2>
+            <p class="section-sub" style="margin-bottom:2rem;">Teste seus conhecimentos — aprenda enquanto joga.</p>
           </div>
 
-          <div id="quiz-feedback" class="mt-5"></div>
+          <div class="quiz-meta">
+            <span class="quiz-counter" id="quiz-counter" aria-live="polite">Pergunta 1 de 5</span>
+            <span class="quiz-score" id="quiz-score-label" aria-live="polite">0 pontos</span>
+          </div>
 
-          <div class="mt-6 flex flex-col sm:flex-row gap-3 items-center justify-between" id="quiz-actions" style="display:none!important;">
-            <a href="#" id="quiz-learn-link" class="text-indigo-600 font-semibold text-sm hover:underline">Ver explicação completa →</a>
-            <button onclick="nextQuestion()" class="bg-indigo-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-indigo-700 transition">
-              Próxima →
-            </button>
+          <!-- MELHORIA 28: role progressbar com aria-valuenow -->
+          <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progresso do quiz">
+            <div class="progress-fill" id="quiz-progress" style="width:0%"></div>
+          </div>
+
+          <div class="quiz-card">
+            <p class="quiz-question" id="quiz-question" aria-live="polite">Carregando...</p>
+
+            <div class="quiz-options" id="quiz-options" role="group" aria-labelledby="quiz-question"></div>
+
+            <div class="quiz-feedback" id="quiz-feedback" role="alert" aria-live="assertive"></div>
+
+            <div class="quiz-actions" id="quiz-actions">
+              <a href="#" id="quiz-learn-link" class="btn-learn">Ver explicação completa →</a>
+              <button type="button" onclick="nextQuestion()" class="btn-primary">Próxima →</button>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ===== DÚVIDAS SEO ===== -->
-    <section id="duvidas" class="py-16">
-      <div class="bg-indigo-600 rounded-[2.5rem] p-8 md:p-12 text-white">
-        <div class="max-w-4xl mx-auto text-center">
-          <h2 class="text-2xl md:text-4xl font-extrabold mb-3">"Porque" ou "por que": quando usar corretamente</h2>
-          <p class="text-indigo-100 mb-10 font-medium italic text-sm md:text-base">As dúvidas mais buscadas da língua portuguesa — com respostas claras e exemplos.</p>
+      <!-- ===== DÚVIDAS SEO ===== -->
+      <section id="duvidas" class="section" aria-labelledby="seo-title">
+        <div class="seo-block">
+          <h2 id="seo-title">"Porque" ou "por que": quando usar corretamente</h2>
+          <p>As dúvidas mais buscadas da língua portuguesa — com respostas claras e exemplos.</p>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <nav class="seo-grid" aria-label="Dúvidas frequentes de português">
             <a href="/porque-ou-por-que" class="seo-link">Porque ou por que?</a>
             <a href="/mas-ou-mais" class="seo-link">Mas ou mais?</a>
             <a href="/ha-ou-a" class="seo-link">Há ou a?</a>
@@ -410,53 +902,53 @@
             <a href="/a-fim-ou-afim" class="seo-link">A fim ou afim?</a>
             <a href="/meio-ou-meia" class="seo-link">Meio ou meia?</a>
             <a href="/viagem-ou-viajem" class="seo-link">Viagem ou viajem?</a>
+          </nav>
+
+          <p class="seo-note">Conteúdo educativo atualizado semanalmente</p>
+        </div>
+      </section>
+
+      <!-- ===== AUTORIDADE ===== -->
+      <section class="section" aria-labelledby="authority-title">
+        <div class="authority-wrap">
+          <div class="authority-icon" aria-hidden="true">👨‍🎓</div>
+          <div>
+            <h2 id="authority-title">Por que confiar no Hiato Literário?</h2>
+            <p>
+              O projeto é mantido por um <strong>estudante de Letras da UEA</strong> (Universidade do Estado do Amazonas).
+              Desenvolvemos estas ferramentas para garantir que o rigor acadêmico e a clareza textual sejam acessíveis a todos, desde o ensino básico até o doutorado.
+            </p>
           </div>
-
-          <p class="mt-10 text-xs text-indigo-200 uppercase tracking-widest font-bold">Conteúdo educativo atualizado semanalmente</p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ===== AUTORIDADE ===== -->
-    <section class="py-16 border-t border-slate-100">
-      <div class="max-w-3xl mx-auto flex flex-col md:flex-row items-center gap-8 bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-        <div class="w-20 h-20 bg-indigo-100 rounded-2xl flex items-center justify-center text-4xl shrink-0">👨‍🎓</div>
-        <div>
-          <h2 class="text-xl font-bold text-slate-900 mb-2">Por que confiar no Hiato Literário?</h2>
-          <p class="text-slate-600 leading-relaxed text-sm md:text-base">
-            O projeto é mantido por um <strong class="text-indigo-600">estudante de Letras da UEA</strong> (Universidade do Estado do Amazonas).
-            Desenvolvemos estas ferramentas para garantir que o rigor acadêmico e a clareza textual sejam acessíveis a todos, desde o ensino básico até o doutorado.
-          </p>
-        </div>
-      </div>
-    </section>
-
+    </div><!-- /container -->
   </main>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="bg-white border-t border-slate-200 mt-10" role="contentinfo">
-    <div class="mx-auto max-w-7xl px-6 py-10">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-        <div class="text-center md:text-left">
-          <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
-            <div class="w-7 h-7 bg-indigo-600 rounded flex items-center justify-center text-[11px] font-black text-white">HL</div>
-            <p class="text-sm font-bold text-slate-800 uppercase tracking-widest">Hiato Literário</p>
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="footer-logo-mark" aria-hidden="true">HL</div>
+            <span class="footer-logo-text">Hiato Literário</span>
           </div>
-          <p class="text-sm text-slate-500 font-medium">
-            Desenvolvido por <strong class="text-slate-700">Marcos Rocco</strong><br>
+          <p class="footer-credit">
+            Desenvolvido por <strong>Marcos Rocco</strong><br>
             Estudante de Letras da UEA.
           </p>
         </div>
-        <div class="text-[10px] uppercase font-black text-slate-400 tracking-[0.3em]">
-          © 2026 Hiato Literário
-        </div>
+        <p class="footer-copy">© 2026 Hiato Literário</p>
       </div>
     </div>
   </footer>
 
+  <!-- ===== SCRIPTS ===== -->
+  <!-- MELHORIA 29: todos os scripts no fim do body, sem bloquear render -->
   <script>
     /* ===================================================
-       BUSCA INTELIGENTE COM SUGESTÕES
+       BUSCA COM SUGESTÕES
     =================================================== */
     const searchRoutes = [
       { q: ['porque','por que','por quê','porquê'], label: 'Porque ou por que? Aprenda a diferença', url: '/porque-ou-por-que', icon: '📖' },
@@ -480,26 +972,35 @@
 
     searchInput.addEventListener('input', () => {
       const val = searchInput.value.trim().toLowerCase();
-      if (val.length < 2) { suggestions.classList.remove('active'); return; }
-
+      if (val.length < 2) {
+        suggestions.classList.remove('active');
+        searchInput.setAttribute('aria-expanded', 'false');
+        return;
+      }
       const matches = searchRoutes.filter(r =>
         r.q.some(kw => kw.includes(val) || val.includes(kw))
       ).slice(0, 5);
 
-      if (!matches.length) { suggestions.classList.remove('active'); return; }
+      if (!matches.length) {
+        suggestions.classList.remove('active');
+        searchInput.setAttribute('aria-expanded', 'false');
+        return;
+      }
 
       suggestions.innerHTML = matches.map(m =>
-        `<a class="suggestion-item" href="${m.url}">
-          <span class="sug-icon">${m.icon}</span>
+        `<a class="suggestion-item" href="${m.url}" role="option">
+          <span class="sug-icon" aria-hidden="true">${m.icon}</span>
           <span>${m.label}</span>
         </a>`
       ).join('');
       suggestions.classList.add('active');
+      searchInput.setAttribute('aria-expanded', 'true');
     });
 
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('#search-wrap') && !e.target.closest('#search-suggestions')) {
+      if (!e.target.closest('.search-wrap')) {
         suggestions.classList.remove('active');
+        searchInput.setAttribute('aria-expanded', 'false');
       }
     });
 
@@ -519,7 +1020,7 @@
     }
 
     /* ===================================================
-       QUIZ ESTILO DUOLINGO
+       QUIZ
     =================================================== */
     const quizData = [
       {
@@ -528,7 +1029,7 @@
         correct: 0,
         feedback: {
           ok: '🔥 Boa! "Porque" (junto, sem acento) é conjunção causal — explica o motivo. Use quando puder substituir por "pois".',
-          err: 'Quase! Esse é um erro muito comum. "Por que" (separado) é usado em perguntas. Aqui temos uma explicação de motivo — usa-se "porque".'
+          err: 'Quase! "Por que" (separado) é usado em perguntas. Aqui temos uma explicação de motivo — usa-se "porque".'
         },
         link: '/porque-ou-por-que'
       },
@@ -548,7 +1049,7 @@
         correct: 1,
         feedback: {
           ok: '🔥 Perfeito! "Mau" é adjetivo — qualifica substantivos. "Mal" é advérbio ou substantivo. Dica: se puder substituir por "bom", use "mau".',
-          err: 'Quase lá! "Mau" é adjetivo e qualifica substantivos (como "menino"). "Mal" é o oposto de "bem". Dica: troque por "bom" — se funcionar, use "mau".'
+          err: '"Mau" é adjetivo e qualifica substantivos (como "menino"). "Mal" é o oposto de "bem". Dica: troque por "bom" — se funcionar, use "mau".'
         },
         link: '/mal-ou-mau'
       },
@@ -558,7 +1059,7 @@
         correct: 1,
         feedback: {
           ok: '🔥 Muito bem! "A fim de" (separado) indica finalidade ou vontade. "Afim" (junto) significa "parecido, semelhante".',
-          err: 'Atenção! "A fim de" é separado quando indica vontade ou intenção. "Afim" junto significa "semelhante" — ex: "somos afins".'
+          err: '"A fim de" é separado quando indica vontade ou intenção. "Afim" junto significa "semelhante" — ex: "somos afins".'
         },
         link: '/a-fim-ou-afim'
       },
@@ -574,26 +1075,29 @@
       },
     ];
 
-    let currentQ = 0;
-    let score = 0;
-    let answered = false;
+    let currentQ = 0, score = 0, answered = false;
 
     function renderQuestion() {
       const data = quizData[currentQ];
       answered = false;
 
+      const pct = Math.round((currentQ / quizData.length) * 100);
       document.getElementById('quiz-counter').textContent = `Pergunta ${currentQ + 1} de ${quizData.length}`;
       document.getElementById('quiz-score-label').textContent = `${score} ponto${score !== 1 ? 's' : ''}`;
-      document.getElementById('quiz-progress').style.width = `${(currentQ / quizData.length) * 100}%`;
+      document.getElementById('quiz-progress').style.width = `${pct}%`;
+      document.getElementById('quiz-progress').closest('[role=progressbar]').setAttribute('aria-valuenow', pct);
       document.getElementById('quiz-question').textContent = data.q;
-      document.getElementById('quiz-feedback').className = 'mt-5';
-      document.getElementById('quiz-feedback').style.display = 'none';
-      document.getElementById('quiz-actions').style.cssText = 'display:none!important';
+
+      const fb = document.getElementById('quiz-feedback');
+      fb.className = 'quiz-feedback';
+      fb.textContent = '';
+
+      document.getElementById('quiz-actions').className = 'quiz-actions';
 
       const optEl = document.getElementById('quiz-options');
       optEl.innerHTML = data.opts.map((opt, i) =>
-        `<button class="quiz-option" onclick="selectOption(${i})">
-          <span class="opt-dot">${String.fromCharCode(65 + i)}</span>
+        `<button class="quiz-option" type="button" onclick="selectOption(${i})" aria-label="Opção ${String.fromCharCode(65+i)}: ${opt}">
+          <span class="opt-dot" aria-hidden="true">${String.fromCharCode(65 + i)}</span>
           <span>${opt}</span>
         </button>`
       ).join('');
@@ -616,24 +1120,19 @@
 
       const fb = document.getElementById('quiz-feedback');
       fb.textContent = isCorrect ? data.feedback.ok : data.feedback.err;
-      fb.className = `mt-5 ${isCorrect ? 'success' : 'error'}`;
-      fb.style.display = 'block';
+      fb.className = `quiz-feedback show ${isCorrect ? 'success' : 'error'}`;
 
       const actions = document.getElementById('quiz-actions');
-      actions.style.cssText = 'display:flex!important;';
+      actions.className = 'quiz-actions show';
       document.getElementById('quiz-learn-link').href = data.link;
-      document.getElementById('quiz-learn-link').textContent = 'Ver explicação completa →';
 
       document.getElementById('quiz-score-label').textContent = `${score} ponto${score !== 1 ? 's' : ''}`;
     }
 
     function nextQuestion() {
       currentQ++;
-      if (currentQ >= quizData.length) {
-        showFinalScore();
-      } else {
-        renderQuestion();
-      }
+      if (currentQ >= quizData.length) { showFinalScore(); }
+      else { renderQuestion(); }
     }
 
     function showFinalScore() {
@@ -641,37 +1140,57 @@
       const msgs = [
         { min: 80, icon: '🏆', title: 'Você está acima da média!', sub: 'Seu domínio do português é excelente. Continue praticando!' },
         { min: 50, icon: '👏', title: 'Bom resultado!', sub: 'Você acertou a maioria. Revise os erros e estude mais!' },
-        { min: 0,  icon: '📚', title: 'Continue praticando!', sub: 'Não desanime — esses erros são os mais comuns do português.' },
+        { min: 0, icon: '📚', title: 'Continue praticando!', sub: 'Não desanime — esses erros são os mais comuns do português.' },
       ];
       const msg = msgs.find(m => pct >= m.min);
 
       document.getElementById('quiz-options').innerHTML = `
-        <div class="text-center py-6">
-          <div class="text-5xl mb-4">${msg.icon}</div>
-          <p class="text-2xl font-extrabold text-slate-800 mb-1">${score} de ${quizData.length} corretas</p>
-          <p class="text-slate-500 text-sm mb-1 font-semibold">${msg.title}</p>
-          <p class="text-slate-400 text-xs mb-6">${msg.sub}</p>
-          <button onclick="restartQuiz()" class="bg-indigo-600 text-white px-8 py-3 rounded-xl font-bold text-sm hover:bg-indigo-700 transition">
-            Jogar novamente →
-          </button>
+        <div style="text-align:center;padding:1.5rem 0;">
+          <div style="font-size:3rem;margin-bottom:1rem;" aria-hidden="true">${msg.icon}</div>
+          <p style="font-size:1.5rem;font-weight:800;color:var(--slate-800);margin-bottom:0.25rem;">${score} de ${quizData.length} corretas</p>
+          <p style="color:var(--slate-600);font-size:0.875rem;font-weight:600;margin-bottom:0.25rem;">${msg.title}</p>
+          <p style="color:var(--slate-500);font-size:0.8125rem;margin-bottom:1.5rem;">${msg.sub}</p>
+          <button type="button" onclick="restartQuiz()" class="btn-primary">Jogar novamente →</button>
         </div>
       `;
-      document.getElementById('quiz-feedback').style.display = 'none';
-      document.getElementById('quiz-actions').style.cssText = 'display:none!important';
+      document.getElementById('quiz-feedback').className = 'quiz-feedback';
+      document.getElementById('quiz-actions').className = 'quiz-actions';
       document.getElementById('quiz-progress').style.width = '100%';
-      document.getElementById('quiz-counter').textContent = `Concluído!`;
+      document.getElementById('quiz-progress').closest('[role=progressbar]').setAttribute('aria-valuenow', '100');
+      document.getElementById('quiz-counter').textContent = 'Concluído!';
     }
 
     function restartQuiz() {
-      currentQ = 0;
-      score = 0;
+      currentQ = 0; score = 0;
       renderQuestion();
     }
 
     renderQuestion();
   </script>
 
-  <script type="module" src="./src/js/main.js"></script>
-</body>
+  <!-- MELHORIA 30: JSON-LD Schema para SEO (WebSite + SearchAction) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Hiato Literário",
+    "url": "https://hiatoliterario.com.br/",
+    "description": "Ferramentas acadêmicas gratuitas para estudantes, escritores e professores.",
+    "inLanguage": "pt-BR",
+    "author": {
+      "@type": "Person",
+      "name": "Marcos Rocco"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://hiatoliterario.com.br/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 
+  <!-- MELHORIA 31: main.js como module — type="module" já é adiado por padrão pelo browser -->
+  <script type="module" src="./src/js/main.js"></script>
+
+</body>
 </html>
