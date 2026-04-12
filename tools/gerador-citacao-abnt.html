@@ -6,12 +6,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   
-  <!-- 🔥 SEO DOMINANTE -->
   <title>Gerador de Citações ABNT NBR 10520:2023 | Hiato Literário</title>
   <meta name="description" content="Gerador automático de citações ABNT. Formate citações diretas curtas, longas, indiretas e apud conforme NBR 10520:2023. Validação inteligente e exemplos prontos.">
   <meta name="keywords" content="citação ABNT, gerador ABNT, NBR 10520, citação direta, indireta, apud, formatar referência, TCC, monografia, normas ABNT 2023">
   <meta name="author" content="Hiato Literário">
-  <link rel="canonical" href="https://hiatoliterario.com.br/gerador-citacoes-abnt">
+  <link rel="canonical" href="https://hiatoliterario.com.br/gerador-citacao-abnt">
   <meta name="robots" content="index, follow, max-image-preview:large">
   
   <meta property="og:title" content="Gerador de Citações ABNT - Precisão Acadêmica">
@@ -74,7 +73,6 @@
       padding: 0.2rem 0.6rem; border-radius: 20px; letter-spacing: 0.3px;
     }
     
-    /* Efeito UAU: destaque sutil */
     .highlight-glow {
       transition: all 0.3s;
     }
@@ -87,17 +85,15 @@
 
 <header class="sticky top-0 z-50 border-b border-slate-200/60 glass-effect">
   <div class="mx-auto max-w-6xl px-6 py-4 flex justify-between items-center">
-    <div class="flex items-center gap-3">
+    <a href="https://www.hiatoliterario.com.br/" class="flex items-center gap-3" aria-label="Ir para o site Hiato Literário">
       <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold shadow-sm">H</div>
       <span class="text-xl font-bold tracking-tight text-slate-800">Hiato <span class="text-indigo-600">Literário</span></span>
-    </div>
+    </a>
     <span class="text-sm font-medium text-slate-500 hidden md:block bg-white/70 px-4 py-1.5 rounded-full shadow-sm">NBR 10520:2023 • Precisão Acadêmica</span>
   </div>
 </header>
 
 <main class="mx-auto max-w-6xl px-6 py-8 md:py-12">
-  
-  <!-- HERO SEO -->
   <section class="mb-8 text-center lg:text-left">
     <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
       Gerador de Citações <span class="text-indigo-600">ABNT</span>
@@ -108,11 +104,7 @@
   </section>
 
   <div class="grid gap-10 lg:grid-cols-2 items-start">
-    
-    <!-- PAINEL ESQUERDO -->
     <div class="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-slate-100 space-y-5 highlight-glow">
-      
-      <!-- MENSAGEM DE VALIDAÇÃO -->
       <div id="validationError" class="hidden validation-message"></div>
 
       <div>
@@ -127,15 +119,15 @@
 
       <div id="wrapper-original" class="hidden space-y-3 p-4 bg-amber-50/60 rounded-2xl border border-amber-100">
         <label class="block text-sm font-semibold text-amber-800">📖 Autor Original (obra não lida)</label>
-        <input id="autorOriginal" class="input-field bg-white" type="text" placeholder="Sobrenome, ex: Foucault">
-        <input id="anoOriginal" class="input-field bg-white mt-2" type="text" placeholder="Ano da obra original (ex: 1975)">
-        <p class="text-[11px] text-amber-700 mt-1 flex items-center gap-1">⚠️ <strong>Apud</strong> somente se o original for inacessível.</p>
+        <input id="autorOriginal" class="input-field bg-white" type="text" placeholder="Ex.: Foucault">
+        <input id="anoOriginal" class="input-field bg-white mt-2" type="text" placeholder="Ano da obra original (ex.: 1975)">
+        <p class="text-[11px] text-amber-700 mt-1 flex items-center gap-1">⚠️ <strong>Apud</strong> deve ser usado apenas quando o original estiver inacessível.</p>
       </div>
 
       <div>
         <label class="block text-sm font-semibold text-slate-700 mb-2">✍️ Autor(es) da Obra Consultada <span class="text-red-500">*</span></label>
         <input id="autor" class="input-field" type="text" placeholder="Silva; Santos; Oliveira">
-        <p class="text-[11px] text-slate-400 mt-1.5">Separe com ponto e vírgula.</p>
+        <p class="text-[11px] text-slate-400 mt-1.5">Separe autores com ponto e vírgula. Para autoria institucional, informe o nome completo.</p>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
@@ -144,28 +136,25 @@
           <input id="ano" class="input-field" type="text" placeholder="2024">
         </div>
         <div id="wrapper-pagina">
-          <label class="block text-sm font-semibold text-slate-700 mb-2">📄 Página</label>
-          <input id="pagina" class="input-field" type="text" placeholder="Ex: 47">
+          <label class="block text-sm font-semibold text-slate-700 mb-2">📄 Página ou localizador</label>
+          <input id="pagina" class="input-field" type="text" placeholder="Ex.: 47, 47-48, art. 1, 23 min 17 s">
         </div>
       </div>
 
       <div>
         <label class="block text-sm font-semibold text-slate-700 mb-2">📝 Texto da Citação <span class="text-red-500">*</span></label>
-        <textarea id="texto" class="input-field h-36 resize-y" placeholder="Ex: 'A leitura do mundo precede a leitura da palavra.' — Paulo Freire"></textarea>
+        <textarea id="texto" class="input-field h-36 resize-y" placeholder="Ex.: A leitura do mundo precede a leitura da palavra."></textarea>
       </div>
 
       <div class="p-5 bg-indigo-50/70 rounded-2xl border border-indigo-100">
         <h4 class="text-xs font-bold text-indigo-800 uppercase tracking-wider mb-2 flex items-center gap-1.5">🎓 Diretriz ABNT</h4>
         <p id="dicaNorma" class="text-sm text-indigo-900 leading-relaxed font-medium">
-          Citações diretas curtas: use aspas duplas no corpo do texto.
+          Citações diretas curtas: use aspas duplas no corpo do texto; a página ou outro localizador é recomendável quando houver.
         </p>
       </div>
     </div>
 
-    <!-- PAINEL DIREITO (RESULTADOS) -->
     <div class="sticky top-28 space-y-6">
-      
-      <!-- NARRATIVA -->
       <div>
         <div class="flex justify-between items-end mb-2">
           <label class="text-sm font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
@@ -183,7 +172,6 @@
         </div>
       </div>
 
-      <!-- PARENTÉTICA -->
       <div>
         <div class="flex justify-between items-end mb-2">
           <label class="text-sm font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
@@ -201,12 +189,10 @@
         </div>
       </div>
 
-      <!-- EXPLICAÇÃO EDUCACIONAL -->
       <div id="explicacaoNorma" class="explicacao-box hidden opacity-0 transition-opacity duration-300"></div>
     </div>
   </div>
 
-  <!-- 🔥🔥🔥 CONTEÚDO SEO AGRESSIVO (EFEITO UAU) -->
   <section class="mt-20 border-t border-slate-200 pt-12">
     <div class="grid lg:grid-cols-3 gap-8">
       <div class="lg:col-span-2 prose prose-slate max-w-none">
@@ -219,7 +205,7 @@
           <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
             <span class="padrao-badge mb-2 inline-block">Direta longa</span>
             <p class="font-serif text-sm">Conforme Almeida (2019, p. 45):</p>
-            <div class="ml-16 text-xs font-serif border-l-2 border-slate-300 pl-3">[texto com recuo de 4cm, fonte 10, sem aspas]</div>
+            <div class="ml-16 text-xs font-serif border-l-2 border-slate-300 pl-3">[texto com recuo padronizado, fonte menor, sem aspas]</div>
           </div>
           <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
             <span class="padrao-badge mb-2 inline-block">Indireta</span>
@@ -227,25 +213,25 @@
           </div>
           <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
             <span class="padrao-badge mb-2 inline-block">Apud</span>
-            <p class="font-serif text-sm">(FREUD, 1900 apud COSTA, 2022, p. 88)</p>
+            <p class="font-serif text-sm">(Freud, 1900 <em>apud</em> Costa, 2022, p. 88)</p>
           </div>
         </div>
         
         <h2 class="text-2xl font-bold text-slate-800 mt-10">⚠️ Como usar apud corretamente</h2>
-        <p>O apud (citado por) deve ser usado apenas quando o documento original é inacessível. Na referência final, inclua apenas a obra que você consultou.</p>
+        <p>O <em>apud</em> (citado por) deve ser usado apenas quando o documento original é inacessível. Na referência final, inclua apenas a obra efetivamente consultada.</p>
         
         <h2 class="text-2xl font-bold text-slate-800 mt-8">❌ Erros comuns em citações ABNT</h2>
         <ul class="list-disc pl-5 text-slate-700 space-y-1">
-          <li>Esquecer o ponto final após os parênteses em citação longa.</li>
-          <li>Usar apud sem necessidade (evite).</li>
-          <li>Não indicar a página na citação direta.</li>
-          <li>Misturar padrões de chamada (narrativa e parentética) no mesmo parágrafo sem critério.</li>
+          <li>Usar caixa alta na chamada autor-data, contrariando a atualização de 2023.</li>
+          <li>Inserir <em>et al.</em> sem itálico.</li>
+          <li>Usar <em>apud</em> sem necessidade ou referenciar a obra errada na lista final.</li>
+          <li>Não informar a localização em citação direta quando ela estiver disponível.</li>
         </ul>
       </div>
       <div class="bg-indigo-50/40 p-6 rounded-2xl border border-indigo-100 h-fit">
         <h3 class="font-bold text-indigo-900 text-lg">🔍 Por que este gerador é diferente?</h3>
-        <p class="text-indigo-800 text-sm mt-2">Validação em tempo real, padrões acadêmicos variados (não só "Segundo") e explicações integradas baseadas na NBR 10520:2023.</p>
-        <div class="mt-4 text-xs text-indigo-600">✅ Atualizado em 2026</div>
+        <p class="text-indigo-800 text-sm mt-2">Validação em tempo real, autoria institucional tratada corretamente e saídas consistentes com a NBR 10520:2023, sem aleatoriedade.</p>
+        <div class="mt-4 text-xs text-indigo-600">✅ Revisado com foco normativo em 11 de abril de 2026</div>
       </div>
     </div>
   </section>
@@ -257,212 +243,299 @@
   (function() {
     "use strict";
 
-    // Elementos
     const elements = {
-      tipoCitacao: document.getElementById('tipoCitacao'),
-      autor: document.getElementById('autor'),
-      ano: document.getElementById('ano'),
-      pagina: document.getElementById('pagina'),
-      texto: document.getElementById('texto'),
-      autorOriginal: document.getElementById('autorOriginal'),
-      anoOriginal: document.getElementById('anoOriginal'),
+      tipoCitacao: document.getElementById("tipoCitacao"),
+      autor: document.getElementById("autor"),
+      ano: document.getElementById("ano"),
+      pagina: document.getElementById("pagina"),
+      texto: document.getElementById("texto"),
+      autorOriginal: document.getElementById("autorOriginal"),
+      anoOriginal: document.getElementById("anoOriginal")
     };
-    
+
     const previews = {
-      narrativa: document.getElementById('preview-narrativa'),
-      parentetica: document.getElementById('preview-parentetica')
+      narrativa: document.getElementById("preview-narrativa"),
+      parentetica: document.getElementById("preview-parentetica")
     };
-    
-    const wrapperOriginal = document.getElementById('wrapper-original');
-    const dicaEl = document.getElementById('dicaNorma');
-    const explicacaoBox = document.getElementById('explicacaoNorma');
-    const validationErrorDiv = document.getElementById('validationError');
 
-    // 🔥 PADRÕES ACADÊMICOS REAIS (CORREÇÃO CRÍTICA)
-    const verbosComQue = ["afirma que", "destaca que", "argumenta que", "aponta que", "defende que", "sustenta que", "esclarece que"];
-    const verbosComDoisPontos = ["afirma:", "destaca:", "observa:", "ressalta:", "propõe:", "conclui:"];
-    
+    const wrapperOriginal = document.getElementById("wrapper-original");
+    const dicaEl = document.getElementById("dicaNorma");
+    const explicacaoBox = document.getElementById("explicacaoNorma");
+    const validationErrorDiv = document.getElementById("validationError");
+
     const dicasMap = {
-      'direta-curta': "Citações curtas (≤3 linhas) devem estar entre aspas duplas, no corpo do parágrafo.",
-      'direta-longa': "Citações longas (>3 linhas): recuo de 4 cm, fonte 10, sem aspas, espaçamento simples.",
-      'indireta': "Paráfrase: não use aspas. A indicação da página é opcional, mas recomendada.",
-      'apud': "Apud: use apenas se o original for inacessível. Ex.: (Foucault, 1975 apud Silva, 2020)."
+      "direta-curta": "Citações diretas curtas: ficam no corpo do texto, entre aspas duplas; a página ou outro localizador é recomendável quando houver.",
+      "direta-longa": "Citações diretas longas: bloco destacado, sem aspas, com fonte menor e espaçamento simples; o recuo de 4 cm segue como recomendação padronizada.",
+      "indireta": "Citação indireta: não usa aspas. A localização é opcional e pode ser acrescentada para maior precisão.",
+      "apud": "Apud: use apenas quando a obra original não puder ser consultada. Na lista final, referencie a obra efetivamente lida."
     };
 
-    function formatarAutores(raw, uppercase = false) {
-      if (!raw || raw.trim() === "") return "";
-      const nomes = raw.split(';').map(s => s.trim()).filter(n => n);
-      if (nomes.length === 0) return "";
-      
-      let resultado = "";
-      const sobrenomes = nomes.map(nome => {
-        const partes = nome.split(' ');
-        return partes[partes.length - 1];
-      });
+    const institutionKeywords = [
+      "universidade", "faculdade", "instituto", "associação", "fundação", "ministério",
+      "secretaria", "tribunal", "prefeitura", "governo", "biblioteca", "comissão",
+      "organização", "empresa", "conselho", "departamento", "centro", "programa", "brasil"
+    ];
 
-      if (sobrenomes.length > 3) {
-        resultado = uppercase ? `${sobrenomes[0].toUpperCase()} et al.` : `${sobrenomes[0]} et al.`;
-      } else if (sobrenomes.length === 1) {
-        resultado = uppercase ? sobrenomes[0].toUpperCase() : sobrenomes[0];
-      } else {
-        const ultimo = sobrenomes.pop();
-        const penultimos = sobrenomes.join(', ');
-        if (uppercase) {
-          resultado = `${penultimos.toUpperCase()}; ${ultimo.toUpperCase()}`;
-        } else {
-          resultado = `${penultimos} e ${ultimo}`;
+    function normalizeSpaces(value) {
+      return (value || "").replace(/\s+/g, " ").trim();
+    }
+
+    function titleCasePreservingAcronyms(value) {
+      const lowercaseWords = new Set(["da", "de", "do", "das", "dos", "e"]);
+      return normalizeSpaces(value).split(" ").map((word) => {
+        if (!word) return word;
+        if (/^[A-ZÀ-Ü0-9.-]+$/.test(word)) return word;
+        if (lowercaseWords.has(word.toLowerCase())) return word.toLowerCase();
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      }).join(" ");
+    }
+
+    function isInstitutionalAuthor(name) {
+      if (!name) return false;
+      const normalized = normalizeSpaces(name);
+      if (/^[A-ZÀ-Ü0-9.\- ]+$/.test(normalized) && normalized.split(" ").length <= 5) return true;
+      const lower = normalized.toLowerCase();
+      return institutionKeywords.some((keyword) => lower.includes(keyword));
+    }
+
+    function extractPersonalAuthorLabel(name) {
+      const normalized = normalizeSpaces(name);
+      if (!normalized) return "";
+      if (normalized.includes(",")) {
+        return titleCasePreservingAcronyms(normalized.split(",")[0]);
+      }
+
+      const parts = normalized.split(" ").filter(Boolean);
+      if (parts.length === 1) return titleCasePreservingAcronyms(parts[0]);
+
+      const ignored = new Set(["da", "de", "do", "das", "dos", "e"]);
+      for (let index = parts.length - 1; index >= 0; index -= 1) {
+        const current = parts[index];
+        if (!ignored.has(current.toLowerCase())) {
+          return titleCasePreservingAcronyms(current);
         }
       }
-      return resultado;
+
+      return titleCasePreservingAcronyms(parts[parts.length - 1]);
+    }
+
+    function parseAuthors(raw) {
+      return normalizeSpaces(raw)
+        .split(";")
+        .map((item) => normalizeSpaces(item))
+        .filter(Boolean)
+        .map((item) => {
+          const institutional = isInstitutionalAuthor(item);
+          return {
+            original: item,
+            label: institutional ? titleCasePreservingAcronyms(item) : extractPersonalAuthorLabel(item),
+            institutional
+          };
+        });
+    }
+
+    function formatAuthorList(raw, mode) {
+      const authors = parseAuthors(raw);
+      if (authors.length === 0) return "";
+
+      const labels = authors.map((author) => author.label);
+      if (labels.length >= 4) {
+        return `${labels[0]} <em>et al.</em>`;
+      }
+
+      if (mode === "parenthetical") {
+        return labels.join("; ");
+      }
+
+      if (labels.length === 1) return labels[0];
+      if (labels.length === 2) return `${labels[0]} e ${labels[1]}`;
+
+      return `${labels[0]}, ${labels[1]} e ${labels[2]}`;
+    }
+
+    function formatLocalizer(raw) {
+      const value = normalizeSpaces(raw);
+      if (!value) return "";
+      if (/^\d+([\-–]\d+)?$/.test(value)) return `p. ${value}`;
+      if (/^\d+\s*,\s*\d+([\-–]\d+)?$/.test(value)) return `p. ${value}`;
+      return value;
+    }
+
+    function buildDateLocation(year, localizer) {
+      return localizer ? `${year}, ${localizer}` : year;
+    }
+
+    function stripOuterQuotes(value) {
+      return normalizeSpaces(value).replace(/^["“”'']+|["“”'']+$/g, "");
+    }
+
+    function stripTrailingPunctuation(value) {
+      return value.replace(/[.!?;:]+$/u, "");
+    }
+
+    function ensureSentenceEnd(value) {
+      const trimmed = normalizeSpaces(value);
+      if (!trimmed) return "";
+      return /[.!?…]$/u.test(trimmed) ? trimmed : `${trimmed}.`;
+    }
+
+    function buildPostSentenceCitation(content, citation) {
+      const text = ensureSentenceEnd(content);
+      const finalMark = text.slice(-1);
+      const core = text.slice(0, -1);
+      return `${core} (${citation})${finalMark}`;
+    }
+
+    function highlightFields(fieldIds) {
+      document.querySelectorAll(".input-field").forEach((field) => field.classList.remove("error"));
+      fieldIds.forEach((fieldId) => {
+        const field = document.getElementById(fieldId);
+        if (field) field.classList.add("error");
+      });
     }
 
     function validarCampos() {
       const tipo = elements.tipoCitacao.value;
-      const autorRaw = elements.autor.value.trim();
-      const ano = elements.ano.value.trim();
-      const textoBruto = elements.texto.value.trim();
-      
-      let erro = "";
-      if (!autorRaw) erro = "⚠️ Autor da obra consultada é obrigatório.";
-      else if (!ano) erro = "⚠️ Ano é obrigatório.";
-      else if (!/^\d{4}$/.test(ano)) erro = "⚠️ Ano deve ter 4 dígitos (ex: 2023).";
-      else if (!textoBruto) erro = "⚠️ O texto da citação não pode estar vazio.";
-      
-      if (tipo === 'apud') {
-        const autorOri = elements.autorOriginal.value.trim();
-        const anoOri = elements.anoOriginal.value.trim();
-        if (!autorOri) erro = "⚠️ Autor original é obrigatório no modo Apud.";
-        else if (!anoOri) erro = "⚠️ Ano original é obrigatório no modo Apud.";
-        else if (!/^\d{4}$/.test(anoOri)) erro = "⚠️ Ano original deve ter 4 dígitos.";
+      const erros = [];
+
+      const autorRaw = normalizeSpaces(elements.autor.value);
+      const ano = normalizeSpaces(elements.ano.value);
+      const textoBruto = normalizeSpaces(elements.texto.value);
+
+      if (!autorRaw) erros.push({ field: "autor", message: "⚠️ Autor da obra consultada é obrigatório." });
+      if (!ano) erros.push({ field: "ano", message: "⚠️ Ano é obrigatório." });
+      else if (!/^\d{4}[a-z]?$/i.test(ano)) erros.push({ field: "ano", message: "⚠️ Ano deve ter 4 dígitos e pode incluir letra de diferenciação, como 2023a." });
+      if (!textoBruto) erros.push({ field: "texto", message: "⚠️ O texto da citação não pode estar vazio." });
+
+      if (tipo === "apud") {
+        const autorOriginal = normalizeSpaces(elements.autorOriginal.value);
+        const anoOriginal = normalizeSpaces(elements.anoOriginal.value);
+
+        if (!autorOriginal) erros.push({ field: "autorOriginal", message: "⚠️ Autor original é obrigatório no modo apud." });
+        if (!anoOriginal) erros.push({ field: "anoOriginal", message: "⚠️ Ano original é obrigatório no modo apud." });
+        else if (!/^\d{4}[a-z]?$/i.test(anoOriginal)) erros.push({ field: "anoOriginal", message: "⚠️ Ano original deve ter 4 dígitos e pode incluir letra, como 1999a." });
       }
-      
-      if (erro) {
-        validationErrorDiv.textContent = erro;
-        validationErrorDiv.classList.remove('hidden');
-        // destaca campos
+
+      if (erros.length > 0) {
+        validationErrorDiv.textContent = erros[0].message;
+        validationErrorDiv.classList.remove("hidden");
+        highlightFields(erros.map((erro) => erro.field));
         return false;
-      } else {
-        validationErrorDiv.classList.add('hidden');
-        return true;
       }
+
+      validationErrorDiv.classList.add("hidden");
+      highlightFields([]);
+      return true;
     }
 
-    function gerarExplicacaoEducacional(tipo) {
+    function gerarExplicacaoEducacional(tipo, temLocalizador) {
       let texto = "";
-      if (tipo === 'direta-curta') texto = "✅ <strong>NBR 10520:</strong> Até 3 linhas, aspas duplas. A chamada narrativa pode usar 'afirma que' ou dois pontos.";
-      else if (tipo === 'direta-longa') texto = "✅ <strong>Formato:</strong> Recuo 4cm, fonte 10, sem aspas. O ponto final vem após os parênteses.";
-      else if (tipo === 'indireta') texto = "✅ <strong>Paráfrase:</strong> Reescrita fiel. Página opcional. Não use aspas.";
-      else if (tipo === 'apud') texto = "⚠️ <strong>Apud:</strong> Use com moderação. Apenas o autor consultado entra nas referências.";
+
+      if (tipo === "direta-curta") {
+        texto = temLocalizador
+          ? "✅ <strong>NBR 10520:2023:</strong> a citação direta curta fica entre aspas duplas e traz o localizador disponível logo após a data."
+          : "✅ <strong>NBR 10520:2023:</strong> a citação direta curta fica entre aspas duplas; a página ou outro localizador deixou de ser obrigatório, mas continua recomendável quando existir.";
+      } else if (tipo === "direta-longa") {
+        texto = temLocalizador
+          ? "✅ <strong>Formato:</strong> a citação direta longa vai em bloco, sem aspas, com fonte menor, espaçamento simples e localizador informado."
+          : "✅ <strong>Formato:</strong> a citação direta longa vai em bloco, sem aspas, com fonte menor e espaçamento simples; o recuo de 4 cm permanece como recomendação de padronização.";
+      } else if (tipo === "indireta") {
+        texto = temLocalizador
+          ? "✅ <strong>Paráfrase:</strong> não usa aspas. A localização é opcional, mas pode ser útil para tornar a remissão mais precisa."
+          : "✅ <strong>Paráfrase:</strong> não usa aspas e pode ser apresentada só com autor e data, mantendo a fidelidade ao sentido do original.";
+      } else if (tipo === "apud") {
+        texto = "⚠️ <strong>Apud:</strong> indica citação de citação. A expressão <em>apud</em> deve aparecer em itálico, e somente a obra consultada entra obrigatoriamente nas referências.";
+      }
+
       explicacaoBox.innerHTML = `<span class="font-semibold text-indigo-800">📖 Padrão ABNT aplicado</span><br> ${texto}`;
-      explicacaoBox.classList.remove('hidden');
-      explicacaoBox.style.opacity = '1';
+      explicacaoBox.classList.remove("hidden");
+      explicacaoBox.style.opacity = "1";
     }
 
     function atualizarPreviews() {
-      // 🔥 VALIDAÇÃO PRIMEIRO
+      const tipo = elements.tipoCitacao.value;
+      wrapperOriginal.classList.toggle("hidden", tipo !== "apud");
+      dicaEl.innerText = dicasMap[tipo];
+
       if (!validarCampos()) {
         previews.narrativa.innerHTML = '<span class="text-red-400">Preencha os campos obrigatórios corretamente.</span>';
         previews.parentetica.innerHTML = '<span class="text-red-400">Preencha os campos obrigatórios corretamente.</span>';
-        explicacaoBox.classList.add('hidden');
+        explicacaoBox.classList.add("hidden");
         return;
       }
-      
-      const tipo = elements.tipoCitacao.value;
-      const autorRaw = elements.autor.value;
-      const ano = elements.ano.value;
-      const pagina = elements.pagina.value;
-      const textoBruto = elements.texto.value;
-      const texto = textoBruto;
-      
-      const autorOriRaw = elements.autorOriginal.value;
-      const anoOri = elements.anoOriginal.value;
 
-      const autorNarrativa = formatarAutores(autorRaw, false);
-      const autorParentetica = formatarAutores(autorRaw, true);
-      
-      const autorOriNarr = formatarAutores(autorOriRaw, false);
-      const autorOriPar = formatarAutores(autorOriRaw, true);
-      
-      const paginaStr = pagina ? `, p. ${pagina}` : "";
-      const anoPag = `${ano}${paginaStr}`;
-      
-      let narrativa = "", parentetica = "";
-      
-      // 🔥🔥🔥 CORREÇÃO DE PADRÕES (NÃO MISTURAR ESTRUTURAS)
-      if (tipo === 'direta-curta') {
-        // Narrativa: dois padrões possíveis
-        const useDoisPontos = Math.random() > 0.5;
-        if (useDoisPontos) {
-          const verbo = verbosComDoisPontos[Math.floor(Math.random() * verbosComDoisPontos.length)];
-          narrativa = `${autorNarrativa} (${anoPag}) ${verbo} "${texto}"`;
-        } else {
-          const verboQue = verbosComQue[Math.floor(Math.random() * verbosComQue.length)];
-          narrativa = `${autorNarrativa} (${anoPag}) ${verboQue} "${texto}"`;
-        }
-        parentetica = `"${texto}" (${autorParentetica}, ${anoPag})`;
-      } 
-      else if (tipo === 'direta-longa') {
-        const longQuoteHtml = `<div class="abnt-long-quote">${texto}</div>`;
-        narrativa = `Conforme ${autorNarrativa} (${anoPag}):<br>${longQuoteHtml}`;
-        parentetica = `${longQuoteHtml}<div class="text-right mt-2 text-[10pt]">(${autorParentetica}, ${anoPag})</div>`;
-      } 
-      else if (tipo === 'indireta') {
-        const textoLower = texto.charAt(0).toLowerCase() + texto.slice(1);
-        const verboQue = verbosComQue[Math.floor(Math.random() * verbosComQue.length)];
-        narrativa = `${autorNarrativa} (${anoPag}) ${verboQue} ${textoLower}`;
-        parentetica = `${texto} (${autorParentetica}, ${anoPag})`;
-      } 
-      else if (tipo === 'apud') {
-        const useDoisPontos = Math.random() > 0.5;
-        if (useDoisPontos) {
-          const verbo = verbosComDoisPontos[Math.floor(Math.random() * verbosComDoisPontos.length)];
-          narrativa = `${autorOriNarr} (${anoOri} apud ${autorNarrativa}, ${anoPag}) ${verbo} "${texto}"`;
-        } else {
-          const verboQue = verbosComQue[Math.floor(Math.random() * verbosComQue.length)];
-          narrativa = `${autorOriNarr} (${anoOri} apud ${autorNarrativa}, ${anoPag}) ${verboQue} "${texto}"`;
-        }
-        parentetica = `"${texto}" (${autorOriPar}, ${anoOri} apud ${autorParentetica}, ${anoPag})`;
+      const ano = normalizeSpaces(elements.ano.value);
+      const localizador = formatLocalizer(elements.pagina.value);
+      const anoLocal = buildDateLocation(ano, localizador);
+
+      const autorNarrativa = formatAuthorList(elements.autor.value, "narrative");
+      const autorParentetica = formatAuthorList(elements.autor.value, "parenthetical");
+
+      const autorOriginalNarrativa = formatAuthorList(elements.autorOriginal.value, "narrative");
+      const autorOriginalParentetica = formatAuthorList(elements.autorOriginal.value, "parenthetical");
+      const anoOriginal = normalizeSpaces(elements.anoOriginal.value);
+
+      const textoBase = normalizeSpaces(elements.texto.value);
+      const textoDireto = stripTrailingPunctuation(stripOuterQuotes(textoBase));
+      const textoParafraseado = ensureSentenceEnd(textoBase);
+
+      let narrativa = "";
+      let parentetica = "";
+
+      if (tipo === "direta-curta") {
+        narrativa = `Segundo ${autorNarrativa} (${anoLocal}), "${textoDireto}".`;
+        parentetica = `"${textoDireto}" (${autorParentetica}, ${anoLocal}).`;
+      } else if (tipo === "direta-longa") {
+        const bloco = `<div class="abnt-long-quote">${textoBase}</div>`;
+        narrativa = `Segundo ${autorNarrativa} (${anoLocal}):<br>${bloco}`;
+        parentetica = `${bloco}<div class="text-right mt-2 text-[10pt]">(${autorParentetica}, ${anoLocal}).</div>`;
+      } else if (tipo === "indireta") {
+        narrativa = `Segundo ${autorNarrativa} (${anoLocal}), ${textoParafraseado}`;
+        parentetica = buildPostSentenceCitation(textoParafraseado, `${autorParentetica}, ${anoLocal}`);
+      } else if (tipo === "apud") {
+        const chamadaNarrativa = `${autorOriginalNarrativa} (${anoOriginal} <em>apud</em> ${autorNarrativa}, ${anoLocal})`;
+        const chamadaParentetica = `${autorOriginalParentetica}, ${anoOriginal} <em>apud</em> ${autorParentetica}, ${anoLocal}`;
+        narrativa = `Segundo ${chamadaNarrativa}, "${textoDireto}".`;
+        parentetica = `"${textoDireto}" (${chamadaParentetica}).`;
       }
 
       previews.narrativa.innerHTML = narrativa;
       previews.parentetica.innerHTML = parentetica;
-      
-      // Atualiza interface
-      dicaEl.innerText = dicasMap[tipo];
-      wrapperOriginal.classList.toggle('hidden', tipo !== 'apud');
-      gerarExplicacaoEducacional(tipo);
-      
-      // Ajusta placeholder da página
-      elements.pagina.placeholder = (tipo === 'indireta') ? "Página (opcional)" : "Ex: 47";
+
+      gerarExplicacaoEducacional(tipo, Boolean(localizador));
     }
 
     async function copyToClipboard(elementId) {
       const el = document.getElementById(elementId);
       if (!el) return;
+
+      const textToCopy = normalizeSpaces(el.innerText);
+
       try {
-        await navigator.clipboard.writeText(el.innerText);
-      } catch (err) {
+        await navigator.clipboard.writeText(textToCopy);
+      } catch (error) {
         const range = document.createRange();
         range.selectNode(el);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
-        document.execCommand('copy');
+        document.execCommand("copy");
         window.getSelection().removeAllRanges();
       }
+
       const toast = document.getElementById("copyToast");
       toast.className = "show";
-      setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+      setTimeout(() => {
+        toast.className = toast.className.replace("show", "");
+      }, 3000);
     }
 
-    // Event listeners
-    Object.values(elements).forEach(el => el && el.addEventListener('input', () => {
-      // remove erro visual ao digitar
-      document.querySelectorAll('.input-field').forEach(i => i.classList.remove('error'));
-      atualizarPreviews();
-    }));
-    elements.tipoCitacao.addEventListener('change', atualizarPreviews);
-    
-    // Inicializa
+    Object.values(elements).forEach((element) => {
+      if (!element) return;
+      element.addEventListener("input", atualizarPreviews);
+    });
+
+    elements.tipoCitacao.addEventListener("change", atualizarPreviews);
+
     atualizarPreviews();
     window.copyToClipboard = copyToClipboard;
   })();
