@@ -1,826 +1,1359 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3405911750491123"
-     crossorigin="anonymous"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Gerador de Referências ABNT | Hiato Literário Tools</title>
-  <meta name="description" content="Gere referências acadêmicas completas seguindo a NBR 6023 com validação inteligente, correção automática e cópia rápida. Suporte para livros, sites, artigos, filmes e YouTube." />
-  <meta name="keywords" content="ABNT, referências bibliográficas, NBR 6023, gerador de citações, trabalhos acadêmicos, normas ABNT" />
-  <meta property="og:title" content="Gerador de Referências ABNT Profissional" />
-  <meta property="og:description" content="Formate referências acadêmicas em segundos com validação inteligente." />
-  <meta property="og:type" content="website" />
+  <title>Gerador de Referências ABNT 2026 | NBR 6023:2025 | Hiato Literário</title>
+  <meta
+    name="description"
+    content="Gere referências bibliográficas conforme a ABNT NBR 6023:2025 com validação contextual para livros, sites, artigos, filmes e vídeos online."
+  />
+  <meta
+    name="keywords"
+    content="ABNT, NBR 6023:2025, referências bibliográficas, gerador ABNT 2026, citação ABNT, trabalho acadêmico, bibliografia"
+  />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="author" content="Hiato Literário" />
   <link rel="canonical" href="https://hiatoliterario.com.br/tools/referencias-abnt" />
-  
-  <!-- Preconnects -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet">
-  
-  <!-- Tailwind -->
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Hiato Literário" />
+  <meta property="og:title" content="Gerador de Referências ABNT 2026 | Hiato Literário" />
+  <meta
+    property="og:description"
+    content="Monte referências acadêmicas com mais rigor formal, checklist inteligente e apoio à ABNT NBR 6023:2025."
+  />
+  <meta property="og:url" content="https://hiatoliterario.com.br/tools/referencias-abnt" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Gerador de Referências ABNT 2026 | Hiato Literário" />
+  <meta
+    name="twitter:description"
+    content="Ferramenta para gerar referências ABNT com validação contextual para livros, sites, artigos, filmes e vídeos online."
+  />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Gerador de Referências ABNT | Hiato Literário",
+      "url": "https://hiatoliterario.com.br/tools/referencias-abnt",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "pt-BR",
+      "description": "Ferramenta online para gerar referências bibliográficas com foco na ABNT NBR 6023:2025.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Hiato Literário"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Qual norma usar em 2026 para referências ABNT?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Esta página foi estruturada com foco na ABNT NBR 6023:2025 para geração de referências bibliográficas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Como fazer referência de site na ABNT?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Em geral, a referência inclui autor ou instituição, título, data, URL e data de acesso quando o material é consultado online."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Posso copiar a referência pronta?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim. A ferramenta permite copiar a referência completa e também uma forma resumida de citação."
+          }
+        }
+      ]
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:wght@600;700&display=swap"
+    rel="stylesheet"
+  />
   <script src="https://cdn.tailwindcss.com"></script>
-  
   <style>
-    * { font-family: 'Inter', sans-serif; }
-    
-    .glass-effect {
-      background: rgba(255, 255, 255, 0.85);
+    :root {
+      --ink: #15202b;
+      --muted: #5b6776;
+      --accent: #4f46e5;
+      --accent-strong: #4338ca;
+      --danger: #b91c1c;
+      --danger-soft: #fef2f2;
+      --ok: #166534;
+      --ok-soft: #dcfce7;
+      --card: rgba(255, 255, 255, 0.92);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Source Sans 3", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(79, 70, 229, 0.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(14, 165, 233, 0.12), transparent 24%),
+        linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+    }
+
+    .shell {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .shell { padding: 2rem 1.5rem 3.5rem; }
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.82);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
     }
-    
-    .app-shell {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 1.5rem 1rem;
-    }
-    
-    @media (min-width: 768px) {
-      .app-shell { padding: 2.5rem 2rem; }
-    }
-    
-    .form-panel {
-      background: white;
+
+    .panel {
+      background: var(--card);
+      border: 1px solid rgba(217, 208, 194, 0.9);
+      border-radius: 1.5rem;
+      box-shadow:
+        0 20px 40px -28px rgba(21, 32, 43, 0.35),
+        0 12px 24px -18px rgba(21, 32, 43, 0.16);
       padding: 1.5rem;
-      border-radius: 1.25rem;
-      border: 1px solid #e9eef3;
-      box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.02), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
     }
-    
+
     @media (min-width: 640px) {
-      .form-panel { padding: 2rem; }
+      .panel { padding: 1.75rem; }
     }
-    
-    .input-field, .select-field {
+
+    .hero-title,
+    .output-title { font-family: "Source Serif 4", serif; }
+
+    .field,
+    .select-field,
+    .textarea-field {
       width: 100%;
-      padding: 0.75rem 1rem;
-      background: white;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 0.875rem;
+      border: 1.5px solid #d7dedf;
+      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.88);
+      padding: 0.9rem 1rem;
+      font-size: 0.98rem;
+      color: var(--ink);
       outline: none;
-      transition: all 0.15s ease;
-      font-size: 0.95rem;
-      color: #1e293b;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
     }
-    
-    .input-field:hover, .select-field:hover {
-      border-color: #cbd5e1;
+
+    .field:hover,
+    .select-field:hover,
+    .textarea-field:hover { border-color: #afb8be; }
+
+    .field:focus,
+    .select-field:focus,
+    .textarea-field:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
     }
-    
-    .input-field:focus, .select-field:focus {
-      border-color: #4f46e5;
-      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.08);
+
+    .field.error,
+    .select-field.error,
+    .textarea-field.error {
+      border-color: var(--danger);
+      background: var(--danger-soft);
     }
-    
-    /* Estados de validação - AGORA USADOS */
-    .input-field.error {
-      border-color: #ef4444 !important;
-      background-color: #fef2f2;
+
+    .field.success,
+    .select-field.success,
+    .textarea-field.success {
+      border-color: var(--ok);
+      background: var(--ok-soft);
     }
-    
-    .input-field.success {
-      border-color: #10b981 !important;
-      background-color: #f0fdf4;
+
+    [data-field-group] {
+      transition: all 0.3s ease-in-out;
+      max-height: 500px;
+      opacity: 1;
+      overflow: hidden;
     }
-    
+
+    .hidden-field {
+      max-height: 0 !important;
+      opacity: 0 !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      border: none !important;
+      pointer-events: none;
+    }
+
     .author-row {
       display: flex;
-      gap: 0.5rem;
-      margin-bottom: 0.75rem;
-      animation: slideIn 0.2s cubic-bezier(0.2, 0.9, 0.4, 1);
+      gap: 0.65rem;
+      align-items: flex-start;
+      animation: authorIn 0.22s ease;
     }
-    
-    @keyframes slideIn {
+
+    @keyframes authorIn {
       from { opacity: 0; transform: translateY(-6px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    
-    .btn-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+
+    .icon-btn {
       min-width: 44px;
       height: 44px;
-      border-radius: 0.875rem;
-      transition: all 0.15s;
-      flex-shrink: 0;
-      cursor: pointer;
-    }
-    
-    .reference-output {
-      width: 100%;
-      min-height: 140px;
-      padding: 1.5rem;
-      background: #fafcff;
-      border: 2px solid #eef2f6;
-      border-radius: 1.25rem;
-      font-size: 1rem;
-      color: #0f172a;
-      line-height: 1.65;
-      word-break: break-word;
-      font-feature-settings: "kern" 1;
-      letter-spacing: -0.01em;
-      transition: border-color 0.2s;
-    }
-    
-    .quality-badge {
+      border: 0;
+      border-radius: 1rem;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.16s ease, background-color 0.16s ease, color 0.16s ease;
     }
-    
-    .step-badge {
+
+    .icon-btn:hover { transform: translateY(-1px); }
+
+    .step {
+      width: 30px;
+      height: 30px;
+      border-radius: 0.9rem;
+      background: linear-gradient(135deg, var(--accent-strong), var(--accent));
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      box-shadow: 0 8px 18px -10px rgba(79, 70, 229, 0.7);
+    }
+
+    .output-box {
+      min-height: 180px;
+      padding: 1.4rem;
+      border: 1.5px solid #ddd4c8;
+      border-radius: 1.25rem;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(251, 247, 240, 0.95)),
+        repeating-linear-gradient(180deg, transparent 0, transparent 29px, rgba(91, 103, 118, 0.06) 29px, rgba(91, 103, 118, 0.06) 30px);
+      color: #17212b;
+      line-height: 1.8;
+      font-size: 1.05rem;
+      font-family: "Source Serif 4", serif;
+      word-break: break-word;
+    }
+
+    .output-placeholder {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 26px;
-      height: 26px;
-      background: linear-gradient(145deg, #4f46e5, #6366f1);
-      color: white;
-      border-radius: 10px;
-      font-size: 13px;
+      text-align: center;
+      color: #7b8490;
+      font-style: italic;
+      font-family: "Source Sans 3", sans-serif;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
       font-weight: 700;
-      box-shadow: 0 4px 6px -2px rgba(79, 70, 229, 0.2);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      padding: 0.38rem 0.7rem;
+      border: 1px solid transparent;
     }
-    
-    .field-group {
-      transition: opacity 0.18s, transform 0.18s;
+
+    .check-item {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      font-size: 0.84rem;
+      padding: 0.32rem 0;
     }
-    
-    .field-group.hidden-field {
-      display: none !important;
+
+    .tiny { font-size: 0.78rem; color: var(--muted); }
+    .fade-pulse { animation: pulse 1.2s ease-in-out infinite; }
+
+    .brand-mark {
+      background: linear-gradient(145deg, #4f46e5, #6366f1);
+      box-shadow: 0 10px 22px -12px rgba(79, 70, 229, 0.8);
     }
-    
-    /* Loading state */
-    .generating-pulse {
-      animation: pulse 1.5s ease-in-out infinite;
+
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      border-radius: 999px;
+      background: rgba(79, 70, 229, 0.08);
+      color: #4338ca;
+      padding: 0.45rem 0.8rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
-    
+
+    .seo-card {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      box-shadow: 0 12px 30px -28px rgba(15, 23, 42, 0.3);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .seo-card:hover {
+      box-shadow: 0 16px 40px -24px rgba(15, 23, 42, 0.35);
+    }
+
+    .text-highlight {
+      background-color: rgba(79, 70, 229, 0.1);
+      color: #4338ca;
+      font-weight: 600;
+      padding: 0.15rem 0.4rem;
+      border-radius: 0.375rem;
+      font-size: 0.95em;
+    }
+
     @keyframes pulse {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-    
-    /* Checklist */
-    .checklist-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.75rem;
-      padding: 4px 0;
+      50% { opacity: 0.45; }
     }
   </style>
 </head>
-
-<body class="bg-slate-50/90 text-slate-900 antialiased">
-
-<header class="sticky top-0 z-40 border-b border-slate-200/70 glass-effect">
-  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex justify-between items-center">
-    <a href="../index.html" class="flex items-center gap-2 no-underline group">
-      <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold shadow-sm transition-transform group-hover:rotate-6">H</div>
-      <span class="text-lg sm:text-xl font-bold tracking-tight text-slate-800">Hiato <span class="text-indigo-600">Literário</span></span>
-    </a>
-    <div class="flex items-center gap-2 sm:gap-4">
-      <button id="exampleFillBtn" class="text-sm font-medium text-slate-600 hover:text-indigo-700 px-3 py-1.5 rounded-full transition-colors hidden sm:block">
-        📋 Exemplo
-      </button>
-      <button id="fixPastedBtn" class="text-sm font-medium bg-amber-50 text-amber-700 px-4 py-2 rounded-full hover:bg-amber-100 transition-colors">
-        🔧 Corrigir referência
-      </button>
+<body>
+  <header class="sticky top-0 z-40 border-b border-stone-300/70 glass">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex flex-wrap gap-3 justify-between items-center">
+      <a href="https://hiatoliterario.com.br/index.html" class="flex items-center gap-3 no-underline">
+        <div class="brand-mark w-10 h-10 rounded-2xl text-white font-bold flex items-center justify-center">H</div>
+        <div>
+          <h1 class="text-lg sm:text-xl font-bold tracking-tight text-slate-900">Hiato <span class="text-indigo-600">Literário</span></h1>
+        </div>
+      </a>
+      <div class="flex flex-wrap gap-2">
+        <button id="exampleFillBtn" type="button" class="px-4 py-2 rounded-full bg-white/85 border border-stone-300 text-slate-700 font-semibold hover:bg-white transition-colors">
+          Exemplo
+        </button>
+        <button id="fixPastedBtn" type="button" class="px-4 py-2 rounded-full bg-slate-800 text-white font-semibold border border-slate-700 hover:bg-slate-700 transition-colors">
+          Corrigir referência
+        </button>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<main class="app-shell">
-  <section class="mb-6 md:mb-8">
-    <a class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors mb-2" href="../index.html">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      Voltar para ferramentas
-    </a>
-    <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Gerador de Referências ABNT</h1>
-    <p class="mt-2 text-slate-600 max-w-3xl">Referências atualizadas conforme NBR 6023 com validação inteligente e sugestões automáticas.</p>
-  </section>
-
-  <section class="grid gap-6 lg:gap-8 lg:grid-cols-5">
-    
-    <!-- Coluna do Formulário -->
-    <div class="lg:col-span-3 space-y-5">
-      <div class="form-panel space-y-7">
-        
-        <!-- STEP 1: Tipo -->
-        <div class="space-y-3">
-          <div class="flex items-center gap-2">
-            <span class="step-badge">1</span>
-            <h2 class="font-bold text-slate-800 text-lg">Tipo de fonte</h2>
-          </div>
-          <select id="tipo" class="select-field" aria-label="Selecione o tipo de material">
-            <option value="livro">📖 Livro</option>
-            <option value="site">🌐 Site</option>
-            <option value="artigo">📑 Artigo</option>
-            <option value="filme">🎬 Filme</option>
-            <option value="youtube">🔴 YouTube</option>
-          </select>
+  <main class="shell">
+    <section class="mb-6 md:mb-8">
+      <a class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors mb-3" href="../index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Voltar para ferramentas
+      </a>
+      <br/>
+      <span class="hero-chip">ABNT atualizada • NBR 6023:2025</span>
+      <h2 class="hero-title text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mt-3">
+        Gerador de Referências ABNT para uso acadêmico mais rigoroso
+      </h2>
+      <p class="mt-3 max-w-3xl text-slate-700 text-base md:text-lg leading-relaxed">
+        Gere referências bibliográficas com foco em consistência formal, validação contextual e estrutura alinhada à
+        <strong>ABNT NBR 6023:2025</strong>. A ferramenta atende livros, páginas da web, artigos de periódico, filmes
+        e vídeos online com checklist em tempo real.
+      </p>
+      <div class="grid gap-3 md:grid-cols-3 mt-5">
+        <div class="seo-card">
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">SEO + utilidade</p>
+          <p class="mt-2 text-sm text-slate-700">Página desenhada para responder buscas como “gerador ABNT 2026”, “referência ABNT de site” e “ABNT NBR 6023 atual”.</p>
         </div>
-
-        <!-- STEP 2: Autores -->
-        <div class="space-y-3">
-          <div class="flex items-center gap-2">
-            <span class="step-badge">2</span>
-            <h2 class="font-bold text-slate-800 text-lg">Autores / Criadores</h2>
-          </div>
-          <div id="authors-container" class="space-y-1"></div>
-          
-          <div class="flex flex-wrap items-center gap-3 mt-2">
-            <button id="add-author-btn" class="flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors px-2 py-1">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              Adicionar autor
-            </button>
-            <label class="flex items-center gap-2 text-xs font-medium text-slate-600 bg-slate-50 px-3 py-1.5 rounded-full cursor-pointer">
-              <input type="checkbox" id="useEtAl" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-200">
-              Usar "et al." (>3 autores)
-            </label>
-          </div>
+        <div class="seo-card">
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Validação contextual</p>
+          <p class="mt-2 text-sm text-slate-700">Cada tipo mostra apenas os campos relevantes e evita falsos erros em campos ocultos.</p>
         </div>
+        <div class="seo-card">
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Uso rápido</p>
+          <p class="mt-2 text-sm text-slate-700">Copie a referência pronta, extraia a citação resumida e revise referências coladas em segundos.</p>
+        </div>
+      </div>
+    </section>
 
-        <!-- STEP 3: Dados específicos -->
-        <div class="space-y-4">
-          <div class="flex items-center gap-2">
-            <span class="step-badge">3</span>
-            <h2 class="font-bold text-slate-800 text-lg">Detalhes da obra</h2>
-          </div>
-          
-          <!-- Campos universais -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <input id="titulo" class="input-field" type="text" placeholder="Título principal *" data-validate="required" />
-            <input id="subtitulo" class="input-field" type="text" placeholder="Subtítulo (se houver)" />
-          </div>
+    <section class="grid gap-6 lg:grid-cols-5 lg:gap-8">
+      <div class="lg:col-span-3 space-y-5">
+        <div class="panel space-y-7">
+          <section class="space-y-3">
+            <div class="flex items-center gap-3">
+              <span class="step">1</span>
+              <div>
+                <h3 class="text-lg font-bold text-slate-900">Tipo de documento</h3>
+                <p class="tiny">O modelo muda conforme o suporte e o modo de acesso.</p>
+              </div>
+            </div>
+            <select id="tipo" class="select-field" aria-label="Selecione o tipo de documento">
+              <option value="livro">Livro</option>
+              <option value="site">Página ou site</option>
+              <option value="artigo">Artigo de periódico</option>
+              <option value="filme">Filme</option>
+              <option value="youtube">Vídeo online</option>
+            </select>
+          </section>
 
-          <!-- GRUPOS DINÂMICOS -->
-          <div id="campos-especificos" class="space-y-3">
-            
-            <!-- LIVRO -->
-            <div data-field-group="livro" class="field-group grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <input id="edicao" class="input-field" type="text" placeholder="Edição (ex: 3)" />
-              <input id="local" class="input-field" type="text" placeholder="Cidade *" data-validate="required" />
-              <input id="fonte" class="input-field" type="text" placeholder="Editora(s) *" data-validate="required" />
+          <section class="space-y-3">
+            <div class="flex items-center gap-3">
+              <span class="step">2</span>
+              <div>
+                <h3 class="text-lg font-bold text-slate-900">Autoria ou responsabilidade</h3>
+                <p class="tiny">Aceita autor pessoal, institucional ou canal responsável.</p>
+              </div>
+            </div>
+            <div id="authors-container" class="space-y-2"></div>
+            <div class="flex flex-wrap items-center gap-3">
+              <button id="add-author-btn" type="button" class="px-3 py-2 rounded-full text-sm font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition-colors">
+                Adicionar autor
+              </button>
+              <label class="flex items-center gap-2 text-sm text-slate-700 bg-stone-100 px-3 py-2 rounded-full">
+                <input type="checkbox" id="useEtAl" class="accent-indigo-700" />
+                Permitir "et al." com 4 ou mais autores
+              </label>
+            </div>
+          </section>
+
+          <section class="space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="step">3</span>
+              <div>
+                <h3 class="text-lg font-bold text-slate-900">Elementos descritivos</h3>
+                <p class="tiny">Campos obrigatórios variam por tipo e por suporte.</p>
+              </div>
             </div>
 
-            <!-- SITE / YOUTUBE -->
-            <div data-field-group="site youtube" class="field-group hidden-field space-y-3">
-              <input id="url" class="input-field" type="url" placeholder="URL completa *" data-validate="required|url" />
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <input id="nome_site" class="input-field" type="text" placeholder="Nome do site ou canal" />
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input id="titulo" class="field" type="text" placeholder="Título principal *" data-validate="required" />
+              <input id="subtitulo" class="field" type="text" placeholder="Subtítulo" />
+            </div>
+
+            <div id="common-fields" class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <input id="ano" class="field" type="text" placeholder="Ano *" data-validate="required|year_or_token" />
+              <input id="data_publicacao" class="field" type="text" placeholder="Data completa (ex.: 11 abr. 2026)" />
+              <input id="local" class="field" type="text" placeholder="Local de publicação" />
+            </div>
+
+            <div id="grupo-livro" data-field-group="livro" class="space-y-3">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <input id="edicao" class="field" type="text" placeholder="Edição (ex.: 3)" />
+                <input id="fonte" class="field" type="text" placeholder="Editora *" data-validate="required" />
+                <input id="paginas_total" class="field" type="text" placeholder="Total de páginas (opcional)" />
+              </div>
+            </div>
+
+            <div id="grupo-site" data-field-group="site youtube artigo" class="hidden-field space-y-3">
+              <input id="url" class="field" type="url" placeholder="URL completa *" data-validate="required|url" />
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <input id="nome_site" class="field" type="text" placeholder="Nome do site / portal / canal" />
+                <input id="data_atualizacao" class="field" type="text" placeholder="Atualização / publicação online" />
                 <div class="flex gap-2">
-                  <input id="acesso" class="input-field" type="text" placeholder="Data de acesso *" data-validate="required" />
-                  <button id="set-today-btn" class="btn-icon bg-indigo-50 text-indigo-600 hover:bg-indigo-100" title="Usar data de hoje" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <input id="acesso" class="field" type="text" placeholder="Acesso em *" data-validate="required|date_ptbr" />
+                  <button id="set-today-btn" type="button" class="icon-btn bg-indigo-50 text-indigo-700 hover:bg-indigo-100" title="Preencher com a data de hoje">
+                    Hoje
                   </button>
                 </div>
               </div>
             </div>
 
-            <!-- ARTIGO -->
-            <div data-field-group="artigo" class="field-group hidden-field space-y-3">
-              <input id="revista" class="input-field" type="text" placeholder="Nome da Revista *" data-validate="required" />
-              <div class="grid grid-cols-3 gap-3">
-                <input id="volume" class="input-field" type="text" placeholder="Volume" />
-                <input id="numero" class="input-field" type="text" placeholder="Número" />
-                <input id="paginas" class="input-field" type="text" placeholder="Páginas" />
+            <div id="grupo-artigo" data-field-group="artigo" class="hidden-field space-y-3">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <input id="revista" class="field" type="text" placeholder="Título do periódico *" data-validate="required" />
+                <input id="local_periodico" class="field" type="text" placeholder="Local do periódico" />
               </div>
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                <input id="volume" class="field" type="text" placeholder="Volume" />
+                <input id="numero" class="field" type="text" placeholder="Número / fascículo" />
+                <input id="paginas" class="field" type="text" placeholder="Páginas (ex.: 45-63)" />
+                <input id="doi" class="field" type="text" placeholder="DOI (opcional)" />
+              </div>
+              <label class="flex items-center gap-2 text-sm text-slate-700 bg-stone-100 px-3 py-2 rounded-xl">
+                <input type="checkbox" id="artigo_online" class="accent-indigo-700" />
+                Artigo consultado online
+              </label>
             </div>
 
-            <!-- FILME -->
-            <div data-field-group="filme" class="field-group hidden-field space-y-3">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <input id="direcao" class="input-field" type="text" placeholder="Direção *" data-validate="required" />
-                <input id="producao" class="input-field" type="text" placeholder="Produção" />
+            <div id="grupo-filme" data-field-group="filme" class="hidden-field space-y-3">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <input id="direcao" class="field" type="text" placeholder="Direção *" data-validate="required" />
+                <input id="producao" class="field" type="text" placeholder="Produção" />
               </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <input id="distribuidora" class="input-field" type="text" placeholder="Distribuidora" />
-                <input id="midia" class="input-field" type="text" placeholder="Mídia (ex: 1 DVD)" />
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <input id="distribuidora" class="field" type="text" placeholder="Produtora / distribuidora *" data-validate="required" />
+                <input id="pais" class="field" type="text" placeholder="País *" data-validate="required" />
+                <input id="midia" class="field" type="text" placeholder="Suporte (ex.: 1 DVD, streaming)" />
               </div>
+              <input id="duracao" class="field" type="text" placeholder="Duração (ex.: 126 min.)" />
             </div>
+          </section>
 
-            <!-- Ano -->
-            <div class="pt-1">
-              <input id="ano" class="input-field" type="text" placeholder="Ano de publicação *" data-validate="required|year" />
-            </div>
-          </div>
-        </div>
-
-        <!-- Ações -->
-        <div class="pt-4 border-t border-slate-100 flex flex-wrap gap-3">
-          <button id="clearBtn" class="flex-1 py-3 bg-slate-100 text-slate-700 rounded-xl font-semibold hover:bg-slate-200 transition-all text-sm">🧹 Limpar tudo</button>
-          <button id="exampleFillBtnMobile" class="flex-1 py-3 bg-slate-50 text-indigo-700 rounded-xl font-medium hover:bg-indigo-50 border border-slate-200 sm:hidden transition-all text-sm">
-            📋 Exemplo
-          </button>
+          <section class="pt-3 border-t border-stone-200 flex flex-wrap gap-3">
+            <button id="clearBtn" type="button" class="flex-1 min-w-[180px] py-3 rounded-xl bg-stone-200 text-slate-800 font-semibold hover:bg-stone-300 transition-colors">
+              Limpar
+            </button>
+            <button id="exampleFillBtnMobile" type="button" class="flex-1 min-w-[180px] py-3 rounded-xl border border-indigo-300 bg-indigo-50 text-indigo-800 font-semibold hover:bg-indigo-100 sm:hidden transition-colors">
+              Exemplo
+            </button>
+          </section>
         </div>
       </div>
-    </div>
+      <aside class="lg:col-span-2">
+        <div class="sticky top-24 space-y-5">
+          <div class="panel">
+            <div class="flex items-center justify-between gap-3 mb-4">
+              <div>
+                <p class="text-xs uppercase tracking-[0.22em] text-stone-500 font-bold">Saída normalizada</p>
+                <h3 class="output-title text-2xl font-bold text-slate-900">Referência</h3>
+              </div>
+              <span id="qualityIndicator" class="badge bg-amber-100 text-amber-900 border-amber-300">Em preparo</span>
+            </div>
 
-    <!-- Coluna do Resultado -->
-    <div class="lg:col-span-2">
-      <div class="sticky top-24 space-y-5">
-        
-        <!-- Painel de Referência -->
-        <div class="form-panel">
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">Referência gerada</h3>
-            <span id="qualityIndicator" class="quality-badge bg-amber-50 text-amber-700 border border-amber-200">incompleta</span>
-          </div>
-          
-          <div id="resultado" class="reference-output flex items-center justify-center text-slate-400 italic text-center">
-            <span id="loadingIndicator" class="hidden generating-pulse">Gerando referência...</span>
-            <span id="resultText">Preencha os campos para gerar a referência</span>
-          </div>
-          
-          <div class="flex gap-2 mt-5">
-            <button id="copyBtn" class="flex-1 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 shadow-md shadow-indigo-200 transition-all flex items-center justify-center gap-2 text-base">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              Copiar
-            </button>
-            <button id="copyCitationBtn" class="px-4 py-4 bg-slate-100 text-slate-700 rounded-xl font-medium hover:bg-slate-200 transition-all text-sm" title="Copiar como citação (AUTOR, ANO)">
-              📎 Citar
-            </button>
-          </div>
-          
-          <p id="copyFeedback" class="text-xs text-center mt-3 text-slate-400 h-4"></p>
-        </div>
+            <div id="resultado" class="output-box output-placeholder">
+              <span id="loadingIndicator" class="hidden fade-pulse">Atualizando referência...</span>
+              <span id="resultText">Preencha os campos obrigatórios para gerar a referência.</span>
+            </div>
 
-        <!-- Checklist de validação -->
-        <div class="p-5 bg-white rounded-2xl border border-slate-200">
-          <h4 class="text-xs font-bold text-slate-500 uppercase mb-3">Checklist de validação</h4>
-          <div id="checklist" class="space-y-1">
-            <!-- Preenchido dinamicamente -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-5">
+              <button id="copyBtn" type="button" class="py-3 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors">
+                Copiar referência
+              </button>
+              <button id="copyCitationBtn" type="button" class="py-3 rounded-xl bg-stone-200 text-slate-800 font-semibold hover:bg-stone-300 transition-colors">
+                Copiar citação
+              </button>
+            </div>
+            <p id="copyFeedback" class="mt-3 text-sm text-slate-500 min-h-[1.25rem]"></p>
+          </div>
+
+          <div class="panel">
+            <h4 class="text-xs uppercase tracking-[0.22em] text-stone-500 font-bold mb-3">Checklist ativo</h4>
+            <div id="checklist" class="space-y-1"></div>
+          </div>
+
+          <div class="panel bg-gradient-to-br from-indigo-50/90 to-sky-50/80">
+            <h4 class="text-xs uppercase tracking-[0.22em] text-indigo-900 font-bold mb-2">Observação normativa</h4>
+            <p id="dicaContextual" class="text-sm text-slate-800 leading-relaxed"></p>
           </div>
         </div>
-        
-        <!-- Dicas contextuais -->
-        <div class="p-5 bg-gradient-to-br from-amber-50 to-orange-50/30 rounded-2xl border border-amber-100/80">
-          <h4 class="text-xs font-bold text-amber-800 uppercase mb-2 flex items-center gap-1">
-            <span>💡</span> Dica ABNT
-          </h4>
-          <p id="dicaContextual" class="text-xs text-amber-800 leading-relaxed"></p>
+      </aside>
+    </section>
+
+    <section class="mt-10 grid gap-6 lg:grid-cols-3">
+      <article class="seo-card lg:col-span-2">
+        <h2 class="hero-title text-2xl font-bold text-slate-900 border-b border-slate-100 pb-3">
+          Como usar o gerador de referências ABNT
+        </h2>
+        <div class="mt-5 space-y-4 text-slate-700 leading-relaxed">
+          <p>
+            Escolha o tipo de documento, preencha autoria, título e os elementos específicos da obra. O gerador monta a
+            referência com base na <span class="text-indigo-600 font-semibold">ABNT NBR 6023:2025</span> e mostra um checklist dinâmico com os campos
+            obrigatórios para aquele caso.
+          </p>
+          <p>
+            Para materiais online, inclua a <span class="text-indigo-600 font-semibold">URL completa</span> e a <span class="text-indigo-600 font-semibold">data de acesso</span>. Para
+            livros, informe editora e ano. Para artigos, o destaque visual fica no <strong>título do periódico</strong>,
+            não no título do artigo.
+          </p>
+        </div>
+      </article>
+
+      <aside class="seo-card bg-slate-50/50">
+        <h2 class="hero-title text-xl font-bold text-slate-900 border-b border-slate-100 pb-3">O que esta ferramenta cobre</h2>
+        <ul class="mt-5 space-y-3.5 text-slate-700 text-sm leading-relaxed">
+          <li class="flex items-start gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Livros com edição, local, editora e autoria múltipla</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Páginas da web e sites com acesso e data de publicação</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Artigos de periódico impressos e consultados online</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Filmes com direção, país, produtora e suporte</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Vídeos online, incluindo YouTube e canais institucionais</span>
+          </li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="mt-8 seo-card">
+      <h2 class="hero-title text-2xl font-bold text-slate-900 flex items-center gap-2 mb-6 border-b border-slate-100 pb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+        Perguntas frequentes sobre referência ABNT
+      </h2>
+      <div class="grid gap-5 md:grid-cols-2">
+        <div class="bg-slate-50/70 border border-slate-100 rounded-2xl p-5 hover:bg-slate-50 transition-colors">
+          <h3 class="font-bold text-slate-900 text-lg">Qual norma usar em 2026?</h3>
+          <p class="mt-2.5 text-sm text-slate-600 leading-relaxed">
+            Para referências bibliográficas, a base desta página é a <strong>NBR 6023:2025</strong>, que substitui a edição anterior e traz adaptações para o ambiente digital.
+          </p>
+        </div>
+        <div class="bg-slate-50/70 border border-slate-100 rounded-2xl p-5 hover:bg-slate-50 transition-colors">
+          <h3 class="font-bold text-slate-900 text-lg">Como fazer referência de site na ABNT?</h3>
+          <p class="mt-2.5 text-sm text-slate-600 leading-relaxed">
+            Informe o autor ou instituição responsável, o título da página, a data de disponibilização, a URL completa e a data de acesso ao material.
+          </p>
+        </div>
+        <div class="bg-slate-50/70 border border-slate-100 rounded-2xl p-5 hover:bg-slate-50 transition-colors">
+          <h3 class="font-bold text-slate-900 text-lg">Posso usar “et al.”?</h3>
+          <p class="mt-2.5 text-sm text-slate-600 leading-relaxed">
+            Sim. A ferramenta permite ativar a expressão <em>et al.</em> manualmente quando houver quatro ou mais autores na obra.
+          </p>
+        </div>
+        <div class="bg-slate-50/70 border border-slate-100 rounded-2xl p-5 hover:bg-slate-50 transition-colors">
+          <h3 class="font-bold text-slate-900 text-lg">A referência sai pronta para copiar?</h3>
+          <p class="mt-2.5 text-sm text-slate-600 leading-relaxed">
+            Sim. Você pode copiar a referência completa para a sua bibliografia ou usar o botão secundário para extrair apenas a forma resumida de citação no texto (Autor, Ano).
+          </p>
         </div>
       </div>
-    </div>
-  </section>
-</main>
+    </section>
+  </main>
 
-<!-- Modal para correção de referência -->
-<div id="fixModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-  <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl">
-    <h3 class="text-xl font-bold mb-4">🔧 Corrigir referência colada</h3>
-    <p class="text-sm text-slate-600 mb-3">Cole uma referência em qualquer formato. Vamos identificar erros e sugerir correções.</p>
-    <textarea id="pastedRef" class="w-full p-4 border rounded-xl text-sm h-32" placeholder="Ex: CANÇADO, M. Manual de Semântica. São Paulo: Contexto, 2022."></textarea>
-    <div id="fixSuggestions" class="my-4 p-3 bg-amber-50 rounded-xl text-sm hidden"></div>
-    <div class="flex gap-3">
-      <button id="analyzePastedBtn" class="flex-1 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700">Analisar</button>
-      <button id="applyFixBtn" class="flex-1 py-3 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 hidden">Aplicar correções</button>
-      <button id="closeModalBtn" class="px-6 py-3 bg-slate-100 rounded-xl hover:bg-slate-200">Cancelar</button>
+  <div id="fixModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="w-full max-w-2xl rounded-3xl bg-white p-7 shadow-2xl border border-stone-200 transform transition-all">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-2xl font-bold text-slate-900">Corrigir referência colada</h3>
+        <button id="closeModalBtnTop" type="button" class="text-slate-400 hover:text-slate-600 p-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <p class="text-sm text-slate-600 mb-5">
+        A análise abaixo é heurística. Ela aponta problemas formais frequentes e sugere uma reestruturação baseada na NBR 6023.
+      </p>
+      <textarea id="pastedRef" class="textarea-field h-36 resize-none" placeholder="Cole aqui a referência acadêmica para inspecionar..."></textarea>
+      <div id="fixSuggestions" class="hidden mt-4 rounded-2xl bg-amber-50 border border-amber-200 p-4 text-sm text-amber-900"></div>
+      <div class="flex flex-wrap gap-3 mt-6">
+        <button id="analyzePastedBtn" type="button" class="flex-1 py-3 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors shadow-md shadow-indigo-200">
+          Analisar Estrutura
+        </button>
+        <button id="closeModalBtn" type="button" class="px-6 py-3 rounded-xl bg-stone-100 text-slate-700 font-semibold hover:bg-stone-200 transition-colors">
+          Cancelar
+        </button>
+      </div>
     </div>
   </div>
-</div>
+  <script>
+    (() => {
+      "use strict";
 
-<script>
-  (function(){
-    "use strict";
+      const $ = (id) => document.getElementById(id);
 
-    // ---------- VALIDADORES ----------
-    const validators = {
-      required: (val) => val && val.trim().length > 0,
-      url: (val) => { try { new URL(val); return true; } catch { return false; } },
-      year: (val) => /^\d{4}$/.test(val) && parseInt(val) > 1900 && parseInt(val) < 2100,
-      email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)
-    };
+      const MONTHS = ["jan.", "fev.", "mar.", "abr.", "maio", "jun.", "jul.", "ago.", "set.", "out.", "nov.", "dez."];
+      const PREPOSITIONS = new Set(["da", "das", "de", "do", "dos", "e"]);
+      const SUFFIXES = new Set(["filho", "neto", "junior", "júnior", "sobrinho"]);
+      const CORPORATE_HINTS = /\b(universidade|instituto|fundação|prefeitura|ministério|secretaria|governo|empresa|companhia|editora|associação|organização|biblioteca|centro|faculdade|escola|órgão)\b/i;
 
-    // ---------- ESTADO CENTRAL ----------
-    const state = {
-      tipo: 'livro',
-      autores: [],
-      titulo: '',
-      subtitulo: '',
-      ano: '',
-      edicao: '',
-      local: '',
-      fonte: '',
-      url: '',
-      nome_site: '',
-      acesso: '',
-      revista: '',
-      volume: '',
-      numero: '',
-      paginas: '',
-      direcao: '',
-      producao: '',
-      distribuidora: '',
-      midia: '',
-      useEtAl: false
-    };
+      const validators = {
+        required: (value) => value.trim().length > 0,
+        url: (value) => {
+          try {
+            const parsed = new URL(value);
+            return parsed.protocol === "http:" || parsed.protocol === "https:";
+          } catch {
+            return false;
+          }
+        },
+        year_or_token: (value) => /^(?:\d{4}|\[s\.\s*d\.\])$/i.test(value.trim()),
+        date_ptbr: (value) => /^(?:\d{1,2}\s+[a-zç.]{3,5}\s+\d{4}|\[s\.\s*d\.\])$/i.test(normalizeSpaces(value))
+      };
 
-    // DOM Elements
-    const $ = (id) => document.getElementById(id);
-    const tipoSelect = $('tipo');
-    const container = $('authors-container');
-    const resultadoDiv = $('resultado');
-    const resultText = $('resultText');
-    const loadingIndicator = $('loadingIndicator');
-    const copyBtn = $('copyBtn');
-    const qualityIndicator = $('qualityIndicator');
-    const dicaEl = $('dicaContextual');
-    const useEtAlCheck = $('useEtAl');
-    const checklistEl = $('checklist');
+      const state = {
+        tipo: "livro",
+        autores: [],
+        useEtAl: false,
+        artigo_online: false,
+        titulo: "",
+        subtitulo: "",
+        ano: "",
+        data_publicacao: "",
+        local: "",
+        edicao: "",
+        fonte: "",
+        paginas_total: "",
+        url: "",
+        nome_site: "",
+        data_atualizacao: "",
+        acesso: "",
+        revista: "",
+        local_periodico: "",
+        volume: "",
+        numero: "",
+        paginas: "",
+        doi: "",
+        direcao: "",
+        producao: "",
+        distribuidora: "",
+        pais: "",
+        midia: "",
+        duracao: ""
+      };
 
-    // ---------- BUILDERS POR TIPO (ARQUITETURA ESCALÁVEL) ----------
-    const builders = {
-      livro: (s) => {
-        const autores = buildAuthorsString(s);
-        const titulo = s.subtitulo ? `${s.titulo}: ${s.subtitulo}` : s.titulo;
-        let ed = s.edicao;
-        if (/^\d+$/.test(ed)) ed = `${ed}. ed.`;
-        const loc = s.local || '[S. l.]';
-        const font = s.fonte || '[s. n.]';
-        return {
-          raw: `${autores}${titulo}. ${ed ? ed + ' ' : ''}${loc}: ${font}, ${s.ano}.`.replace(/\s+/g, ' ').trim(),
-          formatted: `${autores}<strong>${s.titulo}</strong>${s.subtitulo ? ': ' + s.subtitulo : ''}. ${ed ? ed + ' ' : ''}${loc}: ${font}, ${s.ano}.`.replace(/\s+/g, ' ')
-        };
-      },
-      
-      site: (s) => {
-        const autores = buildAuthorsString(s);
-        const titulo = s.subtitulo ? `${s.titulo}: ${s.subtitulo}` : s.titulo;
-        const ns = s.nome_site || '';
-        return {
-          raw: `${autores}${titulo}. ${ns}, ${s.ano}. Disponível em: ${s.url}. Acesso em: ${s.acesso}.`.replace(/\s+/g, ' '),
-          formatted: `${autores}<strong>${s.titulo}</strong>${s.subtitulo ? ': ' + s.subtitulo : ''}. ${ns}, ${s.ano}. Disponível em: ${s.url}. Acesso em: ${s.acesso}.`
-        };
-      },
-      
-      artigo: (s) => {
-        const autores = buildAuthorsString(s);
-        const titulo = s.subtitulo ? `${s.titulo}: ${s.subtitulo}` : s.titulo;
-        let extra = '';
-        if (s.volume) extra += `v. ${s.volume}, `;
-        if (s.numero) extra += `n. ${s.numero}, `;
-        if (s.paginas) extra += `p. ${s.paginas}, `;
-        return {
-          raw: `${autores}${titulo}. ${s.revista}, ${extra}${s.ano}.`.replace(/,\s*$/, '.'),
-          formatted: `${autores}<strong>${s.titulo}</strong>${s.subtitulo ? ': ' + s.subtitulo : ''}. ${s.revista}, ${extra}${s.ano}.`.replace(/,\s*$/, '.')
-        };
-      },
-      
-      filme: (s) => {
-        const titulo = s.subtitulo ? `${s.titulo}: ${s.subtitulo}` : s.titulo;
-        const dir = s.direcao || '[s. n.]';
-        const prod = s.producao;
-        const dist = s.distribuidora || '[s. n.]';
-        const mid = s.midia;
-        const raw = `${titulo}. Direção: ${dir}.${prod ? ' Produção: ' + prod + '.' : ''} ${dist}, ${s.ano}. ${mid}.`.replace(/\s+/g, ' ');
-        return {
-          raw,
-          formatted: `<strong>${s.titulo}</strong>${s.subtitulo ? ': ' + s.subtitulo : ''}. Direção: ${dir}.${prod ? ' Produção: ' + prod + '.' : ''} ${dist}, ${s.ano}. ${mid}.`
-        };
-      },
-      
-      youtube: (s) => {
-        const autores = buildAuthorsString(s);
-        const titulo = s.subtitulo ? `${s.titulo}: ${s.subtitulo}` : s.titulo;
-        const canal = s.nome_site;
-        const autorY = autores || (canal ? canal + '. ' : '');
-        return {
-          raw: `${autorY}${titulo}. YouTube, ${s.ano}. Disponível em: ${s.url}. Acesso em: ${s.acesso}.`.replace(/\s+/g, ' '),
-          formatted: `${autorY}<strong>${s.titulo}</strong>${s.subtitulo ? ': ' + s.subtitulo : ''}. YouTube, ${s.ano}. Disponível em: ${s.url}. Acesso em: ${s.acesso}.`
-        };
+      const REQUIRED_BY_TYPE = {
+        livro: ["titulo", "ano", "fonte"],
+        site: ["titulo", "ano", "url", "acesso"],
+        artigo: ["titulo", "ano", "revista"],
+        filme: ["titulo", "ano", "direcao", "distribuidora", "pais"],
+        youtube: ["titulo", "ano", "url", "acesso"]
+      };
+
+      const TIPS = {
+        livro: "Livro exige título, editora e ano. Local pode ficar como [S. l.] quando não identificado. A edição só entra a partir da segunda.",
+        site: "Em conteúdo online, mantenha URL completa e data de acesso. Quando a data da página for desconhecida, use [s. d.] apenas com critério.",
+        artigo: "Para artigo, o destaque tipográfico fica no título do periódico. Se o artigo foi consultado online, inclua URL, data de acesso e DOI se houver.",
+        filme: "Para filme, informe direção, país, produtora ou distribuidora e ano. O suporte e a duração ajudam a descrever melhor o documento.",
+        youtube: "Vídeo online deve indicar responsável, título, plataforma, data ou ano, URL e acesso. O nome do canal ajuda quando não há autoria pessoal."
+      };
+
+      const resultBox = $("resultado");
+      const resultText = $("resultText");
+      const loadingIndicator = $("loadingIndicator");
+      const qualityIndicator = $("qualityIndicator");
+      const checklistEl = $("checklist");
+      const dicaEl = $("dicaContextual");
+      const authorsContainer = $("authors-container");
+      const tipoSelect = $("tipo");
+
+      function escapeHTML(str) {
+        return String(str || "").replace(/[&<>'"]/g, (tag) => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          "'": "&#39;",
+          "\"": "&quot;"
+        }[tag] || tag));
       }
-    };
 
-    // ---------- FUNÇÕES AUXILIARES ----------
-    function updateStateFromDOM() {
-      state.tipo = tipoSelect.value;
-      state.useEtAl = useEtAlCheck.checked;
-      
-      const inputs = document.querySelectorAll('.author-input');
-      state.autores = Array.from(inputs).map(i => i.value.trim()).filter(v => v);
-      
-      state.titulo = $('titulo')?.value.trim() || '';
-      state.subtitulo = $('subtitulo')?.value.trim() || '';
-      state.ano = $('ano')?.value.trim() || '';
-      state.edicao = $('edicao')?.value.trim() || '';
-      state.local = $('local')?.value.trim() || '';
-      state.fonte = $('fonte')?.value.trim() || '';
-      state.url = $('url')?.value.trim() || '';
-      state.nome_site = $('nome_site')?.value.trim() || '';
-      state.acesso = $('acesso')?.value.trim() || '';
-      state.revista = $('revista')?.value.trim() || '';
-      state.volume = $('volume')?.value.trim() || '';
-      state.numero = $('numero')?.value.trim() || '';
-      state.paginas = $('paginas')?.value.trim() || '';
-      state.direcao = $('direcao')?.value.trim() || '';
-      state.producao = $('producao')?.value.trim() || '';
-      state.distribuidora = $('distribuidora')?.value.trim() || '';
-      state.midia = $('midia')?.value.trim() || '';
-    }
-
-    function formatAuthorName(fullName) {
-      let name = fullName.trim().replace(/\s+/g, ' ');
-      if (!name) return '';
-      if (/^[A-Z\s]+$/.test(name) || name.includes('&')) return name;
-      
-      const parts = name.split(' ');
-      if (parts.length === 1) return name.toUpperCase();
-      
-      const sufixos = ['filho', 'neto', 'junior', 'sobrinho'];
-      let lastNameIndex = parts.length - 1;
-      if (sufixos.includes(parts[lastNameIndex]?.toLowerCase()) && parts.length > 1) {
-        lastNameIndex = parts.length - 2;
+      function normalizeSpaces(value) {
+        return String(value || "").replace(/\s+/g, " ").trim();
       }
-      
-      const lastName = parts.slice(lastNameIndex).join(' ').toUpperCase();
-      const firstName = parts.slice(0, lastNameIndex).join(' ');
-      return `${lastName}, ${firstName}`;
-    }
 
-    function buildAuthorsString(s = state) {
-      if (s.autores.length === 0) return '';
-      if (s.useEtAl && s.autores.length > 3) {
-        return formatAuthorName(s.autores[0]) + ' et al. ';
+      function smartValue(id) {
+        return normalizeSpaces($(id)?.value || "");
       }
-      return s.autores.map(formatAuthorName).join('; ') + '. ';
-    }
 
-    function validateField(fieldId, value) {
-      const field = $(fieldId);
-      if (!field) return true;
-      
-      const validateAttr = field.dataset.validate;
-      if (!validateAttr) return true;
-      
-      const rules = validateAttr.split('|');
-      for (const rule of rules) {
-        if (validators[rule] && !validators[rule](value)) {
-          field.classList.add('error');
-          field.classList.remove('success');
-          return false;
+      function updateStateFromDOM() {
+        state.tipo = tipoSelect.value;
+        state.useEtAl = $("useEtAl").checked;
+        state.artigo_online = $("artigo_online").checked;
+        state.autores = Array.from(document.querySelectorAll(".author-input"))
+          .map((input) => normalizeSpaces(input.value))
+          .filter(Boolean);
+
+        [
+          "titulo", "subtitulo", "ano", "data_publicacao", "local", "edicao", "fonte", "paginas_total",
+          "url", "nome_site", "data_atualizacao", "acesso", "revista", "local_periodico", "volume",
+          "numero", "paginas", "doi", "direcao", "producao", "distribuidora", "pais", "midia", "duracao"
+        ].forEach((id) => {
+          state[id] = smartValue(id);
+        });
+      }
+
+      function isVisibleField(field) {
+        return !!field && !field.closest(".hidden-field");
+      }
+
+      function getActiveFields() {
+        return Array.from(document.querySelectorAll("[data-validate]")).filter(isVisibleField);
+      }
+
+      function validateField(field) {
+        if (!field || !isVisibleField(field)) return true;
+
+        const rules = (field.dataset.validate || "").split("|").filter(Boolean);
+        const value = normalizeSpaces(field.value);
+        let valid = true;
+
+        for (const rule of rules) {
+          if (validators[rule] && !validators[rule](value)) {
+            valid = false;
+            break;
+          }
         }
+
+        field.classList.toggle("error", !valid);
+        field.classList.toggle("success", valid && value.length > 0);
+
+        if (!value.length) {
+          field.classList.remove("success");
+          if (!rules.includes("required")) {
+            field.classList.remove("error");
+            valid = true;
+          }
+        }
+
+        return valid;
       }
-      
-      if (value) {
-        field.classList.remove('error');
-        field.classList.add('success');
-      } else {
-        field.classList.remove('success', 'error');
+
+      function validateAuthors() {
+        if (state.tipo === "filme") return true;
+        return state.autores.length > 0 || state.tipo === "site" || state.tipo === "youtube";
       }
-      return true;
-    }
 
-    function validateAllFields() {
-      const fields = document.querySelectorAll('[data-validate]');
-      let allValid = true;
-      const checklist = [];
-      
-      fields.forEach(field => {
-        const val = field.value.trim();
-        const isValid = validateField(field.id, val);
-        if (!isValid) allValid = false;
-        
-        const label = field.placeholder.replace('*', '').trim();
-        checklist.push({
-          label,
-          valid: isValid && val.length > 0,
-          required: field.dataset.validate.includes('required')
-        });
-      });
-      
-      // Atualizar checklist visual
-      checklistEl.innerHTML = checklist.map(item => `
-        <div class="checklist-item">
-          <span class="${item.valid ? 'text-emerald-600' : 'text-slate-400'}">${item.valid ? '✅' : '○'}</span>
-          <span class="${item.valid ? 'text-slate-700' : 'text-slate-500'}">${item.label}</span>
-        </div>
-      `).join('');
-      
-      return allValid;
-    }
-
-    function buildReference() {
-      updateStateFromDOM();
-      if (!state.titulo) return { raw: '', formatted: '' };
-      
-      const builder = builders[state.tipo];
-      return builder ? builder(state) : { raw: '', formatted: '' };
-    }
-
-    function render() {
-      loadingIndicator.classList.remove('hidden');
-      resultText.classList.add('hidden');
-      
-      setTimeout(() => {
+      function validateActiveFields() {
         updateStateFromDOM();
-        
-        // Atualizar grupos visíveis
-        document.querySelectorAll('[data-field-group]').forEach(el => {
-          const groups = el.dataset.fieldGroup.split(' ');
-          el.classList.toggle('hidden-field', !groups.includes(state.tipo));
+        const fields = getActiveFields();
+        const checklist = [];
+        let allValid = true;
+
+        fields.forEach((field) => {
+          const valid = validateField(field);
+          if (!valid) allValid = false;
+          checklist.push({
+            label: field.placeholder.replace("*", "").trim(),
+            valid: valid && normalizeSpaces(field.value).length > 0,
+            required: (field.dataset.validate || "").includes("required")
+          });
         });
-        
-        // Validar campos
-        validateAllFields();
-        
-        const ref = buildReference();
-        
-        loadingIndicator.classList.add('hidden');
-        resultText.classList.remove('hidden');
-        
-        if (!ref.raw) {
-          resultText.innerHTML = 'Preencha os campos para gerar a referência';
-          resultadoDiv.className = 'reference-output flex items-center justify-center text-slate-400 italic text-center';
-          qualityIndicator.textContent = 'incompleta';
-          qualityIndicator.className = 'quality-badge bg-amber-50 text-amber-700 border border-amber-200';
-          dicaEl.textContent = 'Preencha título e campos obrigatórios.';
+
+        const authorOk = validateAuthors();
+        if (!authorOk) allValid = false;
+
+        checklist.unshift({
+          label: state.tipo === "filme" ? "Autoria opcional para filme" : "Autoria ou respons.",
+          valid: authorOk,
+          required: state.tipo !== "filme"
+        });
+
+        checklistEl.innerHTML = checklist
+          .map((item) => {
+            const icon = item.valid
+              ? `<svg class="w-4 h-4 mt-0.5 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`
+              : item.required
+                ? `<svg class="w-4 h-4 mt-0.5 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>`
+                : `<svg class="w-4 h-4 mt-0.5 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
+            return `
+              <div class="check-item items-start">
+                <span class="shrink-0 pt-0.5">${icon}</span>
+                <span class="${item.valid ? "text-slate-800" : "text-slate-600"}">${escapeHTML(item.label)}</span>
+              </div>
+            `;
+          })
+          .join("");
+
+        return allValid;
+      }
+
+      function isCorporateAuthor(name) {
+        const clean = normalizeSpaces(name);
+        return clean === clean.toUpperCase() || CORPORATE_HINTS.test(clean);
+      }
+
+      function formatPersonalAuthor(name) {
+        const cleaned = normalizeSpaces(name);
+        if (!cleaned) return "";
+        const parts = cleaned.split(" ");
+        if (parts.length === 1) return cleaned.toUpperCase();
+
+        let surnameStart = parts.length - 1;
+        if (SUFFIXES.has(parts[surnameStart].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) && parts.length > 1) surnameStart -= 1;
+        while (surnameStart > 0 && PREPOSITIONS.has(parts[surnameStart - 1].toLowerCase())) surnameStart -= 1;
+
+        const surname = parts.slice(surnameStart).join(" ").toUpperCase();
+        const given = parts.slice(0, surnameStart).join(" ");
+        return given ? `${surname}, ${given}` : surname;
+      }
+
+      function formatAuthorName(name) {
+        if (!name) return "";
+        return isCorporateAuthor(name) ? normalizeSpaces(name).toUpperCase() : formatPersonalAuthor(name);
+      }
+
+      function buildAuthorsString() {
+        if (!state.autores.length) return "";
+        if (state.useEtAl && state.autores.length >= 4) return `${formatAuthorName(state.autores[0])} et al.`;
+        return state.autores.map(formatAuthorName).join("; ");
+      }
+
+      function strongTitle(title, subtitle) {
+        return `<strong>${escapeHTML(title)}</strong>${subtitle ? `: ${escapeHTML(subtitle)}` : ""}`;
+      }
+
+      function plainTitle(title, subtitle) {
+        return `${title}${subtitle ? `: ${subtitle}` : ""}`;
+      }
+
+      function normalizeEdition(value) {
+        const clean = normalizeSpaces(value);
+        if (!clean) return "";
+        if (/^1(?:\.?\s*ed\.?)?$/i.test(clean)) return "";
+        if (/^\d+$/.test(clean)) return `${clean}. ed.`;
+        return clean.endsWith(".") ? clean : `${clean}.`;
+      }
+
+      function fallbackYear() {
+        return state.ano || "[s. d.]";
+      }
+
+      function fallbackLocation(value) {
+        return value || "[S. l.]";
+      }
+
+      function fallbackPublisher(value) {
+        return value || "[s. n.]";
+      }
+
+      function appendOnlineElements(parts, url, acesso, doi) {
+        if (doi) parts.push(`DOI: ${escapeHTML(doi)}.`);
+        if (url) parts.push(`Disponível em: ${escapeHTML(url)}.`);
+        if (acesso) parts.push(`Acesso em: ${escapeHTML(acesso)}.`);
+      }
+
+      function appendOnlineElementsRaw(parts, url, acesso, doi) {
+        if (doi) parts.push(`DOI: ${doi}.`);
+        if (url) parts.push(`Disponível em: ${url}.`);
+        if (acesso) parts.push(`Acesso em: ${acesso}.`);
+      }
+
+      function cleanJoin(parts) {
+        return parts
+          .filter(Boolean)
+          .map((part) => normalizeSpaces(part))
+          .join(" ")
+          .replace(/\s+([,.])/g, "$1")
+          .replace(/\.{2,}/g, ".")
+          .trim();
+      }
+
+      function buildLivro() {
+        const authors = buildAuthorsString();
+        const titleRaw = plainTitle(state.titulo, state.subtitulo);
+        const titleHtml = strongTitle(state.titulo, state.subtitulo);
+        const edition = normalizeEdition(state.edicao);
+        const location = fallbackLocation(state.local);
+        const publisher = fallbackPublisher(state.fonte);
+        const year = fallbackYear();
+
+        return {
+          raw: cleanJoin([
+            authors ? `${authors}.` : "",
+            `${titleRaw}.`,
+            edition,
+            `${location}: ${publisher}, ${year}.`,
+            state.paginas_total ? `${state.paginas_total} p.` : ""
+          ]),
+          formatted: cleanJoin([
+            authors ? `${escapeHTML(authors)}.` : "",
+            `${titleHtml}.`,
+            escapeHTML(edition),
+            `${escapeHTML(location)}: ${escapeHTML(publisher)}, ${escapeHTML(year)}.`,
+            state.paginas_total ? `${escapeHTML(state.paginas_total)} p.` : ""
+          ])
+        };
+      }
+
+      function buildSite() {
+        const authors = buildAuthorsString();
+        const titleRaw = plainTitle(state.titulo, state.subtitulo);
+        const titleHtml = strongTitle(state.titulo, state.subtitulo);
+        const siteName = state.nome_site ? `${state.nome_site}.` : "";
+        const publicationDate = state.data_atualizacao || state.data_publicacao || fallbackYear();
+
+        return {
+          raw: cleanJoin([
+            authors ? `${authors}.` : "",
+            `${titleRaw}.`,
+            siteName,
+            `${publicationDate}.`,
+            `Disponível em: ${state.url}.`,
+            `Acesso em: ${state.acesso}.`
+          ]),
+          formatted: cleanJoin([
+            authors ? `${escapeHTML(authors)}.` : "",
+            `${titleHtml}.`,
+            escapeHTML(siteName),
+            `${escapeHTML(publicationDate)}.`,
+            `Disponível em: ${escapeHTML(state.url)}.`,
+            `Acesso em: ${escapeHTML(state.acesso)}.`
+          ])
+        };
+      }
+
+      function buildArtigo() {
+        const authors = buildAuthorsString();
+        const titleRaw = plainTitle(state.titulo, state.subtitulo);
+        const titleHtml = escapeHTML(titleRaw);
+        const periodicalRaw = state.revista;
+        const periodicalHtml = `<strong>${escapeHTML(state.revista)}</strong>`;
+        const piecesRaw = [];
+        const piecesHtml = [];
+
+        if (state.local_periodico) {
+          piecesRaw.push(state.local_periodico);
+          piecesHtml.push(escapeHTML(state.local_periodico));
+        }
+        if (state.volume) {
+          piecesRaw.push(`v. ${state.volume}`);
+          piecesHtml.push(`v. ${escapeHTML(state.volume)}`);
+        }
+        if (state.numero) {
+          piecesRaw.push(`n. ${state.numero}`);
+          piecesHtml.push(`n. ${escapeHTML(state.numero)}`);
+        }
+        if (state.paginas) {
+          piecesRaw.push(`p. ${state.paginas}`);
+          piecesHtml.push(`p. ${escapeHTML(state.paginas)}`);
+        }
+        piecesRaw.push(state.data_publicacao || fallbackYear());
+        piecesHtml.push(escapeHTML(state.data_publicacao || fallbackYear()));
+
+        const rawParts = [
+          authors ? `${authors}.` : "",
+          `${titleRaw}.`,
+          `${periodicalRaw}, ${piecesRaw.join(", ")}.`
+        ];
+        const htmlParts = [
+          authors ? `${escapeHTML(authors)}.` : "",
+          `${titleHtml}.`,
+          `${periodicalHtml}, ${piecesHtml.join(", ")}.`
+        ];
+
+        if (state.artigo_online) {
+          appendOnlineElementsRaw(rawParts, state.url, state.acesso, state.doi);
+          appendOnlineElements(htmlParts, state.url, state.acesso, state.doi);
+        }
+
+        return {
+          raw: cleanJoin(rawParts),
+          formatted: cleanJoin(htmlParts)
+        };
+      }
+
+      function buildFilme() {
+        const titleRaw = plainTitle(state.titulo, state.subtitulo);
+        const titleHtml = strongTitle(state.titulo, state.subtitulo);
+        const year = fallbackYear();
+        const location = fallbackLocation(state.local);
+        const producer = fallbackPublisher(state.distribuidora);
+        const support = state.midia || "filme";
+
+        return {
+          raw: cleanJoin([
+            `${titleRaw}.`,
+            `Direção: ${state.direcao}.`,
+            state.producao ? `Produção: ${state.producao}.` : "",
+            `${location}: ${producer}, ${year}.`,
+            `${state.pais}.`,
+            `${support}.`,
+            state.duracao ? `${state.duracao}.` : ""
+          ]),
+          formatted: cleanJoin([
+            `${titleHtml}.`,
+            `Direção: ${escapeHTML(state.direcao)}.`,
+            state.producao ? `Produção: ${escapeHTML(state.producao)}.` : "",
+            `${escapeHTML(location)}: ${escapeHTML(producer)}, ${escapeHTML(year)}.`,
+            `${escapeHTML(state.pais)}.`,
+            `${escapeHTML(support)}.`,
+            state.duracao ? `${escapeHTML(state.duracao)}.` : ""
+          ])
+        };
+      }
+
+      function buildYoutube() {
+        const authors = buildAuthorsString();
+        const responsibleRaw = authors || (state.nome_site ? `${state.nome_site.toUpperCase()}.` : "");
+        const responsibleHtml = escapeHTML(responsibleRaw);
+        const titleRaw = plainTitle(state.titulo, state.subtitulo);
+        const titleHtml = strongTitle(state.titulo, state.subtitulo);
+        const publicationDate = state.data_atualizacao || state.data_publicacao || fallbackYear();
+
+        return {
+          raw: cleanJoin([
+            responsibleRaw,
+            `${titleRaw}.`,
+            "YouTube,",
+            `${publicationDate}.`,
+            `Disponível em: ${state.url}.`,
+            `Acesso em: ${state.acesso}.`
+          ]),
+          formatted: cleanJoin([
+            responsibleHtml,
+            `${titleHtml}.`,
+            "YouTube,",
+            `${escapeHTML(publicationDate)}.`,
+            `Disponível em: <a href="${escapeHTML(state.url)}" class="text-indigo-600 hover:underline" target="_blank">${escapeHTML(state.url)}</a>.`,
+            `Acesso em: ${escapeHTML(state.acesso)}.`
+          ])
+        };
+      }
+
+      const builders = {
+        livro: buildLivro,
+        site: buildSite,
+        artigo: buildArtigo,
+        filme: buildFilme,
+        youtube: buildYoutube
+      };
+
+      function buildCitation() {
+        const year = fallbackYear();
+        if (state.autores.length) {
+          const first = formatAuthorName(state.autores[0]);
+          const surname = first.split(",")[0];
+          if (state.useEtAl && state.autores.length >= 4) return `${surname} et al., ${year}`;
+          if (state.autores.length === 2) {
+            const second = formatAuthorName(state.autores[1]).split(",")[0];
+            return `${surname}; ${second}, ${year}`;
+          }
+          return `${surname}, ${year}`;
+        }
+        const firstWord = normalizeSpaces(state.titulo).split(" ")[0] || "TÍTULO";
+        return `${firstWord.toUpperCase()}, ${year}`;
+      }
+
+      function getReference() {
+        updateStateFromDOM();
+        if (!state.titulo) return { raw: "", formatted: "" };
+        return builders[state.tipo]();
+      }
+
+      function getQuality(allValid) {
+        const hasRequired = REQUIRED_BY_TYPE[state.tipo].every((id) => {
+          const field = $(id);
+          if (id === "acesso" && (!field || field.closest(".hidden-field"))) return true;
+          return normalizeSpaces(field?.value || "").length > 0;
+        });
+
+        if (allValid && hasRequired) {
+          return { text: "Rigor alto", className: "badge bg-emerald-100 text-emerald-900 border-emerald-300" };
+        }
+
+        if (hasRequired) {
+          return { text: "Quase pronta", className: "badge bg-sky-100 text-sky-900 border-sky-300" };
+        }
+
+        return { text: "Incompleta", className: "badge bg-amber-100 text-amber-900 border-amber-300" };
+      }
+
+      function toggleGroups() {
+        document.querySelectorAll("[data-field-group]").forEach((el) => {
+          const groups = (el.dataset.fieldGroup || "").split(" ");
+          if (groups.includes(state.tipo)) {
+            el.classList.remove("hidden-field");
+          } else {
+            el.classList.add("hidden-field");
+          }
+        });
+        const articleOnline = state.tipo === "artigo" && $("artigo_online").checked;
+        const siteGroup = $("grupo-site");
+        if (state.tipo === "site" || state.tipo === "youtube" || articleOnline) {
+          siteGroup.classList.remove("hidden-field");
+        } else {
+          siteGroup.classList.add("hidden-field");
+        }
+        ["url", "acesso"].forEach((id) => {
+          const field = $(id);
+          if (!field) return;
+          if (state.tipo === "artigo") {
+            field.dataset.validate = articleOnline ? "required|" + (id === "url" ? "url" : "date_ptbr") : "";
+          } else if (state.tipo === "site" || state.tipo === "youtube") {
+            field.dataset.validate = id === "url" ? "required|url" : "required|date_ptbr";
+          }
+        });
+      }
+
+      function render() {
+        updateStateFromDOM();
+        toggleGroups();
+
+        loadingIndicator.classList.remove("hidden");
+        resultText.classList.add("hidden");
+
+        setTimeout(() => {
+          const allValid = validateActiveFields();
+          const ref = getReference();
+          const quality = getQuality(allValid);
+
+          loadingIndicator.classList.add("hidden");
+          resultText.classList.remove("hidden");
+          qualityIndicator.textContent = quality.text;
+          qualityIndicator.className = quality.className;
+          dicaEl.textContent = TIPS[state.tipo];
+
+          if (!ref.raw) {
+            resultText.textContent = "Preencha os campos obrigatórios para gerar a referência.";
+            resultBox.className = "output-box output-placeholder";
+            resultBox.dataset.raw = "";
+            resultBox.dataset.citation = "";
+            return;
+          }
+
+          resultText.innerHTML = ref.formatted;
+          resultBox.className = "output-box";
+          resultBox.dataset.raw = ref.raw;
+          resultBox.dataset.citation = buildCitation();
+        }, 30);
+      }
+
+      function createAuthorInput(value = "") {
+        const row = document.createElement("div");
+        row.className = "author-row";
+        row.innerHTML = `
+          <input class="field author-input" type="text" placeholder="Nome completo ou instituição responsável" value="${escapeHTML(value)}" />
+          <button type="button" class="icon-btn bg-stone-100 text-stone-500 hover:bg-rose-50 hover:text-rose-700 remove-author" aria-label="Remover autor" title="Remover autor">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        `;
+
+        const input = row.querySelector("input");
+        input.addEventListener("input", render);
+        input.addEventListener("blur", render);
+        row.querySelector(".remove-author").addEventListener("click", () => {
+          if (authorsContainer.querySelectorAll(".author-row").length > 1) {
+            row.remove();
+            render();
+          } else {
+            input.value = "";
+            render();
+          }
+        });
+        return row;
+      }
+
+      function fillTodayAccess() {
+        const now = new Date();
+        $("acesso").value = `${now.getDate()} ${MONTHS[now.getMonth()]} ${now.getFullYear()}`;
+        render();
+      }
+
+      function resetForm() {
+        document.querySelectorAll(".field").forEach((field) => {
+          field.value = "";
+          field.classList.remove("success", "error");
+        });
+        $("useEtAl").checked = false;
+        $("artigo_online").checked = false;
+        tipoSelect.value = "livro";
+        authorsContainer.innerHTML = "";
+        authorsContainer.appendChild(createAuthorInput(""));
+        render();
+      }
+
+      function fillExample() {
+        resetForm();
+        tipoSelect.value = "artigo";
+        $("titulo").value = "Ferramentas digitais e normalização bibliográfica";
+        $("subtitulo").value = "um estudo aplicado em bibliotecas universitárias";
+        $("ano").value = "2025";
+        $("data_publicacao").value = "jul. 2025";
+        $("revista").value = "Revista Brasileira de Biblioteconomia";
+        $("local_periodico").value = "Brasília";
+        $("volume").value = "18";
+        $("numero").value = "2";
+        $("paginas").value = "45-63";
+        $("doi").value = "10.1234/rbb.v18n2.2025.45";
+        $("artigo_online").checked = true;
+        $("url").value = "https://exemplo.org/artigo";
+        $("acesso").value = "11 abr. 2026";
+        const inputs = authorsContainer.querySelectorAll(".author-input");
+        inputs[0].value = "Marcia Pereira";
+        authorsContainer.appendChild(createAuthorInput("Universidade Federal do Cerrado"));
+        render();
+      }
+
+      function inspectPastedReference() {
+        const text = normalizeSpaces($("pastedRef").value);
+        const box = $("fixSuggestions");
+        if (!text) {
+          box.classList.remove("hidden");
+          box.innerHTML = "<strong>Nada para analisar.</strong> Cole uma referência primeiro.";
           return;
         }
-        
-        resultText.innerHTML = ref.formatted;
-        resultadoDiv.className = 'reference-output text-left';
-        resultadoDiv.dataset.raw = ref.raw;
-        resultadoDiv.dataset.citation = buildCitation();
-        
-        // Qualidade
-        const requiredValid = validateAllFields();
-        const q = requiredValid ? 
-          (state.autores.length > 0 ? 
-            { level: 'pronta', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' } :
-            { level: 'sem autor', color: 'bg-blue-50 text-blue-700 border-blue-200' }) :
-          { level: 'incompleta', color: 'bg-amber-50 text-amber-700 border-amber-200' };
-        
-        qualityIndicator.textContent = q.level;
-        qualityIndicator.className = `quality-badge ${q.color}`;
-        
-        const tips = {
-          livro: 'Inclua cidade e editora. Edição numérica vira "2. ed."',
-          site: 'URL completa e data de acesso são obrigatórias.',
-          artigo: 'Preencha revista, volume e páginas se disponível.',
-          filme: 'Diretor essencial. Produção/distribuidora opcionais.',
-          youtube: 'Nome do canal ajuda se não houver autor.'
-        };
-        dicaEl.textContent = tips[state.tipo] || 'Preencha os campos obrigatórios.';
-      }, 10);
-    }
 
-    function buildCitation() {
-      if (!state.titulo || !state.ano) return '';
-      if (state.autores.length > 0) {
-        const sobrenome = state.autores[0].split(' ').pop().toUpperCase();
-        return `${sobrenome}, ${state.ano}`;
+        const notes = [];
+        if (!/\d{4}|\[s\.\s*d\.\]/i.test(text)) notes.push("Ano ausente ou fora do padrão.");
+        if (!/[A-ZÀ-Ý][A-ZÀ-Ý\s-]+,\s/.test(text) && !CORPORATE_HINTS.test(text)) notes.push("Autoria não parece invertida no padrão SOBRENOME, Prenome.");
+        if (/https?:\/\//i.test(text) && !/Acesso em:/i.test(text)) notes.push("Conteúdo online sem data de acesso explícita.");
+        if (/https?:\/\//i.test(text) && !/Disponível em:/i.test(text)) notes.push("URL presente sem a expressão obrigatória 'Disponível em:'.");
+        if (!/\.$/.test(text)) notes.push("A referência não termina com ponto final.");
+        if (!notes.length) notes.push("A estrutura geral parece consistente, mas confira sempre o tipo documental e o destaque tipográfico (negrito no título ou na revista).");
+
+        box.classList.remove("hidden");
+        box.innerHTML = `
+          <strong>Resultados da Análise:</strong>
+          <ul class="list-disc ml-5 mt-2 space-y-1.5">
+            ${notes.map((note) => `<li>${note}</li>`).join("")}
+          </ul>
+        `;
       }
-      const firstWord = state.titulo.split(' ')[0].toUpperCase();
-      return `${firstWord}, ${state.ano}`;
-    }
 
-    // ---------- UI COMPONENTS ----------
-    function createAuthorInput(value = '') {
-      const div = document.createElement('div');
-      div.className = 'author-row';
-      div.innerHTML = `
-        <input class="input-field author-input" type="text" placeholder="Nome completo do autor" value="${value}" />
-        <button class="remove-author btn-icon bg-red-50 text-red-500 hover:bg-red-100" aria-label="Remover autor" type="button">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      `;
-      const input = div.querySelector('input');
-      input.addEventListener('input', render);
-      input.addEventListener('blur', () => validateField(input.id, input.value));
-      div.querySelector('.remove-author').addEventListener('click', () => {
-        if (document.querySelectorAll('.author-row').length > 1) {
-          div.remove();
+      async function copyText(value, successMessage) {
+        if (!value) return;
+        try {
+          await navigator.clipboard.writeText(value);
+          $("copyFeedback").textContent = successMessage;
+          $("copyFeedback").className = "mt-3 text-sm text-emerald-600 min-h-[1.25rem] text-center font-bold";
+        } catch {
+          const area = document.createElement("textarea");
+          area.value = value;
+          document.body.appendChild(area);
+          area.select();
+          document.execCommand("copy");
+          document.body.removeChild(area);
+          $("copyFeedback").textContent = successMessage;
+          $("copyFeedback").className = "mt-3 text-sm text-emerald-600 min-h-[1.25rem] text-center font-bold";
+        }
+        setTimeout(() => {
+          $("copyFeedback").textContent = "";
+          $("copyFeedback").className = "mt-3 text-sm text-slate-500 min-h-[1.25rem] text-center font-medium";
+        }, 1800);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        authorsContainer.appendChild(createAuthorInput(""));
+
+        tipoSelect.addEventListener("change", render);
+        $("useEtAl").addEventListener("change", render);
+        $("artigo_online").addEventListener("change", render);
+
+        $("add-author-btn").addEventListener("click", () => {
+          const row = createAuthorInput("");
+          authorsContainer.appendChild(row);
+          row.querySelector("input").focus();
           render();
-        }
-      });
-      return div;
-    }
+        });
 
-    function resetForm() {
-      document.querySelectorAll('.input-field').forEach(i => {
-        i.value = '';
-        i.classList.remove('success', 'error');
-      });
-      tipoSelect.value = 'livro';
-      useEtAlCheck.checked = false;
-      container.innerHTML = '';
-      container.appendChild(createAuthorInput(''));
-      render();
-    }
+        document.querySelectorAll(".field, .select-field").forEach((el) => {
+          el.addEventListener("input", render);
+          el.addEventListener("blur", render);
+        });
 
-    function fillExample() {
-      resetForm();
-      tipoSelect.value = 'livro';
-      $('titulo').value = 'Manual de Semântica';
-      $('subtitulo').value = 'Noções Básicas e Exercícios';
-      $('ano').value = '2022';
-      $('local').value = 'São Paulo';
-      $('fonte').value = 'Contexto';
-      $('edicao').value = '3';
-      
-      const inputs = document.querySelectorAll('.author-input');
-      if (inputs.length) inputs[0].value = 'Márcia Cançado';
-      container.appendChild(createAuthorInput('Luiz Francisco Dias'));
-      render();
-    }
+        $("set-today-btn").addEventListener("click", fillTodayAccess);
+        $("clearBtn").addEventListener("click", resetForm);
+        $("exampleFillBtn").addEventListener("click", fillExample);
+        $("exampleFillBtnMobile").addEventListener("click", fillExample);
+        $("copyBtn").addEventListener("click", () => copyText(resultBox.dataset.raw, "Referência copiada com sucesso!"));
+        $("copyCitationBtn").addEventListener("click", () => copyText(resultBox.dataset.citation, "Citação copiada com sucesso!"));
 
-    // ---------- INICIALIZAÇÃO ----------
-    document.addEventListener('DOMContentLoaded', () => {
-      container.appendChild(createAuthorInput(''));
-      
-      tipoSelect.addEventListener('change', render);
-      useEtAlCheck.addEventListener('change', render);
-      
-      $('add-author-btn').addEventListener('click', () => {
-        container.appendChild(createAuthorInput(''));
-        container.lastChild.querySelector('input').focus();
+        const modal = $("fixModal");
+        $("fixPastedBtn").addEventListener("click", () => modal.classList.remove("hidden"));
+        $("closeModalBtn").addEventListener("click", () => modal.classList.add("hidden"));
+        $("closeModalBtnTop").addEventListener("click", () => modal.classList.add("hidden"));
+        $("analyzePastedBtn").addEventListener("click", inspectPastedReference);
+
         render();
       });
-      
-      $('set-today-btn').addEventListener('click', () => {
-        const meses = ['jan.', 'fev.', 'mar.', 'abr.', 'maio', 'jun.', 'jul.', 'ago.', 'set.', 'out.', 'nov.', 'dez.'];
-        const d = new Date();
-        $('acesso').value = `${d.getDate()} ${meses[d.getMonth()]} ${d.getFullYear()}`;
-        render();
-      });
-      
-      $('clearBtn').addEventListener('click', resetForm);
-      $('exampleFillBtn')?.addEventListener('click', fillExample);
-      $('exampleFillBtnMobile')?.addEventListener('click', fillExample);
-      
-      // Copy moderno
-      copyBtn.addEventListener('click', async () => {
-        const text = resultadoDiv.dataset.raw;
-        if (!text) return;
-        
-        try {
-          await navigator.clipboard.writeText(text);
-          $('copyFeedback').textContent = '✓ Referência copiada!';
-          setTimeout(() => $('copyFeedback').textContent = '', 2000);
-        } catch (e) {
-          const ta = document.createElement('textarea');
-          ta.value = text;
-          document.body.appendChild(ta);
-          ta.select();
-          document.execCommand('copy');
-          document.body.removeChild(ta);
-          $('copyFeedback').textContent = '✓ Copiado!';
-          setTimeout(() => $('copyFeedback').textContent = '', 1500);
-        }
-      });
-      
-      // Copiar citação
-      $('copyCitationBtn').addEventListener('click', async () => {
-        const citation = resultadoDiv.dataset.citation;
-        if (!citation) return;
-        try {
-          await navigator.clipboard.writeText(citation);
-          $('copyFeedback').textContent = '✓ Citação copiada!';
-          setTimeout(() => $('copyFeedback').textContent = '', 2000);
-        } catch (e) {}
-      });
-      
-      // Modal de correção
-      const modal = $('fixModal');
-      $('fixPastedBtn').addEventListener('click', () => modal.classList.add('flex'));
-      $('closeModalBtn').addEventListener('click', () => modal.classList.remove('flex'));
-      
-      $('analyzePastedBtn').addEventListener('click', () => {
-        const pasted = $('pastedRef').value;
-        // Análise simples (demo)
-        const suggestions = [];
-        if (!pasted.match(/\d{4}/)) suggestions.push('❌ Ano não encontrado');
-        if (pasted.includes('.')) suggestions.push('✅ Pontuação parece OK');
-        $('fixSuggestions').innerHTML = suggestions.join('<br>') || '✅ Referência parece válida!';
-        $('fixSuggestions').classList.remove('hidden');
-        $('applyFixBtn').classList.remove('hidden');
-      });
-      
-      $('applyFixBtn').addEventListener('click', () => {
-        // Aplicar correções (demo)
-        alert('Em uma versão completa, aplicaria as correções automaticamente!');
-        modal.classList.remove('flex');
-      });
-      
-      // Validação em tempo real
-      document.querySelectorAll('.input-field').forEach(el => {
-        el.addEventListener('input', render);
-        el.addEventListener('blur', () => validateField(el.id, el.value));
-      });
-      
-      render();
-    });
-  })();
-</script>
+    })();
+  </script>
 </body>
 </html>
