@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Gerador de Sumário ABNT Online | NBR 6027 | Hiato Literário</title>
+  <meta name="description" content="Crie sumários ABNT automaticamente com numeração progressiva. Gerador online gratuito conforme NBR 6027. Download em Word com pontilhado e formatação reais. Ideal para TCC e monografias." />
+  <link rel="canonical" href="https://hiatoliterario.com.br/tools/sumario-abnt" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+  <style>
+    :root {
+      --ind: #4f46e5;
+      --ind-f: #eef2ff;
+      --green: #16a34a;
+      --red: #dc2626;
+    }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; color: #0f172a; }
+    .glass { background: rgba(255,255,255,0.93); backdrop-filter: blur(12px); }
+    .panel { background: white; border: 1.5px solid #e2e8f0; border-radius: 1.25rem; padding: 1.5rem; }
+    @media(min-width:640px){.panel{padding:1.75rem}}
+    .ifield {
+      padding: .6rem .875rem; background: #f8fafc; border: 1.5px solid #e2e8f0;
+      border-radius: .625rem; outline: none; font-size: .9rem;
+      font-family: 'Plus Jakarta Sans', sans-serif; color: #0f172a;
+      transition: border-color .15s, box-shadow .15s; width: 100%;
+    }
+    .ifield:focus { border-color: var(--ind); box-shadow: 0 0 0 3px rgba(79,70,229,.1); background: white; }
+    .tree-item { margin-bottom: .4rem; }
+    .tree-row {
+      display: flex; align-items: center; gap: .5rem;
+      padding: .625rem .75rem; background: #fafcff;
+      border: 1.5px solid #eef2f6; border-radius: .75rem; transition: all .15s;
+    }
+    .tree-row:hover { border-color: #c7d2fe; background: white; }
+    .drag-handle { cursor: grab; color: #94a3b8; font-size: 1.1rem; line-height: 1; padding: 0 .1rem; flex-shrink: 0; user-select: none; }
+    .drag-handle:active { cursor: grabbing; }
+    .item-num { font-weight: 700; color: var(--ind); min-width: 52px; font-size: .82rem; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+    .tree-children { margin-left: 2rem; padding-left: .875rem; border-left: 2px dashed #e2e8f0; margin-top: .375rem; }
+    .act-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: .5rem; border: none; cursor: pointer; flex-shrink: 0; transition: all .15s; background: transparent; }
+    .act-btn.add { color: var(--ind); }
+    .act-btn.add:hover { background: var(--ind-f); }
+    .act-btn.del { color: #ef4444; }
+    .act-btn.del:hover { background: #fef2f2; }
+    .abnt-preview { font-family: 'Times New Roman', Times, serif; font-size: 12pt; line-height: 1.8; color: #000; background: white; padding: 2rem 1.5rem; border-radius: .875rem; border: 1.5px solid #e2e8f0; min-height: 260px; }
+    .abnt-title { text-align: center; font-weight: bold; text-transform: uppercase; font-size: 12pt; margin-bottom: 1.5rem; letter-spacing: .5px; }
+    .abnt-row { display: flex; align-items: baseline; margin-bottom: .2rem; }
+    .abnt-row.lv1 { font-weight: bold; text-transform: uppercase; margin-top: .6rem; }
+    .abnt-row.lv2 { text-transform: uppercase; }
+    .abnt-row.lv3 { font-weight: bold; }
+    .abnt-row.lv4 { font-style: italic; }
+    .abnt-label { flex: 1; display: flex; align-items: baseline; }
+    .abnt-dots { flex: 1; border-bottom: 1.5px dotted #000; margin: 0 .4rem 3px; min-width: 20px; }
+    .sortable-ghost { opacity: .35; background: #e0e7ff !important; }
+    .btn-primary { background: var(--ind); color: white; padding: .75rem 1.5rem; border-radius: .875rem; border: none; cursor: pointer; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; font-size: .9rem; transition: background .2s; display: flex; align-items: center; gap: .5rem; justify-content: center; width: 100%; }
+    .btn-primary:hover { background: #3730a3; }
+    .btn-outline { background: white; color: var(--ind); padding: .75rem 1.5rem; border-radius: .875rem; border: 2px solid #c7d2fe; cursor: pointer; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif; font-size: .9rem; transition: all .2s; display: flex; align-items: center; gap: .5rem; justify-content: center; width: 100%; }
+    .btn-outline:hover { border-color: var(--ind); background: var(--ind-f); }
+    .btn-dark { background: #0f172a; color: white; padding: .9rem 1.5rem; border-radius: .875rem; border: none; cursor: pointer; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; transition: background .2s; display: flex; align-items: center; gap: .625rem; justify-content: center; width: 100%; }
+    .btn-dark:hover { background: #1e293b; }
+    .btn-dark:disabled { opacity: .5; cursor: not-allowed; }
+    .spinner { width: 16px; height: 16px; border: 2.5px solid rgba(255,255,255,.3); border-top-color: white; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translate(-50%, 100px); background: #0f172a; color: white; padding: .75rem 1.5rem; border-radius: 999px; font-size: .875rem; font-weight: 600; box-shadow: 0 8px 24px rgba(0,0,0,.15); transition: transform .3s ease; z-index: 999; white-space: nowrap; }
+    #toast.show { transform: translate(-50%, 0); }
+    .step-badge { width: 28px; height: 28px; border-radius: 8px; background: var(--ind); color: white; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 800; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+<header class="sticky top-0 z-40 border-b border-slate-200 glass">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex justify-between items-center">
+    <a href="../index.html" class="flex items-center gap-2 no-underline group">
+      <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-sm transition-transform group-hover:scale-105">H</div>
+      <span class="text-lg font-bold tracking-tight text-slate-800">Hiato <span class="text-indigo-600">Literário</span></span>
+    </a>
+    <span class="text-xs font-bold bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-full border border-indigo-200 tracking-wider">NBR 6027</span>
+  </div>
+</header>
+
+<main class="mx-auto max-w-6xl px-4 sm:px-6 py-8 md:py-12">
+
+  <div class="mb-8">
+    <a href="../index.html" class="inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 hover:text-indigo-700 mb-3">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Voltar para ferramentas
+    </a>
+    <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Gerador de Sumário ABNT</h1>
+    <p class="mt-2 text-slate-500 max-w-2xl text-sm md:text-base">
+      Numeração automática (1, 1.1, 1.1.1) conforme <strong class="text-slate-700">NBR 6027</strong>. Download em <strong class="text-slate-700">.docx</strong> com pontilhado e formatação corretos no Word.
+    </p>
+  </div>
+
+  <div class="grid gap-6 lg:gap-8 lg:grid-cols-5">
+
+    <!-- PAINEL ESQUERDO -->
+    <div class="lg:col-span-3 space-y-5">
+
+      <div class="panel" style="background:linear-gradient(135deg,#eef2ff,#faf5ff);border-color:#c7d2fe">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="step-badge">✨</div>
+          <h2 class="font-bold text-slate-800">Gerar em 1 clique</h2>
+        </div>
+        <p class="text-sm text-slate-500 mb-4">Escolha um template pronto ou adicione capítulos manualmente:</p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button class="btn-primary" style="flex:1" onclick="gerarTemplate('tcc')">🎓 TCC Completo</button>
+          <button class="btn-outline" style="flex:1" onclick="gerarTemplate('artigo')">📄 Artigo Científico</button>
+        </div>
+      </div>
+
+      <div class="panel space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div class="step-badge">📋</div>
+            <h2 class="font-bold text-slate-800">Estrutura do Sumário</h2>
+          </div>
+          <button onclick="limparTudo()" class="text-xs font-semibold text-red-500 hover:text-red-700 px-3 py-1.5 rounded-full bg-red-50 hover:bg-red-100 transition-colors border border-red-100">Limpar tudo</button>
+        </div>
+        <div id="treeContainer" class="max-h-[520px] overflow-y-auto pr-1 space-y-1">
+          <div class="text-center py-14 text-slate-400">
+            <div class="text-5xl mb-4">📑</div>
+            <p class="font-semibold mb-1">Nenhum capítulo ainda</p>
+            <p class="text-sm">Clique em "TCC Completo" ou "Adicionar Capítulo"</p>
+          </div>
+        </div>
+        <button onclick="adicionarRaiz()" class="w-full py-2.5 bg-slate-100 text-slate-700 rounded-xl font-semibold hover:bg-slate-200 transition-all flex items-center justify-center gap-2 text-sm border border-slate-200">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Adicionar Capítulo
+        </button>
+        <p class="text-xs text-slate-400 text-center">☰ Arraste para reordenar · + para adicionar subitem</p>
+      </div>
+
+    </div>
+
+    <!-- PAINEL DIREITO -->
+    <div class="lg:col-span-2">
+      <div class="sticky top-20 space-y-5">
+
+        <div class="panel">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Visualização ABNT</h3>
+            <span class="text-xs bg-green-50 text-green-700 px-2.5 py-1 rounded-full font-semibold border border-green-200">NBR 6027</span>
+          </div>
+          <div class="abnt-preview">
+            <div class="abnt-title">SUMÁRIO</div>
+            <div id="previewContent">
+              <p style="text-align:center;color:#94a3b8;font-style:italic;padding:2rem 0">Seu sumário aparecerá aqui</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <button class="btn-dark" id="downloadBtn" onclick="downloadDocx()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span id="dlLabel">Baixar em Word (.docx)</span>
+            <div class="spinner" id="dlSpinner"></div>
+          </button>
+          <p class="text-xs text-slate-400 text-center mt-3">✅ Pontilhado ABNT real · Compatível com Word e LibreOffice</p>
+        </div>
+
+        <div class="p-4 bg-amber-50 rounded-xl border border-amber-200">
+          <p class="text-xs font-bold text-amber-800 uppercase tracking-wider mb-1.5">💡 Dica ABNT</p>
+          <p class="text-xs text-amber-900 leading-relaxed">Seções primárias em <strong>CAIXA ALTA e negrito</strong>. Subseções em CAIXA ALTA sem negrito. Sub-subseções em negrito com inicial maiúscula. A numeração progressiva é gerada automaticamente.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ SEO -->
+  <section class="mt-14 pt-8 border-t border-slate-200">
+    <div class="grid md:grid-cols-2 gap-10">
+      <div>
+        <h2 class="text-xl font-extrabold text-slate-900 mb-3">Gerador de Sumário ABNT Online</h2>
+        <p class="text-slate-600 leading-relaxed text-sm mb-4">
+          Ferramenta gratuita que cria sumários acadêmicos conforme a <strong>NBR 6027</strong>, com numeração progressiva automática e download em <strong>.docx</strong> com pontilhado nativo — pronto para inserir no seu TCC ou monografia.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-semibold border border-indigo-100">✓ 100% Gratuito</span>
+          <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-semibold border border-indigo-100">✓ Sem cadastro</span>
+          <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-semibold border border-indigo-100">✓ Download Word</span>
+        </div>
+      </div>
+      <div class="space-y-5">
+        <div>
+          <h3 class="font-bold text-slate-800 text-sm mb-1">📌 Como funciona a numeração automática?</h3>
+          <p class="text-slate-600 text-sm">O sistema detecta a hierarquia e gera a numeração progressiva correta: 1 para capítulos, 1.1 para subseções, 1.1.1 para sub-subseções — em tempo real.</p>
+        </div>
+        <div>
+          <h3 class="font-bold text-slate-800 text-sm mb-1">📌 O arquivo Word mantém a formatação?</h3>
+          <p class="text-slate-600 text-sm">Sim. O download gera um .docx com pontilhado nativo do Word, negrito e maiúsculas por nível conforme a NBR 6027. Pronto para inserir no seu trabalho.</p>
+        </div>
+        <div>
+          <h3 class="font-bold text-slate-800 text-sm mb-1">📌 Posso reorganizar os itens?</h3>
+          <p class="text-slate-600 text-sm">Sim! Arraste qualquer item para reordenar ou mover entre níveis. A numeração é recalculada automaticamente.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="toast"></div>
+
+<script>
+/* =============================================
+   ESTADO
+============================================= */
+let items = [], nextId = 100;
+
+const TEMPLATES = {
+  tcc: [
+    { titulo:'INTRODUÇÃO', page:5, children:[] },
+    { titulo:'REFERENCIAL TEÓRICO', page:12, children:[
+      { titulo:'Conceitos Fundamentais', page:12, children:[] },
+      { titulo:'Estado da Arte', page:18, children:[] },
+    ]},
+    { titulo:'METODOLOGIA', page:25, children:[
+      { titulo:'Tipo de Pesquisa', page:25, children:[] },
+      { titulo:'Procedimentos', page:28, children:[] },
+    ]},
+    { titulo:'RESULTADOS E DISCUSSÃO', page:35, children:[] },
+    { titulo:'CONSIDERAÇÕES FINAIS', page:42, children:[] },
+    { titulo:'REFERÊNCIAS', page:47, children:[] },
+  ],
+  artigo: [
+    { titulo:'INTRODUÇÃO', page:1, children:[] },
+    { titulo:'MATERIAIS E MÉTODOS', page:3, children:[
+      { titulo:'Amostra', page:3, children:[] },
+      { titulo:'Análise Estatística', page:4, children:[] },
+    ]},
+    { titulo:'RESULTADOS', page:6, children:[] },
+    { titulo:'DISCUSSÃO', page:9, children:[] },
+    { titulo:'CONCLUSÃO', page:12, children:[] },
+    { titulo:'REFERÊNCIAS', page:14, children:[] },
+  ],
+};
+
+/* =============================================
+   NUMERAÇÃO
+============================================= */
+function recalc() {
+  function num(list, pre) {
+    list.forEach((item, i) => {
+      item.numero = pre ? `${pre}.${i+1}` : `${i+1}`;
+      num(item.children.map(cid=>items.find(x=>x.id===cid)).filter(Boolean), item.numero);
+    });
+  }
+  num(items.filter(i=>!i.parentId), '');
+}
+
+/* =============================================
+   TEMPLATES
+============================================= */
+function gerarTemplate(tipo) {
+  items = []; nextId = 100;
+  function mk(d, pid) {
+    const id = nextId++;
+    const it = { id, titulo:d.titulo, page:d.page, parentId:pid||null, children:[] };
+    items.push(it);
+    if (pid) { const p=items.find(i=>i.id===pid); if(p) p.children.push(id); }
+    (d.children||[]).forEach(c=>mk(c,id));
+  }
+  TEMPLATES[tipo].forEach(d=>mk(d,null));
+  recalc(); renderAll();
+  toast(`✨ Template ${tipo==='tcc'?'TCC':'Artigo'} carregado!`);
+}
+
+/* =============================================
+   CRUD
+============================================= */
+function adicionarRaiz() {
+  const id=nextId++;
+  items.push({id,titulo:'NOVO CAPÍTULO',page:1,parentId:null,children:[]});
+  recalc(); renderAll();
+  setTimeout(()=>focusInput(id),80);
+  toast('➕ Capítulo adicionado');
+}
+
+function adicionarSubitem(pid) {
+  const p=items.find(i=>i.id===pid); if(!p) return;
+  const id=nextId++;
+  items.push({id,titulo:'Novo subitem',page:p.page,parentId:pid,children:[]});
+  p.children.push(id);
+  recalc(); renderAll();
+  setTimeout(()=>focusInput(id),80);
+  toast('➕ Subitem adicionado');
+}
+
+function removerItem(id) {
+  function rem(iid) {
+    const it=items.find(i=>i.id===iid); if(!it) return;
+    it.children.forEach(rem);
+    items=items.filter(i=>i.id!==iid);
+  }
+  const it=items.find(i=>i.id===id);
+  if(it?.parentId){ const p=items.find(i=>i.id===it.parentId); if(p) p.children=p.children.filter(c=>c!==id); }
+  rem(id); recalc(); renderAll();
+  toast('🗑️ Item removido');
+}
+
+function limparTudo() {
+  if(items.length&&!confirm('Remover todos os itens?')) return;
+  items=[]; nextId=100; renderAll();
+  toast('🗑️ Sumário limpo');
+}
+
+function setTitulo(id,v){ const i=items.find(x=>x.id===id); if(i){i.titulo=v; renderPreview();} }
+function setPagina(id,v){ const i=items.find(x=>x.id===id); if(i){i.page=parseInt(v)||1; renderPreview();} }
+function focusInput(id){ document.querySelector(`[data-id="${id}"] .title-input`)?.focus(); }
+
+/* =============================================
+   RENDER TREE
+============================================= */
+function renderTree() {
+  const el=document.getElementById('treeContainer');
+  const raizes=items.filter(i=>!i.parentId);
+  if(!raizes.length){
+    el.innerHTML=`<div class="text-center py-14 text-slate-400"><div class="text-5xl mb-4">📑</div><p class="font-semibold mb-1">Nenhum capítulo ainda</p><p class="text-sm">Clique em "TCC Completo" ou "Adicionar Capítulo"</p></div>`;
+    return;
+  }
+  function ri(item){
+    const filhos=item.children.map(cid=>items.find(x=>x.id===cid)).filter(Boolean);
+    return `<div class="tree-item" data-id="${item.id}">
+      <div class="tree-row">
+        <span class="drag-handle">⋮⋮</span>
+        <span class="item-num">${item.numero||''}</span>
+        <input class="ifield title-input" style="flex:1;min-width:0" value="${item.titulo.replace(/"/g,'&quot;')}" onchange="setTitulo(${item.id},this.value)">
+        <input class="ifield" type="number" min="1" value="${item.page}" style="width:62px;text-align:center;flex-shrink:0" onchange="setPagina(${item.id},this.value)">
+        <button class="act-btn add" onclick="adicionarSubitem(${item.id})" title="Adicionar subitem">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <button class="act-btn del" onclick="removerItem(${item.id})" title="Remover">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      ${filhos.length?`<div class="tree-children">${filhos.map(ri).join('')}</div>`:''}
+    </div>`;
+  }
+  el.innerHTML=raizes.map(ri).join('');
+  initDrag();
+}
+
+function initDrag() {
+  document.querySelectorAll('#treeContainer,.tree-children').forEach(el=>{
+    if(el._s) el._s.destroy();
+    el._s=new Sortable(el,{
+      group:'sumario', animation:150, handle:'.drag-handle',
+      draggable:'.tree-item', ghostClass:'sortable-ghost',
+      onEnd(evt){
+        const mid=parseInt(evt.item.dataset.id);
+        const npEl=evt.to.closest('.tree-item');
+        const npId=npEl?parseInt(npEl.dataset.id):null;
+        const mi=items.find(i=>i.id===mid); if(!mi) return;
+        if(mi.parentId){ const op=items.find(i=>i.id===mi.parentId); if(op) op.children=op.children.filter(c=>c!==mid); }
+        mi.parentId=npId;
+        if(npId){ const np=items.find(i=>i.id===npId); if(np&&!np.children.includes(mid)) np.children.push(mid); }
+        recalc(); renderAll();
+      }
+    });
+  });
+}
+
+/* =============================================
+   RENDER PREVIEW
+============================================= */
+function getLevel(item){
+  let l=1,cur=item;
+  while(cur.parentId){ cur=items.find(i=>i.id===cur.parentId); if(!cur) break; l++; }
+  return l;
+}
+
+function renderPreview() {
+  const el=document.getElementById('previewContent');
+  if(!items.length){ el.innerHTML=`<p style="text-align:center;color:#94a3b8;font-style:italic;padding:2rem 0">Seu sumário aparecerá aqui</p>`; return; }
+  function ri(item){
+    const l=getLevel(item);
+    const filhos=item.children.map(cid=>items.find(x=>x.id===cid)).filter(Boolean);
+    return `<div class="abnt-row lv${l}"><div class="abnt-label"><span>${item.numero||''}&nbsp;&nbsp;${item.titulo}</span><span class="abnt-dots"></span></div><span>${item.page}</span></div>${filhos.map(ri).join('')}`;
+  }
+  el.innerHTML=items.filter(i=>!i.parentId).map(ri).join('');
+}
+
+function renderAll(){ renderTree(); renderPreview(); }
+
+/* =============================================
+   DOWNLOAD .DOCX — ZIP STORE-ONLY PURO
+   Sem dependências externas
+============================================= */
+
+// Arquivos estáticos do .docx (extraídos de um docx real gerado pelo docx.js)
+const STATIC_FILES = {
+  "word/_rels/document.xml.rels":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48UmVsYXRpb25zaGlwcyB4bWxucz0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3BhY2thZ2UvMjAwNi9yZWxhdGlvbnNoaXBzIj48UmVsYXRpb25zaGlwIElkPSJySWQxIiBUeXBlPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvb2ZmaWNlRG9jdW1lbnQvMjAwNi9yZWxhdGlvbnNoaXBzL3N0eWxlcyIgVGFyZ2V0PSJzdHlsZXMueG1sIi8+PFJlbGF0aW9uc2hpcCBJZD0icklkMiIgVHlwZT0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL29mZmljZURvY3VtZW50LzIwMDYvcmVsYXRpb25zaGlwcy9udW1iZXJpbmciIFRhcmdldD0ibnVtYmVyaW5nLnhtbCIvPjxSZWxhdGlvbnNoaXAgSWQ9InJJZDMiIFR5cGU9Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy9vZmZpY2VEb2N1bWVudC8yMDA2L3JlbGF0aW9uc2hpcHMvZm9vdG5vdGVzIiBUYXJnZXQ9ImZvb3Rub3Rlcy54bWwiLz48UmVsYXRpb25zaGlwIElkPSJySWQ0IiBUeXBlPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvb2ZmaWNlRG9jdW1lbnQvMjAwNi9yZWxhdGlvbnNoaXBzL2VuZG5vdGVzIiBUYXJnZXQ9ImVuZG5vdGVzLnhtbCIvPjxSZWxhdGlvbnNoaXAgSWQ9InJJZDUiIFR5cGU9Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy9vZmZpY2VEb2N1bWVudC8yMDA2L3JlbGF0aW9uc2hpcHMvc2V0dGluZ3MiIFRhcmdldD0ic2V0dGluZ3MueG1sIi8+PFJlbGF0aW9uc2hpcCBJZD0icklkNiIgVHlwZT0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL29mZmljZURvY3VtZW50LzIwMDYvcmVsYXRpb25zaGlwcy9jb21tZW50cyIgVGFyZ2V0PSJjb21tZW50cy54bWwiLz48UmVsYXRpb25zaGlwIElkPSJySWQ3IiBUeXBlPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvb2ZmaWNlRG9jdW1lbnQvMjAwNi9yZWxhdGlvbnNoaXBzL2ZvbnRUYWJsZSIgVGFyZ2V0PSJmb250VGFibGUueG1sIi8+PC9SZWxhdGlvbnNoaXBzPg==",
+  "word/styles.xml":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/Pjx3OnN0eWxlcyBtYzpJZ25vcmFibGU9IncxNCB3MTUiIHhtbG5zOm1jPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvbWFya3VwLWNvbXBhdGliaWxpdHkvMjAwNiIgeG1sbnM6cj0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL29mZmljZURvY3VtZW50LzIwMDYvcmVsYXRpb25zaGlwcyIgeG1sbnM6dz0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3dvcmRwcm9jZXNzaW5nbWwvMjAwNi9tYWluIiB4bWxuczp3MTQ9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL3dvcmQvMjAxMC93b3JkbWwiIHhtbG5zOncxNT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDEyL3dvcmRtbCI+PHc6ZG9jRGVmYXVsdHM+PHc6clByRGVmYXVsdC8+PHc6cFByRGVmYXVsdC8+PC93OmRvY0RlZmF1bHRzPjx3OnN0eWxlIHc6dHlwZT0icGFyYWdyYXBoIiB3OnN0eWxlSWQ9IlRpdGxlIj48dzpuYW1lIHc6dmFsPSJUaXRsZSIvPjx3OmJhc2VkT24gdzp2YWw9Ik5vcm1hbCIvPjx3Om5leHQgdzp2YWw9Ik5vcm1hbCIvPjx3OnFGb3JtYXQvPjx3OnJQcj48dzpzeiB3OnZhbD0iNTYiLz48dzpzekNzIHc6dmFsPSI1NiIvPjwvdzpyUHI+PC93OnN0eWxlPjx3OnN0eWxlIHc6dHlwZT0icGFyYWdyYXBoIiB3OnN0eWxlSWQ9IkhlYWRpbmcxIj48dzpuYW1lIHc6dmFsPSJIZWFkaW5nIDEiLz48dzpiYXNlZE9uIHc6dmFsPSJOb3JtYWwiLz48dzpuZXh0IHc6dmFsPSJOb3JtYWwiLz48dzpxRm9ybWF0Lz48dzpyUHI+PHc6Y29sb3Igdzp2YWw9IjJFNzRCNSIvPjx3OnN6IHc6dmFsPSIzMiIvPjx3OnN6Q3Mgdzp2YWw9IjMyIi8+PC93OnJQcj48L3c6c3R5bGU+PHc6c3R5bGUgdzp0eXBlPSJwYXJhZ3JhcGgiIHc6c3R5bGVJZD0iSGVhZGluZzIiPjx3Om5hbWUgdzp2YWw9IkhlYWRpbmcgMiIvPjx3OmJhc2VkT24gdzp2YWw9Ik5vcm1hbCIvPjx3Om5leHQgdzp2YWw9Ik5vcm1hbCIvPjx3OnFGb3JtYXQvPjx3OnJQcj48dzpjb2xvciB3OnZhbD0iMkU3NEI1Ii8+PHc6c3ogdzp2YWw9IjI2Ii8+PHc6c3pDcyB3OnZhbD0iMjYiLz48L3c6clByPjwvdzpzdHlsZT48dzpzdHlsZSB3OnR5cGU9InBhcmFncmFwaCIgdzpzdHlsZUlkPSJIZWFkaW5nMyI+PHc6bmFtZSB3OnZhbD0iSGVhZGluZyAzIi8+PHc6YmFzZWRPbiB3OnZhbD0iTm9ybWFsIi8+PHc6bmV4dCB3OnZhbD0iTm9ybWFsIi8+PHc6cUZvcm1hdC8+PHc6clByPjx3OmNvbG9yIHc6dmFsPSIxRjRENzgiLz48dzpzeiB3OnZhbD0iMjQiLz48dzpzekNzIHc6dmFsPSIyNCIvPjwvdzpyUHI+PC93OnN0eWxlPjx3OnN0eWxlIHc6dHlwZT0icGFyYWdyYXBoIiB3OnN0eWxlSWQ9IkhlYWRpbmc0Ij48dzpuYW1lIHc6dmFsPSJIZWFkaW5nIDQiLz48dzpiYXNlZE9uIHc6dmFsPSJOb3JtYWwiLz48dzpuZXh0IHc6dmFsPSJOb3JtYWwiLz48dzpxRm9ybWF0Lz48dzpyUHI+PHc6aS8+PHc6aUNzLz48dzpjb2xvciB3OnZhbD0iMkU3NEI1Ii8+PC93OnJQcj48L3c6c3R5bGU+PHc6c3R5bGUgdzp0eXBlPSJwYXJhZ3JhcGgiIHc6c3R5bGVJZD0iSGVhZGluZzUiPjx3Om5hbWUgdzp2YWw9IkhlYWRpbmcgNSIvPjx3OmJhc2VkT24gdzp2YWw9Ik5vcm1hbCIvPjx3Om5leHQgdzp2YWw9Ik5vcm1hbCIvPjx3OnFGb3JtYXQvPjx3OnJQcj48dzpjb2xvciB3OnZhbD0iMkU3NEI1Ii8+PC93OnJQcj48L3c6c3R5bGU+PHc6c3R5bGUgdzp0eXBlPSJwYXJhZ3JhcGgiIHc6c3R5bGVJZD0iSGVhZGluZzYiPjx3Om5hbWUgdzp2YWw9IkhlYWRpbmcgNiIvPjx3OmJhc2VkT24gdzp2YWw9Ik5vcm1hbCIvPjx3Om5leHQgdzp2YWw9Ik5vcm1hbCIvPjx3OnFGb3JtYXQvPjx3OnJQcj48dzpjb2xvciB3OnZhbD0iMUY0RDc4Ii8+PC93OnJQcj48L3c6c3R5bGU+PHc6c3R5bGUgdzp0eXBlPSJwYXJhZ3JhcGgiIHc6c3R5bGVJZD0iU3Ryb25nIj48dzpuYW1lIHc6dmFsPSJTdHJvbmciLz48dzpiYXNlZE9uIHc6dmFsPSJOb3JtYWwiLz48dzpuZXh0IHc6dmFsPSJOb3JtYWwiLz48dzpxRm9ybWF0Lz48dzpyUHI+PHc6Yi8+PHc6YkNzLz48L3c6clByPjwvdzpzdHlsZT48dzpzdHlsZSB3OnR5cGU9InBhcmFncmFwaCIgdzpzdHlsZUlkPSJMaXN0UGFyYWdyYXBoIj48dzpuYW1lIHc6dmFsPSJMaXN0IFBhcmFncmFwaCIvPjx3OmJhc2VkT24gdzp2YWw9Ik5vcm1hbCIvPjx3OnFGb3JtYXQvPjwvdzpzdHlsZT48dzpzdHlsZSB3OnR5cGU9ImNoYXJhY3RlciIgdzpzdHlsZUlkPSJIeXBlcmxpbmsiPjx3Om5hbWUgdzp2YWw9Ikh5cGVybGluayIvPjx3OmJhc2VkT24gdzp2YWw9IkRlZmF1bHRQYXJhZ3JhcGhGb250Ii8+PHc6dWlQcmlvcml0eSB3OnZhbD0iOTkiLz48dzp1bmhpZGVXaGVuVXNlZC8+PHc6clByPjx3OmNvbG9yIHc6dmFsPSIwNTYzQzEiLz48dzp1IHc6dmFsPSJzaW5nbGUiLz48L3c6clByPjwvdzpzdHlsZT48dzpzdHlsZSB3OnR5cGU9ImNoYXJhY3RlciIgdzpzdHlsZUlkPSJGb290bm90ZVJlZmVyZW5jZSI+PHc6bmFtZSB3OnZhbD0iZm9vdG5vdGUgcmVmZXJlbmNlIi8+PHc6YmFzZWRPbiB3OnZhbD0iRGVmYXVsdFBhcmFncmFwaEZvbnQiLz48dzp1aVByaW9yaXR5IHc6dmFsPSI5OSIvPjx3OnNlbWlIaWRkZW4vPjx3OnVuaGlkZVdoZW5Vc2VkLz48dzpyUHI+PHc6dmVydEFsaWduIHc6dmFsPSJzdXBlcnNjcmlwdCIvPjwvdzpyUHI+PC93OnN0eWxlPjx3OnN0eWxlIHc6dHlwZT0icGFyYWdyYXBoIiB3OnN0eWxlSWQ9IkZvb3Rub3RlVGV4dCI+PHc6bmFtZSB3OnZhbD0iZm9vdG5vdGUgdGV4dCIvPjx3OmJhc2VkT24gdzp2YWw9Ik5vcm1hbCIvPjx3Omxpbmsgdzp2YWw9IkZvb3Rub3RlVGV4dENoYXIiLz48dzp1aVByaW9yaXR5IHc6dmFsPSI5OSIvPjx3OnNlbWlIaWRkZW4vPjx3OnVuaGlkZVdoZW5Vc2VkLz48dzpwUHI+PHc6c3BhY2luZyB3OmFmdGVyPSIwIiB3OmxpbmU9IjI0MCIgdzpsaW5lUnVsZT0iYXV0byIvPjwvdzpwUHI+PHc6clByPjx3OnN6IHc6dmFsPSIyMCIvPjx3OnN6Q3Mgdzp2YWw9IjIwIi8+PC93OnJQcj48L3c6c3R5bGU+PHc6c3R5bGUgdzp0eXBlPSJjaGFyYWN0ZXIiIHc6c3R5bGVJZD0iRm9vdG5vdGVUZXh0Q2hhciI+PHc6bmFtZSB3OnZhbD0iRm9vdG5vdGUgVGV4dCBDaGFyIi8+PHc6YmFzZWRPbiB3OnZhbD0iRGVmYXVsdFBhcmFncmFwaEZvbnQiLz48dzpsaW5rIHc6dmFsPSJGb290bm90ZVRleHQiLz48dzp1aVByaW9yaXR5IHc6dmFsPSI5OSIvPjx3OnNlbWlIaWRkZW4vPjx3OnVuaGlkZVdoZW5Vc2VkLz48dzpyUHI+PHc6c3ogdzp2YWw9IjIwIi8+PHc6c3pDcyB3OnZhbD0iMjAiLz48L3c6clByPjwvdzpzdHlsZT48dzpzdHlsZSB3OnR5cGU9ImNoYXJhY3RlciIgdzpzdHlsZUlkPSJFbmRub3RlUmVmZXJlbmNlIj48dzpuYW1lIHc6dmFsPSJlbmRub3RlIHJlZmVyZW5jZSIvPjx3OmJhc2VkT24gdzp2YWw9IkRlZmF1bHRQYXJhZ3JhcGhGb250Ii8+PHc6dWlQcmlvcml0eSB3OnZhbD0iOTkiLz48dzpzZW1pSGlkZGVuLz48dzp1bmhpZGVXaGVuVXNlZC8+PHc6clByPjx3OnZlcnRBbGlnbiB3OnZhbD0ic3VwZXJzY3JpcHQiLz48L3c6clByPjwvdzpzdHlsZT48dzpzdHlsZSB3OnR5cGU9InBhcmFncmFwaCIgdzpzdHlsZUlkPSJFbmRub3RlVGV4dCI+PHc6bmFtZSB3OnZhbD0iZW5kbm90ZSB0ZXh0Ii8+PHc6YmFzZWRPbiB3OnZhbD0iTm9ybWFsIi8+PHc6bGluayB3OnZhbD0iRW5kbm90ZVRleHRDaGFyIi8+PHc6dWlQcmlvcml0eSB3OnZhbD0iOTkiLz48dzpzZW1pSGlkZGVuLz48dzp1bmhpZGVXaGVuVXNlZC8+PHc6cFByPjx3OnNwYWNpbmcgdzphZnRlcj0iMCIgdzpsaW5lPSIyNDAiIHc6bGluZVJ1bGU9ImF1dG8iLz48L3c6cFByPjx3OnJQcj48dzpzeiB3OnZhbD0iMjAiLz48dzpzekNzIHc6dmFsPSIyMCIvPjwvdzpyUHI+PC93OnN0eWxlPjx3OnN0eWxlIHc6dHlwZT0iY2hhcmFjdGVyIiB3OnN0eWxlSWQ9IkVuZG5vdGVUZXh0Q2hhciI+PHc6bmFtZSB3OnZhbD0iRW5kbm90ZSBUZXh0IENoYXIiLz48dzpiYXNlZE9uIHc6dmFsPSJEZWZhdWx0UGFyYWdyYXBoRm9udCIvPjx3Omxpbmsgdzp2YWw9IkVuZG5vdGVUZXh0Ii8+PHc6dWlQcmlvcml0eSB3OnZhbD0iOTkiLz48dzpzZW1pSGlkZGVuLz48dzp1bmhpZGVXaGVuVXNlZC8+PHc6clByPjx3OnN6IHc6dmFsPSIyMCIvPjx3OnN6Q3Mgdzp2YWw9IjIwIi8+PC93OnJQcj48L3c6c3R5bGU+PC93OnN0eWxlcz4=",
+  "word/numbering.xml":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/Pjx3Om51bWJlcmluZyBtYzpJZ25vcmFibGU9IncxNCB3MTUgd3AxNCIgeG1sbnM6d3BjPSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMTAvd29yZHByb2Nlc3NpbmdDYW52YXMiIHhtbG5zOm1jPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvbWFya3VwLWNvbXBhdGliaWxpdHkvMjAwNiIgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4bWxuczpyPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvb2ZmaWNlRG9jdW1lbnQvMjAwNi9yZWxhdGlvbnNoaXBzIiB4bWxuczptPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvb2ZmaWNlRG9jdW1lbnQvMjAwNi9tYXRoIiB4bWxuczp2PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOnZtbCIgeG1sbnM6d3AxND0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDEwL3dvcmRwcm9jZXNzaW5nRHJhd2luZyIgeG1sbnM6d3A9Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy9kcmF3aW5nbWwvMjAwNi93b3JkcHJvY2Vzc2luZ0RyYXdpbmciIHhtbG5zOncxMD0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6dz0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3dvcmRwcm9jZXNzaW5nbWwvMjAwNi9tYWluIiB4bWxuczp3MTQ9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL3dvcmQvMjAxMC93b3JkbWwiIHhtbG5zOncxNT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDEyL3dvcmRtbCIgeG1sbnM6d3BnPSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMTAvd29yZHByb2Nlc3NpbmdHcm91cCIgeG1sbnM6d3BpPSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMTAvd29yZHByb2Nlc3NpbmdJbmsiIHhtbG5zOnduZT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDA2L3dvcmRtbCIgeG1sbnM6d3BzPSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMTAvd29yZHByb2Nlc3NpbmdTaGFwZSI+PHc6YWJzdHJhY3ROdW0gdzphYnN0cmFjdE51bUlkPSIxIiB3MTU6cmVzdGFydE51bWJlcmluZ0FmdGVyQnJlYWs9IjAiPjx3Om11bHRpTGV2ZWxUeXBlIHc6dmFsPSJoeWJyaWRNdWx0aWxldmVsIi8+PHc6bHZsIHc6aWx2bD0iMCIgdzE1OnRlbnRhdGl2ZT0iMSI+PHc6c3RhcnQgdzp2YWw9IjEiLz48dzpudW1GbXQgdzp2YWw9ImJ1bGxldCIvPjx3Omx2bFRleHQgdzp2YWw9IuKXjyIvPjx3Omx2bEpjIHc6dmFsPSJsZWZ0Ii8+PHc6cFByPjx3OmluZCB3OmxlZnQ9IjcyMCIgdzpoYW5naW5nPSIzNjAiLz48L3c6cFByPjwvdzpsdmw+PHc6bHZsIHc6aWx2bD0iMSIgdzE1OnRlbnRhdGl2ZT0iMSI+PHc6c3RhcnQgdzp2YWw9IjEiLz48dzpudW1GbXQgdzp2YWw9ImJ1bGxldCIvPjx3Omx2bFRleHQgdzp2YWw9IuKXiyIvPjx3Omx2bEpjIHc6dmFsPSJsZWZ0Ii8+PHc6cFByPjx3OmluZCB3OmxlZnQ9IjE0NDAiIHc6aGFuZ2luZz0iMzYwIi8+PC93OnBQcj48L3c6bHZsPjx3Omx2bCB3Omlsdmw9IjIiIHcxNTp0ZW50YXRpdmU9IjEiPjx3OnN0YXJ0IHc6dmFsPSIxIi8+PHc6bnVtRm10IHc6dmFsPSJidWxsZXQiLz48dzpsdmxUZXh0IHc6dmFsPSLilqAiLz48dzpsdmxKYyB3OnZhbD0ibGVmdCIvPjx3OnBQcj48dzppbmQgdzpsZWZ0PSIyMTYwIiB3Omhhbmdpbmc9IjM2MCIvPjwvdzpwUHI+PC93Omx2bD48dzpsdmwgdzppbHZsPSIzIiB3MTU6dGVudGF0aXZlPSIxIj48dzpzdGFydCB3OnZhbD0iMSIvPjx3Om51bUZtdCB3OnZhbD0iYnVsbGV0Ii8+PHc6bHZsVGV4dCB3OnZhbD0i4pePIi8+PHc6bHZsSmMgdzp2YWw9ImxlZnQiLz48dzpwUHI+PHc6aW5kIHc6bGVmdD0iMjg4MCIgdzpoYW5naW5nPSIzNjAiLz48L3c6cFByPjwvdzpsdmw+PHc6bHZsIHc6aWx2bD0iNCIgdzE1OnRlbnRhdGl2ZT0iMSI+PHc6c3RhcnQgdzp2YWw9IjEiLz48dzpudW1GbXQgdzp2YWw9ImJ1bGxldCIvPjx3Omx2bFRleHQgdzp2YWw9IuKXiyIvPjx3Omx2bEpjIHc6dmFsPSJsZWZ0Ii8+PHc6cFByPjx3OmluZCB3OmxlZnQ9IjM2MDAiIHc6aGFuZ2luZz0iMzYwIi8+PC93OnBQcj48L3c6bHZsPjx3Omx2bCB3Omlsdmw9IjUiIHcxNTp0ZW50YXRpdmU9IjEiPjx3OnN0YXJ0IHc6dmFsPSIxIi8+PHc6bnVtRm10IHc6dmFsPSJidWxsZXQiLz48dzpsdmxUZXh0IHc6dmFsPSLilqAiLz48dzpsdmxKYyB3OnZhbD0ibGVmdCIvPjx3OnBQcj48dzppbmQgdzpsZWZ0PSI0MzIwIiB3Omhhbmdpbmc9IjM2MCIvPjwvdzpwUHI+PC93Omx2bD48dzpsdmwgdzppbHZsPSI2IiB3MTU6dGVudGF0aXZlPSIxIj48dzpzdGFydCB3OnZhbD0iMSIvPjx3Om51bUZtdCB3OnZhbD0iYnVsbGV0Ii8+PHc6bHZsVGV4dCB3OnZhbD0i4pePIi8+PHc6bHZsSmMgdzp2YWw9ImxlZnQiLz48dzpwUHI+PHc6aW5kIHc6bGVmdD0iNTA0MCIgdzpoYW5naW5nPSIzNjAiLz48L3c6cFByPjwvdzpsdmw+PHc6bHZsIHc6aWx2bD0iNyIgdzE1OnRlbnRhdGl2ZT0iMSI+PHc6c3RhcnQgdzp2YWw9IjEiLz48dzpudW1GbXQgdzp2YWw9ImJ1bGxldCIvPjx3Omx2bFRleHQgdzp2YWw9IuKXjyIvPjx3Omx2bEpjIHc6dmFsPSJsZWZ0Ii8+PHc6cFByPjx3OmluZCB3OmxlZnQ9IjU3NjAiIHc6aGFuZ2luZz0iMzYwIi8+PC93OnBQcj48L3c6bHZsPjx3Omx2bCB3Omlsdmw9IjgiIHcxNTp0ZW50YXRpdmU9IjEiPjx3OnN0YXJ0IHc6dmFsPSIxIi8+PHc6bnVtRm10IHc6dmFsPSJidWxsZXQiLz48dzpsdmxUZXh0IHc6dmFsPSLil48iLz48dzpsdmxKYyB3OnZhbD0ibGVmdCIvPjx3OnBQcj48dzppbmQgdzpsZWZ0PSI2NDgwIiB3Omhhbmdpbmc9IjM2MCIvPjwvdzpwUHI+PC93Omx2bD48L3c6YWJzdHJhY3ROdW0+PHc6bnVtIHc6bnVtSWQ9IjEiPjx3OmFic3RyYWN0TnVtSWQgdzp2YWw9IjEiLz48dzpsdmxPdmVycmlkZSB3Omlsdmw9IjAiPjx3OnN0YXJ0T3ZlcnJpZGUgdzp2YWw9IjEiLz48L3c6bHZsT3ZlcnJpZGU+PC93Om51bT48L3c6bnVtYmVyaW5nPg==",
+  "_rels/.rels":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48UmVsYXRpb25zaGlwcyB4bWxucz0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3BhY2thZ2UvMjAwNi9yZWxhdGlvbnNoaXBzIj48UmVsYXRpb25zaGlwIElkPSJySWQxIiBUeXBlPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvb2ZmaWNlRG9jdW1lbnQvMjAwNi9yZWxhdGlvbnNoaXBzL29mZmljZURvY3VtZW50IiBUYXJnZXQ9IndvcmQvZG9jdW1lbnQueG1sIi8+PFJlbGF0aW9uc2hpcCBJZD0icklkMiIgVHlwZT0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3BhY2thZ2UvMjAwNi9yZWxhdGlvbnNoaXBzL21ldGFkYXRhL2NvcmUtcHJvcGVydGllcyIgVGFyZ2V0PSJkb2NQcm9wcy9jb3JlLnhtbCIvPjxSZWxhdGlvbnNoaXAgSWQ9InJJZDMiIFR5cGU9Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy9vZmZpY2VEb2N1bWVudC8yMDA2L3JlbGF0aW9uc2hpcHMvZXh0ZW5kZWQtcHJvcGVydGllcyIgVGFyZ2V0PSJkb2NQcm9wcy9hcHAueG1sIi8+PFJlbGF0aW9uc2hpcCBJZD0icklkNCIgVHlwZT0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL29mZmljZURvY3VtZW50LzIwMDYvcmVsYXRpb25zaGlwcy9jdXN0b20tcHJvcGVydGllcyIgVGFyZ2V0PSJkb2NQcm9wcy9jdXN0b20ueG1sIi8+PC9SZWxhdGlvbnNoaXBzPg==",
+  "[Content_Types].xml":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48VHlwZXMgeG1sbnM9Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy9wYWNrYWdlLzIwMDYvY29udGVudC10eXBlcyI+PERlZmF1bHQgQ29udGVudFR5cGU9ImltYWdlL3BuZyIgRXh0ZW5zaW9uPSJwbmciLz48RGVmYXVsdCBDb250ZW50VHlwZT0iaW1hZ2UvanBlZyIgRXh0ZW5zaW9uPSJqcGVnIi8+PERlZmF1bHQgQ29udGVudFR5cGU9ImltYWdlL2pwZWciIEV4dGVuc2lvbj0ianBnIi8+PERlZmF1bHQgQ29udGVudFR5cGU9ImltYWdlL2JtcCIgRXh0ZW5zaW9uPSJibXAiLz48RGVmYXVsdCBDb250ZW50VHlwZT0iaW1hZ2UvZ2lmIiBFeHRlbnNpb249ImdpZiIvPjxEZWZhdWx0IENvbnRlbnRUeXBlPSJpbWFnZS9zdmcreG1sIiBFeHRlbnNpb249InN2ZyIvPjxEZWZhdWx0IENvbnRlbnRUeXBlPSJhcHBsaWNhdGlvbi92bmQub3BlbnhtbGZvcm1hdHMtcGFja2FnZS5yZWxhdGlvbnNoaXBzK3htbCIgRXh0ZW5zaW9uPSJyZWxzIi8+PERlZmF1bHQgQ29udGVudFR5cGU9ImFwcGxpY2F0aW9uL3htbCIgRXh0ZW5zaW9uPSJ4bWwiLz48RGVmYXVsdCBDb250ZW50VHlwZT0iYXBwbGljYXRpb24vdm5kLm9wZW54bWxmb3JtYXRzLW9mZmljZWRvY3VtZW50Lm9iZnVzY2F0ZWRGb250IiBFeHRlbnNpb249Im9kdHRmIi8+PE92ZXJyaWRlIENvbnRlbnRUeXBlPSJhcHBsaWNhdGlvbi92bmQub3BlbnhtbGZvcm1hdHMtb2ZmaWNlZG9jdW1lbnQud29yZHByb2Nlc3NpbmdtbC5kb2N1bWVudC5tYWluK3htbCIgUGFydE5hbWU9Ii93b3JkL2RvY3VtZW50LnhtbCIvPjxPdmVycmlkZSBDb250ZW50VHlwZT0iYXBwbGljYXRpb24vdm5kLm9wZW54bWxmb3JtYXRzLW9mZmljZWRvY3VtZW50LndvcmRwcm9jZXNzaW5nbWwuc3R5bGVzK3htbCIgUGFydE5hbWU9Ii93b3JkL3N0eWxlcy54bWwiLz48T3ZlcnJpZGUgQ29udGVudFR5cGU9ImFwcGxpY2F0aW9uL3ZuZC5vcGVueG1sZm9ybWF0cy1wYWNrYWdlLmNvcmUtcHJvcGVydGllcyt4bWwiIFBhcnROYW1lPSIvZG9jUHJvcHMvY29yZS54bWwiLz48T3ZlcnJpZGUgQ29udGVudFR5cGU9ImFwcGxpY2F0aW9uL3ZuZC5vcGVueG1sZm9ybWF0cy1vZmZpY2Vkb2N1bWVudC5jdXN0b20tcHJvcGVydGllcyt4bWwiIFBhcnROYW1lPSIvZG9jUHJvcHMvY3VzdG9tLnhtbCIvPjxPdmVycmlkZSBDb250ZW50VHlwZT0iYXBwbGljYXRpb24vdm5kLm9wZW54bWxmb3JtYXRzLW9mZmljZWRvY3VtZW50LmV4dGVuZGVkLXByb3BlcnRpZXMreG1sIiBQYXJ0TmFtZT0iL2RvY1Byb3BzL2FwcC54bWwiLz48T3ZlcnJpZGUgQ29udGVudFR5cGU9ImFwcGxpY2F0aW9uL3ZuZC5vcGVueG1sZm9ybWF0cy1vZmZpY2Vkb2N1bWVudC53b3JkcHJvY2Vzc2luZ21sLm51bWJlcmluZyt4bWwiIFBhcnROYW1lPSIvd29yZC9udW1iZXJpbmcueG1sIi8+PE92ZXJyaWRlIENvbnRlbnRUeXBlPSJhcHBsaWNhdGlvbi92bmQub3BlbnhtbGZvcm1hdHMtb2ZmaWNlZG9jdW1lbnQud29yZHByb2Nlc3NpbmdtbC5mb290bm90ZXMreG1sIiBQYXJ0TmFtZT0iL3dvcmQvZm9vdG5vdGVzLnhtbCIvPjxPdmVycmlkZSBDb250ZW50VHlwZT0iYXBwbGljYXRpb24vdm5kLm9wZW54bWxmb3JtYXRzLW9mZmljZWRvY3VtZW50LndvcmRwcm9jZXNzaW5nbWwuZW5kbm90ZXMreG1sIiBQYXJ0TmFtZT0iL3dvcmQvZW5kbm90ZXMueG1sIi8+PE92ZXJyaWRlIENvbnRlbnRUeXBlPSJhcHBsaWNhdGlvbi92bmQub3BlbnhtbGZvcm1hdHMtb2ZmaWNlZG9jdW1lbnQud29yZHByb2Nlc3NpbmdtbC5zZXR0aW5ncyt4bWwiIFBhcnROYW1lPSIvd29yZC9zZXR0aW5ncy54bWwiLz48T3ZlcnJpZGUgQ29udGVudFR5cGU9ImFwcGxpY2F0aW9uL3ZuZC5vcGVueG1sZm9ybWF0cy1vZmZpY2Vkb2N1bWVudC53b3JkcHJvY2Vzc2luZ21sLmNvbW1lbnRzK3htbCIgUGFydE5hbWU9Ii93b3JkL2NvbW1lbnRzLnhtbCIvPjxPdmVycmlkZSBDb250ZW50VHlwZT0iYXBwbGljYXRpb24vdm5kLm9wZW54bWxmb3JtYXRzLW9mZmljZWRvY3VtZW50LndvcmRwcm9jZXNzaW5nbWwuZm9udFRhYmxlK3htbCIgUGFydE5hbWU9Ii93b3JkL2ZvbnRUYWJsZS54bWwiLz48L1R5cGVzPg==",
+  "word/footnotes.xml":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/Pjx3OmZvb3Rub3RlcyB4bWxuczp3cGM9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL3dvcmQvMjAxMC93b3JkcHJvY2Vzc2luZ0NhbnZhcyIgeG1sbnM6bWM9Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy9tYXJrdXAtY29tcGF0aWJpbGl0eS8yMDA2IiB4bWxuczpvPSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTpvZmZpY2UiIHhtbG5zOnI9Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy9vZmZpY2VEb2N1bWVudC8yMDA2L3JlbGF0aW9uc2hpcHMiIHhtbG5zOm09Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy9vZmZpY2VEb2N1bWVudC8yMDA2L21hdGgiIHhtbG5zOnY9InVybjpzY2hlbWFzLW1pY3Jvc29mdC1jb206dm1sIiB4bWxuczp3cDE0PSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMTAvd29yZHByb2Nlc3NpbmdEcmF3aW5nIiB4bWxuczp3cD0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL2RyYXdpbmdtbC8yMDA2L3dvcmRwcm9jZXNzaW5nRHJhd2luZyIgeG1sbnM6dzEwPSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczp3PSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvd29yZHByb2Nlc3NpbmdtbC8yMDA2L21haW4iIHhtbG5zOncxND0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDEwL3dvcmRtbCIgeG1sbnM6dzE1PSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMTIvd29yZG1sIiB4bWxuczp3cGc9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL3dvcmQvMjAxMC93b3JkcHJvY2Vzc2luZ0dyb3VwIiB4bWxuczp3cGk9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL3dvcmQvMjAxMC93b3JkcHJvY2Vzc2luZ0luayIgeG1sbnM6d25lPSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMDYvd29yZG1sIiB4bWxuczp3cHM9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL3dvcmQvMjAxMC93b3JkcHJvY2Vzc2luZ1NoYXBlIiBtYzpJZ25vcmFibGU9IncxNCB3MTUgd3AxNCI+PHc6Zm9vdG5vdGUgdzp0eXBlPSJzZXBhcmF0b3IiIHc6aWQ9Ii0xIj48dzpwPjx3OnBQcj48dzpzcGFjaW5nIHc6YWZ0ZXI9IjAiIHc6bGluZT0iMjQwIiB3OmxpbmVSdWxlPSJhdXRvIi8+PC93OnBQcj48dzpyPjx3OnJQcj48dzpyU3R5bGUgdzp2YWw9IkZvb3Rub3RlUmVmZXJlbmNlIi8+PC93OnJQcj48dzpmb290bm90ZVJlZi8+PC93OnI+PHc6cj48dzpzZXBhcmF0b3IvPjwvdzpyPjwvdzpwPjwvdzpmb290bm90ZT48dzpmb290bm90ZSB3OnR5cGU9ImNvbnRpbnVhdGlvblNlcGFyYXRvciIgdzppZD0iMCI+PHc6cD48dzpwUHI+PHc6c3BhY2luZyB3OmFmdGVyPSIwIiB3OmxpbmU9IjI0MCIgdzpsaW5lUnVsZT0iYXV0byIvPjwvdzpwUHI+PHc6cj48dzpyUHI+PHc6clN0eWxlIHc6dmFsPSJGb290bm90ZVJlZmVyZW5jZSIvPjwvdzpyUHI+PHc6Zm9vdG5vdGVSZWYvPjwvdzpyPjx3OnI+PHc6Y29udGludWF0aW9uU2VwYXJhdG9yLz48L3c6cj48L3c6cD48L3c6Zm9vdG5vdGU+PC93OmZvb3Rub3Rlcz4=",
+  "word/_rels/footnotes.xml.rels":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48UmVsYXRpb25zaGlwcyB4bWxucz0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3BhY2thZ2UvMjAwNi9yZWxhdGlvbnNoaXBzIi8+",
+  "word/endnotes.xml":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48dzplbmRub3RlcyB4bWxuczp3cGM9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL3dvcmQvMjAxMC93b3JkcHJvY2Vzc2luZ0NhbnZhcyIgeG1sbnM6bWM9Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy9tYXJrdXAtY29tcGF0aWJpbGl0eS8yMDA2IiB4bWxuczpvPSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTpvZmZpY2UiIHhtbG5zOnI9Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy9vZmZpY2VEb2N1bWVudC8yMDA2L3JlbGF0aW9uc2hpcHMiIHhtbG5zOm09Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy9vZmZpY2VEb2N1bWVudC8yMDA2L21hdGgiIHhtbG5zOnY9InVybjpzY2hlbWFzLW1pY3Jvc29mdC1jb206dm1sIiB4bWxuczp3cDE0PSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMTAvd29yZHByb2Nlc3NpbmdEcmF3aW5nIiB4bWxuczp3cD0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL2RyYXdpbmdtbC8yMDA2L3dvcmRwcm9jZXNzaW5nRHJhd2luZyIgeG1sbnM6dzEwPSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczp3PSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvd29yZHByb2Nlc3NpbmdtbC8yMDA2L21haW4iIHhtbG5zOncxND0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDEwL3dvcmRtbCIgeG1sbnM6dzE1PSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMTIvd29yZG1sIiB4bWxuczp3cGc9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL3dvcmQvMjAxMC93b3JkcHJvY2Vzc2luZ0dyb3VwIiB4bWxuczp3cGk9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL3dvcmQvMjAxMC93b3JkcHJvY2Vzc2luZ0luayIgeG1sbnM6d25lPSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMDYvd29yZG1sIiB4bWxuczp3cHM9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL3dvcmQvMjAxMC93b3JkcHJvY2Vzc2luZ1NoYXBlIiBtYzpJZ25vcmFibGU9IncxNCB3MTUgd3AxNCI+PHc6ZW5kbm90ZSB3OnR5cGU9InNlcGFyYXRvciIgdzppZD0iLTEiPjx3OnA+PHc6cFByPjx3OnNwYWNpbmcgdzphZnRlcj0iMCIgdzpsaW5lPSIyNDAiIHc6bGluZVJ1bGU9ImF1dG8iLz48L3c6cFByPjx3OnI+PHc6clByPjx3OnJTdHlsZSB3OnZhbD0iRW5kbm90ZVJlZmVyZW5jZSIvPjwvdzpyUHI+PHc6ZW5kbm90ZVJlZi8+PC93OnI+PHc6cj48dzpzZXBhcmF0b3IvPjwvdzpyPjwvdzpwPjwvdzplbmRub3RlPjx3OmVuZG5vdGUgdzp0eXBlPSJjb250aW51YXRpb25TZXBhcmF0b3IiIHc6aWQ9IjAiPjx3OnA+PHc6cFByPjx3OnNwYWNpbmcgdzphZnRlcj0iMCIgdzpsaW5lPSIyNDAiIHc6bGluZVJ1bGU9ImF1dG8iLz48L3c6cFByPjx3OnI+PHc6clByPjx3OnJTdHlsZSB3OnZhbD0iRW5kbm90ZVJlZmVyZW5jZSIvPjwvdzpyUHI+PHc6ZW5kbm90ZVJlZi8+PC93OnI+PHc6cj48dzpjb250aW51YXRpb25TZXBhcmF0b3IvPjwvdzpyPjwvdzpwPjwvdzplbmRub3RlPjwvdzplbmRub3Rlcz4=",
+  "word/_rels/endnotes.xml.rels":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48UmVsYXRpb25zaGlwcyB4bWxucz0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3BhY2thZ2UvMjAwNi9yZWxhdGlvbnNoaXBzIi8+",
+  "word/settings.xml":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/Pjx3OnNldHRpbmdzIHhtbG5zOndwYz0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDEwL3dvcmRwcm9jZXNzaW5nQ2FudmFzIiB4bWxuczptYz0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL21hcmt1cC1jb21wYXRpYmlsaXR5LzIwMDYiIHhtbG5zOm89InVybjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6cj0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL29mZmljZURvY3VtZW50LzIwMDYvcmVsYXRpb25zaGlwcyIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL29mZmljZURvY3VtZW50LzIwMDYvbWF0aCIgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOndwMTQ9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL3dvcmQvMjAxMC93b3JkcHJvY2Vzc2luZ0RyYXdpbmciIHhtbG5zOndwPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvZHJhd2luZ21sLzIwMDYvd29yZHByb2Nlc3NpbmdEcmF3aW5nIiB4bWxuczp3MTA9InVybjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOndvcmQiIHhtbG5zOnc9Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy93b3JkcHJvY2Vzc2luZ21sLzIwMDYvbWFpbiIgeG1sbnM6dzE0PSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMTAvd29yZG1sIiB4bWxuczp3MTU9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL3dvcmQvMjAxMi93b3JkbWwiIHhtbG5zOndwZz0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDEwL3dvcmRwcm9jZXNzaW5nR3JvdXAiIHhtbG5zOndwaT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDEwL3dvcmRwcm9jZXNzaW5nSW5rIiB4bWxuczp3bmU9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL3dvcmQvMjAwNi93b3JkbWwiIHhtbG5zOndwcz0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDEwL3dvcmRwcm9jZXNzaW5nU2hhcGUiIG1jOklnbm9yYWJsZT0idzE0IHcxNSB3cDE0Ij48dzpkaXNwbGF5QmFja2dyb3VuZFNoYXBlLz48dzpldmVuQW5kT2RkSGVhZGVycyB3OnZhbD0iZmFsc2UiLz48dzpjb21wYXQ+PHc6Y29tcGF0U2V0dGluZyB3OnZhbD0iMTUiIHc6bmFtZT0iY29tcGF0aWJpbGl0eU1vZGUiIHc6dXJpPSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkIi8+PC93OmNvbXBhdD48L3c6c2V0dGluZ3M+",
+  "word/comments.xml":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/Pjx3OmNvbW1lbnRzIHhtbG5zOmN4PSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS9kcmF3aW5nLzIwMTQvY2hhcnRleCIgeG1sbnM6Y3gxPSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS9kcmF3aW5nLzIwMTUvOS84L2NoYXJ0ZXgiIHhtbG5zOmN4Mj0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2UvZHJhd2luZy8yMDE1LzEwLzIxL2NoYXJ0ZXgiIHhtbG5zOmN4Mz0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2UvZHJhd2luZy8yMDE2LzUvOS9jaGFydGV4IiB4bWxuczpjeDQ9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL2RyYXdpbmcvMjAxNi81LzEwL2NoYXJ0ZXgiIHhtbG5zOmN4NT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2UvZHJhd2luZy8yMDE2LzUvMTEvY2hhcnRleCIgeG1sbnM6Y3g2PSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS9kcmF3aW5nLzIwMTYvNS8xMi9jaGFydGV4IiB4bWxuczpjeDc9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL2RyYXdpbmcvMjAxNi81LzEzL2NoYXJ0ZXgiIHhtbG5zOmN4OD0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2UvZHJhd2luZy8yMDE2LzUvMTQvY2hhcnRleCIgeG1sbnM6bWM9Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy9tYXJrdXAtY29tcGF0aWJpbGl0eS8yMDA2IiB4bWxuczphaW5rPSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS9kcmF3aW5nLzIwMTYvaW5rIiB4bWxuczphbTNkPSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS9kcmF3aW5nLzIwMTcvbW9kZWwzZCIgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4bWxuczpyPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvb2ZmaWNlRG9jdW1lbnQvMjAwNi9yZWxhdGlvbnNoaXBzIiB4bWxuczptPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvb2ZmaWNlRG9jdW1lbnQvMjAwNi9tYXRoIiB4bWxuczp2PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOnZtbCIgeG1sbnM6d3AxND0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDEwL3dvcmRwcm9jZXNzaW5nRHJhd2luZyIgeG1sbnM6d3A9Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy9kcmF3aW5nbWwvMjAwNi93b3JkcHJvY2Vzc2luZ0RyYXdpbmciIHhtbG5zOnc9Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy93b3JkcHJvY2Vzc2luZ21sLzIwMDYvbWFpbiIgeG1sbnM6dzE0PSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMTAvd29yZG1sIiB4bWxuczp3MTU9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL3dvcmQvMjAxMi93b3JkbWwiIHhtbG5zOnc4OGNleD0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDE4L3dvcmRtbC9jZXgiIHhtbG5zOnc4OGNpZD0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDE2L3dvcmRtbC9jaWQiIHhtbG5zOncxNj0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDE4L3dvcmRtbCIgeG1sbnM6d3BnPSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMTAvd29yZHByb2Nlc3NpbmdHcm91cCIgeG1sbnM6d3BpPSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMTAvd29yZHByb2Nlc3NpbmdJbmsiIHhtbG5zOnduZT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDA2L3dvcmRtbCIgeG1sbnM6d3BzPSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMTAvd29yZHByb2Nlc3NpbmdTaGFwZSIvPg==",
+  "word/_rels/comments.xml.rels":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48UmVsYXRpb25zaGlwcyB4bWxucz0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3BhY2thZ2UvMjAwNi9yZWxhdGlvbnNoaXBzIi8+",
+  "word/fontTable.xml":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/Pjx3OmZvbnRzIHhtbG5zOm1jPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvbWFya3VwLWNvbXBhdGliaWxpdHkvMjAwNiIgeG1sbnM6cj0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL29mZmljZURvY3VtZW50LzIwMDYvcmVsYXRpb25zaGlwcyIgeG1sbnM6dz0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3dvcmRwcm9jZXNzaW5nbWwvMjAwNi9tYWluIiB4bWxuczp3MTQ9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL3dvcmQvMjAxMC93b3JkbWwiIHhtbG5zOncxNT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDEyL3dvcmRtbCIgeG1sbnM6dzE2Y2V4PSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMTgvd29yZG1sL2NleCIgeG1sbnM6dzE2Y2lkPSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMTYvd29yZG1sL2NpZCIgeG1sbnM6dzE2PSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS93b3JkLzIwMTgvd29yZG1sIiB4bWxuczp3MTZzZHRkaD0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2Uvd29yZC8yMDIwL3dvcmRtbC9zZHRkYXRhaGFzaCIgeG1sbnM6dzE2c2U9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vb2ZmaWNlL3dvcmQvMjAxNS93b3JkbWwvc3ltZXgiIG1jOklnbm9yYWJsZT0idzE0IHcxNSB3MTZzZSB3MTZjaWQgdzE2IHcxNmNleCB3MTZzZHRkaCIvPg==",
+  "word/_rels/fontTable.xml.rels":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48UmVsYXRpb25zaGlwcyB4bWxucz0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3BhY2thZ2UvMjAwNi9yZWxhdGlvbnNoaXBzIi8+",
+  "docProps/custom.xml":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxQcm9wZXJ0aWVzIHhtbG5zPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvb2ZmaWNlRG9jdW1lbnQvMjAwNi9jdXN0b20tcHJvcGVydGllcyIgeG1sbnM6dnQ9Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy9vZmZpY2VEb2N1bWVudC8yMDA2L2RvY1Byb3BzVlR5cGVzIi8+",
+  "docProps/app.xml":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxQcm9wZXJ0aWVzIHhtbG5zPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvb2ZmaWNlRG9jdW1lbnQvMjAwNi9leHRlbmRlZC1wcm9wZXJ0aWVzIiB4bWxuczp2dD0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL29mZmljZURvY3VtZW50LzIwMDYvZG9jUHJvcHNWVHlwZXMiLz4=",
+  "docProps/core.xml":"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxjcDpjb3JlUHJvcGVydGllcyB4bWxuczpjcD0iaHR0cDovL3NjaGVtYXMub3BlbnhtbGZvcm1hdHMub3JnL3BhY2thZ2UvMjAwNi9tZXRhZGF0YS9jb3JlLXByb3BlcnRpZXMiIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6ZGN0ZXJtcz0iaHR0cDovL3B1cmwub3JnL2RjL3Rlcm1zLyIgeG1sbnM6ZGNtaXR5cGU9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS8iIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiPjxkYzpjcmVhdG9yPlVuLW5hbWVkPC9kYzpjcmVhdG9yPjxjcDpsYXN0TW9kaWZpZWRCeT5Vbi1uYW1lZDwvY3A6bGFzdE1vZGlmaWVkQnk+PGNwOnJldmlzaW9uPjE8L2NwOnJldmlzaW9uPjwvY3A6Y29yZVByb3BlcnRpZXM+"
+};
+
+/* =============================================
+   GERAR document.xml DINÂMICO
+============================================= */
+function xmlEsc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function buildDocXml(allItems) {
+  const NS = 'xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml" xmlns:w15="http://schemas.microsoft.com/office/word/2012/wordml" xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup" xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk" xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml" xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape"';
+
+  function rPr(bold, italic) {
+    let r = '<w:rFonts w:ascii="Times New Roman" w:cs="Times New Roman" w:eastAsia="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="24"/><w:szCs w:val="24"/>';
+    if (bold) r += '<w:b/><w:bCs/>';
+    if (italic) r += '<w:i/><w:iCs/>';
+    return `<w:rPr>${r}</w:rPr>`;
+  }
+
+  function makePara(item, level) {
+    const isBold  = level===1||level===3;
+    const isUpper = level===1||level===2;
+    const isItal  = level===4;
+    const indent  = (level-1)*360;
+    const before  = level===1?240:60;
+    const titulo  = isUpper ? item.titulo.toUpperCase() : item.titulo;
+    const texto   = xmlEsc(`${item.numero||''}  ${titulo}`);
+    const pg      = xmlEsc(String(item.page));
+    const rp      = rPr(isBold, isItal);
+    const indXml  = indent>0?`<w:ind w:left="${indent}"/>`:'';
+    return `<w:p><w:pPr><w:spacing w:before="${before}" w:after="60" w:line="360" w:lineRule="auto"/>${indXml}</w:pPr><w:r>${rp}<w:t xml:space="preserve">${texto}</w:t></w:r><w:r>${rp}<w:ptab w:alignment="right" w:relativeTo="margin" w:leader="dot"/><w:t xml:space="preserve">${pg}</w:t></w:r></w:p>`;
+  }
+
+  // Título SUMÁRIO
+  const titlePara = `<w:p><w:pPr><w:jc w:val="center"/><w:spacing w:after="480"/></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:cs="Times New Roman" w:hAnsi="Times New Roman"/><w:b/><w:bCs/><w:sz w:val="24"/><w:szCs w:val="24"/></w:rPr><w:t>SUMÁRIO</w:t></w:r></w:p>`;
+
+  function flatten(list) {
+    const out=[];
+    function walk(item){
+      let l=1,cur=item;
+      while(cur.parentId){ cur=allItems.find(i=>i.id===cur.parentId); if(!cur) break; l++; }
+      out.push({item,level:l});
+      item.children.map(cid=>allItems.find(x=>x.id===cid)).filter(Boolean).forEach(walk);
+    }
+    list.forEach(walk);
+    return out;
+  }
+
+  const raizes = allItems.filter(i=>!i.parentId);
+  const flat = flatten(raizes);
+  const paras = flat.map(({item,level})=>makePara(item,level)).join('');
+
+  const sectPr = `<w:sectPr><w:pgSz w:w="11906" w:h="16838" w:orient="portrait"/><w:pgMar w:top="1701" w:right="1134" w:bottom="1134" w:left="1701" w:header="708" w:footer="708" w:gutter="0"/></w:sectPr>`;
+
+  return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document mc:Ignorable="w14 w15 wp14" ${NS}><w:body>${titlePara}${paras}${sectPr}</w:body></w:document>`;
+}
+
+/* =============================================
+   ZIP STORE-ONLY EM JS PURO
+============================================= */
+function b64ToBytes(b64){ const bin=atob(b64); const u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return u; }
+function strToBytes(s){ return new TextEncoder().encode(s); }
+
+function makeZip(files) {
+  // files: [{name, data: Uint8Array}]
+  const parts=[], localHeaders=[], offsets=[];
+  let offset=0;
+
+  for(const f of files){
+    const name=strToBytes(f.name);
+    const data=f.data;
+    const crc=crc32(data);
+    const local=new Uint8Array(30+name.length);
+    const dv=new DataView(local.buffer);
+    dv.setUint32(0,0x04034b50,true);    // signature
+    dv.setUint16(4,20,true);            // version needed
+    dv.setUint16(6,0,true);             // flags
+    dv.setUint16(8,0,true);             // compression: stored
+    dv.setUint16(10,0,true);            // mod time
+    dv.setUint16(12,0,true);            // mod date
+    dv.setUint32(14,crc,true);          // crc32
+    dv.setUint32(18,data.length,true);  // compressed size
+    dv.setUint32(22,data.length,true);  // uncompressed size
+    dv.setUint16(26,name.length,true);  // name length
+    dv.setUint16(28,0,true);            // extra length
+    local.set(name,30);
+
+    offsets.push(offset);
+    parts.push(local, data);
+    localHeaders.push({name,data,crc,offset});
+    offset += local.length + data.length;
+  }
+
+  // Central directory
+  const cdParts=[];
+  let cdSize=0;
+  for(let i=0;i<files.length;i++){
+    const {name,data,crc,offset}=localHeaders[i];
+    const cd=new Uint8Array(46+name.length);
+    const dv=new DataView(cd.buffer);
+    dv.setUint32(0,0x02014b50,true);   // sig
+    dv.setUint16(4,20,true);           // version made
+    dv.setUint16(6,20,true);           // version needed
+    dv.setUint16(8,0,true);            // flags
+    dv.setUint16(10,0,true);           // compression
+    dv.setUint16(12,0,true);           // time
+    dv.setUint16(14,0,true);           // date
+    dv.setUint32(16,crc,true);         // crc
+    dv.setUint32(20,data.length,true); // compressed
+    dv.setUint32(24,data.length,true); // uncompressed
+    dv.setUint16(28,name.length,true); // name len
+    dv.setUint16(30,0,true);           // extra
+    dv.setUint16(32,0,true);           // comment
+    dv.setUint16(34,0,true);           // disk start
+    dv.setUint16(36,0,true);           // internal attr
+    dv.setUint32(38,0,true);           // external attr
+    dv.setUint32(42,offsets[i],true);  // local header offset
+    cd.set(name,46);
+    cdParts.push(cd);
+    cdSize+=cd.length;
+  }
+
+  // End of central directory
+  const eocd=new Uint8Array(22);
+  const edv=new DataView(eocd.buffer);
+  edv.setUint32(0,0x06054b50,true);
+  edv.setUint16(4,0,true);
+  edv.setUint16(6,0,true);
+  edv.setUint16(8,files.length,true);
+  edv.setUint16(10,files.length,true);
+  edv.setUint32(12,cdSize,true);
+  edv.setUint32(16,offset,true);
+  edv.setUint16(20,0,true);
+
+  const all=[...parts,...cdParts,eocd];
+  const total=all.reduce((s,a)=>s+a.length,0);
+  const out=new Uint8Array(total);
+  let pos=0;
+  for(const a of all){ out.set(a,pos); pos+=a.length; }
+  return out;
+}
+
+function crc32(data){
+  let c=0xFFFFFFFF;
+  if(!crc32.t){
+    crc32.t=new Uint32Array(256);
+    for(let i=0;i<256;i++){
+      let v=i;
+      for(let j=0;j<8;j++) v=v&1?(v>>>1)^0xEDB88320:(v>>>1);
+      crc32.t[i]=v;
+    }
+  }
+  for(let i=0;i<data.length;i++) c=crc32.t[(c^data[i])&0xFF]^(c>>>8);
+  return (c^0xFFFFFFFF)>>>0;
+}
+
+/* =============================================
+   DOWNLOAD
+============================================= */
+function downloadDocx(){
+  if(!items.length){ toast('⚠️ Adicione itens primeiro'); return; }
+  const btn=document.getElementById('downloadBtn');
+  const lbl=document.getElementById('dlLabel');
+  const sp=document.getElementById('dlSpinner');
+  btn.disabled=true; lbl.textContent='Gerando...'; sp.style.display='block';
+
+  try {
+    const docXml=buildDocXml(items);
+    const fileList=[
+      {name:'word/document.xml', data:strToBytes(docXml)},
+      ...Object.entries(STATIC_FILES).map(([n,b])=>({name:n,data:b64ToBytes(b)}))
+    ];
+    const zip=makeZip(fileList);
+    const blob=new Blob([zip],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url; a.download='sumario-abnt.docx';
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast('✅ Sumário baixado com pontilhado ABNT!');
+  } catch(e) {
+    console.error(e);
+    toast('❌ Erro ao gerar: '+e.message);
+  } finally {
+    btn.disabled=false; lbl.textContent='Baixar em Word (.docx)'; sp.style.display='none';
+  }
+}
+
+/* =============================================
+   TOAST
+============================================= */
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2800);
+}
+
+/* =============================================
+   GLOBAIS
+============================================= */
+window.gerarTemplate=gerarTemplate;
+window.adicionarRaiz=adicionarRaiz;
+window.adicionarSubitem=adicionarSubitem;
+window.removerItem=removerItem;
+window.limparTudo=limparTudo;
+window.setTitulo=setTitulo;
+window.setPagina=setPagina;
+window.downloadDocx=downloadDocx;
+</script>
+
+</body>
+</html>
